@@ -1,0 +1,84 @@
+
+.left_nav{   
+    display: flex;
+ }
+ .logo_name{
+     text-transform: uppercase;
+     font-weight: 400;
+     margin-left: 10px;
+     font-size: 24px;
+ }
+ .create_new_wrapper{
+   display: flex;
+   align-items: center;
+ }
+ .create_new{
+   width: 36px;
+   height: 36px;
+   border-radius: 50%;
+   border: 1px solid #c1bdbd;
+   margin-right: 8px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background: #6aabff;
+   cursor: pointer;
+ }
+ .create_new i{
+   font-size: 22px;
+ }
+ .user_setting{
+     cursor: pointer;
+     border: none;
+     background: transparent;
+ }
+ .user_setting img{
+     width: 40px;
+     height: 40px;
+     border-radius: 50%;
+   }
+ .user_setting .sub_setting{
+     position: absolute;
+     top: 110%;
+     right: 0px;
+     width: 200px;
+     background: #ffffff;
+     border-radius: 8px;
+     box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+     padding: 8px 0;
+     box-shadow: 1px 2px 4px 3px #e2e2e2;
+     display: none;
+   }
+   .sub_setting::after{
+     content: "";
+     position: absolute;
+     top: 0;
+     right: 100%;
+     width: 100vw;
+     height: 100vh;
+   }
+   .user_setting .sub_setting.active{
+     display: block;
+   }
+ 
+   .sub_setting li{
+     list-style-type: none;
+     padding: 6px 0 6px 20px;
+   }
+   .address{
+     font-size: 16px;
+   }
+   .email{
+     font-size: 16px;
+   }
+ 
+   .search_main{
+     padding: 0;
+   }
+ 
+   .my-dropdown{
+     min-width: 80px;
+     box-shadow: 1px 4px 4px 2px #dbdbdb;
+     background: #d2eafb;
+     border-radius: 3px;
+   }

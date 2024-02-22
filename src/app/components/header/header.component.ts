@@ -6,5 +6,28 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  sLogin: any;
+  isAdmin: boolean = false;
+  avatar: any;
+  keyword = "";
 
+  constructor() {
+
+  }
+
+  ngOnInit(): void {
+    
+  }
+
+  onLogout() {
+   
+  }
+
+  onSearch() {
+   
+  }
+
+  onGoToSearchPage() {
+    
+  }
 }

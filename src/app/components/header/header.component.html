@@ -1,1 +1,108 @@
-<p>header works!</p>
+<!-- ============================================-->
+<!-- <section> begin ============================-->
+    <section class="bg-primary-main py-2 d-none d-sm-block text-white">
+
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-auto d-none d-lg-block">
+              <p class="my-2 fs--1">
+                <i class="fas fa-map-marker-alt me-3"></i>
+                <span class="address">Tòa nhà QTSC9, Công viên phần mềm Quang Trung, Quận 12</span>
+              </p>
+            </div>
+            <div class="col-auto ms-md-auto order-md-2 d-none d-sm-block">
+              <ul class="list-unstyled list-inline my-2">
+                <li class="list-inline-item"><a class="text-decoration-none" href="#!"><i
+                      class="fab fa-facebook-f text-900"></i></a></li>
+                <li class="list-inline-item"><a class="text-decoration-none" href="#!"><i
+                      class="fab fa-pinterest text-900"></i></a></li>
+                <li class="list-inline-item"><a class="text-decoration-none" href="#!"><i
+                      class="fab fa-twitter text-900"></i></a></li>
+                <li class="list-inline-item"><a class="text-decoration-none" href="#!"><i class="fab fa-instagram text-900">
+                    </i></a></li>
+              </ul>
+            </div>
+            <div class="col-auto">
+              <p class="my-2 fs--1"><i class="fas fa-envelope me-3"></i><a class="text-900 email text-white"
+                  href="mailto:vctung@outlook.com">easylearning@codeaz.edu.vn </a></p>
+            </div>
+          </div>
+        </div>
+        <!-- end of .container-->
+    
+      </section>
+      <!-- <section> close ============================-->
+      <!-- ============================================-->
+    
+    
+      <nav class="navbar backdrop navbar-expand-lg navbar-light sticky-top py-3 d-block" data-navbar-on-scroll="data-navbar-on-scroll">
+        <div class="container">
+          <a class="navbar-brand" href="/">
+            <img src="assets/img/gallery/logo-n1.png" height="45" alt="logo" />
+            <span class="logo_name">Easy Learning</span>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+              class="navbar-toggler-icon"> </span></button>
+          <div class="collapse navbar-collapse border-lg-0 mt-4 mt-lg-0 justify-content-between" id="navbarSupportedContent">
+            <ul class="navbar-nav pt-2 pt-lg-0 font-base">
+              <li class="nav-item px-2"><a class="nav-link active" aria-current="page" [routerLink] = "['/']">Trang chủ</a></li>
+              <li class="nav-item px-2"><a class="nav-link" aria-current="page"  [routerLink] = "['/my-lesson']">Bài học của tôi</a></li>
+              <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="web-development">Thống kê</a></li>
+            </ul>
+    
+            <div class="left_nav">
+              <div class="create_new_wrapper dropdown">
+                <button type="button" class="create_new" data-bs-toggle="dropdown">
+                  <i class="bi bi-plus"></i>
+                </button>
+                <ul class="dropdown-menu my-dropdown">
+                  <li><a class="dropdown-item" href="#">Tạo câu hỏi</a></li>
+                  <li><a class="dropdown-item" [routerLink]="['/create-lesson']">Tạo bài học</a></li>
+                  <li>
+                    <a class="dropdown-item" aria-current="page" [routerLink]="['/quiz/do-quiz']">Làm quiz</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="dropdown">
+                <!-- <button type="button" class="user_setting" *ngIf="isLogin" data-bs-toggle="dropdown">
+                  <img  src="/assets/img/commons/default_user.jpeg" alt="img">
+                </button> -->
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="user-detail">Hồ sơ</a></li>
+                  <!-- <li *ngIf="isAdmin">
+                    <a class="dropdown-item" href="/admin">Admin</a>
+                  </li> -->
+                  <li>
+                    <a class="dropdown-item" aria-current="page" href="#">Cài đặt</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" aria-current="page" href="#" >Giúp đỡ & Phản hồi</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" aria-current="page" [routerLink]="['/upgrade']" >Nâng cấp Premium</a>
+                  </li>
+                  <!-- <li>
+                    <a class="dropdown-item" *ngIf="isLogin" (click)="onLogout()">Đăng xuất</a>
+                  </li> -->
+                </ul>
+              </div>
+              <a class="btn order-1 order-lg-0" [routerLink]="['/login']">Đăng nhập</a>
+               <a class="btn btn-primary order-1 order-lg-0" [routerLink]="['/login']" >Đăng ký</a>
+      
+              <form class="d-flex my-3 d-block d-lg-none">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <a class="btn btn-outline-primary" [routerLink]="['/search']">Tìm kiếm</a>
+              </form>
+              <div class="dropdown d-none d-lg-block">
+                <a class="btn btn-outline-light ms-2" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                  aria-expanded="false"><i class="fas fa-search text-800"></i></a>
+                <ul class="dropdown-menu dropdown-menu-lg-end search_main" aria-labelledby="dropdownMenuButton1" style="top:55px; width: 1110px;">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" (keyup.enter)="onGoToSearchPage()" />
+                </ul>
+              </div>
+            </div>
+    
+          </div>
+        </div>
+    
