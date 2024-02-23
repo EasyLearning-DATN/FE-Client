@@ -1,0 +1,72 @@
+<p>Trang Tạo quiz trực tiếp từ bài học</p>
+
+<!-- <button *ngIf="isPremium" class="btn btn-create-quiz" type="button" data-bs-toggle="offcanvas" data-bs-target="#createQuizFromLesson" -->
+<!--         aria-controls="createQuizFromLesson" (click)="onCheckPremium()"> -->
+<!-- 	Tạo quiz -->
+<!-- </button> -->
+
+<!-- <button *ngIf="!isPremium" class="btn btn-create-quiz" type="button" -->
+<!--         aria-controls="createQuizFromLesson" (click)="onCheckPremium()"> -->
+<!-- 	Tạo quiz -->
+<!-- </button> -->
+
+
+<!-- <div class="offcanvas offcanvas-end" tabindex="-1" id="createQuizFromLesson" -->
+<!--      aria-labelledby="createQuizFromLessonLabel"> -->
+<!-- 	<div class="offcanvas-header"> -->
+<!-- 		<h5 class="offcanvas-title head" id="createQuizFromLessonLabel">Cài đặt quiz của bạn</h5> -->
+<!-- 		<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button> -->
+<!-- 	</div> -->
+<!-- 	<form action="" method="post" [formGroup]="createQuizF" (submit)="onCreateQuiz()"> -->
+<!-- 		<div class="offcanvas-body"> -->
+<!-- 			<div class="row mb-2"> -->
+<!-- 				<div class="form-group mb-2 col-9"> -->
+<!-- 					<label class="form-label " style="font-size: 2em;">Tên Quiz</label> -->
+<!-- 					<input class="form-control" type="text" placeholder="Nhập tên quiz ..." formControlName="title"> -->
+<!-- 					<div *ngIf="createQuizF['controls']['title'].dirty && createQuizF['controls']['title'].errors"> -->
+<!-- 						<small style="color: red;" *ngIf="createQuizF['controls']['title'].errors['required']">Tên Quiz -->
+<!-- 							không được để trống</small> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-3"> -->
+<!-- 					<img class="beautify-icon" -->
+<!-- 					     src="https://blush.design/api/download?shareUri=-PVxCsopl&w=100&h=100&fm=png" alt=""> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 			<div class="row mt-3 g-3 d-flex justify-content-between"> -->
+<!-- 				<div class="form-group col-sm-8"> -->
+<!-- 					<label class="form_label beautify-text">Số lượng câu hỏi (Tối đa {{questions.length}})</label> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-sm-3 me-2"> -->
+<!-- 					<select class="form-select" aria-label="Default select example" formControlName = "quizSize"> -->
+<!-- 						<option selected disabled>Chọn</option> -->
+<!-- 						<option *ngFor="let question of questions; let i = index" value="{{i+1}}">{{i + 1}}</option> -->
+<!-- 					</select> -->
+<!-- 				</div> -->
+<!-- 				<div *ngIf="createQuizF['controls']['quizSize'].dirty && createQuizF['controls']['quizSize'].errors"> -->
+<!-- 					<small style="color: red;" *ngIf="createQuizF['controls']['quizSize'].errors['required']">Vui lòng chọn số câu hỏi</small> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 			<div class="row mt-3 g-3 d-flex justify-content-between"> -->
+<!-- 				<div class="form-group col-sm-8"> -->
+<!-- 					<label class="form_label beautify-text" for="">Thời gian mỗi câu hỏi (giây)</label> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-sm-3 me-2"> -->
+<!-- 					<select class="form-select" aria-label="Default select example" formControlName = "time"> -->
+<!-- 						<option selected disabled>Chọn</option> -->
+<!-- 						<option value="0">Không có thời gian</option> -->
+<!-- 						&lt;!&ndash;                         <option value="15">15s</option> &ndash;&gt; -->
+<!-- 						&lt;!&ndash;                         <option value="30">30s</option> &ndash;&gt; -->
+<!-- 					</select> -->
+<!-- 				</div> -->
+<!-- 				<div *ngIf="createQuizF['controls']['time'].dirty && createQuizF['controls']['time'].errors"> -->
+<!-- 					<small style="color: red;" *ngIf="createQuizF['controls']['time'].errors['required']">Vui lòng chọn thời gian</small> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+
+<!-- 		</div> -->
+<!-- 		<div class="d-flex justify-content-end"> -->
+<!-- 			<button type="button" data-bs-dismiss="offcanvas" type="submit" class="btn beautify-btn px-3 beautify-text m-5">Tạo</button> -->
+<!-- 		</div> -->
+<!-- 	</form> -->
+<!-- </div> -->

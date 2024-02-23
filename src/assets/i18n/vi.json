@@ -1,0 +1,13 @@
+{
+	"header": {
+		"home": "trang chủ",
+		"list": "danh sách",
+		"test-list": "danh sách bài test",
+		"lesson-list": "danh sách bài học",
+		"search": "Tìm kiếm",
+		"login": "đăng nhập",
+		"register": "đăng ký",
+		"create-lesson": "tạo bài học",
+		"create-test": "tạo bài test"
+	}
+}

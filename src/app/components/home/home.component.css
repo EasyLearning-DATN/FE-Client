@@ -1,0 +1,11 @@
+.lesson_item img{
+    height: 200px;
+}
+
+.btn-app{
+    border-radius: 5px !important;
+}
+
+.bg-coral{
+    background-color: coral;
+}
