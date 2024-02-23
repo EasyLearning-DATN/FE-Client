@@ -21,50 +21,70 @@ import {LessonDetailComponent} from './components/lesson/lesson-detail/lesson-de
 import {TestDetailComponent} from './components/test/test-detail/test-detail.component';
 import {FormsModule} from "@angular/forms";
 import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {faEnvelope, faMapMarkerAlt} from "@fortawesome/free-solid-svg-icons";
+import {faEnvelope, faMapMarkerAlt, faPhoneAlt, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {faFacebookF, faInstagram, faTwitter} from "@fortawesome/free-brands-svg-icons";
 import {allIcons, NgxBootstrapIconsModule, ColorTheme} from 'ngx-bootstrap-icons';
+import {NgOptimizedImage} from "@angular/common";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import { CreateLessonTestComponent } from './components/test/create-test/create-lesson-test/create-lesson-test.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    HomeComponent,
-    LoginComponent,
-    UserInfoComponent,
-    ChangePasswordComponent,
-    ForgetPasswordComponent,
-    LessonComponent,
-    TestComponent,
-    CreateLessonComponent,
-    ListLessonComponent,
-    QuestionsComponent,
-    CreateTestComponent,
-    LessonDetailComponent,
-    TestDetailComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    FormsModule,
-    FontAwesomeModule,
-    NgxBootstrapIconsModule.pick(allIcons, {
-      theme: ColorTheme.Success,
-    })
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        FooterComponent,
+        HomeComponent,
+        LoginComponent,
+        UserInfoComponent,
+        ChangePasswordComponent,
+        ForgetPasswordComponent,
+        LessonComponent,
+        TestComponent,
+        CreateLessonComponent,
+        ListLessonComponent,
+        QuestionsComponent,
+        CreateTestComponent,
+        LessonDetailComponent,
+        TestDetailComponent,
+        CreateLessonTestComponent,
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgbModule,
+        FormsModule,
+        FontAwesomeModule,
+        NgxBootstrapIconsModule.pick(allIcons, {}),
+        NgOptimizedImage,
+        HttpClientModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })
+    ],
+    providers: [HttpClient],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(library: FaIconLibrary) {
-    library.addIcons(
-      faMapMarkerAlt,
-      faFacebookF,
-      faTwitter,
-      faInstagram,
-      faEnvelope
-    );
-  }
+    constructor(library: FaIconLibrary) {
+        library.addIcons(
+            faMapMarkerAlt,
+            faFacebookF,
+            faTwitter,
+            faInstagram,
+            faEnvelope,
+            faSearch,
+            faPhoneAlt
+        );
+    }
+}
+
+// required for AOT compilation
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+    return new TranslateHttpLoader(http);
 }

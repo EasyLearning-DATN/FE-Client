@@ -1,1 +1,59 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+  font-family: 'Quicksand-Regular', sans-serif !important;
+}
+
+.btn-app{
+  border-radius: 10px !important;
+  border: 1px solid #1565FF !important;
+  background: #FFF !important;
+  transition-duration: 0.3s !important;
+}
+
+.btn-app:hover{
+  background: #1565FF !important;
+  color: white !important;
+}
+
+.btn-app:focus{
+  -webkit-box-shadow: 0 0 0 0 rgba(148, 62, 255, 0.52) !important;
+  box-shadow: 0 0 0 0 rgba(148, 62, 255, 0.52) !important;
+}
+
+.btn-check:focus + .btn, .btn:focus {
+  -webkit-box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
+  box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
+}
+
+.form-control:focus {
+  color: black !important;
+  border-color: #1565FF !important;
+  -webkit-box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
+  box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
+}
+
+.form-select:focus {
+  border-color: #1565FF !important;
+  -webkit-box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
+  box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
+}
+
+.form-check-input:focus {
+  border-color: #1565FF !important;
+  -webkit-box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
+  box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
+}
+
+.form-range:focus::-webkit-slider-thumb {
+  -webkit-box-shadow: 0 0 0 1px #FFFEFE, 0 0 0 0.25rem #1565FF;
+  box-shadow: 0 0 0 1px #FFFEFE, 0 0 0 0.25rem #1565FF;
+}
+
+.form-range:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 1px #FFFEFE, 0 0 0 0.25rem #1565FF;
+}
+
+a{
+  color: white;
+  text-decoration: none;
+}
