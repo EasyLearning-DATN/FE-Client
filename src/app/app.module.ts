@@ -29,6 +29,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import { CreateLessonTestComponent } from './components/test/create-test/create-lesson-test/create-lesson-test.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -51,6 +52,7 @@ import { CreateLessonTestComponent } from './components/test/create-test/create-
         CreateLessonTestComponent,
     ],
     imports: [
+        ReactiveFormsModule,
         BrowserModule,
         AppRoutingModule,
         NgbModule,
