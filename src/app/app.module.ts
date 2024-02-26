@@ -21,15 +21,23 @@ import {LessonDetailComponent} from './components/lesson/lesson-detail/lesson-de
 import {TestDetailComponent} from './components/test/test-detail/test-detail.component';
 import {FormsModule} from "@angular/forms";
 import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {faEnvelope, faMapMarkerAlt, faPhoneAlt, faSearch} from "@fortawesome/free-solid-svg-icons";
-import {faFacebookF, faInstagram, faTwitter} from "@fortawesome/free-brands-svg-icons";
+import {fas} from '@fortawesome/free-solid-svg-icons';
 import {allIcons, NgxBootstrapIconsModule, ColorTheme} from 'ngx-bootstrap-icons';
 import {NgOptimizedImage} from "@angular/common";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import { CreateLessonTestComponent } from './components/test/create-test/create-lesson-test/create-lesson-test.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {CreateLessonTestComponent} from './components/test/create-test/create-lesson-test/create-lesson-test.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {FlashcardComponent} from './components/lesson/lesson-detail/flashcard/flashcard.component';
+import {
+    FlashcardItemComponent
+} from './components/lesson/lesson-detail/flashcard/flashcard-item/flashcard-item.component';
+import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
+import {LessonLearnComponent} from './components/lesson/lesson-detail/lesson-learn/lesson-learn.component';
+import {far} from "@fortawesome/free-regular-svg-icons";
+import {fab} from "@fortawesome/free-brands-svg-icons";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
     declarations: [
@@ -50,6 +58,10 @@ import { ReactiveFormsModule } from '@angular/forms';
         LessonDetailComponent,
         TestDetailComponent,
         CreateLessonTestComponent,
+        FlashcardComponent,
+        FlashcardItemComponent,
+        PageNotFoundComponent,
+        LessonLearnComponent,
     ],
     imports: [
         ReactiveFormsModule,
@@ -61,6 +73,7 @@ import { ReactiveFormsModule } from '@angular/forms';
         NgxBootstrapIconsModule.pick(allIcons, {}),
         NgOptimizedImage,
         HttpClientModule,
+        BrowserAnimationsModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -74,15 +87,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class AppModule {
     constructor(library: FaIconLibrary) {
-        library.addIcons(
-            faMapMarkerAlt,
-            faFacebookF,
-            faTwitter,
-            faInstagram,
-            faEnvelope,
-            faSearch,
-            faPhoneAlt
-        );
+        library.addIconPacks(fas, far, fab)
     }
 }
 
