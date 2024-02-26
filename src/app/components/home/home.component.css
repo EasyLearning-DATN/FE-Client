@@ -9,3 +9,12 @@
 .bg-coral{
     background-color: coral;
 }
+
+a{
+    transition: 0.5s ease-in-out;
+}
+
+a:hover{
+    color: black;
+
+}

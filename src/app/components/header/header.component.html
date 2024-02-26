@@ -62,19 +62,22 @@
 		     class="collapse navbar-collapse border-lg-0 mt-4 mt-lg-0 justify-content-between"
 		     id="navbarSupportedContent">
 			<ul ngbNav class="navbar-nav pt-1 pt-lg-0 font-base">
-				<li ngbNavItem class=" px-2"><a ngbNavLink class="active text-capitalize" aria-current="page" [routerLink]="['/']"
+				<li ngbNavItem class=" px-2"><a ngbNavLink class="active text-capitalize " aria-current="page"
+				                                [routerLink]="['/']"
 				                                (click)="isMenuCollapsed = true">{{ 'header.home' | translate }}</a></li>
 				<li ngbNavItem class=" px-2" ngbDropdown>
 					<a ngbNavLink class="nav-link text-capitalize" aria-current="page" id="dropdownList"
 					   ngbDropdownToggle> {{ 'header.list'|translate }} </a>
-					<ul ngbDropdownMenu aria-labelledby="dropdownList">
-						<li ngbDropdownItem class="nav-item px-2"><a ngbNavLink class="text-capitalize" aria-current="page"
-						                                             [routerLink]="['/lesson-list']"
-						                                             (click)="isMenuCollapsed = true">{{ 'header.lesson-list'|translate }}</a>
+					<ul ngbDropdownMenu aria-labelledby="dropdownList" class="my-dropdown">
+						<li ngbDropdownItem ngbNavItem class="link-item p-0"><a ngbNavLink class="text-capitalize link-item px-2"
+						                                            aria-current="page"
+						                                            [routerLink]="['/list-lesson']"
+						                                            (click)="isMenuCollapsed = true">{{ 'header.lesson-list'|translate }}</a>
 						</li>
-						<li ngbDropdownItem class="nav-item px-2"><a ngbNavLink class="text-capitalize" aria-current="page"
-						                                             [routerLink]="['/test-list']"
-						                                             (click)="isMenuCollapsed = true">{{ 'header.test-list'|translate }}</a>
+						<li ngbDropdownItem ngbNavItem class="link-item p-0"><a ngbNavLink class="text-capitalize link-item px-2"
+						                                            aria-current="page"
+						                                            [routerLink]="['/list-test']"
+						                                            (click)="isMenuCollapsed = true">{{ 'header.test-list'|translate }}</a>
 						</li>
 					</ul>
 				</li>
@@ -109,18 +112,17 @@
 			<div class="d-flex">
 				<div ngbDropdown class="create_new_wrapper">
 					<!-- Dropdown button of creating new data -->
-					<button ngbDropdownToggle type="button" class="create_new text-black" id="dropdownBasic1"
-					        (click)="isCreateOpened = !isCreateOpened">
-						<i i-bs name="plus" class="text-white" width="2rem" height="2rem" *ngIf="!isCreateOpened"></i>
+					<button ngbDropdownToggle type="button" class="create_new text-black" id="dropdownBasic1">
+						<i i-bs name="plus" class="text-white" width="2rem" height="2rem"></i>
 					</button>
 					<!-- End of dropdown button of creating new data -->
 
 					<!-- Content of dropdown button of creating new data -->
 					<ul ngbDropdownMenu class="my-dropdown" aria-labelledby="dropdownBasic1">
-						<li><a ngbDropdownItem class=" text-capitalize"
+						<li><a ngbDropdownItem class="link-item text-capitalize"
 						       [routerLink]="['/create-lesson']">{{ 'header.create-lesson'|translate }}</a>
 						</li>
-						<li><a ngbDropdownItem class=" text-capitalize"
+						<li><a ngbDropdownItem class="link-item text-capitalize"
 						       [routerLink]="['/create-test']">{{ 'header.create-test'|translate }}</a>
 						</li>
 					</ul>
