@@ -57,3 +57,8 @@ a{
   color: white;
   text-decoration: none;
 }
+
+.dropdown-item:hover, .nav-link:hover, .nav-link:focus {
+  color: #1565FF !important;
+}
+
