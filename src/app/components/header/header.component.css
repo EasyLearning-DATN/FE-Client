@@ -105,3 +105,9 @@
   border-radius: 5px !important;
 }
 
+.link-item:focus{
+  background-color: #1565FF;
+  color: white !important;
+}
+
+

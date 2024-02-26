@@ -1,1 +1,167 @@
-<p>login works!</p>
+<div class="container main_frame_form mt-4">
+  <div class="row">
+    <div class="col-6">
+      <div class="main_img">
+        <img src="assets/img/commons/sign_in.jpg" alt="img">
+      </div>
+    </div>
+    <div class="col-6">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="sign_in-tab" data-bs-toggle="tab" data-bs-target="#sign_in-tab-pane"
+            type="button" role="tab" aria-selected="false">Đăng nhập</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="sign_up-tab" data-bs-toggle="tab" data-bs-target="#sign_up-tab-pane"
+            type="button" role="tab" aria-selected="true">Đăng kí</button>
+        </li>
+      </ul>
+      <div class="tab-content mt-3" id="myTabContent">
+        <div class="tab-pane fade" id="sign_up-tab-pane" role="tabpanel" tabindex="0">
+          <form method="post" [formGroup]="signupF" (submit)="onSignup()" class="form_data">
+            <button class="google__login-btn">
+              <img class="logo" src="assets/img/commons/gg_logo.png" alt="img">
+              <span>Tiếp tục với Google</span>
+            </button>
+            <div class="orther_option">
+              <span>hoặc email</span>
+            </div>
+            <div class="form_group mb-2">
+              <div class="row">
+                <div class="col">
+                  <label class="form_label" for="">Họ và tên</label>
+                  <input class="form-control" type="text" formControlName="fullName" placeholder="Nhập tên ..."
+                    required>
+                  <div *ngIf="signupF['controls']['fullName'].dirty && signupF['controls']['fullName'].errors">
+                    <small class="error_msg" *ngIf="signupF['controls']['fullName'].errors['required']">* Không được bỏ
+                      trống</small>
+                  </div>
+                </div>
+                <div class="col">
+                  <label class="form_label" for="">Email</label>
+                  <input class="form-control" type="text" formControlName="email" placeholder="Nhập email ..." required>
+                  <div *ngIf="signupF['controls']['email'].dirty && signupF['controls']['email'].errors">
+                    <small class="error_msg" *ngIf="signupF['controls']['email'].errors['required']">* Email không đúng
+                      định dạng</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form_group mb-2">
+              <label class="form_label" for="">Tên đăng nhập</label>
+              <input class="form-control" type="text" formControlName="username" placeholder="Nhập tên đăng nhập ..."
+                required>
+              <div *ngIf="signupF['controls']['username'].dirty && signupF['controls']['username'].errors">
+                <small class="error_msg" *ngIf="signupF['controls']['username'].errors['required']">* Tên đăng nhập
+                  không được để trống!</small>
+              </div>
+              <div *ngIf="isAccountExisted">
+                <small class="error_msg">*** Tên đăng nhập đã tồn tại!</small>
+              </div>
+            </div>
+            <div class="form_group mb-2">
+              <div class="label_wrapper">
+                <label class="form_label" for="">Mật khẩu</label>
+                <a [routerLink]="['/fogot-password']" class="forgot_pass-link">Quên mật khẩu</a>
+              </div>
+              <input class="form-control" type="password" formControlName="password" placeholder="Nhập mật khẩu ..."
+                required>
+              <div *ngIf="signupF['controls']['password'].dirty &&  signupF['controls']['password'].errors">
+                <small class="error_msg" *ngIf="signupF['controls']['password'].errors['required']"> * Mật khẩu không
+                  được để trống</small>
+              </div>
+              <div *ngIf="signupF['controls']['password'].dirty && signupF['controls']['password'].errors">
+                <small class="error_msg" *ngIf="signupF['controls']['password'].errors['minlength']">* Mật khẩu phải có
+                  hơn 6 ký tự</small>
+              </div>
+            </div>
+            <div class="form_group mb-2">
+              <div class="label_wrapper">
+                <label class="form_label" for="">Nhập lại mật khẩu</label>
+              </div>
+              <input class="form-control" type="password" formControlName="password" placeholder="Nhập mật khẩu ...">
+            </div>
+            <div class="accept_policy">
+              <input type="checkbox" name="" id="policy_signup-checkbox" required>
+              <label for="policy_signup-checkbox">Tôi đồng ý với
+                <a href="#" class="policy_link">điều khoản</a> &
+                <a href="#" class="policy_link">chính sách quyền riêng tư</a>
+                của website.
+              </label>
+            </div>
+            <button class="login-btn">
+              <span>Đăng ký</span>
+            </button>
+            <button class="sign_up-btn" data-bs-toggle="tab" data-bs-target="#sign_up-tab-pane" type="button" role="tab"
+              aria-selected="false">
+              <span>Bạn đã có tài khoản? Đăng nhập</span>
+            </button>
+          </form>
+        </div>
+        <div class="tab-pane fade show active" id="sign_in-tab-pane" role="tabpanel" tabindex="0">
+          <form action="" method="post" [formGroup]="loginF" (submit)="onLogin()" class="form_data">
+            <button id="customBtn" (click)="loginWithFacebook()" class="facebook__login-btn">
+              <img class="logo" src="assets/img/commons/fb_logo.png" alt="img">
+              <span>Đăng nhập bằng Facebook</span>
+            </button>
+            <button id="btnGGLOGIN" class="google__login-btn">
+              <img class="logo" src="assets/img/commons/gg_logo.png" alt="img">
+              <span>Đăng nhập bằng Google</span>
+            </button>
+
+            <div class="orther_option">
+              <span>hoặc email</span>
+            </div>
+            <div class="form_group mb-2">
+              <label class="form_label" for="">Tên đăng nhập hoặc email</label>
+              <input class="form-control" formControlName="username" type="text"
+                placeholder="Nhập tên đăng nhập hoặc email ..." required>
+              <div *ngIf="loginF['controls']['username'].dirty && loginF['controls']['username'].errors">
+                <small class="error_msg" *ngIf="loginF['controls']['username'].errors['required']"> *** Tên đăng nhập
+                  không được để trống</small>
+              </div>
+              <div *ngIf="accountNotExist">
+                <small class="error_msg">* Tài khoản không tồn tại!</small>
+              </div>
+            </div>
+            <div class="form_group mb-2">
+              <div class="label_wrapper">
+                <label class="form_label" for="">Mật khẩu</label>
+                <a [routerLink]="['/fogot-password']" class="forgot_pass-link">Quên mật khẩu</a>
+              </div>
+
+              <input class="form-control" formControlName="password" type="password" placeholder="Nhập mật khẩu ..."
+                required>
+              <div *ngIf="loginF['controls']['password'].dirty &&  loginF['controls']['password'].errors">
+                <small class="error_msg" *ngIf="loginF['controls']['password'].errors['required']"> *** Mật khẩu không
+                  được để trống</small>
+              </div>
+              <div *ngIf="loginF['controls']['password'].dirty && loginF['controls']['password'].errors">
+                <small class="error_msg" *ngIf="loginF['controls']['password'].errors['minlength']">*** Mật khẩu phải có
+                  hơn 6 ký tự</small>
+              </div>
+              <div *ngIf="inCorrectPass">
+                <small class="error_msg">* Sai mật khẩu</small>
+              </div>
+            </div>
+            <div class="accept_policy">
+              <input type="checkbox" name="" id="policy_signin-checkbox" required>
+              <label for="policy_signin-checkbox">Tôi đồng ý với
+                <a href="#" class="policy_link">điều khoản</a> &
+                <a href="#" class="policy_link">chính sách quyền riêng tư</a>
+                của website.
+              </label>
+            </div>
+            <button type="submit" class="login-btn">
+              <span>Đăng nhập</span>
+            </button>
+            <button class="sign_up-btn" data-bs-toggle="tab" data-bs-target="#sign_-tab-pane" type="button" role="tab"
+              aria-selected="false">
+              <span>Mới sử dụng EasyLearing? Tạo tài khoản</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

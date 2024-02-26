@@ -8,7 +8,7 @@
 			/></div>
 			<div class="col-md-7 col-lg-6 text-md-start text-center py-6">
 				<h3 class="fs-xl-6 fs-sm-5 mb-5">Ghi nhớ các bài trắc nghiệm online với EasyLearning</h3>
-				<a class="btn btn-app me-2" role="button" [routerLink]="['/login']" *ngIf="!isLogin">Đăng kí miễn phí</a>
+				<a class="btn btn-app me-2 fs-2" role="button" [routerLink]="['/login']" *ngIf="!isLogin">Đăng kí miễn phí</a>
 			</div>
 		</div>
 	</div>
@@ -27,7 +27,7 @@
 						<div class="col-lg-4 col-xl-2 text-center text-xl-start"><img
 								src="assets/img/gallery/funfacts.png" width="170" alt="..."/></div>
 						<div class="col-lg-8 col-xl-5">
-							<h1 class="text-light fs-lg-5 fs-xl-5">Đăng kí trải nghiệm <span class="">EasyLearning Premium</span>
+							<h1 class="text-light fs-lg-5 fs-xl-5">Đăng kí trải nghiệm <a [routerLink]="['/premium']" class="">EasyLearning Premium</a>
 							</h1>
 						</div>
 						<div class="col-lg-12 col-xl-5">
