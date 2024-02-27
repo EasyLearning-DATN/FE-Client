@@ -1,5 +1,6 @@
 import {Component, Renderer2, ViewChild} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {NgbCarouselConfig} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: 'app-flashcard-item',
@@ -24,6 +25,7 @@ export class FlashcardItemComponent {
     flip: string = 'inactive';
 
     constructor() {
+
     }
 
     onFlip() {

@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {NgbCarouselConfig} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: 'app-flashcard',
@@ -10,19 +11,8 @@ export class FlashcardComponent {
     index = 1;
     items: number[] = [1, 2, 3];
 
-    increase() {
-        if (this.index < this.size) {
-            this.index++;
-        } else {
-            this.index = 1;
-        }
+    constructor(private carouselConfig: NgbCarouselConfig) {
+        carouselConfig.interval = 0;
     }
 
-    reduce() {
-        if (this.index > 1) {
-            this.index--;
-        } else {
-            this.index = this.size;
-        }
-    }
 }
