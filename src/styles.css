@@ -62,3 +62,37 @@ a{
   color: #1565FF !important;
 }
 
+app-flashcard-item{
+  height: 400px !important;
+
+}
+.carousel-inner {
+  overflow: visible;
+  height: 400px !important;
+
+}
+.carousel-item {
+  /*display: flex !important;*/
+  /*opacity: 0;*/
+  align-items: center;
+  align-content: center;
+  float: left;
+  margin-left: 10vw;
+  /*visibility: hidden;*/
+  /*z-index: -1;*/
+}
+/*.carousel-item.active{*/
+/*  opacity: 1;*/
+/*  visibility: visible;*/
+/*  z-index: 10;*/
+/*}*/
+.carousel-control-prev {
+  z-index: 20;
+}
+
+.carousel-control-next {
+  z-index: 20;
+}
+.carousel-indicators{
+  z-index: 20;
+}

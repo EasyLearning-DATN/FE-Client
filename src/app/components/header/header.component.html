@@ -81,6 +81,9 @@
 						</li>
 					</ul>
 				</li>
+				<li ngbNavItem class=" px-2"><a ngbNavLink class="text-capitalize " aria-current="page"
+				                                [routerLink]="['/lesson/1']"
+				                                (click)="isMenuCollapsed = true">Demo Chi tiết bài học</a></li>
 			</ul>
 		</div>
 		<!-- End of the collapsed button content -->
@@ -142,7 +145,7 @@
 					<fa-icon [icon]="['fas','search']" class="text-black text-800"></fa-icon>
 				</button>
 				<ul ngbDropdownMenu class="dropdown-menu-lg-end search_main" aria-labelledby="dropdownMenuButton1"
-				    style="top: 60px; width: 80vw;">
+				    style="top: 60px; width: 60vw;">
 					<input class="form-control" type="search" placeholder="{{'header.search'|translate}}" aria-label="Search"
 					       [(ngModel)]="keyword"
 					       (keyup.enter)="onGoToSearchPage()"/>

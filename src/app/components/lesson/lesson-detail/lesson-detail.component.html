@@ -1,1 +1,23 @@
-<p>lesson-detail works!</p>
+<!--  -->
+<div class="container mt-3 d-flex align-items-center">
+	<h1>Lesson Name</h1>
+	<button class="btn btn-app ms-3"> <fa-icon [icon]="['fas','pen-to-square']"></fa-icon> </button>
+</div>
+
+<!--  -->
+<div class="container mt-3">
+	<div class="row">
+		<div class="col-auto">
+			<a class="btn btn-app mt-2" [routerLink]="['flashcard']"> <fa-icon [icon]="['fas','credit-card']"></fa-icon> Flashcards</a>
+		</div>
+		<div class="col-auto">
+			<a class="btn btn-app mt-2" [routerLink]="['learn']"> <fa-icon [icon]="['fas','book-open']"></fa-icon> Learn</a>
+		</div>
+		<div class="col-auto">
+			<button class="btn btn-app mt-2"> <fa-icon [icon]="['fas','file-lines']"></fa-icon> Test</button>
+		</div>
+	</div>
+</div>
+
+<router-outlet></router-outlet>
+
