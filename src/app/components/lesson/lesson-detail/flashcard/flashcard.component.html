@@ -1,0 +1,8 @@
+<div class="container mt-3 ">
+	<ngb-carousel  *ngIf="items">
+		<ng-template ngbSlide *ngFor="let slide of items; index as i; count as size">
+			<app-flashcard-item class="align-items-center"></app-flashcard-item>
+		</ng-template>
+	</ngb-carousel>
+</div>
+

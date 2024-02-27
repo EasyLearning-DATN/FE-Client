@@ -1,0 +1,9 @@
+ngb-carousel {
+    max-width: 80vw;
+    margin: 50px auto;
+    height: 450px !important;
+}
+ngb-carousel {
+    width: inherit;
+    height: inherit;
+}
