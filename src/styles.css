@@ -20,6 +20,23 @@
   box-shadow: 0 0 0 0 rgba(148, 62, 255, 0.52) !important;
 }
 
+.btn-app-warning{
+  border-radius: 10px !important;
+  border: 1px solid #ff1515 !important;
+  background: #FFF !important;
+  transition-duration: 0.3s !important;
+}
+
+.btn-app-warning:hover{
+  background: #ff1515 !important;
+  color: white !important;
+}
+
+.btn-app-warning:focus{
+  -webkit-box-shadow: 0 0 0 0 rgba(255, 62, 62, 0.52) !important;
+  box-shadow: 0 0 0 0 rgba(255, 43, 43, 0.52) !important;
+}
+
 .btn-check:focus + .btn, .btn:focus {
   -webkit-box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
   box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
@@ -39,6 +56,12 @@
 }
 
 .form-check-input:focus {
+  border-color: #1565FF !important;
+  -webkit-box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
+  box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
+}
+
+.btn-close:focus{
   border-color: #1565FF !important;
   -webkit-box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
   box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
@@ -67,9 +90,13 @@ app-flashcard-item{
 
 }
 .carousel-inner {
-  overflow: visible;
-  height: 400px !important;
+  /*overflow: visible;*/
+  padding-top: 10px;
+  height: 450px !important;
 
+}
+ngb-carousel{
+  /*overflow: hidden !important;*/
 }
 .carousel-item {
   /*display: flex !important;*/
@@ -78,6 +105,7 @@ app-flashcard-item{
   align-content: center;
   float: left;
   margin-left: 10vw;
+  overflow: visible;
   /*visibility: hidden;*/
   /*z-index: -1;*/
 }

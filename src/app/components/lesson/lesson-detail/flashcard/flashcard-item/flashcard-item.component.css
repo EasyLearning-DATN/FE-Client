@@ -31,7 +31,7 @@
 
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 3px 18px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 10px 3px rgba(0, 0, 0, 0.2);
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
