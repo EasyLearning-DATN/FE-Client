@@ -1,0 +1,120 @@
+.menu {
+    display: flex;
+    max-width: 447px;
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+    text-transform: capitalize;
+    letter-spacing: 0.14px;
+  }
+  
+  .menu-item {
+    display: flex;
+    gap: 20px;
+    font-family: Quicksand, sans-serif;
+    margin: 0 0 0 20px;
+    padding: 10px 15px; /* Added padding */
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  
+  .menu-item.active { 
+    background-color: #eee; /* Example highlight for active tab */
+  }
+  
+
+.img {
+    aspect-ratio: 33.33;
+    object-fit: auto;
+    object-position: center;
+    width: 58px;
+    stroke-width: 2.5px;
+    stroke: #333;
+    margin-top: 12px;
+}
+
+.lesson-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #d9d9d9;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px;
+    width: 270px;
+    height: 210px;
+}
+
+.lesson {
+    display: flex;
+    width: 221.865px;
+    height: 124.6px;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0;
+    background: #fff6d9;
+    border-radius: 20px;
+}
+
+.lesson-logo {
+    display: flex;
+    height: 31px;
+    align-items: center;
+    gap: 142px;
+    flex-shrink: 0;
+    margin: 10px;
+}
+
+.img-lesson,
+.img-lesson-2 {
+    aspect-ratio: auto 1;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    flex: 1;
+}
+
+.lesson-title {
+    color: #141414;
+    text-transform: capitalize;
+    margin-top: 10px;
+    font: 600 20px Quicksand, sans-serif;
+    padding-left: 10px;
+}
+
+.lesson-comments {
+    color: #141414;
+    text-decoration: underline;
+    text-transform: capitalize;
+    margin-top: 10px;
+    font: 400 12px Quicksand, sans-serif;
+    padding-left: 10px;
+}
+
+.lesson-details {
+    align-self: start;
+    display: flex;
+    margin-top: 40px;
+    padding-right: 45px;
+    gap: 14px;
+    font-weight: 400;
+    white-space: nowrap;
+    text-transform: capitalize;
+    padding-left: 10px;
+}
+
+.lesson-persons {
+    color: #141414;
+    letter-spacing: 0.24px;
+    flex-grow: 1;
+    font: 12px Quicksand, sans-serif;
+}
+
+.lesson-details-button {
+    border-radius: 28px;
+    background-color: #1565ff;
+    flex-grow: 1;
+    color: #fff;
+    letter-spacing: 0.14px;
+    padding: 2px 26px;
+    font: 14px Roboto, sans-serif;
+}
