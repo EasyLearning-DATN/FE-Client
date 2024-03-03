@@ -1,13 +1,14 @@
-import {AfterViewInit, Component, ElementRef, Input, Renderer2, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {Observable, Subscription} from "rxjs";
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
     isLogin: any;
     lessons: any[] = [];
     date: any;
@@ -22,6 +23,7 @@ export class HomeComponent implements AfterViewInit {
     @ViewChild('hours', {static: true}) hours!: ElementRef;
     @ViewChild('minutes', {static: true}) minutes!: ElementRef;
     @ViewChild('seconds', {static: true}) seconds!: ElementRef;
+    private clockInterval!: number;
 
     constructor(
         // private loginSrv: LoginService,
@@ -47,15 +49,20 @@ export class HomeComponent implements AfterViewInit {
     }
 
     ngAfterViewInit() {
-        setInterval(() => {
+        this.clockInterval = setInterval(() => {
             this.tickTock();
             this.difference = this.targetTime - this.now;
             this.difference = this.difference / (1000 * 60 * 60 * 24);
-
+            console.log(this.difference)
             !isNaN(this.days.nativeElement.innerText)
                 ? (this.days.nativeElement.innerText = Math.floor(this.difference))
                 : (this.days.nativeElement.innerHTML = `<img src="https://i.gifer.com/VAyR.gif" />`);
         }, 1000);
+
+    }
+
+    ngOnDestroy() {
+        clearInterval(this.clockInterval);
     }
 
     onViewDetail(
