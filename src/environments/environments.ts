@@ -1,4 +1,5 @@
 export const environment = {
     production: false,
-    apiBaseUrl: 'http://localhost:8080/api/v1',
+    apiExternal: 'http://localhost:1001/easy-learning/public/v1',
+    apiMember: 'http://localhost:1001/easy-learning/member/v1'
 };

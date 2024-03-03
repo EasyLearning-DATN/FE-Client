@@ -91,27 +91,27 @@
 
 		<div class="d-flex align-items-center justify-content-end mt-1">
 
-			<!--         <div ngbDropdown class="dropdown"> -->
-			<!--           <button ngbDropdownToggle type="button" class="user_setting" *ngIf="isLogin" data-bs-toggle="dropdown"> -->
-			<!--             <img *ngIf="avatar != null" src="{{avatar}}" alt="img"> -->
-			<!--             <img *ngIf="avatar == null" src="/assets/img/commons/default_user.jpeg" alt="img"> -->
-			<!--           </button> -->
-			<!--           <ul class="dropdown-menu"> -->
-			<!--             <li><a class="dropdown-item" [routerLink]="['/user-detail']" >Hồ sơ</a></li> -->
-			<!--             <li> -->
-			<!--               <a class="dropdown-item" aria-current="page" [routerLink]="['/']">Cài đặt</a> -->
-			<!--             </li> -->
-			<!--             <li> -->
-			<!--               <a class="dropdown-item" aria-current="page" [routerLink]="['/']" >Giúp đỡ & Phản hồi</a> -->
-			<!--             </li> -->
-			<!--             <li> -->
-			<!--               <a class="dropdown-item" aria-current="page" [routerLink]="['/upgrade']" >Nâng cấp Premium</a> -->
-			<!--             </li> -->
-			<!--             <li> -->
-			<!--               <a class="dropdown-item" *ngIf="isLogin" (click)="onLogout()">Đăng xuất</a> -->
-			<!--             </li> -->
-			<!--           </ul> -->
-			<!--         </div> -->
+			         <div ngbDropdown class="dropdown"> 
+			           <button ngbDropdownToggle type="button" class="user_setting" *ngIf="userResponse" data-bs-toggle="dropdown"> 
+			             <img *ngIf="avatar != null" src="{{avatar}}" alt="img"> 
+			             <img *ngIf="avatar == null" src="/assets/img/commons/default_user.jpeg" alt="img"> 
+			           </button> 
+			           <ul class="dropdown-menu"> 
+			             <li><a class="dropdown-item" [routerLink]="['/user-detail']" >Hồ sơ</a></li> 
+			             <li> 
+			               <a class="dropdown-item" aria-current="page" [routerLink]="['/']">Cài đặt</a> 
+			             </li> 
+			             <li> 
+			               <a class="dropdown-item" aria-current="page" [routerLink]="['/']" >Giúp đỡ & Phản hồi</a> 
+			             </li> 
+			             <li> 
+			               <a class="dropdown-item" aria-current="page" [routerLink]="['/upgrade']" >Nâng cấp Premium</a> 
+			             </li> 
+			             <li> 
+			               <a class="dropdown-item" *ngIf="userResponse" (click)="onLogout()">Đăng xuất</a> 
+			             </li> 
+			           </ul> 
+			         </div> 
 			<div class="d-flex">
 				<div ngbDropdown class="create_new_wrapper">
 					<!-- Dropdown button of creating new data -->
@@ -133,9 +133,9 @@
 				</div>
 				<div class="d-flex align-items-center">
 					<a class="btn btn-app order-1 order-lg-0 text-capitalize" [routerLink]="['/login']"
-					   *ngIf="!isLogin">{{ 'header.login'|translate }}</a> <a
+					   *ngIf="!userResponse">{{ 'header.login'|translate }}</a> <a
 						class="btn btn-app order-1 order-lg-0 ms-2 text-capitalize" [routerLink]="['/login']"
-						*ngIf="!isLogin">{{ 'header.register'|translate }}</a>
+						*ngIf="!userResponse">{{ 'header.register'|translate }}</a>
 				</div>
 			</div>
 
