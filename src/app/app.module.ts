@@ -23,8 +23,8 @@ import {FormsModule} from "@angular/forms";
 import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {allIcons, NgxBootstrapIconsModule, ColorTheme} from 'ngx-bootstrap-icons';
-import {NgOptimizedImage} from "@angular/common";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {LocationStrategy, NgOptimizedImage, PathLocationStrategy} from "@angular/common";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {CreateLessonTestComponent} from './components/test/create-test/create-lesson-test/create-lesson-test.component';
@@ -41,6 +41,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { EditLessonComponent } from './components/lesson/lesson-detail/edit-lesson/edit-lesson.component';
 import { AddQuestionsComponent } from './components/lesson/lesson-detail/edit-lesson/add-questions/add-questions.component';
 import { EditQuestionsComponent } from './components/lesson/lesson-detail/edit-lesson/edit-questions/edit-questions.component';
+import { SocialLoginModule, GoogleSigninButtonModule, GoogleLoginProvider, FacebookLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { ConfirmComponent } from './components/forget-password/confirm/confirm.component';
 
 @NgModule({
     declarations: [
@@ -68,6 +70,7 @@ import { EditQuestionsComponent } from './components/lesson/lesson-detail/edit-l
         EditLessonComponent,
         AddQuestionsComponent,
         EditQuestionsComponent,
+        ConfirmComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -79,6 +82,8 @@ import { EditQuestionsComponent } from './components/lesson/lesson-detail/edit-l
         NgxBootstrapIconsModule.pick(allIcons, {}),
         NgOptimizedImage,
         HttpClientModule,
+        SocialLoginModule,
+        GoogleSigninButtonModule,
         BrowserAnimationsModule,
         TranslateModule.forRoot({
             loader: {
@@ -88,7 +93,28 @@ import { EditQuestionsComponent } from './components/lesson/lesson-detail/edit-l
             }
         })
     ],
-    providers: [HttpClient],
+    providers: [
+        {
+            provide: 'SocialAuthServiceConfig',
+            useValue: {
+                autoLogin: false,
+                providers: [
+                    {
+                        id: GoogleLoginProvider.PROVIDER_ID,
+                        provider: new GoogleLoginProvider('46624841666-rhb1ravu863ip9b1i1k572ujfpvaqijb.apps.googleusercontent.com'),
+                    }
+                    ,
+                    {
+                        id: FacebookLoginProvider.PROVIDER_ID,
+                        provider: new FacebookLoginProvider("240925951497184")
+                    }
+                ],
+            } as SocialAuthServiceConfig,
+        },
+        {
+          provide: LocationStrategy, useClass: PathLocationStrategy
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

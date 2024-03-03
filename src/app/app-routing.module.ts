@@ -10,12 +10,14 @@ import {LessonDetailComponent} from "./components/lesson/lesson-detail/lesson-de
 import {PageNotFoundComponent} from "./components/page-not-found/page-not-found.component";
 import {FlashcardComponent} from "./components/lesson/lesson-detail/flashcard/flashcard.component";
 import {LessonLearnComponent} from "./components/lesson/lesson-detail/lesson-learn/lesson-learn.component";
+import { ConfirmComponent } from './components/forget-password/confirm/confirm.component';
 
 const routes: Routes = [
     {path: 'home', component: HomeComponent},
     {path: '', component: HomeComponent},
     {path: 'login', component: LoginComponent},
     {path: 'forgot-password', component: ForgetPasswordComponent},
+    {path: 'confirm-password', component: ConfirmComponent},
     {
         path: 'lesson', component: LessonComponent, children: [
             {

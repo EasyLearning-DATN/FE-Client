@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserService } from 'src/app/services/user/user-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-forget-password',
@@ -7,14 +9,17 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./forget-password.component.css']
 })
 export class ForgetPasswordComponent {
+  @ViewChild('resetPasswordForm') resetPasswordFormDirective: any;
+  email: string = '';
+
   constructor(
-    private FormBuilder: FormBuilder
+    private FormBuilder: FormBuilder,
+    private userService: UserService
   ) { }
 
   resetPasswordForm: FormGroup = new FormGroup(
     {
-      username: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)])
+      email: new FormControl('', [Validators.required, Validators.email])
     }
   );
 
@@ -22,7 +27,20 @@ export class ForgetPasswordComponent {
   }
 
   onSubmit(): void {
-    console.log('onResetPassword');
+    // truyền email từ form vào hàm forgotPassword
+    this.userService.forgotPassword(this.email).subscribe(
+      (response: any) => {
+        Swal.fire({
+          title: 'Thành công!',
+          text: 'Vui lòng kiểm tra email để lấy liên kết đặt lại mật khẩu!',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
 }
