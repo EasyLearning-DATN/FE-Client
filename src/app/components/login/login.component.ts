@@ -9,9 +9,10 @@ import {
 } from '@abacritt/angularx-social-login';
 import { UserService } from 'src/app/services/user/user-service.service';
 import { Router } from '@angular/router';
-import { SignupDTO } from '../user/signup.dto';
+import { SignupDTO } from '../../DTOS/user/signup.dto';
 import Swal from 'sweetalert2';
-import { LoginDTO } from '../user/login.dto';
+import { LoginDTO } from '../../DTOS/user/login.dto';
+import { UserResponse } from 'src/app/responses/user/user.responses';
 
 
 @Component({
@@ -20,6 +21,7 @@ import { LoginDTO } from '../user/login.dto';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  userResponse?: UserResponse | null;
   // khai báo các biến tương ứng với các trường dữ liệu trong form đăng nhập và đăng ký
   @ViewChild('signupForm') signupForm!: NgForm;
   @ViewChild('loginForm') loginForm!: NgForm;
@@ -61,7 +63,6 @@ export class LoginComponent {
       this.userService.login(loginDTO).subscribe(
         (response: any) => {
           const token = response.data.token;
-          localStorage.setItem('token', token);
           Swal.fire({
             icon: 'success',
             title: 'Đăng nhập thành công!',
@@ -70,6 +71,17 @@ export class LoginComponent {
             confirmButtonText: 'OK'
           }).then((result) => {
             if (result.isConfirmed) {
+              // lấy user info và đưa thông tin vào userResponse
+              this.userService.getUserInfo(token).subscribe(
+                (data : any) => {
+                  const userInfo = data.data;
+                  // set userInfo vào UserResponse
+                  this.userResponse = userInfo;
+                  localStorage.setItem('userInfo', JSON.stringify(this.userResponse));
+                  localStorage.setItem('token', token);
+                  console.log(this.userResponse);
+                }
+              )
               this.router.navigate(['/']);
             }
           });

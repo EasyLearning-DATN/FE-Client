@@ -7,7 +7,7 @@
 }
 
 .bg-coral{
-    background-color: coral;
+    background-color: #0F69F6;
 }
 
 a{
@@ -15,6 +15,7 @@ a{
 }
 
 a:hover{
-    color: black;
+    color: #D3D3D3;
+    text-decoration: none;
 
 }

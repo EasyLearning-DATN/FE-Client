@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LoginDTO } from 'src/app/components/user/login.dto';
-import { SignupDTO } from 'src/app/components/user/signup.dto';
+import { LoginDTO } from 'src/app/DTOS/user/login.dto';
+import { SignupDTO } from 'src/app/DTOS/user/signup.dto';
 import { UserResponse } from 'src/app/responses/user/user.responses';
 import { environment } from 'src/environments/environments';
 
@@ -16,6 +16,7 @@ export class UserService {
   private apiForgotPassword = `${environment.apiExternal}/user/get-token-forgot-pass?email=`;
   private apiUpdatePassword = `${environment.apiMember}/user/password`;
   private apiVaildToken = `${environment.apiExternal}/user/valid-token?token=`;
+  private apiLogout = `${environment.apiMember}/user/logout`;
 
   constructor(private http: HttpClient) { }
 
@@ -29,6 +30,14 @@ export class UserService {
 
   forgotPassword(email: string){
     return this.http.get(this.apiForgotPassword + email)
+  }
+  
+  logout(token: string): Observable<any> {
+    return this.http.post(this.apiLogout, null, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
   }
 
   // hàm validate token

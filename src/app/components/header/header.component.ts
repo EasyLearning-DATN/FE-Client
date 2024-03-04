@@ -23,23 +23,17 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // lấy token từ localStorage
-    const token = localStorage.getItem('token');
-    // nếu có token thì gọi api lấy thông tin user
-    if (token) {
-      this.userService.getUserInfo(token).subscribe(
-        (data: UserResponse) => {
-          this.userResponse = data;
-          console.log(this.userResponse);
-        }
-      )
-    }
+    // truyển userResponse từ localStorage
+    this.userResponse = JSON.parse(localStorage.getItem('userInfo') || '');
   }
 
   onLogout() {
-    localStorage.removeItem('token');
-    // load lại trang
-    window.location.reload();
+    const token = localStorage.getItem('token') || '';
+    this.userService.logout(token).subscribe(res => {
+      localStorage.removeItem('userInfo');
+      localStorage.removeItem('token');
+      this.router.navigate(['']);
+    });
   }
 
   onSearch() {
