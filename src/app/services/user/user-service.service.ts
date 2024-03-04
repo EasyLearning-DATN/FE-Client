@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LoginDTO } from 'src/app/DTOS/user/login.dto';
-import { SignupDTO } from 'src/app/DTOS/user/signup.dto';
+import { LoginDTO } from 'src/app/dtos/user/login.dto';
+import { SignupDTO } from 'src/app/dtos/user/signup.dto';
 import { UserResponse } from 'src/app/responses/user/user.responses';
 import { environment } from 'src/environments/environments';
 
@@ -31,7 +31,7 @@ export class UserService {
   forgotPassword(email: string){
     return this.http.get(this.apiForgotPassword + email)
   }
-  
+
   logout(token: string): Observable<any> {
     return this.http.post(this.apiLogout, null, {
       headers: {
