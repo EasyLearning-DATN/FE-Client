@@ -26,8 +26,8 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/sweetalert2/src/sweetalert2.scss",
               "src/assets/css/theme.css",
+              "node_modules/sweetalert2/src/sweetalert2.scss",
               "src/styles.css"
             ],
             "scripts": [
@@ -62,6 +62,9 @@
           "defaultConfiguration": "production"
         },
         "serve": {
+          "options": {
+
+          },
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
