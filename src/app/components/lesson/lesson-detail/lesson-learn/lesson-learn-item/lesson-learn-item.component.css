@@ -1,0 +1,40 @@
+.single-question {
+  background: #FFF;
+  border: 2px solid #DDD;
+  border-radius: 5px;
+  height: 180px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 500px;
+}
+
+@media (max-width: 1199px) {
+  .single-question {
+    width: 450px;
+  }
+}
+
+@media (min-width: 1540px) {
+  .single-question {
+    width: 575px;
+  }
+}
+
+::-webkit-scrollbar-track {
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+  background-color: #F5F5F5;
+  width: 15px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-image: -webkit-gradient(linear,
+  left bottom,
+  left top,
+  color-stop(0.44, #1565FF),
+  color-stop(0.72, #1565FF),
+  color-stop(0.86, #0055f6));
+  border-radius: 10px;
+}
