@@ -43,6 +43,7 @@ import { AddQuestionsComponent } from './components/lesson/lesson-detail/edit-le
 import { EditQuestionsComponent } from './components/lesson/lesson-detail/edit-lesson/edit-questions/edit-questions.component';
 import { SocialLoginModule, GoogleSigninButtonModule, GoogleLoginProvider, FacebookLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { ConfirmComponent } from './components/forget-password/confirm/confirm.component';
+import { ItemsComponent } from './components/lesson/items/items.component';
 
 @NgModule({
     declarations: [
@@ -70,7 +71,8 @@ import { ConfirmComponent } from './components/forget-password/confirm/confirm.c
         EditLessonComponent,
         AddQuestionsComponent,
         EditQuestionsComponent,
-        ConfirmComponent
+        ConfirmComponent,
+        ItemsComponent
     ],
     imports: [
         ReactiveFormsModule,

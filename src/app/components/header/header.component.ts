@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
     this.userService.logout(token).subscribe(res => {
       localStorage.removeItem('userInfo');
       localStorage.removeItem('token');
-      this.router.navigate(['']);
+      location.assign('/');
     });
   }
 
