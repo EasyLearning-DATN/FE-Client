@@ -12,9 +12,20 @@
 //     "last_modified_by": "589ea2b4-3e5b-44f9-8ccc-1ce1f9bbb74e",
 //     "is_public": true,
 //     "image_url": "sđsfdfdsfds.jpg"
+// "user_info": {
+//   "id": 6,
+//     "fullName": "Tuan Kiet",
+//     "avatar": null
+// }
 // }
 // }
 import {QuestionResponses} from "../question/question.responses";
+
+class UserInfoResponse {
+  id!: number;
+  fullName!: string;
+  avatar!: string;
+}
 
 export interface LessonResponses {
   id: string;
@@ -27,4 +38,5 @@ export interface LessonResponses {
   is_public: boolean;
   image_url: string;
   questions: QuestionResponses[];
+  user_info: UserInfoResponse;
 }
