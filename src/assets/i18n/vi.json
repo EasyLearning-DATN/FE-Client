@@ -1,13 +1,25 @@
 {
-	"header": {
-		"home": "trang chủ",
-		"list": "danh sách",
-		"test-list": "danh sách bài test",
-		"lesson-list": "danh sách bài học",
-		"search": "Tìm kiếm",
-		"login": "đăng nhập",
-		"register": "đăng ký",
-		"create-lesson": "tạo bài học",
-		"create-test": "tạo bài test"
-	}
+  "header": {
+    "home": "trang chủ",
+    "list": "danh sách",
+    "test-list": "danh sách bài test",
+    "lesson-list": "danh sách bài học",
+    "search": "Tìm kiếm",
+    "login": "đăng nhập",
+    "register": "đăng ký",
+    "create-lesson": "tạo bài học",
+    "create-test": "tạo bài test"
+  },
+  "lesson": {
+    "lesson-learn": {
+      "lesson-learn-item": {
+        "sca": "trắc nghiệm - một đáp án đúng",
+        "mca": "trắc nghiệm - nhiều đáp án đúng",
+        "fitb": "điền vào chỗ trống",
+        "answer-title": "Đáp án"
+      },
+      "title": "Câu hỏi trong bài học"
+    }
+  }
 }
+
