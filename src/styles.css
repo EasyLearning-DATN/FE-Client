@@ -1,38 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
-*{
+* {
   font-family: 'Quicksand-Regular', sans-serif !important;
 }
 
-.btn-app{
-  border-radius: 10px !important;
-  border: 1px solid #1565FF !important;
+.btn-app {
   background: #FFF !important;
+  border: 1px solid #1565FF !important;
+  border-radius: 10px !important;
   transition-duration: 0.3s !important;
 }
 
-.btn-app:hover{
+.btn-app:hover {
   background: #1565FF !important;
   color: white !important;
 }
 
-.btn-app:focus{
+.btn-app:focus {
   -webkit-box-shadow: 0 0 0 0 rgba(148, 62, 255, 0.52) !important;
   box-shadow: 0 0 0 0 rgba(148, 62, 255, 0.52) !important;
 }
 
-.btn-app-warning{
-  border-radius: 10px !important;
-  border: 1px solid #ff1515 !important;
+.btn-app-warning {
   background: #FFF !important;
+  border: 1px solid #ff1515 !important;
+  border-radius: 10px !important;
   transition-duration: 0.3s !important;
 }
 
-.btn-app-warning:hover{
+.btn-app-warning:hover {
   background: #ff1515 !important;
   color: white !important;
 }
 
-.btn-app-warning:focus{
+.btn-app-warning:focus {
   -webkit-box-shadow: 0 0 0 0 rgba(255, 62, 62, 0.52) !important;
   box-shadow: 0 0 0 0 rgba(255, 43, 43, 0.52) !important;
 }
@@ -43,10 +43,10 @@
 }
 
 .form-control:focus {
-  color: black !important;
   border-color: #1565FF !important;
   -webkit-box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
   box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
+  color: black !important;
 }
 
 .form-select:focus {
@@ -61,7 +61,7 @@
   box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
 }
 
-.btn-close:focus{
+.btn-close:focus {
   border-color: #1565FF !important;
   -webkit-box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
   box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
@@ -76,7 +76,7 @@
   box-shadow: 0 0 0 1px #FFFEFE, 0 0 0 0.25rem #1565FF;
 }
 
-a{
+a {
   color: white;
   text-decoration: none;
 }
@@ -85,35 +85,26 @@ a{
   color: #1565FF !important;
 }
 
-app-flashcard-item{
+app-flashcard-item {
   height: 400px !important;
 
 }
+
 .carousel-inner {
   /*overflow: visible;*/
-  padding-top: 10px;
   height: 450px !important;
+  padding-top: 10px;
 
 }
-ngb-carousel{
-  /*overflow: hidden !important;*/
-}
+
 .carousel-item {
-  /*display: flex !important;*/
-  /*opacity: 0;*/
-  align-items: center;
   align-content: center;
+  align-items: center;
   float: left;
   margin-left: 10vw;
   overflow: visible;
-  /*visibility: hidden;*/
-  /*z-index: -1;*/
 }
-/*.carousel-item.active{*/
-/*  opacity: 1;*/
-/*  visibility: visible;*/
-/*  z-index: 10;*/
-/*}*/
+
 .carousel-control-prev {
   z-index: 20;
 }
@@ -121,6 +112,10 @@ ngb-carousel{
 .carousel-control-next {
   z-index: 20;
 }
-.carousel-indicators{
+
+.carousel-indicators {
   z-index: 20;
 }
+
+
+
