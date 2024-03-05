@@ -4,7 +4,8 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {map, tap} from "rxjs";
 import {SharedService} from "../shared/shared.service";
 import {LessonsResponses} from "../../responses/lessons/lessons.responses";
-import {LessonResponses} from "../../responses/lesson/lesson.responses";
+import { LessonDTO } from 'src/app/DTOS/lesson/lesson.dto';
+import {LessonResponses} from "src/app/responses/lesson/lesson.responses";
 import {Router} from "@angular/router";
 
 @Injectable({
@@ -16,6 +17,7 @@ export class LessonService {
   private apiCreateLesson = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_LESSON;
   private apiUpdateLesson = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_LESSON + environment.ID;
   private apiDeleteLesson = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_LESSON + environment.ID;
+  private apiGetListLessonByUser = environment.API_URL + environment.API_PUBLIC + environment.VERSION_1 + environment.API_LESSON;
 
   constructor(private http: HttpClient, private sharedService: SharedService, private router: Router) {
   }
@@ -42,6 +44,42 @@ export class LessonService {
       }));
   }
 
+  getListLessonByUser(userId: string) {
+    let searchParams = new HttpParams().set('createdBy', userId);
+    return this.http.get<any>(this.apiGetListLessonByUser, {
+      params: searchParams,
+    })
+    .pipe(
+      map((response) => {
+        let lessons: LessonsResponses = response.data;
+        lessons.data = lessons.data.map(lesson => {
+          return {...lesson, questions: lesson.questions ? lesson.questions : []};
+        });
+        return lessons;
+      }),
+      tap((lessons: LessonsResponses) => {
+        this.sharedService.lessonsHome = lessons.data;
+      }));
+  }
+
+  // create lesson
+  createLesson(lessonDTO: LessonDTO) {
+    const token = localStorage.getItem('token');
+    console.log(lessonDTO);
+    console.log(token);
+    return this.http.post<any>(this.apiCreateLesson, lessonDTO, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
+    .pipe(
+      map((response) => {
+        return response;
+      }),
+      tap((response) => {
+        console.log(response);
+      }));
+    
   getOneLesson(id: number) {
     return this.http.get<any>(this.apiGetOneLesson + '/' + id).pipe(
       map((response) => {

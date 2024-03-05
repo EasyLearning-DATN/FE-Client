@@ -31,4 +31,14 @@ export class SharedService {
   set lesson(value: LessonResponses) {
     this._lesson = value;
   }
+
+  private _lessonsByUser!: LessonResponses;
+
+  get lessonsByUser() : LessonResponses {
+    return this._lessonsByUser;
+  }
+
+  set lessonsByUser(value: LessonResponses) {
+    this._lessonsByUser = value;
+  }
 }

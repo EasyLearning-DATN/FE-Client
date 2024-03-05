@@ -79,10 +79,10 @@ export class LoginComponent {
                   this.userResponse = userInfo;
                   localStorage.setItem('userInfo', JSON.stringify(this.userResponse));
                   localStorage.setItem('token', token);
+                  location.assign('/');
                   console.log(this.userResponse);
                 }
               )
-              this.router.navigate(['/']);
             }
           });
         },
@@ -116,7 +116,7 @@ export class LoginComponent {
             confirmButtonText: 'OK'
           }).then((result) => {
             if (result.isConfirmed) {
-              this.router.navigate(['/']);
+              location.assign('/login');
             }
           });
         },

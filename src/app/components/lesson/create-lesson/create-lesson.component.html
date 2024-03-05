@@ -1,23 +1,32 @@
 <div class="container mt-4">
     <h2>Tạo bài học mới</h2>
-    <form [formGroup]="createLessonF" (ngSubmit)="onCreateLesson()">
+    <form #lessonForm="ngForm" (ngSubmit)="onCreateLesson()">
       <div class="form-group">
         <label for="courseName">Tên bài học:</label>
-        <input type="text" class="form-control" id="courseName" placeholder="Tên học phần" formControlName="title">
+        <input type="text" class="form-control" id="courseName" placeholder="Tên bài học" [(ngModel)]="name" name="name">
       </div>
       <div class="form-group">
         <label for="description">Mô tả:</label>
         <textarea class="form-control" id="description" rows="3" placeholder="Nhập mô tả"
-          formControlName="description"></textarea>
+          [(ngModel)]="description" name="description"></textarea>
       </div>
-      <div class="form-group">
+      <div class="form-group p-2">
         <label for="fileInput">Ảnh bìa: </label>
         <label for="fileInput" class="custom-file-upload">
-            <i class="fa fa-cloud-upload"></i> Chọn ảnh bìa
+           <fa-icon class="me-2" [icon]="['fas', 'cloud-upload']"></fa-icon> Chọn ảnh bìa
         </label>
-        <input id="fileInput" type="file" (change)="onFileSelected()" accept="image/*" style="display:none;">        
+        <input [(ngModel)]="image_url" name="image_url" id="fileInput" type="file" (change)="onFileSelected()" accept="image/*" style="display:none;"> 
       </div>
-      <div formArrayName="questions">
+      <div class="form-group">
+        <!-- combobox chọn loại câu hỏi -->
+        <label for="questionType">Loại câu hỏi:</label>
+        <select class="form-select" id="questionType">
+          <option value="1">1 đáp án đúng</option>
+          <option value="2">Nhiều đáp án đúng</option>
+        </select>
+      </div>
+      <!-- <div formArrayName="questions p-2">
+        <label for="questions">Thêm câu hỏi:</label>
         <div *ngFor="let question of questionForms.controls; let i = index">
           <div [formGroupName]="i">
             <div class="form-group">
@@ -38,9 +47,9 @@
             </div>
           </div>
         </div>
-      </div>
-      <button type="button" class="btn btn-primary px-3" (click)="addQuestion()">Thêm câu hỏi</button>
-      <button type="submit" class="btn btn-success m-3 m-3">Tạo học phần</button>
+      </div> -->
+      <!-- <button type="button" class="btn btn-primary px-3" (click)="addQuestion()">Thêm câu hỏi</button> -->
+      <button type="submit" class="btn btn-success m-3 m-3">Tạo bài học</button>
     </form>
   </div>
   
