@@ -54,7 +54,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngAfterViewInit() {
-    this.clockInterval = setInterval(() => {
+    this.clockInterval = window.setInterval(() => {
       this.tickTock();
       this.difference = this.targetTime - this.now;
       this.difference = this.difference / (1000 * 60 * 60 * 24);

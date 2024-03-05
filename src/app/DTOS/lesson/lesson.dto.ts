@@ -1,4 +1,4 @@
-import {IsBoolean, IsNotEmpty, IsString} from 'class-validator';
+import {IsNotEmpty, IsString} from 'class-validator';
 
 export class LessonDTO {
   @IsString()
@@ -6,14 +6,9 @@ export class LessonDTO {
   name: string | undefined;
 
   @IsString()
-  @IsNotEmpty()
   description: string | undefined;
 
   @IsString()
-  @IsNotEmpty()
   image_url: string | undefined;
 
-  @IsBoolean()
-  @IsNotEmpty()
-  is_public: boolean | undefined = true;
 }
