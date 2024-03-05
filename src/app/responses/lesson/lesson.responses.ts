@@ -17,7 +17,6 @@
 import {QuestionResponses} from "../question/question.responses";
 
 export interface LessonResponses {
-  data: any;
   id: string;
   name: string;
   description: string;

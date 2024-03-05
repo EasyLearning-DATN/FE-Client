@@ -37,7 +37,7 @@ export class ItemsComponent implements OnInit {
     const userId = userInfo ? userInfo.id : '';
     this.isFetching = true;
     this.lessonService.getListLessonByUser(userId).subscribe(
-      (lessons: LessonResponses) => {
+      (lessons: LessonsResponses) => {
         this.isFetching = false;
         this.lessons = lessons.data;
         console.log(this.lessons);
