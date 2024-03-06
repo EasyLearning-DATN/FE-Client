@@ -69,12 +69,12 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
     clearInterval(this.clockInterval);
   }
 
-  onViewDetail(
-    // lesson: LessonModule
-  ) {
-    // this.lessonService.lessonDetail$ = of(lesson);
-    // this.lessonService.userCreator$ = of(lesson.userInfo);
-    // this.router.navigate([`lesson`, lesson.id]);
+  onViewLessonDetail(id: string) {
+    this.router.navigate([`lesson`, id]);
+  }
+
+  onViewTestDetail(id: string) {
+    this.router.navigate([`test`, id]);
   }
 
   tickTock() {
@@ -91,11 +91,12 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
     this.lessonService.getListLessonHome().subscribe((lessons: LessonsResponses) => {
       this.isFetching = false;
       this.lessons = this.sharedService.lessonsHome;
-      console.log("Lessons: " + this.lessons);
+      // console.log("Lessons: " + this.lessons);
     }, error => {
       this.isFetching = false;
       this.error = error.message;
       console.log(this.error);
+
     });
 
   }
