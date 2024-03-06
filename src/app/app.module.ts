@@ -52,6 +52,7 @@ import {LessonLearnItemComponent} from './components/lesson/lesson-detail/lesson
 import {ShortenTextPipe} from './pipe/shorten-text.pipe';
 import {ConfirmModalComponent} from './components/commons/confirm-modal/confirm-modal.component';
 import {HomeItemComponent} from './components/home/home-item/home-item.component';
+import {ReportlessonComponent} from "./components/lesson/reportlesson/reportlesson.component";
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import {HomeItemComponent} from './components/home/home-item/home-item.component
     ShortenTextPipe,
     ConfirmModalComponent,
     HomeItemComponent,
+    ReportlessonComponent,
   ],
   imports: [
     ReactiveFormsModule,
