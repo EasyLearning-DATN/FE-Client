@@ -12,10 +12,11 @@
 //     }
 // }
 export interface UserResponse {
-    username: string;
-    fullName: string;
-    email: string;
-    avatar: string;
-    dayOfBirth: string;
-    locked?: boolean;
+  username: string;
+  fullName: string;
+  email: string;
+  avatar: string;
+  dayOfBirth: string;
+  locked?: boolean;
+  id?: string;
 }

@@ -1,0 +1,30 @@
+.content-container {
+  margin: 5px;
+}
+
+.fs-lg-3 {
+  font-size: 1.2rem !important;
+}
+
+h5 {
+  margin: 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-footer {
+  margin-top: auto;
+}
+
+@media (max-width: 1539px) {
+  .detail {
+    align-content: center;
+    align-items: center;
+    display: flex !important;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,34 @@
+<div class="mt-4 ">
+  <div class="card h-100 lesson_item">
+    <!-- <img class="card-img-top w-100" src="{{lesson.image_url}}" alt="courses" /> -->
+    <img alt="courses" class="card-img-top w-100" src="https://treobangron.com.vn/wp-content/uploads/2022/09/background-hoc-tap-54.jpg"/>
+    <div *ngIf="lesson" class="content-container">
+      <h5 class="font-sans-serif fw-bold fs-md-1 fs-lg-3">{{ lesson.name }}</h5>
+      <small class="text-muted">Ngày tạo: {{ lesson.created_date | date }}</small>
+    </div>
+    <div *ngIf="test" class="content-container">
+      <h5 class="font-sans-serif fw-bold fs-md-1 fs-lg-3">{{ test.name }}</h5>
+      <small class="text-muted">Ngày tạo: {{ test.created_date }}</small>
+    </div>
+    <div class="card-footer">
+      <div *ngIf="lesson" class="d-flex justify-content-between pt-3 pb-3 row">
+        <div class="detail d-flex align-items-center col-12 col-xxl-7">
+          <img alt="img" height="40" src="/assets/img/commons/default_user.jpeg" width="40">
+          <span class="ms-1">{{ lesson.user_info.fullName | titlecase }}</span>
+        </div>
+        <div class="detail col-12 col-xxl-5">
+          <a [routerLink]="['lesson',lesson.id]" class="btn btn-app">Chi tiết</a>
+        </div>
+      </div>
+      <div *ngIf="test" class=" d-flex justify-content-between pt-3 pb-3 row">
+        <div class="detail d-flex align-items-center col-12 col-xxl-7">
+          <img alt="img" height="40" src="/assets/img/commons/default_user.jpeg" width="40">
+          <span class="ms-1">{{ test.user_info.fullName | titlecase }}</span>
+        </div>
+        <div class="col-12 col-xxl-5">
+          <a [routerLink]="['test',test.id]" class="btn btn-app">Chi tiết</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

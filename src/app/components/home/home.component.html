@@ -51,35 +51,39 @@
 <section>
 
   <div class="container">
-    <div class="row">
+    <div class="">
       <h1 class="text-center mb-5 text-capitalize">bài học nổi bật</h1>
-      <div (click)="onViewDetail()" *ngFor="let lesson of lessons" class="col-md-4 mb-4">
-        <div class="card h-100 lesson_item">
-          <img [ngSrc]="lesson.image_url" alt="courses" class="card-img-top w-100" height="200" width="200"/>
-          <div class="card-body">
-            <h5 class="font-sans-serif fw-bold fs-md-0 fs-lg-1">{{ lesson.name }}
-            </h5>
-            <p class="text-muted fs-1 stretched-link text-decoration-none">{{ lesson.description }}</p>
-          </div>
+      <p *ngIf="lessons.length < 1 && !isFetching" class="fs-2 fw-semi-bold">No posts available!</p>
+      <div *ngIf="isFetching" class="d-flex align-content-center justify-content-center">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      <div *ngIf="lessons.length >= 1 && !isFetching" class="row">
+        <div *ngFor="let lesson of lessons" class="col-md-3 mb-4">
+          <app-home-item [lesson]="lesson"></app-home-item>
         </div>
       </div>
     </div>
   </div>
   <!-- end of .container-->
 
-  <div class="container">
-    <div class="row">
+  <div class="container mt-4">
+    <div class="">
       <h1 class="text-center mb-5 text-capitalize">bài test nổi bật</h1>
-      <div *ngFor="let lesson of lessons" class="col-md-4 mb-4">
-        <div class="card h-100 lesson_item">
-          <img [ngSrc]="lesson.image_url" alt="courses" class="card-img-top w-100" height="200" width="200"/>
-          <div class="card-body">
-            <h5 class="font-sans-serif fw-bold fs-md-0 fs-lg-1">{{ lesson.name }}
-            </h5>
-            <p class="text-muted fs-1 stretched-link text-decoration-none">{{ lesson.description }}</p>
-          </div>
+      <p *ngIf="lessons.length < 1 && !isFetching" class="fs-2 fw-semi-bold">No posts available!</p>
+      <div *ngIf="isFetching" class="d-flex align-content-center justify-content-center">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
       </div>
+      <div *ngIf="lessons.length >= 1 && !isFetching" class="row">
+        <div *ngFor="let lesson of lessons" class="col-md-3 mb-4">
+          <app-home-item [lesson]="lesson"></app-home-item>
+          <!--         <app-home-item [test]=""></app-home-item> -->
+        </div>
+      </div>
+
     </div>
   </div>
   <!-- end of .container-->
