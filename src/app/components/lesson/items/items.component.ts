@@ -11,6 +11,7 @@ import {Subscription} from "rxjs";
   templateUrl: './items.component.html',
   styleUrls: ['./items.component.css'],
 })
+
 export class ItemsComponent implements OnInit, OnDestroy {
   lessons: LessonResponses[] = [];
   isFetching = false;
@@ -74,6 +75,7 @@ export class ItemsComponent implements OnInit, OnDestroy {
     const userInfo = JSON.parse(userInfoString);
     const userId = userInfo ? userInfo.id : '';
     this.isFetching = true;
+
     this.lessonService.getListLessonByUser(userId).subscribe(
       (lessons: LessonsResponses) => {
         this.isFetching = false;

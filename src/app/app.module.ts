@@ -35,6 +35,7 @@ import {LessonLearnComponent} from './components/lesson/lesson-detail/lesson-lea
 import {far} from "@fortawesome/free-regular-svg-icons";
 import {fab} from "@fortawesome/free-brands-svg-icons";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
 import {EditLessonComponent} from './components/lesson/lesson-detail/edit-lesson/edit-lesson.component';
 import {AddQuestionsComponent} from './components/lesson/lesson-detail/edit-lesson/add-questions/add-questions.component';
 import {EditQuestionsComponent} from './components/lesson/lesson-detail/edit-lesson/edit-questions/edit-questions.component';

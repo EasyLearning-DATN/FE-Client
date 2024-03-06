@@ -20,6 +20,7 @@
 // }
 // }
 import {QuestionResponses} from "../question/question.responses";
+import { UserResponse } from "../user/user.responses";
 
 export interface LessonResponses {
   id: string;
@@ -31,10 +32,10 @@ export interface LessonResponses {
   last_modified_by: string;
   is_public: boolean;
   image_url: string;
-  questions: QuestionResponses[];
   user_info: {
     id: number;
     fullName: string;
     avatar: string | null;
   };
+  questions: QuestionResponses[];
 }
