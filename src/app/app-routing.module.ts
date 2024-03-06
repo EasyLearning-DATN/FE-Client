@@ -12,7 +12,6 @@ import {FlashcardComponent} from "./components/lesson/lesson-detail/flashcard/fl
 import {LessonLearnComponent} from "./components/lesson/lesson-detail/lesson-learn/lesson-learn.component";
 import {ConfirmComponent} from './components/forget-password/confirm/confirm.component';
 import {lessonResolver} from "./resolver/lesson.resolver";
-import { ReportlessonComponent } from './components/lesson/reportlesson/reportlesson.component';
 import {ItemsComponent} from "./components/lesson/items/items.component";
 
 const routes: Routes = [
