@@ -28,7 +28,6 @@ const routes: Routes = [
           {path: '', component: FlashcardComponent},
           {path: 'flashcard', component: FlashcardComponent},
           {path: 'learn', component: LessonLearnComponent},
-          {path: 'report', component: ReportlessonComponent}
         ],
       },
     ],
