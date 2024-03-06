@@ -12,6 +12,7 @@ import {FlashcardComponent} from "./components/lesson/lesson-detail/flashcard/fl
 import {LessonLearnComponent} from "./components/lesson/lesson-detail/lesson-learn/lesson-learn.component";
 import {ConfirmComponent} from './components/forget-password/confirm/confirm.component';
 import {lessonResolver} from "./resolver/lesson.resolver";
+import { ReportlessonComponent } from './components/lesson/reportlesson/reportlesson.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -26,6 +27,7 @@ const routes: Routes = [
           {path: '', component: FlashcardComponent},
           {path: 'flashcard', component: FlashcardComponent},
           {path: 'learn', component: LessonLearnComponent},
+          {path: 'report', component: ReportlessonComponent}
         ],
       },
     ],

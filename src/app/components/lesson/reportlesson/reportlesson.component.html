@@ -1,0 +1,22 @@
+<button (click)="openEdit(modal)" class="btn btn-app ms-3">
+  <fa-icon [icon]="['fas','shield']"></fa-icon>Báo cáo
+</button>
+
+<ng-template #modal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Báo cáo bài học</h4>
+    <button (click)="d('Cross click')" aria-label="Close" class="btn-close" type="button"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="reportLesson">
+      <div class="form-floating mb-3">
+        <input class="form-control" formControlName="reason" id="floatingName" placeholder="" type="text">
+        <label for="floatingName">Nội dung báo cáo</label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button (click)="sendReport()" class="btn btn-app">Save</button>
+    <button (click)="d('Close click')" class="btn btn-app" type="button">Close</button>
+  </div>
+</ng-template>
