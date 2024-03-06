@@ -38,9 +38,4 @@ export interface LessonResponses {
     avatar: string | null;
   };
   questions: QuestionResponses[];
-  user_info: {
-    id: number;
-    fullName: string;
-    avatar: string | null;
-  };
 }
