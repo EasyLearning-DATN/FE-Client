@@ -13,6 +13,7 @@ import {LessonLearnComponent} from "./components/lesson/lesson-detail/lesson-lea
 import {ConfirmComponent} from './components/forget-password/confirm/confirm.component';
 import {lessonResolver} from "./resolver/lesson.resolver";
 import { ReportlessonComponent } from './components/lesson/reportlesson/reportlesson.component';
+import {ItemsComponent} from "./components/lesson/items/items.component";
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -33,14 +34,27 @@ const routes: Routes = [
     ],
   },
   {path: 'create-lesson', component: CreateLessonComponent},
-  {path: 'list-lesson', component: ListLessonComponent},
+  {
+    path: 'list-lesson', component: ListLessonComponent, children: [
+      {path: '', component: ItemsComponent},
+      {path: 'my-lesson', component: ItemsComponent},
+      {path: 'following-lesson', component: ItemsComponent},
+      {path: 'history-lesson', component: ItemsComponent},
+    ],
+  },
   {path: '404', component: PageNotFoundComponent},
   {path: '**', redirectTo: '/404'},
   // add this one if your path is '' when you want to redirect - pathMatch: 'full'
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    bindToComponentInputs: true,
+    urlUpdateStrategy: 'eager',
+    paramsInheritanceStrategy: 'always',
+    scrollPositionRestoration: 'top', // Chỉ định vị trí cuộn sau khi chuyển hướng
+    anchorScrolling: 'enabled',
+  })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {

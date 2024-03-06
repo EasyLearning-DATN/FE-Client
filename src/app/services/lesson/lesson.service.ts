@@ -4,7 +4,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {map, tap} from "rxjs";
 import {SharedService} from "../shared/shared.service";
 import {LessonsResponses} from "../../responses/lessons/lessons.responses";
-import { LessonDTO } from 'src/app/DTOS/lesson/lesson.dto';
+import {LessonDTO} from 'src/app/DTOS/lesson/lesson.dto';
 import {LessonResponses} from "src/app/responses/lesson/lesson.responses";
 import {Router} from "@angular/router";
 
@@ -24,8 +24,9 @@ export class LessonService {
 
   getListLessonHome() {
     let searchParams = new HttpParams();
+    searchParams = searchParams.append('sort', 'des');
     searchParams = searchParams.append('page', 0);
-    searchParams = searchParams.append('limit', 6);
+    searchParams = searchParams.append('limit', 8);
     return this.http.get<any>(this.apiGetListLesson, {
       params: searchParams,
     })
@@ -40,7 +41,7 @@ export class LessonService {
       tap((lessons: LessonsResponses) => {
         this.sharedService.lessonsHome = lessons.data;
         // console.log(lessons.data);
-        console.log(this.sharedService.lessonsHome);
+        // console.log(this.sharedService.lessonsHome);
       }));
   }
 
@@ -69,8 +70,8 @@ export class LessonService {
     console.log(token);
     return this.http.post<any>(this.apiCreateLesson, lessonDTO, {
       headers: {
-        "Authorization": `Bearer ${token}`
-      }
+        "Authorization": `Bearer ${token}`,
+      },
     })
     .pipe(
       map((response) => {
@@ -80,7 +81,7 @@ export class LessonService {
         console.log(response);
       }));
   }
-    
+
   getOneLesson(id: number) {
     return this.http.get<any>(this.apiGetOneLesson + '/' + id).pipe(
       map((response) => {
@@ -98,4 +99,51 @@ export class LessonService {
       ));
   }
 
+  deleteLesson(id: string) {
+    const token = localStorage.getItem('token');
+    return this.http.delete(this.apiDeleteLesson + '/' + id, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+  }
+
+  checkLessonOfUser(userId: string, id: string) {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('createdBy', userId);
+    searchParams = searchParams.append('id', id);
+    return this.http.get<any>(this.apiGetListLesson, {
+      params: searchParams,
+    }).pipe(
+      map((response) => {
+        let lessons: LessonsResponses = response.data;
+        lessons.data = lessons.data.map(lesson => {
+          return {...lesson, questions: lesson.questions ? lesson.questions : []};
+        });
+        return lessons;
+      }));
+  }
+
+  getAllLessons(page: number = 0) {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('sort', 'des');
+    searchParams = searchParams.append('page', page);
+    searchParams = searchParams.append('limit', 12);
+    return this.http.get<any>(this.apiGetListLesson, {
+      params: searchParams,
+    })
+    .pipe(
+      map((response) => {
+        let lessons: LessonsResponses = response.data;
+        lessons.data = lessons.data.map(lesson => {
+          return {...lesson, questions: lesson.questions ? lesson.questions : []};
+        });
+        return lessons;
+      }),
+      tap((lessons: LessonsResponses) => {
+        this.sharedService.allLessons = lessons.data;
+        console.log(lessons.data);
+        console.log(this.sharedService.allLessons);
+      }));
+  }
 }

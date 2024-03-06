@@ -7,9 +7,20 @@ import {Subject} from "rxjs";
 })
 export class SharedService {
 
-  lessonChanged = new Subject<LessonResponses[]>();
+  lessonsChanged = new Subject<LessonResponses[]>();
+  lessonChanged = new Subject<LessonResponses>();
 
   constructor() {
+  }
+
+  private _allLessons!: LessonResponses[];
+
+  get allLessons(): LessonResponses[] {
+    return this._allLessons;
+  }
+
+  set allLessons(value: LessonResponses[]) {
+    this._allLessons = value;
   }
 
   private _lessonsHome!: LessonResponses[];

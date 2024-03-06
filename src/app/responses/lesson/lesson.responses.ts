@@ -12,6 +12,11 @@
 //     "last_modified_by": "589ea2b4-3e5b-44f9-8ccc-1ce1f9bbb74e",
 //     "is_public": true,
 //     "image_url": "sđsfdfdsfds.jpg"
+// "user_info": {
+//   "id": 6,
+//     "fullName": "Tuan Kiet",
+//     "avatar": null
+// }
 // }
 // }
 import {QuestionResponses} from "../question/question.responses";
@@ -33,4 +38,9 @@ export interface LessonResponses {
     avatar: string | null;
   };
   questions: QuestionResponses[];
+  user_info: {
+    id: number;
+    fullName: string;
+    avatar: string | null;
+  };
 }
