@@ -14,9 +14,10 @@ import { SharedService } from 'src/app/services/shared/shared.service';
   styleUrls: ['./items.component.css']
 })
 export class ItemsComponent implements OnInit {
-  lessons: LessonResponses[] = [];
+  isLogin: any;
   isFetching = false;
   error = null;
+  lessons: LessonResponses[] = [];
 
   constructor(
     private router: Router,
@@ -36,16 +37,15 @@ export class ItemsComponent implements OnInit {
     const userInfo = JSON.parse(userInfoString);
     const userId = userInfo ? userInfo.id : '';
     this.isFetching = true;
-    this.lessonService.getListLessonByUser(userId).subscribe(
-      (lessons: LessonsResponses) => {
-        this.isFetching = false;
-        this.lessons = lessons.data;
-        console.log(this.lessons);
-      },
-      error => {
-        this.error = error.message;
-      }
-    );
+    this.lessonService.getListLessonByUser(userId).subscribe((lessons: LessonsResponses) => {
+      this.isFetching = false;
+      this.lessons = lessons.data;
+      console.log("Lessons: " + this.lessons);
+    }, error => {
+      this.isFetching = false;
+      this.error = error.message;
+      console.log(this.error);
+    });
   }
 
   detail() {

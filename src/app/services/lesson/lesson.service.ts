@@ -79,6 +79,7 @@ export class LessonService {
       tap((response) => {
         console.log(response);
       }));
+  }
     
   getOneLesson(id: number) {
     return this.http.get<any>(this.apiGetOneLesson + '/' + id).pipe(

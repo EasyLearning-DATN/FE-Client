@@ -32,13 +32,13 @@ export class SharedService {
     this._lesson = value;
   }
 
-  private _lessonsByUser!: LessonResponses;
+  private _lessonsByUser!: LessonResponses[];
 
-  get lessonsByUser() : LessonResponses {
+  get lessonsByUser(): LessonResponses[] {
     return this._lessonsByUser;
   }
 
-  set lessonsByUser(value: LessonResponses) {
+  set lessonsByUser(value: LessonResponses[]) {
     this._lessonsByUser = value;
   }
 }
