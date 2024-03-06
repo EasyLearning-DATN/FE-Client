@@ -21,12 +21,6 @@
 // }
 import {QuestionResponses} from "../question/question.responses";
 
-class UserInfoResponse {
-  id!: number;
-  fullName!: string;
-  avatar!: string;
-}
-
 export interface LessonResponses {
   id: string;
   name: string;
@@ -38,5 +32,9 @@ export interface LessonResponses {
   is_public: boolean;
   image_url: string;
   questions: QuestionResponses[];
-  user_info: UserInfoResponse;
+  user_info: {
+    id: number;
+    fullName: string;
+    avatar: string | null;
+  };
 }
