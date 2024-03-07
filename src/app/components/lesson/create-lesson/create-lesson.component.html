@@ -11,11 +11,8 @@
           [(ngModel)]="description" name="description"></textarea>
       </div>
       <div class="form-group p-2">
-        <label for="fileInput">Ảnh bìa: </label>
-        <label for="fileInput" class="custom-file-upload">
-           <fa-icon class="me-2" [icon]="['fas', 'cloud-upload']"></fa-icon> Chọn ảnh bìa
-        </label>
-        <input [(ngModel)]="image_url" name="image_url" id="fileInput" type="file" (change)="onFileSelected()" accept="image/*" style="display:none;"> 
+          <label class="form_label" for="">Ảnh bìa bài học: </label>
+          <input class="form-control" type="file" (change)="onFileSelected($event)" name="image_url" required>
       </div>
       <div class="form-group">
         <!-- combobox chọn loại câu hỏi -->

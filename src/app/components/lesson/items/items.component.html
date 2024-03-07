@@ -7,7 +7,7 @@
           <img alt="courses" class="card-img-top w-100" src="https://treobangron.com.vn/wp-content/uploads/2022/09/background-hoc-tap-54.jpg"/>
           <div class="content-container">
             <h5 class="font-sans-serif fw-bold fs-md-1 fs-lg-3">{{ lesson.name }}</h5>
-            <small class="text-muted">Ngày tạo: {{ lesson.created_date }}</small>
+            <small class="text-muted">Ngày tạo: {{ lesson.created_date | date}}</small>
           </div>
           <div class="card-footer">
             <div class="d-flex justify-content-between p-3">

@@ -83,8 +83,11 @@ export class CreateLessonComponent {
       );
     }
   }
-  onFileSelected() {
 
+  onFileSelected(event: any) {
+    if (event.target.files && event.target.files.length > 0) {
+      this.image_url = event.target.files[0];
+    }
   }
 
 }

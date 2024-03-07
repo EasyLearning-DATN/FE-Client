@@ -13,6 +13,10 @@
         <input class="form-control" formControlName="reason" id="floatingName" placeholder="" type="text">
         <label for="floatingName">Nội dung báo cáo</label>
       </div>
+      <label class="form_label" for="">Ảnh cụ thể: </label>
+      <div class="form-floating mb-3">
+        <input class="form-control" type="file" (change)="onFileSelected($event)" formControlName="image" required>
+      </div>
     </form>
   </div>
   <div class="modal-footer">
