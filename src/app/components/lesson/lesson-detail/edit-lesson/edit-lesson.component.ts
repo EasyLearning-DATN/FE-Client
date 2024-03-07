@@ -1,25 +1,37 @@
-import {Component, OnChanges, TemplateRef} from '@angular/core';
+import {Component, OnChanges, OnInit, TemplateRef} from '@angular/core';
 import {ModalDismissReasons, NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ConfirmModalComponent} from "../../../commons/confirm-modal/confirm-modal.component";
+import {SharedService} from "../../../../services/shared/shared.service";
+import {LessonService} from "../../../../services/lesson/lesson.service";
+import {LessonResponses} from "../../../../responses/lesson/lesson.responses";
+import {Router} from "@angular/router";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-edit-lesson',
   templateUrl: './edit-lesson.component.html',
   styleUrls: ['./edit-lesson.component.css'],
 })
-export class EditLessonComponent implements OnChanges {
+export class EditLessonComponent implements OnChanges, OnInit {
 
   updateLessonForm = new FormGroup({
-    title: new FormControl(""),
-    description: new FormControl(""),
-  });
-  private closeResult = '';
-  private file!: File;
+    name: new FormControl(this.sharedService.lesson.name, [Validators.required]),
+    description: new FormControl(this.sharedService.lesson.description, [Validators.required]),
 
-  constructor(private modalService: NgbModal, private config: NgbModalConfig) {
+  });
+  lesson !: LessonResponses;
+  image!: File;
+  private closeResult = '';
+
+  constructor(private modalService: NgbModal, private config: NgbModalConfig, private sharedService: SharedService,
+    private lessonService: LessonService, private router: Router) {
     config.backdrop = 'static';
     config.keyboard = false;
+  }
+
+  ngOnInit() {
+    this.lesson = this.sharedService.lesson;
   }
 
   ngOnChanges(): void {
@@ -51,8 +63,46 @@ export class EditLessonComponent implements OnChanges {
     // window.alert("Cập nhật bài học thành công")
   }
 
-  onDelete() {
+  openConfirmDelete() {
+    const modalConfirm = this.modalService.open(ConfirmModalComponent);
+    // modalConfirm.componentInstance.title ="";
+    modalConfirm.componentInstance.body = "Bạn có chắc chắn muốn xóa bài học này không?";
+    modalConfirm
+    .result.then(
+      (result) => {
+        this.closeResult = `Closed with: ${result}`;
+        console.log(this.closeResult);
+        if (result === 'Confirm') {
+          this.lessonService.deleteLesson(this.sharedService.lesson.id).subscribe(
+            (response) => {
+              Swal.fire({
+                icon: 'success',
+                title: 'Xóa bài học thành công!',
+                text: 'Bạn đã xóa bài học này, bạn sẽ được đưa về trang danh sách bài học!',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK',
+              });
+              this.modalService.dismissAll('Delete lesson success!');
+              this.router.navigate(['/']);
+            }, error => {
+              Swal.fire({
+                icon: 'error',
+                title: 'Xóa bài học thất bại!',
+                text: 'Bài học không thể xóa!',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK',
+              });
+            },
+          );
+          console.log(result);
+        }
 
+      },
+      (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        console.log(this.closeResult);
+      },
+    );
   }
 
   openEdit(content: TemplateRef<any>) {
@@ -69,17 +119,17 @@ export class EditLessonComponent implements OnChanges {
     );
   }
 
-  openConfirm(file: any) {
+  openConfirmSave(file: any) {
     const modalConfirm = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    // modalConfirm.componentInstance.body = "";
+    modalConfirm.componentInstance.body = "Bạn có chắc chắn muốn lưu không?";
     modalConfirm
     .result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.closeResult);
         if (result === 'Confirm') {
-          this.file = file;
+          this.image = file;
           this.onUpdate();
           console.log(result);
         }
@@ -90,6 +140,12 @@ export class EditLessonComponent implements OnChanges {
         console.log(this.closeResult);
       },
     );
+  }
+
+  onFileSelected(event: any) {
+    if (event.target.files && event.target.files.length > 0) {
+      this.image = event.target.files[0];
+    }
   }
 
   private getDismissReason(reason: any): string {
