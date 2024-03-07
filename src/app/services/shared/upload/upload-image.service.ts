@@ -1,5 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import { map } from 'rxjs';
+import { ImageResponses } from 'src/app/responses/image/image.responses';
 import {environment} from 'src/environments/environments';
 
 @Injectable({
@@ -20,7 +22,14 @@ export class UploadImageService {
       Authorization: `Bearer ${token}`,
     };
     formData.append('file', image);
-    return this.http.post(this.apiUploadImage, formData, {headers});
+    return this.http.post(this.apiUploadImage, formData, {headers})
+      .pipe(
+        map((response: any) => {
+          const imageResponse: ImageResponses = response.data;
+          return imageResponse;
+        })
+      );
   }
+
 
 }

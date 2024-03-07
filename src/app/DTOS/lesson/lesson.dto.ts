@@ -9,6 +9,6 @@ export class LessonDTO {
   description: string | undefined;
 
   @IsString()
-  image_url: string | undefined;
+  image_id: string | undefined;
 
 }
