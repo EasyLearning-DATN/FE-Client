@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { image } from 'ngx-bootstrap-icons';
+import { Observable, switchMap } from 'rxjs';
 import { ReportDTO } from 'src/app/DTOS/report/report.dto';
 import { environment } from 'src/environments/environments';
 
@@ -17,7 +18,7 @@ export class ReportService {
     private router: Router
   ) { }
 
-  sendReport(reportDTO: ReportDTO) {
+  sendReport(reportDTO: ReportDTO, imageReport: any): Observable<any> {
     console.log('này trong api: ' + reportDTO);
     const token = localStorage.getItem('token') || 'null';
     return this.http.post(this.apiReport, reportDTO, {
@@ -26,4 +27,5 @@ export class ReportService {
       }
     });
   }
+  
 }

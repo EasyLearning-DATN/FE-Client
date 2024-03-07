@@ -17,10 +17,12 @@ export class ReportlessonComponent {
   // @ViewChild('reportForm', { static: false }) reportForm! : NgForm;
   targetId: string = '';
   reason: string = '';
+  image: string = '';
   type: string = '';
 
   reportLesson = new FormGroup({
-    reason: new FormControl("")
+    reason: new FormControl(""),
+    image: new FormControl("")
   });
 
 
@@ -46,7 +48,7 @@ export class ReportlessonComponent {
     reportDTO.targetId = this.targetId;
     reportDTO.reason = this.reportLesson.get("reason")?.value || "";
     reportDTO.type = "LESSON";
-    this.reportService.sendReport(reportDTO).subscribe(
+    this.reportService.sendReport(reportDTO, this.image).subscribe(
       response => {
         console.log(response);
         Swal.fire({
@@ -73,6 +75,12 @@ export class ReportlessonComponent {
         console.log(error);
       }
     );
+  }
+
+  onFileSelected(event: any) {
+    if (event.target.files && event.target.files.length > 0) {
+      this.image = event.target.files[0];
+    }
   }
 
   openEdit(content: TemplateRef<any>) {

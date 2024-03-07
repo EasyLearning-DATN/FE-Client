@@ -30,7 +30,8 @@
               <div class="row">
                 <div class="col">
                   <label class="form_label" for="">Họ và tên</label>
-                  <input class="form-control" type="text" [(ngModel)]="fullName" name="fullName" placeholder="Nhập tên ..." required>
+                  <input class="form-control" type="text" [(ngModel)]="fullName" name="fullName"
+                    placeholder="Nhập tên ..." required>
                   <div *ngIf="signupF['controls']['fullName'].dirty && signupF['controls']['fullName'].errors">
                     <small class="error_msg" *ngIf="signupF['controls']['fullName'].errors['required']">* Không được bỏ
                       trống</small>
@@ -38,7 +39,8 @@
                 </div>
                 <div class="col">
                   <label class="form_label" for="">Email</label>
-                  <input class="form-control" type="text" [(ngModel)]="email" name="email" placeholder="Nhập email ..." required>
+                  <input class="form-control" type="text" [(ngModel)]="email" name="email" placeholder="Nhập email ..."
+                    required>
                   <div *ngIf="signupF['controls']['email'].dirty && signupF['controls']['email'].errors">
                     <small class="error_msg" *ngIf="signupF['controls']['email'].errors['required']">* Email không đúng
                       định dạng</small>
@@ -48,16 +50,23 @@
                 <div class="col">
                   <label class="form_label" for="">Ngày sinh</label>
                   <input class="form-control" type="date" [(ngModel)]="dayOfBirth" name="dayOfBirth" required>
-                   <div *ngIf="signupF['controls']['dayOfBirth'].dirty && signupF['controls']['dayOfBirth'].errors">
-                    <small class="error_msg" *ngIf="signupF['controls']['dayOfBirth'].errors['required']">* Không được bỏ
+                  <div *ngIf="signupF['controls']['dayOfBirth'].dirty && signupF['controls']['dayOfBirth'].errors">
+                    <small class="error_msg" *ngIf="signupF['controls']['dayOfBirth'].errors['required']">* Không được
+                      bỏ
                       trống</small>
                   </div>
                 </div>
               </div>
             </div>
             <div class="form_group mb-2">
+              <!-- upload avatar -->
+              <div class="col">
+                <label class="form_label" for="">Ảnh đại diện</label>
+                <input class="form-control" type="file" (change)="onFileSelected($event)" name="avatar" required>
+              </div>
               <label class="form_label" for="">Tên đăng nhập</label>
-              <input class="form-control" type="text" [(ngModel)]="username" name="username" placeholder="Nhập tên đăng nhập ..." required>
+              <input class="form-control" type="text" [(ngModel)]="username" name="username"
+                placeholder="Nhập tên đăng nhập ..." required>
               <div *ngIf="signupF['controls']['username'].dirty && signupF['controls']['username'].errors">
                 <small class="error_msg" *ngIf="signupF['controls']['username'].errors['required']">* Tên đăng nhập
                   không được để trống!</small>
@@ -71,7 +80,8 @@
                 <label class="form_label" for="">Mật khẩu</label>
                 <a [routerLink]="['/fogot-password']" class="forgot_pass-link">Quên mật khẩu</a>
               </div>
-              <input class="form-control" type="password" [(ngModel)]="password" name="password" placeholder="Nhập mật khẩu ..." required>
+              <input class="form-control" type="password" [(ngModel)]="password" name="password"
+                placeholder="Nhập mật khẩu ..." required>
               <div *ngIf="signupF['controls']['password'].dirty &&  signupF['controls']['password'].errors">
                 <small class="error_msg" *ngIf="signupF['controls']['password'].errors['required']"> * Mật khẩu không
                   được để trống</small>
@@ -136,8 +146,8 @@
                 <a [routerLink]="['/fogot-password']" class="forgot_pass-link">Quên mật khẩu</a>
               </div>
 
-              <input class="form-control" [(ngModel)]="loginPassword" name="loginPassword" type="password" placeholder="Nhập mật khẩu ..."
-                required>
+              <input class="form-control" [(ngModel)]="loginPassword" name="loginPassword" type="password"
+                placeholder="Nhập mật khẩu ..." required>
               <div *ngIf="loginF['controls']['password'].dirty &&  loginF['controls']['password'].errors">
                 <small class="error_msg" *ngIf="loginF['controls']['password'].errors['required']"> *** Mật khẩu không
                   được để trống</small>

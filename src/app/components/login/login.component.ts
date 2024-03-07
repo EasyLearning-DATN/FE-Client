@@ -30,6 +30,7 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
   fullName: string = '';
+  avatar: string = '';
   email: string = '';
   dayOfBirth: string = '';
   loginF: FormGroup = new FormGroup(
@@ -103,9 +104,11 @@ export class LoginComponent {
         username: this.username,
         password: this.password,
         fullName: this.fullName,
+        avatar: this.avatar,
         email: this.email,
         dayOfBirth: this.dayOfBirth
       };
+      console.log(this.avatar);
       this.userService.signUp(SignupDTO).subscribe(
         data => {
           Swal.fire({
@@ -124,6 +127,12 @@ export class LoginComponent {
           console.log(error);
         }
       );
+    }
+  }
+
+  onFileSelected(event: any) {
+    if (event.target.files && event.target.files.length > 0) {
+      this.avatar = event.target.files[0];
     }
   }
 

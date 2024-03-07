@@ -1,25 +1,28 @@
-import {
-     IsString,
-     IsNotEmpty,
-     IsDate
-} from 'class-validator';
+     import {
+          IsString,
+          IsNotEmpty,
+          IsDate
+     } from 'class-validator';
 
-export class SignupDTO {
-   @IsString()
-   username: string | undefined;
+     export class SignupDTO {
+     @IsString()
+     username: string | undefined;
 
-   @IsString()
-   fullName: string | undefined;
+     @IsString()
+     fullName: string | undefined;
 
-    @IsString()
-    @IsNotEmpty()
-    email: string | undefined;
+     @IsString()
+     @IsNotEmpty()
+     email: string | undefined;
 
-    @IsString()
-    @IsNotEmpty()
-    password: string | undefined;
+     @IsString()
+     avatar: string | undefined;
 
-    @IsString()
-    dayOfBirth: string | undefined;
-}
+     @IsString()
+     @IsNotEmpty()
+     password: string | undefined;
+
+     @IsString()
+     dayOfBirth: string | undefined;
+     }
 

@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     // truyển userResponse từ localStorage
     this.userResponse = JSON.parse(localStorage.getItem('userInfo') || '');
+    this.avatar = this.userResponse?.avatar;
   }
 
   onLogout() {
