@@ -7,6 +7,8 @@ import { ReportService } from 'src/app/services/report/report.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { UploadImageService } from 'src/app/services/shared/upload/upload-image.service';
+import { ImageResponses } from 'src/app/responses/image/image.responses';
 
 @Component({
   selector: 'app-reportlesson',
@@ -31,6 +33,7 @@ export class ReportlessonComponent {
   constructor(private modalService: NgbModal,
     private config: NgbModalConfig,
     private reportService: ReportService,
+    private imgUpload : UploadImageService,
     private router: Router
   ) {
     const urlParts = window.location.pathname.split('/');
@@ -43,38 +46,55 @@ export class ReportlessonComponent {
 
   }
 
+  // xử lý upload ảnh
+  onSubmit() {
+    this.imgUpload.uploadImage(this.image, localStorage.getItem('token')).subscribe(
+      (res : ImageResponses) => {
+        this.image = res.public_id;
+        console.log(res.public_id);
+        this.sendReport();
+    }, error => {
+      console.log(error);
+    });
+  }
+
   sendReport() {
-    const reportDTO = new ReportDTO();
-    reportDTO.targetId = this.targetId;
-    reportDTO.reason = this.reportLesson.get("reason")?.value || "";
-    reportDTO.type = "LESSON";
-    this.reportService.sendReport(reportDTO, this.image).subscribe(
-      response => {
-        console.log(response);
-        Swal.fire({
-          icon: 'success',
-          title: 'Gửi báo cáo thành công',
-          showConfirmButton: false,
-          confirmButtonColor: '#3085d6',
-          confirmButtonText: 'OK',
-          timer: 1500
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.router.navigate(['/']);
-          }
-        });
-      }, error => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Gửi báo cáo thất bại',
-          showConfirmButton: false,
-          confirmButtonColor: '#3085d6',
-          confirmButtonText: 'OK',
-          timer: 1500
-        });
-        console.log(error);
-      }
-    );
+    if (this.image) {
+      const reportDTO = new ReportDTO();
+      reportDTO.targetId = this.targetId;
+      reportDTO.reason = this.reportLesson.get("reason")?.value || "";
+      reportDTO.type = "LESSON";
+      console.log(this.image);
+      this.reportService.sendReport(reportDTO, this.image).subscribe(
+        response => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Gửi báo cáo thành công',
+            showConfirmButton: false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
+            timer: 1500
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/']);
+            }
+          });
+        }, error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Gửi báo cáo thất bại',
+            showConfirmButton: false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
+            timer: 1500
+          });
+          console.log(error);
+        }
+      );
+    } else {
+      // Nếu ảnh chưa được upload, hiển thị thông báo hoặc xử lý phù hợp ở đây
+      console.log("Vui lòng chờ cho đến khi ảnh được upload.");
+    }
   }
 
   onFileSelected(event: any) {

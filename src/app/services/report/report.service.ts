@@ -5,6 +5,7 @@ import { image } from 'ngx-bootstrap-icons';
 import { Observable, switchMap } from 'rxjs';
 import { ReportDTO } from 'src/app/DTOS/report/report.dto';
 import { environment } from 'src/environments/environments';
+import { UploadImageService } from '../shared/upload/upload-image.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,18 +13,22 @@ import { environment } from 'src/environments/environments';
 export class ReportService {
 
   private apiReport = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_REPORT;
-
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private imageSrv: UploadImageService,
   ) { }
 
   sendReport(reportDTO: ReportDTO, imageReport: any): Observable<any> {
-    console.log('này trong api: ' + reportDTO);
+    const formData = new FormData();
+    formData.append('reportRQ', JSON.stringify(reportDTO));
+    formData.append('image', imageReport);
+    console.log(imageReport);
     const token = localStorage.getItem('token') || 'null';
-    return this.http.post(this.apiReport, reportDTO, {
+    return this.http.post(this.apiReport, formData, {
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
       }
     });
   }
