@@ -10,12 +10,15 @@
   <div class="modal-body">
     <form [formGroup]="updateLessonForm">
       <div class="form-floating mb-3">
-        <input class="form-control" formControlName="title" id="floatingName" placeholder="" type="text"> <label
+        <input class="form-control" formControlName="name" id="floatingName" placeholder="" type="text"> <label
         for="floatingName">Tên bài học</label>
       </div>
       <div class="mb-3">
         <label class="form-label" for="inputImage">Ảnh</label>
-        <input #fileImage accept="image/*" class="form-control" id="inputImage" placeholder="Ảnh" type="file">
+        <input (change)="onFileSelected($event)" accept="image/*" class="form-control" formControlName="image" id="inputImage"
+               placeholder="Ảnh"
+               type="file">
+        <span>Ảnh đã chọn: {{ lesson.image.url }}</span>
       </div>
       <div class="form-floating mb-3">
 				<textarea class="form-control" formControlName="description" id="floatingDescription" placeholder="" rows="30"
@@ -26,8 +29,8 @@
     <app-edit-questions></app-edit-questions>
   </div>
   <div class="modal-footer">
-    <button (click)="openConfirm( fileImage)" class="btn btn-app">Save</button>
-    <button (click)="onDelete()" class="btn btn-app-warning">Delete</button>
+    <button (click)="openConfirmSave( image)" class="btn btn-app">Save</button>
+    <button (click)="openConfirmDelete()" class="btn btn-app-warning">Delete</button>
     <button (click)="d('Close click')" class="btn btn-app" type="button">Close</button>
   </div>
 </ng-template>
