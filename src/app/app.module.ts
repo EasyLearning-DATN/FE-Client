@@ -95,6 +95,7 @@ import {ReportlessonComponent} from "./components/lesson/reportlesson/reportless
     NgbModule,
     FormsModule,
     FontAwesomeModule,
+    NgOptimizedImage,
     NgxBootstrapIconsModule.pick(allIcons, {}),
     NgOptimizedImage,
     HttpClientModule,
@@ -130,6 +131,12 @@ import {ReportlessonComponent} from "./components/lesson/reportlesson/reportless
     {
       provide: LocationStrategy, useClass: PathLocationStrategy,
     },
+    // {
+    //   provide: IMAGE_LOADER,
+    //   useValue: (config: ImageLoaderConfig) => {
+    //     return ``;
+    //   },
+    // },
   ],
   bootstrap: [AppComponent],
 })

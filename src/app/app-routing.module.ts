@@ -13,6 +13,8 @@ import {LessonLearnComponent} from "./components/lesson/lesson-detail/lesson-lea
 import {ConfirmComponent} from './components/forget-password/confirm/confirm.component';
 import {lessonResolver} from "./resolver/lesson.resolver";
 import {ItemsComponent} from "./components/lesson/items/items.component";
+import {questionTypeResolver} from "./resolver/question.type.resolver";
+import {questionsResolver} from "./resolver/questions.resolver";
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -23,7 +25,7 @@ const routes: Routes = [
   {
     path: 'lesson', component: LessonComponent, children: [
       {
-        path: ':id', component: LessonDetailComponent, resolve: [lessonResolver], children: [
+        path: ':id', component: LessonDetailComponent, resolve: [lessonResolver, questionTypeResolver, questionsResolver], children: [
           {path: '', component: FlashcardComponent},
           {path: 'flashcard', component: FlashcardComponent},
           {path: 'learn', component: LessonLearnComponent},
@@ -40,6 +42,7 @@ const routes: Routes = [
       {path: 'history-lesson', component: ItemsComponent},
     ],
   },
+  // {path: 'demo/add-question', component: AddQuestionsComponent, resolve: [questionTypeResolver]},
   {path: '404', component: PageNotFoundComponent},
   {path: '**', redirectTo: '/404'},
   // add this one if your path is '' when you want to redirect - pathMatch: 'full'

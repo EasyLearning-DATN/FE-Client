@@ -8,7 +8,10 @@
     </span>
   </div>
   <div class="title ms-1 mt-2">
-    <p>{{ "Đây là câu hỏi mẫu" | shortenText : 80 }}</p>
+    <span>{{ question.title | shortenText : 80 }}</span>
+  </div>
+  <div class="title ms-1 mt-2">
+    <span>{{ 'Trọng số: ' + question.weighted }}</span>
   </div>
   <div class="answer-title ms-1 mt-1 fw-semi-bold">
     <span>{{ "lesson.lesson-learn.lesson-learn-item.answer-title" | translate }}</span>
@@ -17,30 +20,16 @@
   <div [ngSwitch]="nameCode">
     <div *ngSwitchCase="'fitb'">
       <div class="answer mt-1 ms-1">
-        <input *ngFor="let answer of answers" [ngModel]="answer" class="form-control mt-2" disabled readonly style="width: 90% !important"
+        <input *ngFor="let answer of question.answers" [ngModel]="answer.value" class="form-control mt-2" disabled readonly
+               style="width: 90% !important"
                type="text">
       </div>
     </div>
     <div *ngSwitchDefault class="row">
-      <div class="answer col-6 d-flex align-items-center mt-1">
-        <i-bs *ngIf="!isCorrect" class="text-danger" name="x"></i-bs>
-        <i-bs *ngIf="isCorrect" class="text-info" name="check"></i-bs>
-        <span class="ms-1">{{ 'This is an answer!' | shortenText : 30 }}</span>
-      </div>
-      <div class="answer col-6 d-flex align-items-center mt-1">
-        <i-bs *ngIf="!isCorrect" class="text-danger" name="x"></i-bs>
-        <i-bs *ngIf="isCorrect" class="text-info" name="check"></i-bs>
-        <span class="ms-1">{{ 'This is an answer!' | shortenText : 30 }}</span>
-      </div>
-      <div class="answer col-6 d-flex align-items-center mt-1">
-        <i-bs *ngIf="!isCorrect" class="text-danger" name="x"></i-bs>
-        <i-bs *ngIf="isCorrect" class="text-info" name="check"></i-bs>
-        <span class="ms-1">{{ 'This is an answer!' | shortenText : 30 }}</span>
-      </div>
-      <div class="answer col-6 d-flex align-items-center mt-1">
-        <i-bs *ngIf="!isCorrect" class="text-danger" name="x"></i-bs>
-        <i-bs *ngIf="isCorrect" class="text-info" name="check"></i-bs>
-        <span class="ms-1">{{ 'This is an answer!' | shortenText : 30 }}</span>
+      <div *ngFor="let answer of question.answers" class="answer col-6 d-flex align-items-center mt-1">
+        <i-bs *ngIf="!answer.is_correct" class="text-danger" name="x"></i-bs>
+        <i-bs *ngIf="answer.is_correct" class="text-info" name="check"></i-bs>
+        <span class="ms-1">{{ answer.value | shortenText : 30 }}</span>
       </div>
     </div>
   </div>
