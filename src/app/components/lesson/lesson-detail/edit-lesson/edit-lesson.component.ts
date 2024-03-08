@@ -50,12 +50,20 @@ export class EditLessonComponent implements OnInit {
     console.log(this.image);
     if (this.image !== '') {
       const token = localStorage.getItem("token");
+      Swal.fire({
+        title: 'Đang cập nhật bài học...',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
       this.imageService.uploadImage(this.image, token).subscribe(
         (response) => {
           const image_id = response.public_id;
           console.log(response.public_id);
           this.updateLesson(image_id);
         }, error => {
+          Swal.close();
           Swal.fire({
             icon: 'error',
             title: 'Không thể cập nhật hình ảnh!',
@@ -81,6 +89,7 @@ export class EditLessonComponent implements OnInit {
     .subscribe(
       (response) => {
         console.log(response);
+        Swal.close();
         Swal.fire({
           icon: 'success',
           title: 'Sửa bài học thành công!',
@@ -96,6 +105,7 @@ export class EditLessonComponent implements OnInit {
           });
         this.modalService.dismissAll('Update success!');
       }, error => {
+        Swal.close();
         Swal.fire({
           icon: 'error',
           title: 'Sửa bài học thất bại!',
@@ -117,6 +127,13 @@ export class EditLessonComponent implements OnInit {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.closeResult);
         if (result === 'Confirm') {
+          Swal.fire({
+            title: 'Đang đăng ký...',
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            },
+          });
           this.imageService.deleteImage(this.lesson.image.public_id).subscribe(
             (response) => {
               console.log(response);
@@ -126,6 +143,7 @@ export class EditLessonComponent implements OnInit {
           );
           this.lessonService.deleteLesson(this.sharedService.lesson.id).subscribe(
             (response) => {
+              Swal.close();
               Swal.fire({
                 icon: 'success',
                 title: 'Xóa bài học thành công!',
@@ -136,6 +154,7 @@ export class EditLessonComponent implements OnInit {
               this.modalService.dismissAll('Delete lesson success!');
               this.router.navigate(['/']);
             }, error => {
+              Swal.close();
               Swal.fire({
                 icon: 'error',
                 title: 'Xóa bài học thất bại!',
