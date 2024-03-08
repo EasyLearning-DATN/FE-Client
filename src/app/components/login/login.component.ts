@@ -10,9 +10,9 @@ import {
 import { UserService } from 'src/app/services/user/user-service.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import {UserResponse} from "../../responses/user/user.responses";
-import {LoginDTO} from "../../dtos/user/login.dto";
-import {SignupDTO} from "../../dtos/user/signup.dto";
+import { UserResponse } from "../../responses/user/user.responses";
+import { LoginDTO } from "../../dtos/user/login.dto";
+import { SignupDTO } from "../../dtos/user/signup.dto";
 
 
 @Component({
@@ -60,35 +60,47 @@ export class LoginComponent {
         username: this.loginUserName,
         password: this.loginPassword
       };
-      console.log(loginDTO);
+      Swal.fire({
+        title: 'Đang đăng nhập...',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
       this.userService.login(loginDTO).subscribe(
         (response: any) => {
           const token = response.data.token;
+          // lấy user info và đưa thông tin vào userResponse
+          this.userService.getUserInfo(token).subscribe(
+            (data: any) => {
+              const userInfo = data.data;
+              // set userInfo vào UserResponse
+              this.userResponse = userInfo;
+              localStorage.setItem('userInfo', JSON.stringify(this.userResponse));
+              localStorage.setItem('token', token);
+              location.assign('/');
+              console.log(this.userResponse);
+            }
+          )
           Swal.fire({
             icon: 'success',
             title: 'Đăng nhập thành công!',
             text: 'Bạn đã đăng nhập thành công tài khoản!',
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'OK'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              // lấy user info và đưa thông tin vào userResponse
-              this.userService.getUserInfo(token).subscribe(
-                (data : any) => {
-                  const userInfo = data.data;
-                  // set userInfo vào UserResponse
-                  this.userResponse = userInfo;
-                  localStorage.setItem('userInfo', JSON.stringify(this.userResponse));
-                  localStorage.setItem('token', token);
-                  location.assign('/');
-                  console.log(this.userResponse);
-                }
-              )
-            }
           });
         },
         error => {
           console.log(error);
+          Swal.close(); // Đóng SweetAlert hiển thị hiệu ứng loading nếu có lỗi xảy ra
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Đăng nhập thất bại',
+            text: 'Có lỗi xảy ra trong quá trình đăng nhập. Vui lòng thử lại sau.',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+          });
         }
       );
     } else {
@@ -108,9 +120,16 @@ export class LoginComponent {
         email: this.email,
         dayOfBirth: this.dayOfBirth
       };
-      console.log(this.avatar);
+      Swal.fire({
+        title: 'Đang đăng ký...',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
       this.userService.signUp(SignupDTO).subscribe(
         data => {
+          Swal.close();
           Swal.fire({
             icon: 'success',
             title: 'Đăng ký thành công!',
@@ -125,6 +144,14 @@ export class LoginComponent {
         },
         error => {
           console.log(error);
+          Swal.close();
+          Swal.fire({
+            icon: 'error',
+            title: 'Đăng ký thất bại',
+            text: 'Có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại sau.',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+          });
         }
       );
     }

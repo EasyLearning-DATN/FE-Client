@@ -4,6 +4,7 @@ import { NgbDropdownConfig } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateService } from "@ngx-translate/core";
 import { UserResponse } from 'src/app/responses/user/user.responses';
 import { UserService } from 'src/app/services/user/user-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -30,6 +31,13 @@ export class HeaderComponent implements OnInit {
 
   onLogout() {
     const token = localStorage.getItem('token') || '';
+    Swal.fire({
+      title: 'Đang đăng xuất...',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
     this.userService.logout(token).subscribe(res => {
       localStorage.removeItem('userInfo');
       localStorage.removeItem('token');

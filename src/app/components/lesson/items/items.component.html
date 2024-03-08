@@ -2,19 +2,17 @@
   <div class="container">
     <div class="row">
       <div (click)="detail()" *ngFor="let lesson of lessons" class="col-md-4 mb-4">
-        <div class="card h-100 lesson_item">
-          <!-- <img class="card-img-top w-100" src="{{lesson.image_url}}" alt="courses" /> -->
-          <img alt="courses" class="card-img-top w-100" src="https://treobangron.com.vn/wp-content/uploads/2022/09/background-hoc-tap-54.jpg"/>
-          <div class="content-container">
-            <h5 class="font-sans-serif fw-bold fs-md-1 fs-lg-3">{{ lesson.name }}</h5>
-            <small class="text-muted">Ngày tạo: {{ lesson.created_date | date}}</small>
-          </div>
-          <div class="card-footer">
-            <div class="d-flex justify-content-between p-3">
-              <img alt="img" src="/assets/img/commons/default_user.jpeg" width="40">
-              <div class="align-items-center">
-                <a class="btn btn-primary">Xem chi tiết</a>
-              </div>
+        <div class="card lesson_item">
+          <img alt="courses" class="card-img-top w-100" src="{{ lesson.image.url }}"/>
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              <h5 class="font-sans-serif fw-bold fs-md-1 fs-lg-3">{{ lesson.name }}</h5>
+              <small class="text-muted">Ngày tạo: {{ lesson.created_date | date}}</small>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <img [src]="lesson.user_info.avatar.url" alt="img" class="avatar lesson-avatar"/>
+              <span class="ms-1">{{ lesson.user_info.fullName | titlecase }}</span>
+              <a class="btn btn-primary">Xem chi tiết</a>
             </div>
           </div>
         </div>

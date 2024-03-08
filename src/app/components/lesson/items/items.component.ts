@@ -75,7 +75,7 @@ export class ItemsComponent implements OnInit, OnDestroy {
     const userInfo = JSON.parse(userInfoString);
     const userId = userInfo ? userInfo.id : '';
     this.isFetching = true;
-
+    console.log(userId);
     this.lessonService.getListLessonByUser(userId).subscribe(
       (lessons: LessonsResponses) => {
         this.isFetching = false;
