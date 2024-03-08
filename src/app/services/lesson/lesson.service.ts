@@ -15,8 +15,8 @@ export class LessonService {
   private apiGetListLesson = environment.API_URL + environment.API_PUBLIC + environment.VERSION_1 + environment.API_LESSON;
   private apiGetOneLesson = environment.API_URL + environment.API_PUBLIC + environment.VERSION_1 + environment.API_LESSON;
   private apiCreateLesson = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_LESSON;
-  private apiUpdateLesson = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_LESSON + environment.ID;
-  private apiDeleteLesson = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_LESSON + environment.ID;
+  private apiUpdateLesson = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_LESSON;
+  private apiDeleteLesson = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_LESSON;
   private apiGetListLessonByUser = environment.API_URL + environment.API_PUBLIC + environment.VERSION_1 + environment.API_LESSON;
 
   constructor(private http: HttpClient, private sharedService: SharedService, private router: Router) {
@@ -82,6 +82,7 @@ export class LessonService {
       }));
   }
 
+
   getOneLesson(id: number) {
     return this.http.get<any>(this.apiGetOneLesson + '/' + id).pipe(
       map((response) => {
@@ -145,5 +146,15 @@ export class LessonService {
         console.log(lessons.data);
         console.log(this.sharedService.allLessons);
       }));
+  }
+
+  updateLesson(id: string, lessonDTO: LessonDTO) {
+    const token = localStorage.getItem('token');
+    return this.http.put(this.apiUpdateLesson + '/' + id, lessonDTO, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+
   }
 }

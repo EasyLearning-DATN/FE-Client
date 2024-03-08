@@ -1,1 +1,164 @@
-<p>edit-questions works!</p>
+<button (click)="openAddQuestions(modal)" class="btn btn-app ms-3">
+  <fa-icon [icon]="['far','pen-to-square']"></fa-icon>
+  Sửa câu hỏi
+</button>
+<ng-template #modal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Thêm câu hỏi</h4>
+    <button (click)="d('Cross click')" aria-label="Close" class="btn-close" type="button"></button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="editQuestionForm">
+      <div formArrayName="questions">
+        <div *ngFor="let question of questionControls; let idx = index" [formGroupName]="idx">
+          <div class="form-group mb-3">
+            <label for="type">Question Type</label>
+            <select (change)="changeType($event, idx)" class="form-select mb-3" formControlName="question_type_id" id="type">
+              <option *ngFor="let qType of questionTypes" [ngValue]="qType.code">{{ qType.name }}</option>
+            </select>
+            <div [ngSwitch]="question.get('question_type_id')?.value">
+              <div *ngSwitchCase="'fitb'">
+                <div class="form-group mb-3">
+                  <label class="form-label">Câu hỏi:</label>
+                  <input class="form-control mb-2" formControlName="title" type="text">
+                  <span *ngIf="!question.get('title')?.valid && question.get('title')?.touched"
+                        class="text-danger">
+                     <span *ngIf="question.get('title')?.errors?.['required']">Vui lòng nhập câu hỏi!</span>
+                  </span>
+                </div>
+                <div class="form-group mb-3">
+                  <label class="form-label">Trọng số:</label>
+                  <input class="form-control mb-2" formControlName="weighted" type="number">
+                  <span *ngIf="!question.get('weighted')?.valid && question.get('weighted')?.touched"
+                        class="text-danger">
+                     <span *ngIf="question.get('weighted')?.errors?.['required']">Vui lòng nhập trọng số điểm!</span>
+                     <span *ngIf="question.get('weighted')?.errors?.['pattern']">Vui lòng nhập số!</span>
+                  </span>
+                </div>
+                <div class="form-group mb-3" formArrayName="answers">
+                  <label class="form-label">Đáp án:</label>
+                  <div *ngFor="let answer of getAnswerControls(idx); let i = index" [formGroupName]="i">
+                    <input class="form-control mb-2" formControlName="value" type="text">
+                    <span *ngIf="!answer.get('value')?.valid && answer.get('value')?.touched"
+                          class="text-danger">
+                     <span *ngIf="answer.get('value')?.errors?.['required']">Vui lòng nhập câu trả lời đúng!</span>
+                  </span>
+                  </div>
+                </div>
+                <button (click)="onAddNewFITBAnswer(idx)" class="btn btn-app mb-3">
+                  <i-bs height="20"
+                        name="plus-square-dotted"
+                        width="20">
+                  </i-bs>
+                  Thêm đáp án
+                </button>
+              </div>
+              <div *ngSwitchCase="'mca'">
+                <div class="form-group mb-3">
+                  <label class="form-label">Câu hỏi:</label>
+                  <input class="form-control mb-2" formControlName="title" type="text">
+                  <span *ngIf="!question.get('title')?.valid && question.get('title')?.touched"
+                        class="text-danger">
+                     <span *ngIf="question.get('title')?.errors?.['required']">Vui lòng nhập câu hỏi!</span>
+                  </span>
+                </div>
+                <div class="form-group mb-3">
+                  <label class="form-label">Trọng số:</label>
+                  <input class="form-control mb-2" formControlName="weighted" type="text">
+                  <span *ngIf="!question.get('weighted')?.valid && question.get('weighted')?.touched"
+                        class="text-danger">
+                     <span *ngIf="question.get('weighted')?.errors?.['required']">Vui lòng nhập trọng số điểm!</span>
+                     <span *ngIf="question.get('weighted')?.errors?.['pattern']">Vui lòng nhập số!</span>
+                  </span>
+                </div>
+                <div class="form-group mb-3" formArrayName="answers">
+                  <label class="form-label">Đáp án:</label>
+                  <div *ngFor="let answer of getAnswerControls(idx); let i = index" [formGroupName]="i" class="form-check">
+                    <input class="form-check-input" formControlName="is_correct" id="answer{{i}}" type="checkbox" value="true">
+                    <input class="form-control mb-2" formControlName="value" type="text">
+                    <span
+                      *ngIf="!answer.get('value')?.valid && answer.get('value')?.touched"
+                      class="text-danger">
+                     <span *ngIf="answer.get('value')?.errors?.['required']">Vui lòng nhập câu trả lời!</span>
+                  </span>
+                  </div>
+                </div>
+              </div>
+              <div *ngSwitchDefault>
+                <div class="form-group mb-3">
+                  <label class="form-label">Câu hỏi:</label>
+                  <input class="form-control mb-2" formControlName="title" type="text">
+                </div>
+                <div class="form-group mb-3">
+                  <label class="form-label">Trọng số:</label>
+                  <input class="form-control mb-2" formControlName="weighted" type="text">
+                </div>
+                <div class="form-group mb-3" formArrayName="answers">
+                  <label class="form-label">Đáp án:</label>
+                  <div class="mb-3" formGroupName="0">
+                    <label class="form-label">Đáp án sai:</label>
+                    <input class="form-control mb-2" formControlName="value" type="text">
+                    <!--                     Nó bị gạch chân thì kệ nó nha, đừng sửa -->
+                    <span
+                      *ngIf="!question.get('answers')?.get([0, 'value'])?.valid && question.get('answers')?.get([0, 'value'])?.touched"
+                      class="text-danger">
+                    <span *ngIf="question.get('answers')?.get([0, 'value'])?.errors?.['required']">Vui lòng nhập câu trả lời!</span>
+                                      </span>
+                  </div>
+                  <div class="mb-3" formGroupName="1">
+                    <label class="form-label">Đáp án sai:</label>
+                    <input class="form-control mb-2" formControlName="value" type="text">
+                    <!--                     Nó bị gạch chân thì kệ nó nha, đừng sửa -->
+                    <span
+                      *ngIf="!question.get('answers')?.get([1, 'value'])?.valid && question.get('answers')?.get([1, 'value'])?.touched"
+                      class="text-danger">
+                    <span *ngIf="question.get('answers')?.get([1, 'value'])?.errors?.['required']">Vui lòng nhập câu trả lời!</span>
+                                      </span>
+                  </div>
+                  <div class="mb-3" formGroupName="2">
+                    <label class="form-label">Đáp án sai:</label>
+                    <input class="form-control mb-2" formControlName="value" type="text">
+                    <!--                     Nó bị gạch chân thì kệ nó nha, đừng sửa -->
+                    <span
+                      *ngIf="!question.get('answers')?.get([2, 'value'])?.valid && question.get('answers')?.get([2, 'value'])?.touched"
+                      class="text-danger">
+                    <span *ngIf="question.get('answers')?.get([2, 'value'])?.errors?.['required']">Vui lòng nhập câu trả lời!</span>
+                                      </span>
+                  </div>
+                  <div class="mb-3" formGroupName="3">
+                    <label class="form-label">Đáp án đúng:</label>
+                    <input class="form-control mb-2" formControlName="value" type="text">
+                    <!--                     Nó bị gạch chân thì kệ nó nha, đừng sửa -->
+                    <span
+                      *ngIf="!question.get('answers')?.get([3, 'value'])?.valid && question.get('answers')?.get([3, 'value'])?.touched"
+                      class="text-danger">
+                    <span *ngIf="question.get('answers')?.get([3, 'value'])?.errors?.['required']">Vui lòng nhập câu trả lời!</span>
+                                      </span>
+                  </div>
+                </div>
+
+              </div>
+              <button (click)="onDeleteQuestion(idx)" class="btn-app-warning btn mb-3">Xóa câu hỏi</button>
+            </div>
+
+          </div>
+
+        </div>
+        <button (click)="onAddNewQuestion()" class="btn btn-app" type="button">
+          <i-bs height="20"
+                name="plus-circle"
+                width="20"></i-bs>
+          Thêm câu hỏi
+        </button>
+      </div>
+    </form>
+    <div class="modal-footer">
+      <button (click)="openConfirmAdd()" class="btn btn-app" type="submit">Save</button>
+      <button (click)="d('Cancel click'); initForm()" class="btn btn-app-warning" type="button">Cancel</button>
+      <button (click)="d('Close click')" class="btn btn-app" type="button">Close</button>
+    </div>
+  </div>
+
+</ng-template>
+

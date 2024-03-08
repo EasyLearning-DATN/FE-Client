@@ -1,7 +1,7 @@
 <!--  -->
 <div class="container mt-3 d-flex align-items-center">
   <h1>{{ lesson.name }}</h1>
-  <app-edit-lesson></app-edit-lesson>
+  <app-edit-lesson *ngIf="isCreator"></app-edit-lesson>
   <app-reportlesson></app-reportlesson>
 </div>
 
@@ -35,7 +35,7 @@
     <img alt="Creator's avt" class="img-fluid avt-icon" height="57" ngSrc="assets/img/commons/default_user.jpeg" width="57">
     <div class="ms-3">
       <p class="m-0 mt-3">Created by</p>
-      <p class="fs-2">Duc Phan</p>
+      <p class="fs-2">{{ lesson.user_info.fullName | titlecase }}</p>
     </div>
   </div>
   <div class="d-flex align-items-center">

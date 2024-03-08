@@ -1,12 +1,29 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {QuestionResponses} from "../../../../../responses/question/question.responses";
+import {SharedService} from "../../../../../services/shared/shared.service";
+import {QuestionTypeResponses} from "../../../../../responses/question-type/question-type.responses";
 
 @Component({
   selector: 'app-lesson-learn-item',
   templateUrl: './lesson-learn-item.component.html',
   styleUrls: ['./lesson-learn-item.component.css'],
 })
-export class LessonLearnItemComponent {
-  @Input() nameCode: string = "sca";
-  isCorrect: boolean = true;
-  answers: string[] = ['Answer1', 'Answer2', 'Answer3', 'Answer4'];
+export class LessonLearnItemComponent implements OnInit {
+  nameCode!: string;
+  @Input() question!: QuestionResponses;
+  questionTypes!: QuestionTypeResponses[];
+
+  constructor(private sharedService: SharedService) {
+
+  }
+
+  ngOnInit() {
+    this.questionTypes = this.sharedService.questionTypeResponses;
+
+    this.questionTypes.forEach((questionType) => {
+      if (questionType.id === this.question.question_type_id) {
+        this.nameCode = questionType.code;
+      }
+    });
+  }
 }

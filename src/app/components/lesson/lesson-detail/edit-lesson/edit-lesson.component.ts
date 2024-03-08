@@ -1,31 +1,32 @@
-import {Component, OnChanges, OnInit, TemplateRef} from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {ModalDismissReasons, NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ConfirmModalComponent} from "../../../commons/confirm-modal/confirm-modal.component";
 import {SharedService} from "../../../../services/shared/shared.service";
 import {LessonService} from "../../../../services/lesson/lesson.service";
 import {LessonResponses} from "../../../../responses/lesson/lesson.responses";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import Swal from "sweetalert2";
+import {UploadImageService} from "../../../../services/shared/upload/upload-image.service";
+import {LessonDTO} from "../../../../DTOS/lesson/lesson.dto";
 
 @Component({
   selector: 'app-edit-lesson',
   templateUrl: './edit-lesson.component.html',
   styleUrls: ['./edit-lesson.component.css'],
 })
-export class EditLessonComponent implements OnChanges, OnInit {
+export class EditLessonComponent implements OnInit {
 
   updateLessonForm = new FormGroup({
     name: new FormControl(this.sharedService.lesson.name, [Validators.required]),
     description: new FormControl(this.sharedService.lesson.description, [Validators.required]),
-
   });
   lesson !: LessonResponses;
-  image!: File;
+  image: string = '';
   private closeResult = '';
 
   constructor(private modalService: NgbModal, private config: NgbModalConfig, private sharedService: SharedService,
-    private lessonService: LessonService, private router: Router) {
+    private lessonService: LessonService, private router: Router, private imageService: UploadImageService, private route: ActivatedRoute) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
@@ -34,33 +35,76 @@ export class EditLessonComponent implements OnChanges, OnInit {
     this.lesson = this.sharedService.lesson;
   }
 
-  ngOnChanges(): void {
-    // this.updateLessonForm.setValue({
-    //     title: this.lesson.title,
-    //     description: this.lesson.description
-    // });
-  }
-
 
   onUpdate() {
-    // this.lesson.title = this.updateLessonForm.get("title")?.value || "";
-    // this.lesson.description = this.updateLessonForm.get("description")?.value || "";
-    // const formData = new FormData();
-    // console.log("file", this.file)
-    // if(this.file != null){
-    //     const publicIdImage = this.lesson.image.publicId.split('/', 2);
-    //     formData.append("image", this.file)
-    //     formData.append("folder", publicIdImage[0])
-    //     formData.append("fileName", publicIdImage[1])
-    //     this.imageServie.upadteImage(formData);
-    //     console.log("update Imgage Success")
-    // }
-    // console.log("lesson", this.lesson)
-    // this.lessonService.update(this.lesson);
-    // setTimeout(() =>{
-    //     this.updateEvent.emit()
-    // }, 5000)
-    // window.alert("Cập nhật bài học thành công")
+    if (!this.updateLessonForm.valid) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Không thể sửa!',
+        text: 'Vui lòng điền đầy đủ thông tin bài học!',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK',
+      });
+      return;
+    }
+    console.log(this.image);
+    if (this.image !== '') {
+      const token = localStorage.getItem("token");
+      this.imageService.uploadImage(this.image, token).subscribe(
+        (response) => {
+          const image_id = response.public_id;
+          console.log(response.public_id);
+          this.updateLesson(image_id);
+        }, error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Không thể cập nhật hình ảnh!',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
+          });
+          console.log(error);
+        },
+      );
+    } else {
+      this.updateLesson(this.lesson.image.public_id);
+    }
+
+  }
+
+  updateLesson(imageId: string) {
+    const lessondto: LessonDTO = {
+      name: <string>this.updateLessonForm.get('name')?.value,
+      description: <string>this.updateLessonForm.get('description')?.value,
+      image_id: imageId,
+    };
+    this.lessonService.updateLesson(this.lesson.id, lessondto)
+    .subscribe(
+      (response) => {
+        console.log(response);
+        Swal.fire({
+          icon: 'success',
+          title: 'Sửa bài học thành công!',
+          text: 'Bạn đã cập nhật bài học thành công!',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        });
+        this.lessonService.getOneLesson(this.route.snapshot.params['id']).subscribe(
+          response => {
+            this.sharedService.lessonChanged.next(response);
+          }, error => {
+            console.log(error);
+          });
+        this.modalService.dismissAll('Update success!');
+      }, error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sửa bài học thất bại!',
+          text: 'Không thể sửa bài học này!',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        });
+      },
+    );
   }
 
   openConfirmDelete() {
@@ -73,6 +117,13 @@ export class EditLessonComponent implements OnChanges, OnInit {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.closeResult);
         if (result === 'Confirm') {
+          this.imageService.deleteImage(this.lesson.image.public_id).subscribe(
+            (response) => {
+              console.log(response);
+            }, error => {
+              console.log(error);
+            },
+          );
           this.lessonService.deleteLesson(this.sharedService.lesson.id).subscribe(
             (response) => {
               Swal.fire({
@@ -119,17 +170,16 @@ export class EditLessonComponent implements OnChanges, OnInit {
     );
   }
 
-  openConfirmSave(file: any) {
+  openConfirmSave() {
     const modalConfirm = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    modalConfirm.componentInstance.body = "Bạn có chắc chắn muốn lưu không?";
+    modalConfirm.componentInstance.body = "Bạn có chắc chắn muốn lưu thay đổi không?";
     modalConfirm
     .result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.closeResult);
         if (result === 'Confirm') {
-          this.image = file;
           this.onUpdate();
           console.log(result);
         }
