@@ -2,13 +2,16 @@ import {IsNotEmpty, IsString} from 'class-validator';
 
 export class ReportDTO {
   @IsString()
-  targetId: string | undefined;
+  targetId: string  = '';
 
   @IsString()
-  reason: string | undefined;
+  reason: string = '';
 
   @IsString()
 //   type gắn mặc định là LESSON
-    type: string | undefined;
+    type: string = '';
+
+    @IsString()
+    image: string = '';
 
 }

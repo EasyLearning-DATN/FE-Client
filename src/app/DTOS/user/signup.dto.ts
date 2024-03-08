@@ -6,23 +6,23 @@
 
      export class SignupDTO {
      @IsString()
-     username: string | undefined;
+     username: string = '';
 
      @IsString()
-     fullName: string | undefined;
-
-     @IsString()
-     @IsNotEmpty()
-     email: string | undefined;
-
-     @IsString()
-     avatar: string | undefined;
+     fullName: string = '';
 
      @IsString()
      @IsNotEmpty()
-     password: string | undefined;
+     email: string = '';
 
      @IsString()
-     dayOfBirth: string | undefined;
+     avatar: string = '';
+
+     @IsString()
+     @IsNotEmpty()
+     password: string = '';
+
+     @IsString()
+     dayOfBirth: string = '';
      }
 

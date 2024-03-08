@@ -12,6 +12,7 @@ import { UploadImageService } from '../shared/upload/upload-image.service';
 })
 export class ReportService {
 
+
   private apiReport = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_REPORT;
   constructor(
     private http: HttpClient,
@@ -21,14 +22,15 @@ export class ReportService {
 
   sendReport(reportDTO: ReportDTO, imageReport: any): Observable<any> {
     const formData = new FormData();
-    formData.append('reportRQ', JSON.stringify(reportDTO));
+    formData.append('targetId', reportDTO.targetId);
+    formData.append('reason', reportDTO.reason);
+    formData.append('type', reportDTO.type);
     formData.append('image', imageReport);
     console.log(imageReport);
     const token = localStorage.getItem('token') || 'null';
     return this.http.post(this.apiReport, formData, {
       headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data'
+        Authorization: `Bearer ${token}`
       }
     });
   }

@@ -26,26 +26,12 @@ export class UserService {
 
   signUp(signupDTO: SignupDTO): Observable<any> {
     const formData = new FormData();
-    
-    if (signupDTO.username) {
       formData.append('username', signupDTO.username);
-    }
-    if (signupDTO.password) {
       formData.append('password', signupDTO.password);
-    }
-    if (signupDTO.fullName) {
       formData.append('fullName', signupDTO.fullName);
-    }
-    if (signupDTO.email) {
       formData.append('email', signupDTO.email);
-    }
-    if (signupDTO.avatar) {
       formData.append('avatar', signupDTO.avatar);
-    }
-    if (signupDTO.dayOfBirth) {
       formData.append('dayOfBirth', signupDTO.dayOfBirth);
-    }
-
     return this.http.post(this.apiSignup, formData);
   }
 
