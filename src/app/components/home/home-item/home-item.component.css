@@ -20,11 +20,62 @@ h5 {
   margin-top: auto;
 }
 
-@media (max-width: 1539px) {
+@media screen and (min-width: 768px)  and  ( max-width: 1539px) {
   .detail {
     align-content: center;
     align-items: center;
     display: flex !important;
     flex-direction: column;
   }
+
+  .detail-btn {
+    align-content: center;
+    align-items: center;
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  .img-item {
+    clip-path: circle(80% at 50% 0) !important;
+    transition: clip-path 1s;
+  }
+
+  .img-item:hover {
+    clip-path: circle(112% at 50% 0) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .detail {
+    align-content: normal;
+    align-items: center;
+    flex-direction: row;
+    width: 58.33333333% !important;
+  }
+
+  .detail-btn {
+    align-items: center;
+    display: flex !important;
+    flex-direction: column;
+    width: 41.66666667% !important;
+  }
+
+  .img-item {
+    clip-path: circle(65% at 50% 0) !important;
+    height: 250px;
+    transition: clip-path 1s;
+  }
+
+  .img-item:hover {
+    clip-path: circle(112% at 50% 0) !important;
+  }
+}
+
+.img-item {
+  clip-path: circle(65% at 50% 0);
+  transition: clip-path 1s;
+}
+
+.img-item:hover {
+  clip-path: circle(112% at 50% 0);
 }

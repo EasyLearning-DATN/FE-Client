@@ -25,7 +25,6 @@ export class FlashcardComponent implements OnInit {
       },
     );
 
-
   }
 
 }

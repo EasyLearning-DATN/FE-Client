@@ -27,6 +27,7 @@ export class LessonService {
     searchParams = searchParams.append('sort', 'des');
     searchParams = searchParams.append('page', 0);
     searchParams = searchParams.append('limit', 8);
+    searchParams = searchParams.append('sortBy', 'accessTimes');
     return this.http.get<any>(this.apiGetListLesson, {
       params: searchParams,
     })
