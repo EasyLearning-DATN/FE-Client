@@ -3,6 +3,7 @@ import {LessonResponses} from "../../responses/lesson/lesson.responses";
 import {Subject} from "rxjs";
 import {QuestionTypeResponses} from "../../responses/question-type/question-type.responses";
 import {QuestionListResponses} from "../../responses/question/question.responses";
+import { TestListResponses, TestResponses } from 'src/app/responses/test/test.responses';
 
 @Injectable({
   providedIn: 'root',
@@ -76,6 +77,14 @@ export class SharedService {
     this._lessonsByUser = value;
   }
 
-  // api upload ảnh
+  private _allTest!: TestResponses[];
+
+  get allTest(): TestResponses[] {
+    return this._allTest;
+  }
+
+  set allTest(value: TestResponses[]) {
+    this._allTest = value;
+  }
 
 }

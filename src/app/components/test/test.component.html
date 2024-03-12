@@ -1,1 +1,31 @@
-<p>test works!</p>
+<div class="container">
+  <!-- danh sách bài test row col -md-12 -->
+  <div class="row">
+    <div class="col-md-12">
+      <h1>DANH SÁCH BÀI TEST</h1>
+      <!-- Search -->
+      <div class="row mb-3">
+        <div class="col-md-4 p-3">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search" aria-label="Search"
+              aria-describedby="basic-addon2" [(ngModel)]="searchKey">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" (click)="searchTest(searchKey)">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4" *ngFor="let test of tests">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{test.name}}</h5>
+              <p class="card-text">{{test.description}}</p>
+              <a [routerLink]="['/test', test.id]" class="btn btn-primary">Chi tiết</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
