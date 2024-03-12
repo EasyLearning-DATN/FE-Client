@@ -11,4 +11,5 @@ export interface QuestionResponses extends BaseReponses {
   weighted: number;
   answers: AnswerResponses[];
   question_type_id: string;
+  lesson_id: string;
 }
