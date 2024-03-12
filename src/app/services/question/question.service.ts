@@ -13,6 +13,7 @@ export class QuestionService {
   private apiGetListQuestion = environment.API_URL + environment.API_PUBLIC + environment.VERSION_1 + environment.API_QUESTION;
   private apiCreateListQuestion = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_QUESTION + environment.API_LIST;
   private apiDeleteQuestion = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_QUESTION;
+  private apiUpdateQuestion = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_QUESTION;
 
   constructor(private sharedService: SharedService, private http: HttpClient) {
   }
@@ -59,7 +60,7 @@ export class QuestionService {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    return this.http.put(this.apiDeleteQuestion + '/' + questionId, updateQuestion, {
+    return this.http.put(this.apiUpdateQuestion + '/' + questionId, updateQuestion, {
       headers,
     });
   }

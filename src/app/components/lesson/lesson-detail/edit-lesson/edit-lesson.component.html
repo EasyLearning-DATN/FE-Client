@@ -12,6 +12,10 @@
       <div class="form-floating mb-3">
         <input class="form-control" formControlName="name" id="floatingName" placeholder="" type="text"> <label
         for="floatingName">Tên bài học</label>
+        <span *ngIf="!updateLessonForm.get('name')?.valid && updateLessonForm.get('name')?.touched"
+              class="text-danger">
+                     <span *ngIf="updateLessonForm.get('name')?.errors?.['required']">Vui lòng nhập câu hỏi!</span>
+        </span>
       </div>
       <div class="mb-3">
         <label class="form-label" for="inputImage">Ảnh</label>
@@ -23,6 +27,10 @@
       <div class="form-floating mb-3">
 				<textarea class="form-control" formControlName="description" id="floatingDescription" placeholder="" rows="30"
                   type="text"></textarea> <label for="floatingDescription">Mô tả</label>
+        <span *ngIf="!updateLessonForm.get('description')?.valid && updateLessonForm.get('description')?.touched"
+              class="text-danger">
+                     <span *ngIf="updateLessonForm.get('description')?.errors?.['required']">Vui lòng nhập câu hỏi!</span>
+                  </span>
       </div>
     </form>
     <app-add-questions [lessonId]="lesson.id"></app-add-questions>
