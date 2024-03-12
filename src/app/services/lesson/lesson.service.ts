@@ -18,6 +18,7 @@ export class LessonService {
   private apiUpdateLesson = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_LESSON;
   private apiDeleteLesson = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_LESSON;
   private apiGetListLessonByUser = environment.API_URL + environment.API_PUBLIC + environment.VERSION_1 + environment.API_LESSON;
+  private apiSearchLesson = environment.API_URL + environment.API_PUBLIC + environment.VERSION_1 + environment.API_LESSON;
 
   constructor(private http: HttpClient, private sharedService: SharedService, private router: Router) {
   }
@@ -48,6 +49,24 @@ export class LessonService {
   getListLessonByUser(userId: string) {
     let searchParams = new HttpParams().set('createdBy', userId);
     return this.http.get<any>(this.apiGetListLessonByUser, {
+      params: searchParams,
+    })
+    .pipe(
+      map((response) => {
+        let lessons: LessonsResponses = response.data;
+        lessons.data = lessons.data.map(lesson => {
+          return {...lesson, questions: lesson.questions ? lesson.questions : []};
+        });
+        return lessons;
+      }),
+      tap((lessons: LessonsResponses) => {
+        this.sharedService.lessonsHome = lessons.data;
+      }));
+  }
+
+  searchLesson(key: string) {
+    let searchParams = new HttpParams().set('key', key);
+    return this.http.get<any>(this.apiSearchLesson, {
       params: searchParams,
     })
     .pipe(

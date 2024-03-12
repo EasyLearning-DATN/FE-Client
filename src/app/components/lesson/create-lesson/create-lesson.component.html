@@ -1,52 +1,23 @@
 <div class="container mt-4">
-    <h2>Tạo bài học mới</h2>
-    <form #lessonForm="ngForm" (ngSubmit)="onCreateLesson()">
-      <div class="form-group">
-        <label for="courseName">Tên bài học:</label>
-        <input type="text" class="form-control" id="courseName" placeholder="Tên bài học" [(ngModel)]="name" name="name">
-      </div>
-      <div class="form-group">
-        <label for="description">Mô tả:</label>
-        <textarea class="form-control" id="description" rows="3" placeholder="Nhập mô tả"
-          [(ngModel)]="description" name="description"></textarea>
-      </div>
-      <div class="form-group p-2">
-          <label class="form_label" for="">Ảnh bìa bài học: </label>
-          <input class="form-control" type="file" (change)="onFileSelected($event)" name="image_id" required>
-      </div>
-      <div class="form-group">
-        <!-- combobox chọn loại câu hỏi -->
-        <label for="questionType">Loại câu hỏi:</label>
-        <select class="form-select" id="questionType">
-          <option value="1">1 đáp án đúng</option>
-          <option value="2">Nhiều đáp án đúng</option>
-        </select>
-      </div>
-      <!-- <div formArrayName="questions p-2">
-        <label for="questions">Thêm câu hỏi:</label>
-        <div *ngFor="let question of questionForms.controls; let i = index">
-          <div [formGroupName]="i">
-            <div class="form-group">
-              <label [for]="'question'+i">Câu {{ i + 1 }}:</label>
-              <input type="text" class="form-control" [id]="'question'+i" placeholder="Câu hỏi"
-                formControlName="question">
-              <div class="form-group mt-2">
-                <label [for]="'answerA'+i">Đáp án:</label>
-                <input type="text" class="form-control m-1" [id]="'answerA'+i" placeholder="Đáp án A"
-                  formControlName="answerA">
-                <input type="text" class="form-control m-1" [id]="'answerB'+i" placeholder="Đáp án B"
-                  formControlName="answerB">
-                <input type="text" class="form-control m-1" [id]="'answerC'+i" placeholder="Đáp án C"
-                  formControlName="answerC">
-                <input type="text" class="form-control m-1" [id]="'correctAnswer'+i" placeholder="Đáp án đúng"
-                  formControlName="correctAnswer">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!-- <button type="button" class="btn btn-primary px-3" (click)="addQuestion()">Thêm câu hỏi</button> -->
-      <button type="submit" class="btn btn-success m-3 m-3">Tạo bài học</button>
-    </form>
-  </div>
-  
+  <h2>Tạo bài học mới</h2>
+  <form #lessonForm="ngForm" (ngSubmit)="onCreateLesson()">
+    <div class="form-group">
+      <label for="courseName">Tên bài học:</label>
+      <div *ngIf="nameControl.invalid && nameControl.touched" class="text-danger"><small>*Tên bài học không được để
+        trống</small>
+    </div>
+      <input type="text" class="form-control" id="courseName" placeholder="Tên bài học" [(ngModel)]="name" name="name"
+        #nameControl="ngModel">
+    </div>
+    <div class="form-group">
+      <label for="description">Mô tả:</label>
+      <textarea class="form-control" id="description" rows="3" placeholder="Nhập mô tả" [(ngModel)]="description"
+        name="description"></textarea>
+    </div>
+    <div class="form-group p-2">
+      <label class="form_label" for="">Ảnh bìa bài học: </label>
+      <input class="form-control" type="file" (change)="onFileSelected($event)" name="image_id" required>
+    </div>
+    <button type="submit" class="btn btn-success m-3 m-3">Tạo bài học</button>
+  </form>
+</div>

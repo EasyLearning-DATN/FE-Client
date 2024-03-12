@@ -13,10 +13,12 @@ import {Subscription} from "rxjs";
 })
 
 export class ItemsComponent implements OnInit, OnDestroy {
+  originalLessons: LessonResponses[] = [];
   lessons: LessonResponses[] = [];
   isFetching = false;
   error = null;
   routeSub = new Subscription();
+  searchKey: string = '';
 
   constructor(
     private router: Router,
@@ -96,12 +98,27 @@ export class ItemsComponent implements OnInit, OnDestroy {
 
   }
 
-  private fetchAllLessons() {
+  fetchAllLessons() {
     this.isFetching = true;
     this.lessonService.getAllLessons().subscribe(
       (lessons: LessonsResponses) => {
         this.isFetching = false;
-        this.lessons = this.sharedService.allLessons;
+        this.originalLessons = lessons.data; // Lưu danh sách gốc
+        this.lessons = this.originalLessons; // Gán danh sách gốc cho danh sách hiển thị ban đầu
+      },
+      error => {
+        this.isFetching = false;
+        this.error = error.message;
+      },
+    );
+  }
+
+  searchLessons(key : string) {
+    this.isFetching = true;
+    this.lessonService.searchLesson(key).subscribe(
+      (lessons: LessonsResponses) => {
+        this.isFetching = false;
+        this.lessons = lessons.data;
         console.log(this.lessons);
       },
       error => {
@@ -110,4 +127,5 @@ export class ItemsComponent implements OnInit, OnDestroy {
       },
     );
   }
+
 }

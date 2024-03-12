@@ -15,6 +15,8 @@ import {lessonResolver} from "./resolver/lesson.resolver";
 import {ItemsComponent} from "./components/lesson/items/items.component";
 import {questionTypeResolver} from "./resolver/question.type.resolver";
 import {questionsResolver} from "./resolver/questions.resolver";
+import { TestComponent } from './components/test/test.component';
+import { UpgradeComponent } from './components/upgrade/upgrade/upgrade.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -28,7 +30,7 @@ const routes: Routes = [
         path: ':id', component: LessonDetailComponent, resolve: [lessonResolver, questionTypeResolver, questionsResolver], children: [
           {path: '', component: FlashcardComponent},
           {path: 'flashcard', component: FlashcardComponent},
-          {path: 'learn', component: LessonLearnComponent},
+          {path: 'learn', component: LessonLearnComponent}
         ],
       },
     ],
@@ -42,7 +44,9 @@ const routes: Routes = [
       {path: 'history-lesson', component: ItemsComponent},
     ],
   },
+  {path: 'list-test', component: TestComponent},
   // {path: 'demo/add-question', component: AddQuestionsComponent, resolve: [questionTypeResolver]},
+  {path: 'upgrade', component: UpgradeComponent},
   {path: '404', component: PageNotFoundComponent},
   {path: '**', redirectTo: '/404'},
   // add this one if your path is '' when you want to redirect - pathMatch: 'full'
