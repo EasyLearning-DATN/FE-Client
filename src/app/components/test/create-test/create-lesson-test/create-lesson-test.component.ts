@@ -1,10 +1,156 @@
-import { Component } from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
+import {ModalDismissReasons, NgbModal, NgbOffcanvas} from "@ng-bootstrap/ng-bootstrap";
+import {ResultTypeResponses} from "../../../../responses/result_type_id/result_type.responses";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {SharedService} from "../../../../services/shared/shared.service";
+import {QuestionResponses} from "../../../../responses/question/question.responses";
+import {LessonResponses} from "../../../../responses/lesson/lesson.responses";
+import {TestDTO} from "../../../../DTOS/test/test.dto";
+import Swal from "sweetalert2";
+import {ConfirmModalComponent} from "../../../commons/confirm-modal/confirm-modal.component";
+import {TestService} from "../../../../services/test/test.service";
 
 @Component({
   selector: 'app-create-lesson-test',
   templateUrl: './create-lesson-test.component.html',
-  styleUrls: ['./create-lesson-test.component.css']
+  styleUrls: ['./create-lesson-test.component.css'],
 })
-export class CreateLessonTestComponent {
+export class CreateLessonTestComponent implements OnInit {
 
+  resultTypes!: ResultTypeResponses[];
+  questions!: QuestionResponses[];
+  lesson!: LessonResponses;
+  createTestForm!: FormGroup;
+  createTest!: TestDTO;
+  closeResult!: string;
+
+  constructor(private offcanvasService: NgbOffcanvas, private sharedService: SharedService,
+    private modalService: NgbModal, private testService: TestService) {
+  }
+
+
+  ngOnInit() {
+    this.resultTypes = this.sharedService.resultType;
+    this.questions = this.sharedService.questionsOfLesson.data;
+    this.lesson = this.sharedService.lesson;
+    this.initForm();
+  }
+
+  resetSelection(selection: string) {
+    if (this.createTestForm.get('test_type')?.value !== 'eachQuestion' && selection === 'eachQuestion') {
+      this.createTestForm.patchValue({'time_total': 0});
+    }
+    if (this.createTestForm.get('test_type')?.value !== 'fullTime' && selection === 'fullTime') {
+      this.createTestForm.patchValue({'time_question': 0});
+    }
+  }
+
+  onCreateTest() {
+    if (!this.createTestForm.valid) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Vui lòng nhập đủ thông tin!',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK',
+      });
+      return;
+    }
+    const confirmModal = this.modalService.open(ConfirmModalComponent);
+    // modalConfirm.componentInstance.title ="";
+    confirmModal.componentInstance.body = "Bạn có chắc chắn muốn tạo bài test không?";
+    confirmModal
+    .result.then(
+      (result) => {
+        this.closeResult = `Closed with: ${result}`;
+        console.log(this.closeResult);
+        if (result === 'Confirm') {
+          this.createTest = {
+            name: this.createTestForm.get('name')?.value,
+            description: this.createTestForm.get('description')?.value,
+            question_ids: this.getRandomQuestions(),
+            time_question: <number>this.createTestForm.get('time_question')?.value,
+            time_total: <number>this.createTestForm.get('time_total')?.value,
+            view_result_type_code: this.createTestForm.get('view_result_type_code')?.value,
+            image_id: this.lesson.image.public_id,
+          };
+          console.log(this.createTest);
+          Swal.fire({
+            title: 'Đang tạo bài test...',
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            },
+          });
+          this.testService.createTest(this.createTest).subscribe(
+            (response) => {
+              console.log(response);
+              Swal.close();
+              Swal.fire({
+                icon: 'success',
+                title: 'Tạo bài test mới thành công!',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK',
+              });
+              this.initForm();
+            }, error => {
+              console.log(error);
+              Swal.close();
+              Swal.fire({
+                icon: 'error',
+                title: 'Tạo bài test mới thất bại!',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK',
+              });
+            },
+          );
+          console.log(result);
+        }
+
+      },
+      (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        console.log(this.closeResult);
+      },
+    );
+  }
+
+  getRandomQuestions(): string[] {
+    const randomQuestionsIds: string[] = [];
+    const arrayCopy: QuestionResponses[] = [...this.questions]; // Create a copy of the original array
+    const testSize = <number>this.createTestForm.get('test_size')?.value;
+    for (let i = 0; i < testSize; i++) {
+      const randomIndex = Math.floor(Math.random() * arrayCopy.length);
+      const randomElement = arrayCopy.splice(randomIndex, 1)[0];
+      randomQuestionsIds.push(randomElement.id);
+    }
+    return randomQuestionsIds;
+  }
+
+  openOffcanvas(content: TemplateRef<any>) {
+    this.offcanvasService.open(content, {backdrop: 'static', scroll: true});
+  }
+
+  initForm() {
+    this.createTestForm = new FormGroup({
+      'name': new FormControl("", [Validators.required]),
+      'description': new FormControl("", [Validators.required]),
+      'time_total': new FormControl("0", [Validators.required]),
+      'time_question': new FormControl("0", [Validators.required]),
+      'image_id': new FormControl(this.lesson.image.url, [Validators.required]),
+      'view_result_type_code': new FormControl(this.resultTypes[0].code, [Validators.required]),
+      'test_size': new FormControl(1, [Validators.required]),
+      'test_type': new FormControl("fullTime", [Validators.required]),
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    switch (reason) {
+      case ModalDismissReasons.ESC:
+        return 'by pressing ESC';
+      case ModalDismissReasons.BACKDROP_CLICK:
+        return 'by clicking on a backdrop';
+      default:
+        return `with: ${reason}`;
+    }
+  }
 }

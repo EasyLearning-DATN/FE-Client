@@ -15,8 +15,11 @@ import {lessonResolver} from "./resolver/lesson.resolver";
 import {ItemsComponent} from "./components/lesson/items/items.component";
 import {questionTypeResolver} from "./resolver/question.type.resolver";
 import {questionsResolver} from "./resolver/questions.resolver";
-import { TestComponent } from './components/test/test.component';
-import { UpgradeComponent } from './components/upgrade/upgrade/upgrade.component';
+import {TestComponent} from './components/test/test.component';
+import {UpgradeComponent} from './components/upgrade/upgrade/upgrade.component';
+import {resultTypeResolver} from "./resolver/result-type.resolver";
+import {CreateLessonTestComponent} from "./components/test/create-test/create-lesson-test/create-lesson-test.component";
+import {CreateTestComponent} from "./components/test/create-test/create-test.component";
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -27,15 +30,19 @@ const routes: Routes = [
   {
     path: 'lesson', component: LessonComponent, children: [
       {
-        path: ':id', component: LessonDetailComponent, resolve: [lessonResolver, questionTypeResolver, questionsResolver], children: [
+        path: ':id',
+        component: LessonDetailComponent,
+        resolve: [lessonResolver, questionTypeResolver, questionsResolver, resultTypeResolver],
+        children: [
           {path: '', component: FlashcardComponent},
           {path: 'flashcard', component: FlashcardComponent},
-          {path: 'learn', component: LessonLearnComponent}
+          {path: 'learn', component: LessonLearnComponent},
         ],
       },
     ],
   },
   {path: 'create-lesson', component: CreateLessonComponent},
+  {path: 'create-test', component: CreateTestComponent, resolve: [resultTypeResolver]},
   {
     path: 'list-lesson', component: ListLessonComponent, children: [
       {path: '', component: ItemsComponent},
@@ -45,7 +52,7 @@ const routes: Routes = [
     ],
   },
   {path: 'list-test', component: TestComponent},
-  // {path: 'demo/add-question', component: AddQuestionsComponent, resolve: [questionTypeResolver]},
+  {path: 'demo/add-test', component: CreateLessonTestComponent, resolve: [resultTypeResolver]},
   {path: 'upgrade', component: UpgradeComponent},
   {path: '404', component: PageNotFoundComponent},
   {path: '**', redirectTo: '/404'},

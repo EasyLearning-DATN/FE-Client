@@ -117,5 +117,15 @@ app-flashcard-item {
   z-index: 20;
 }
 
+.offcanvas {
+  width: 750px !important;
+}
+
+@media (max-width: 768px) {
+  .offcanvas {
+    width: 100% !important;
+  }
+}
+
 
 

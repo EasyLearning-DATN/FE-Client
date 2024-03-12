@@ -1,72 +1,124 @@
-<p>Trang Tạo quiz trực tiếp từ bài học</p>
+<button (click)="openOffcanvas(content)" class="btn btn-app mt-2">
+  <fa-icon [icon]="['fas','file-lines']"></fa-icon>
+  Làm bài thi
+</button>
 
-<!-- <button *ngIf="isPremium" class="btn btn-create-quiz" type="button" data-bs-toggle="offcanvas" data-bs-target="#createQuizFromLesson" -->
-<!--         aria-controls="createQuizFromLesson" (click)="onCheckPremium()"> -->
-<!-- 	Tạo quiz -->
-<!-- </button> -->
+<ng-template #content let-offcanvas>
+  <div class="offcanvas-header">
+    <h4 class="offcanvas-title">Cài đặt bài kiểm tra của bạn</h4>
+    <button (click)="offcanvas.dismiss('Cross click')" aria-label="Close" class="btn-close" type="button"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form [formGroup]="createTestForm">
+      <div class="offcanvas-body">
+        <div class="row mb-2">
+          <div class="form-group mb-2 col-9">
+            <label class="form-label">Tên bài test</label>
+            <input class="form-control" formControlName="name" placeholder="Nhập tên bài test ..." type="text">
+            <div *ngIf="!createTestForm.get('name')?.valid && createTestForm.get('name')?.touched" class="mt-1">
+              <span *ngIf="createTestForm.get('name')?.errors?.['required']" style="color: red;">Tên bài test
+                                                                                                  không được để trống!</span>
+            </div>
+          </div>
+          <div class="col-3">
+            <img [ngSrc]="lesson.image.url"
+                 alt="" class="" height="75" width="100">
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="form-group mb-2 col-12">
+            <label class="form-label">Mô tả</label>
+            <textarea class="form-control" formControlName="description" placeholder="Nhập mô tả bài test ..." rows="2"></textarea>
+            <div *ngIf="!createTestForm.get('description')?.valid && createTestForm.get('description')?.touched" class="mt-1">
+              <span *ngIf="createTestForm.get('description')?.errors?.['required']" style="color: red;">Mô tả
+                                                                                                         không được để trống!</span>
+            </div>
+          </div>
+        </div>
+        <select class="form-select mb-3" formControlName="view_result_type_code" id="type">
+          <option *ngFor="let rType of resultTypes" [ngValue]="rType.code">{{ rType.name }}</option>
+        </select>
+        <div class="row mt-3 g-3 d-flex justify-content-between">
+          <div class="form-group col-sm-8">
+            <label class="form_label">Số lượng câu hỏi (Tối đa {{ questions.length }})</label>
+          </div>
+          <div class="col-sm-3 me-2">
+            <select aria-label="Default select example" class="form-select" formControlName="test_size">
+              <option disabled>Chọn</option>
+              <option *ngFor="let question of questions; let i = index" value="{{i+1}}">{{ i + 1 }}</option>
+            </select>
+          </div>
+          <div *ngIf="!createTestForm.get('test_size')?.valid && createTestForm.get('test_size')?.touched">
+            <small *ngIf="createTestForm.get('test_size')?.errors?.['required']" style="color: red;">Vui lòng chọn số câu hỏi</small>
+          </div>
+        </div>
+        <div class="row mt-3 g-3 d-flex justify-content-between">
+          <div class="form-check">
+            <input (click)="resetSelection('fullTime')" class="form-check-input" formControlName="test_type" id="flexRadioDefault1" type="radio"
+                   value="fullTime">
+            <label class="form-check-label" for="flexRadioDefault1">
+              Bài thi có thời gian tổng
+            </label>
+          </div>
+          <div *ngIf="createTestForm.get('test_type')?.value === 'fullTime'" class="form-group col-sm-8">
+            <label class="form_label">Thời gian bài kiểm tra (phút)</label>
+          </div>
+          <div *ngIf="createTestForm.get('test_type')?.value === 'fullTime'" class="col-sm-3 me-2">
+            <select aria-label="Default select example" class="form-select" formControlName="time_total">
+              <option disabled>Chọn</option>
+              <option value="0">Không giới hạn thời gian</option>
+              <option value="{{15*60}}">15p</option>
+              <option value="{{30*60}}">30p</option>
+              <option value="{{60*60}}">60p</option>
+              <option value="{{90*60}}">90p</option>
+              <option value="{{120*60}}">120p</option>
+            </select>
+          </div>
+          <div *ngIf="!createTestForm.get('time_total')?.valid && createTestForm.get('time_total')?.touched">
+            <small *ngIf="createTestForm.get('time_total')?.errors?.['required']" style="color: red;">Vui lòng chọn thời gian giữa mỗi câu
+                                                                                                      hỏi</small>
+          </div>
+          <div class="form-check">
+            <input (click)="resetSelection('eachQuestion')" class="form-check-input"
+                   formControlName="test_type"
+                   id="flexRadioDefault2"
+                   type="radio"
+                   value="eachQuestion">
+            <label class="form-check-label" for="flexRadioDefault2">
+              Bài thi có thời gian mỗi câu hỏi
+            </label>
+          </div>
+          <div *ngIf="createTestForm.get('test_type')?.value === 'eachQuestion'" class="form-group col-sm-8">
+            <label class="form_label beautify-text">Thời gian mỗi câu hỏi (giây)</label>
+          </div>
+          <div *ngIf="createTestForm.get('test_type')?.value === 'eachQuestion'" class="col-sm-3 me-2">
+            <select aria-label="Default select example" class="form-select" formControlName="time_question">
+              <option disabled>Chọn</option>
+              <option value="0">Không giới hạn thời gian</option>
+              <option value="15">15s</option>
+              <option value="30">30s</option>
+              <option value="45">45s</option>
+              <option value="60">60s</option>
+            </select>
+          </div>
+          <div *ngIf="!createTestForm.get('time_question')?.valid && createTestForm.get('time_question')?.touched">
+            <small *ngIf="createTestForm.get('time_question')?.errors?.['required']" style="color: red;">Vui lòng chọn thời gian giữa mỗi câu
+                                                                                                         hỏi</small>
+          </div>
+        </div>
 
-<!-- <button *ngIf="!isPremium" class="btn btn-create-quiz" type="button" -->
-<!--         aria-controls="createQuizFromLesson" (click)="onCheckPremium()"> -->
-<!-- 	Tạo quiz -->
-<!-- </button> -->
+      </div>
+      <div class="d-flex justify-content-end">
 
+      </div>
+    </form>
+    <div>
+      <span>Quá ít câu hỏi? <a [routerLink]="['/create-test']" class="link">Tạo bài test bên ngoài</a></span>
+    </div>
+    <div class="text-end">
+      <button (click)="onCreateTest()" class="btn btn-app me-3" type="button">Tạo</button>
+      <button (click)="offcanvas.close('Close click'); initForm()" class="btn btn-app" type="button">Close</button>
+    </div>
+  </div>
+</ng-template>
 
-<!-- <div class="offcanvas offcanvas-end" tabindex="-1" id="createQuizFromLesson" -->
-<!--      aria-labelledby="createQuizFromLessonLabel"> -->
-<!-- 	<div class="offcanvas-header"> -->
-<!-- 		<h5 class="offcanvas-title head" id="createQuizFromLessonLabel">Cài đặt quiz của bạn</h5> -->
-<!-- 		<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button> -->
-<!-- 	</div> -->
-<!-- 	<form action="" method="post" [formGroup]="createQuizF" (submit)="onCreateQuiz()"> -->
-<!-- 		<div class="offcanvas-body"> -->
-<!-- 			<div class="row mb-2"> -->
-<!-- 				<div class="form-group mb-2 col-9"> -->
-<!-- 					<label class="form-label " style="font-size: 2em;">Tên Quiz</label> -->
-<!-- 					<input class="form-control" type="text" placeholder="Nhập tên quiz ..." formControlName="title"> -->
-<!-- 					<div *ngIf="createQuizF['controls']['title'].dirty && createQuizF['controls']['title'].errors"> -->
-<!-- 						<small style="color: red;" *ngIf="createQuizF['controls']['title'].errors['required']">Tên Quiz -->
-<!-- 							không được để trống</small> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-3"> -->
-<!-- 					<img class="beautify-icon" -->
-<!-- 					     src="https://blush.design/api/download?shareUri=-PVxCsopl&w=100&h=100&fm=png" alt=""> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 			<div class="row mt-3 g-3 d-flex justify-content-between"> -->
-<!-- 				<div class="form-group col-sm-8"> -->
-<!-- 					<label class="form_label beautify-text">Số lượng câu hỏi (Tối đa {{questions.length}})</label> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-sm-3 me-2"> -->
-<!-- 					<select class="form-select" aria-label="Default select example" formControlName = "quizSize"> -->
-<!-- 						<option selected disabled>Chọn</option> -->
-<!-- 						<option *ngFor="let question of questions; let i = index" value="{{i+1}}">{{i + 1}}</option> -->
-<!-- 					</select> -->
-<!-- 				</div> -->
-<!-- 				<div *ngIf="createQuizF['controls']['quizSize'].dirty && createQuizF['controls']['quizSize'].errors"> -->
-<!-- 					<small style="color: red;" *ngIf="createQuizF['controls']['quizSize'].errors['required']">Vui lòng chọn số câu hỏi</small> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 			<div class="row mt-3 g-3 d-flex justify-content-between"> -->
-<!-- 				<div class="form-group col-sm-8"> -->
-<!-- 					<label class="form_label beautify-text" for="">Thời gian mỗi câu hỏi (giây)</label> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-sm-3 me-2"> -->
-<!-- 					<select class="form-select" aria-label="Default select example" formControlName = "time"> -->
-<!-- 						<option selected disabled>Chọn</option> -->
-<!-- 						<option value="0">Không có thời gian</option> -->
-<!-- 						&lt;!&ndash;                         <option value="15">15s</option> &ndash;&gt; -->
-<!-- 						&lt;!&ndash;                         <option value="30">30s</option> &ndash;&gt; -->
-<!-- 					</select> -->
-<!-- 				</div> -->
-<!-- 				<div *ngIf="createQuizF['controls']['time'].dirty && createQuizF['controls']['time'].errors"> -->
-<!-- 					<small style="color: red;" *ngIf="createQuizF['controls']['time'].errors['required']">Vui lòng chọn thời gian</small> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-
-<!-- 		</div> -->
-<!-- 		<div class="d-flex justify-content-end"> -->
-<!-- 			<button type="button" data-bs-dismiss="offcanvas" type="submit" class="btn beautify-btn px-3 beautify-text m-5">Tạo</button> -->
-<!-- 		</div> -->
-<!-- 	</form> -->
-<!-- </div> -->
