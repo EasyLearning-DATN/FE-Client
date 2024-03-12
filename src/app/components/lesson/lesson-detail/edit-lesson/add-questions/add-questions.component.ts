@@ -200,9 +200,17 @@ export class AddQuestionsComponent implements OnInit {
             question.lesson_id = this.lessonId;
           });
           console.log(this.listQuestion);
+          Swal.fire({
+            title: 'Đang thêm câu hỏi...',
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            },
+          });
           this.questionService.putListQuestion(this.listQuestion).subscribe(
             (response) => {
               console.log(response);
+              Swal.close();
               Swal.fire({
                 icon: 'success',
                 title: 'Thêm câu hỏi thành công!',
@@ -218,6 +226,7 @@ export class AddQuestionsComponent implements OnInit {
               this.initForm();
             }, error => {
               console.log(error);
+              Swal.close();
               Swal.fire({
                 icon: 'error',
                 title: 'Thêm câu hỏi thất bại!',

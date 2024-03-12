@@ -28,19 +28,25 @@ export class LessonDetailComponent implements OnInit {
     );
 
     // truyển userInfo từ localStorage và lấy id
-    const userInfo = JSON.parse(localStorage.getItem('userInfo') || '');
-    const userId = userInfo ? userInfo.id : '';
+    const userInfoString = localStorage.getItem('userInfo') || '';
+    if (userInfoString === '') {
+      this.isCreator = false;
+    } else {
+      const userInfo = JSON.parse(localStorage.getItem('userInfo') || '');
+      const userId = userInfo ? userInfo.id : '';
 
-    // Kiểm tra xem user có phải người tạo bài học hay không
-    this.lessonService.checkLessonOfUser(userId, this.lesson.id).subscribe(
-      (response) => {
-        // console.log(response.data.length);
-        this.isCreator = response.data.length !== 0;
-      },
-      error => {
-        this.isCreator = false;
-      },
-    );
+      // Kiểm tra xem user có phải người tạo bài học hay không
+      this.lessonService.checkLessonOfUser(userId, this.lesson.id).subscribe(
+        (response) => {
+          // console.log(response.data.length);
+          this.isCreator = response.data.length !== 0;
+        },
+        error => {
+          this.isCreator = false;
+        },
+      );
+    }
+
   }
 
   onCopyURL() {

@@ -31,6 +31,7 @@ export interface LessonResponses {
   last_modified_date: Date;
   last_modified_by: string;
   is_public: boolean;
+  access_times: number;
   image: ImageResponses;
   user_info: {
     id: number;

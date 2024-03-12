@@ -45,7 +45,11 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.isLogin = !!localStorage.getItem('userInfo');
+    // show lesson data
+    // this.httpClient.get<any[]>(`${api}/lesson/all`).subscribe((res: any) => {
+    //     this.lessons = res.data;
+    // });
     this.fetchLessons();
   }
 

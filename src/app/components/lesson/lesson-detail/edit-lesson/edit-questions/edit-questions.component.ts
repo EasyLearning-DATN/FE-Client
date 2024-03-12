@@ -1,9 +1,12 @@
 import {Component, Input, OnDestroy, OnInit, TemplateRef} from '@angular/core';
 import {SharedService} from "../../../../../services/shared/shared.service";
 import {ModalDismissReasons, NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
-import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {QuestionTypeResponses} from "../../../../../responses/question-type/question-type.responses";
 import Swal from "sweetalert2";
+import {QuestionResponses} from "../../../../../responses/question/question.responses";
+import {ConfirmModalComponent} from "../../../../commons/confirm-modal/confirm-modal.component";
+import {QuestionService} from "../../../../../services/question/question.service";
+import {EditQuestionItemComponent} from "./edit-question-item/edit-question-item.component";
 
 @Component({
   selector: 'app-edit-questions',
@@ -12,36 +15,52 @@ import Swal from "sweetalert2";
 })
 export class EditQuestionsComponent implements OnInit, OnDestroy {
 
-  editQuestionForm!: FormGroup;
   questionTypes!: QuestionTypeResponses[];
+  questions!: QuestionResponses[];
   @Input() lessonId!: string;
+  // editQuestionForm!: FormGroup;
+  // updatedQuestion!: QuestionDTO;
+  // updateQuestion!: QuestionResponses;
   private closeResult!: string;
 
-  constructor(private sharedService: SharedService, private modalService: NgbModal, private config: NgbModalConfig) {
+  constructor(private sharedService: SharedService, private modalService: NgbModal, private config: NgbModalConfig,
+    private questionService: QuestionService) {
   }
 
-  get questionControls() {
-    return (this.editQuestionForm.get('questions') as FormArray).controls;
-  }
-
-  getAnswerControls(index: number) {
-    return (this.questionControls.at(index)?.get('answers') as FormArray).controls;
-  }
 
   ngOnInit() {
     this.questionTypes = this.sharedService.questionTypeResponses;
-    // this.initForm();
+    this.questions = this.sharedService.questionsOfLesson.data;
+    this.sharedService.questionsOfLessonChanged.subscribe(
+      (questions) => {
+        this.questions = questions.data;
+      },
+    );
   }
 
   ngOnDestroy() {
   }
 
-  changeType(event: Event, index: number) {
-    const typeCode = this.questionControls[index].get('question_type_id')?.value;
-    (this.editQuestionForm.get('questions') as FormArray).setControl(index, this.changeForm(typeCode));
+  openEditModal(question: QuestionResponses) {
+    const editModal = this.modalService.open(EditQuestionItemComponent, {size: 'lg', scrollable: true});
+    editModal.componentInstance.question = question;
+    editModal.componentInstance.questionTypes = this.questionTypes;
+    editModal.componentInstance.lessonId = this.lessonId;
+    editModal
+    .result.then(
+      (result) => {
+        this.closeResult = `Closed with: ${result}`;
+        console.log(this.closeResult);
+      },
+      (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        console.log(this.closeResult);
+      },
+    );
+
   }
 
-  openAddQuestions(content: TemplateRef<any>) {
+  openModal(content: TemplateRef<any>) {
     this.modalService.open(content, {size: 'lg', scrollable: true})
     .result.then(
       (result) => {
@@ -55,93 +74,8 @@ export class EditQuestionsComponent implements OnInit, OnDestroy {
     );
   }
 
-  onAddNewQuestion() {
-    this.setForm();
-  }
-
-  getAnswersFormArray(typeCode: string) {
-    if (typeCode === 'fitb') {
-      return new FormArray([
-        new FormGroup({
-          'value': new FormControl('', Validators.required),
-          'is_correct': new FormControl(true),
-        }),
-      ]);
-    } else if (typeCode === 'mca') {
-      return new FormArray([
-        new FormGroup({
-          'value': new FormControl('', Validators.required),
-          'is_correct': new FormControl(false),
-        }),
-        new FormGroup({
-          'value': new FormControl('', Validators.required),
-          'is_correct': new FormControl(false),
-        }),
-        new FormGroup({
-          'value': new FormControl('', Validators.required),
-          'is_correct': new FormControl(false),
-        }),
-        new FormGroup({
-          'value': new FormControl('', Validators.required),
-          'is_correct': new FormControl(false),
-        }),
-      ]);
-    } else {
-      return new FormArray([
-        new FormGroup({
-          'value': new FormControl('', Validators.required),
-          'is_correct': new FormControl(false),
-        }),
-        new FormGroup({
-          'value': new FormControl('', Validators.required),
-          'is_correct': new FormControl(false),
-        }),
-        new FormGroup({
-          'value': new FormControl('', Validators.required),
-          'is_correct': new FormControl(false),
-        }),
-        new FormGroup({
-          'value': new FormControl('', Validators.required),
-          'is_correct': new FormControl(true),
-        }),
-      ]);
-    }
-
-  }
-
-  setForm() {
-    (this.editQuestionForm.get('questions') as FormArray).push(new FormGroup({
-      'title': new FormControl(null, Validators.required),
-      'weighted': new FormControl(null, [
-        Validators.required,
-        Validators.pattern(/^[1-9]+[0-9]*$/),
-      ]),
-      'question_type_id': new FormControl('sca', Validators.required),
-      'answers': this.getAnswersFormArray('sca'),
-    }));
-  }
-
-  changeForm(typeCode: string) {
-    return new FormGroup({
-      'title': new FormControl(null, Validators.required),
-      'weighted': new FormControl(null, [
-        Validators.required,
-        Validators.pattern(/^[1-9]+[0-9]*$/),
-      ]),
-      'question_type_id': new FormControl(typeCode, Validators.required),
-      'answers': this.getAnswersFormArray(typeCode),
-    });
-  }
-
-  onAddNewFITBAnswer(index: number) {
-    (this.questionControls.at(index)?.get('answers') as FormArray).push(new FormGroup({
-      'value': new FormControl('', Validators.required),
-      'is_correct': new FormControl(true),
-    }));
-  }
-
-  onDeleteQuestion(index: number) {
-    if ((this.editQuestionForm.get('questions') as FormArray).length === 1) {
+  onDeleteQuestion(id: string) {
+    if (this.questions.length === 1) {
       Swal.fire({
         icon: 'error',
         title: 'Không thể xóa câu hỏi!',
@@ -151,46 +85,65 @@ export class EditQuestionsComponent implements OnInit, OnDestroy {
       });
     } else {
 
-      (this.editQuestionForm.get('questions') as FormArray).removeAt(index);
       Swal.fire({
-        icon: 'success',
-        title: 'Xóa câu hỏi thành công!',
-        text: 'Bạn đã thành công xóa câu hỏi này!',
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'OK',
+        title: 'Đang xóa câu hỏi...',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
       });
+      this.questionService.deleteQuestion(id).subscribe(
+        (response) => {
+          Swal.close();
+          Swal.fire({
+            icon: 'success',
+            title: 'Xóa câu hỏi thành công!',
+            text: 'Bạn đã thành công xóa câu hỏi này!',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
+          });
+          this.questionService.getListQuestion(this.lessonId).subscribe(
+            response => {
+              this.sharedService.questionsOfLessonChanged.next(response);
+            }, error => {
+              console.log(error);
+            });
+        }, error => {
+          console.log(error);
+          Swal.close();
+          Swal.fire({
+            icon: 'error',
+            title: 'Xóa câu hỏi thất bại!',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
+          });
+        },
+      );
+
     }
 
   }
 
-  openConfirmAdd() {
-    this.editQuestionForm.value.questions.forEach((question: any) => {
-      const type = question.questionTypeId;
-      this.questionTypes.forEach((qType: QuestionTypeResponses) => {
-        if (qType.code === type) {
-          question.questionTypeId = qType.id;
+  openConfirmDelete(id: string) {
+    const confirmModal = this.modalService.open(ConfirmModalComponent);
+    confirmModal.componentInstance.body = "Bạn có chắc chắn muốn xóa câu hỏi khỏi bài học này không?";
+    confirmModal
+    .result.then(
+      (result) => {
+        this.closeResult = `Closed with: ${result}`;
+        console.log(this.closeResult);
+        if (result === 'Confirm') {
+          this.onDeleteQuestion(id);
+          console.log(result);
         }
-      });
-    });
+      },
+      (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        console.log(this.closeResult);
+      },
+    );
   }
 
-  initForm() {
-    let questions = new FormArray([
-      new FormGroup({
-        'title': new FormControl(null, Validators.required),
-        'weighted': new FormControl(null, [
-          Validators.required,
-          Validators.pattern(/^[1-9]+[0-9]*$/),
-        ]),
-        'question_type_id': new FormControl('sca', Validators.required),
-        'answers': this.getAnswersFormArray('sca'),
-      }),
-
-    ]);
-    this.editQuestionForm = new FormGroup<any>({
-      'questions': questions,
-    });
-  }
 
   private getDismissReason(reason: any): string {
     switch (reason) {

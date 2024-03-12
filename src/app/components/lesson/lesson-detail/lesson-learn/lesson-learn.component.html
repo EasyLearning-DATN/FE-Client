@@ -1,6 +1,6 @@
 <div class="container">
   <div class="title mt-4">
-    <p class="fw-semi-bold fs-3 "> {{ "lesson.lesson-learn.title" | translate }} (10)</p>
+    <p class="fw-semi-bold fs-3 "> {{ "lesson.lesson-learn.title" | translate }} ({{ questions.length }})</p>
   </div>
   <div class="questions row">
     <app-lesson-learn-item *ngFor="let question of questions" [question]="question" class="col-12 col-lg-6 mt-3">
