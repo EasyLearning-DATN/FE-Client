@@ -3,8 +3,6 @@ import {environment} from "../../../environments/environments";
 import {SharedService} from "../shared/shared.service";
 import {QuestionDTO} from "../../DTOS/question/question.dto";
 import {HttpClient} from "@angular/common/http";
-import {QuestionListResponses} from "../../responses/question/question.responses";
-import {map, tap} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -16,23 +14,6 @@ export class QuestionService {
   private apiUpdateQuestion = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_QUESTION;
 
   constructor(private sharedService: SharedService, private http: HttpClient) {
-  }
-
-  getListQuestion(lessonId: string) {
-    return this.http.get(this.apiGetListQuestion, {
-      params: {lessonId: lessonId},
-    }).pipe(
-      map(
-        (response: any) => {
-          let questions: QuestionListResponses = response.data;
-          return questions;
-        }),
-      tap((response: QuestionListResponses) => {
-        this.sharedService.questionsOfLesson = response;
-      }, (error) => {
-        console.log(error);
-      }),
-    );
   }
 
   putListQuestion(listQuestion: QuestionDTO[]) {

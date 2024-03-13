@@ -53,8 +53,19 @@ import {ShortenTextPipe} from './pipe/shorten-text.pipe';
 import {ConfirmModalComponent} from './components/commons/confirm-modal/confirm-modal.component';
 import {HomeItemComponent} from './components/home/home-item/home-item.component';
 import {ReportlessonComponent} from "./components/lesson/reportlesson/reportlesson.component";
+import {
+  EditQuestionItemComponent,
+} from './components/lesson/lesson-detail/edit-lesson/edit-questions/edit-question-item/edit-question-item.component';
+import {UpgradeComponent} from './components/upgrade/upgrade/upgrade.component';
+import {AddQuestionTestComponent} from './components/test/create-test/add-question-test/add-question-test.component';
+import { DemoScaQuestionComponent } from './components/test/create-test/demo-sca-question/demo-sca-question.component';
+import { DemoMcaQuestionComponent } from './components/test/create-test/demo-mca-question/demo-mca-question.component';
+import { DemoFitbQuestionComponent } from './components/test/create-test/demo-fitb-question/demo-fitb-question.component';
+import { AddQuestionSearchItemComponent } from './components/test/create-test/add-question-test/add-question-search-item/add-question-search-item.component';
+import { AddQuestionSearchItemQuestionComponent } from './components/test/create-test/add-question-test/add-question-search-item-question/add-question-search-item-question.component';
+import { CommentComponent } from './components/lesson/lesson-detail/comment/comment.component';
+import { CommentItemComponent } from './components/lesson/lesson-detail/comment/comment-item/comment-item.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { EditQuestionItemComponent } from './components/lesson/lesson-detail/edit-lesson/edit-questions/edit-question-item/edit-question-item.component';
 import { UpgradeComponent } from './components/upgrade/upgrade/upgrade.component';
 
 @NgModule({
@@ -93,6 +104,14 @@ import { UpgradeComponent } from './components/upgrade/upgrade/upgrade.component
     SettingsComponent,
     UpgradeComponent,
     EditQuestionItemComponent,
+    AddQuestionTestComponent,
+    DemoScaQuestionComponent,
+    DemoMcaQuestionComponent,
+    DemoFitbQuestionComponent,
+    AddQuestionSearchItemComponent,
+    AddQuestionSearchItemQuestionComponent,
+    CommentComponent,
+    CommentItemComponent,
   ],
   imports: [
     ReactiveFormsModule,

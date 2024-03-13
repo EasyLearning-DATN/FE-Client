@@ -8,6 +8,7 @@ import {QuestionService} from "../../../../../../services/question/question.serv
 import Swal from "sweetalert2";
 import {QuestionTypeResponses} from "../../../../../../responses/question-type/question-type.responses";
 import {ConfirmModalComponent} from "../../../../../commons/confirm-modal/confirm-modal.component";
+import {LessonService} from "../../../../../../services/lesson/lesson.service";
 
 @Component({
   selector: 'app-edit-question-item',
@@ -24,7 +25,8 @@ export class EditQuestionItemComponent implements OnInit {
   @ViewChild('closeEditModalButton', {static: true}) closeModal!: ElementRef;
   private closeResult!: string;
 
-  constructor(private sharedService: SharedService, private questionService: QuestionService, private modalService: NgbModal) {
+  constructor(private sharedService: SharedService, private questionService: QuestionService, private modalService: NgbModal,
+    private lessonService: LessonService) {
   }
 
   get answerControls() {
@@ -89,9 +91,9 @@ export class EditQuestionItemComponent implements OnInit {
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK',
               });
-              this.questionService.getListQuestion(this.lessonId).subscribe(
+              this.lessonService.getOneLesson(this.lessonId).subscribe(
                 response => {
-                  this.sharedService.questionsOfLessonChanged.next(response);
+                  this.sharedService.lessonChanged.next(response);
                 }, error => {
                   console.log(error);
                 });

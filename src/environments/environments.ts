@@ -17,6 +17,7 @@ export const environment = {
   API_ROLE: "/role",
   API_REPORT: "/report",
   API_TEST: "/test",
+  API_VIEW_RESULT_TYPE: "/view-result-type",
   API_USERINFO: "/info",
   API_AVATAR: "/avatar",
   API_PASSWORD: "/password",
