@@ -1,0 +1,52 @@
+.header p {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.title {
+    font-size: 26px;
+    font-weight: bold;
+    text-decoration: underline #D0D0D0;
+    text-align: left;
+    margin: 0 0 10px 0;
+}
+
+.avatar { 
+	width: 150px;
+	height: 150px;
+	margin: 5px 0 0 0;
+	display: block;
+    border-radius: 50%;
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
+.name-user {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* .btn-save {
+    background-color: #0d6efd;
+    color: #ffffff;
+}
+
+.btn-save:hover {
+    background-color: #ffffff;
+    color: #0d6efd;
+    border: #0d6efd solid 1px;
+} */
+
+.btn-delete {
+    background-color: #ffffff;
+    color: #FF0303;
+    border: #FF0303 solid 1px;
+    border-radius: 10px;
+}
+
+.btn-delete:hover {
+    background-color: #FF0303;
+    color: #ffffff;
+    border: #ffffff solid 1px;
+    border-radius: 10px;
+}

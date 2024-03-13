@@ -53,6 +53,7 @@ import {ShortenTextPipe} from './pipe/shorten-text.pipe';
 import {ConfirmModalComponent} from './components/commons/confirm-modal/confirm-modal.component';
 import {HomeItemComponent} from './components/home/home-item/home-item.component';
 import {ReportlessonComponent} from "./components/lesson/reportlesson/reportlesson.component";
+import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import {ReportlessonComponent} from "./components/lesson/reportlesson/reportless
     ConfirmModalComponent,
     HomeItemComponent,
     ReportlessonComponent,
+    SettingsComponent,
   ],
   imports: [
     ReactiveFormsModule,

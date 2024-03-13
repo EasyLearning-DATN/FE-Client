@@ -13,6 +13,7 @@ import {LessonLearnComponent} from "./components/lesson/lesson-detail/lesson-lea
 import {ConfirmComponent} from './components/forget-password/confirm/confirm.component';
 import {lessonResolver} from "./resolver/lesson.resolver";
 import {ItemsComponent} from "./components/lesson/items/items.component";
+import { SettingsComponent } from './components/settings/settings.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -40,6 +41,7 @@ const routes: Routes = [
       {path: 'history-lesson', component: ItemsComponent},
     ],
   },
+  {path: 'settings', component: SettingsComponent},
   {path: '404', component: PageNotFoundComponent},
   {path: '**', redirectTo: '/404'},
   // add this one if your path is '' when you want to redirect - pathMatch: 'full'
