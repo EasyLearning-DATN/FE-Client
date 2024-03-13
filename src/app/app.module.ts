@@ -53,6 +53,7 @@ import {ShortenTextPipe} from './pipe/shorten-text.pipe';
 import {ConfirmModalComponent} from './components/commons/confirm-modal/confirm-modal.component';
 import {HomeItemComponent} from './components/home/home-item/home-item.component';
 import {ReportlessonComponent} from "./components/lesson/reportlesson/reportlesson.component";
+import { SettingsComponent } from './components/settings/settings.component';
 import { EditQuestionItemComponent } from './components/lesson/lesson-detail/edit-lesson/edit-questions/edit-question-item/edit-question-item.component';
 import { UpgradeComponent } from './components/upgrade/upgrade/upgrade.component';
 
@@ -89,6 +90,7 @@ import { UpgradeComponent } from './components/upgrade/upgrade/upgrade.component
     ConfirmModalComponent,
     HomeItemComponent,
     ReportlessonComponent,
+    SettingsComponent,
     UpgradeComponent,
     EditQuestionItemComponent,
   ],
