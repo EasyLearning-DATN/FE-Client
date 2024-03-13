@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {LessonResponses} from "../../responses/lesson/lesson.responses";
 import {Subject} from "rxjs";
 import {QuestionTypeResponses} from "../../responses/question-type/question-type.responses";
-import {QuestionListResponses, QuestionResponses} from "../../responses/question/question.responses";
+import {QuestionResponses} from "../../responses/question/question.responses";
 import {TestResponses} from 'src/app/responses/test/test.responses';
 import {ResultTypeResponses} from "../../responses/result_type_id/result_type.responses";
 
@@ -13,7 +13,6 @@ export class SharedService {
 
   lessonsChanged = new Subject<LessonResponses[]>();
   lessonChanged = new Subject<LessonResponses>();
-  questionsOfLessonChanged = new Subject<QuestionListResponses>();
 
   constructor() {
   }
@@ -36,16 +35,6 @@ export class SharedService {
 
   set resultType(value: ResultTypeResponses[]) {
     this._resultType = value;
-  }
-
-  private _questionsOfLesson!: QuestionListResponses;
-
-  get questionsOfLesson(): QuestionListResponses {
-    return this._questionsOfLesson;
-  }
-
-  set questionsOfLesson(value: QuestionListResponses) {
-    this._questionsOfLesson = value;
   }
 
   private _questionTypeResponses!: QuestionTypeResponses[];

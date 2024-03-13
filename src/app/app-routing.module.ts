@@ -14,7 +14,6 @@ import {ConfirmComponent} from './components/forget-password/confirm/confirm.com
 import {lessonResolver} from "./resolver/lesson.resolver";
 import {ItemsComponent} from "./components/lesson/items/items.component";
 import {questionTypeResolver} from "./resolver/question.type.resolver";
-import {questionsResolver} from "./resolver/questions.resolver";
 import {TestComponent} from './components/test/test.component';
 import {UpgradeComponent} from './components/upgrade/upgrade/upgrade.component';
 import {resultTypeResolver} from "./resolver/result-type.resolver";
@@ -32,7 +31,7 @@ const routes: Routes = [
       {
         path: ':id',
         component: LessonDetailComponent,
-        resolve: [lessonResolver, questionTypeResolver, questionsResolver, resultTypeResolver],
+        resolve: [lessonResolver, questionTypeResolver, resultTypeResolver],
         children: [
           {path: '', component: FlashcardComponent},
           {path: 'flashcard', component: FlashcardComponent},

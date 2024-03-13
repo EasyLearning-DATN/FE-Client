@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import {ConfirmModalComponent} from "../../../../commons/confirm-modal/confirm-modal.component";
 import {QuestionService} from "../../../../../services/question/question.service";
 import {QuestionDTO} from "../../../../../DTOS/question/question.dto";
+import {LessonService} from "../../../../../services/lesson/lesson.service";
 
 @Component({
   selector: 'app-add-questions',
@@ -22,7 +23,7 @@ export class AddQuestionsComponent implements OnInit {
   private closeResult!: string;
 
   constructor(private sharedService: SharedService, private modalService: NgbModal, private config: NgbModalConfig,
-    private questionService: QuestionService) {
+    private questionService: QuestionService, private lessonService: LessonService) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
@@ -217,9 +218,9 @@ export class AddQuestionsComponent implements OnInit {
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK',
               });
-              this.questionService.getListQuestion(this.lessonId).subscribe(
+              this.lessonService.getOneLesson(this.lessonId).subscribe(
                 response => {
-                  this.sharedService.questionsOfLessonChanged.next(response);
+                  this.sharedService.lessonChanged.next(response);
                 }, error => {
                   console.log(error);
                 });

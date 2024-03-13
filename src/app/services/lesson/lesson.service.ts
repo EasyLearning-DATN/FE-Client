@@ -103,7 +103,7 @@ export class LessonService {
   }
 
 
-  getOneLesson(id: number) {
+  getOneLesson(id: string) {
     return this.http.get<any>(this.apiGetOneLesson + '/' + id).pipe(
       map((response) => {
         let lesson: LessonResponses = response.data;

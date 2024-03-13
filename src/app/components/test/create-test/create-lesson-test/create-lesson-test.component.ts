@@ -31,7 +31,7 @@ export class CreateLessonTestComponent implements OnInit {
 
   ngOnInit() {
     this.resultTypes = this.sharedService.resultType;
-    this.questions = this.sharedService.questionsOfLesson.data;
+    this.questions = this.sharedService.lesson.questions;
     this.lesson = this.sharedService.lesson;
     this.initForm();
   }
@@ -68,10 +68,11 @@ export class CreateLessonTestComponent implements OnInit {
             name: this.createTestForm.get('name')?.value,
             description: this.createTestForm.get('description')?.value,
             question_ids: this.getRandomQuestions(),
-            time_question: <number>this.createTestForm.get('time_question')?.value,
-            time_total: <number>this.createTestForm.get('time_total')?.value,
+            time_question: this.createTestForm.get('time_question')?.value === 0 ? null : this.createTestForm.get('time_question')?.value,
+            time_total: this.createTestForm.get('time_total')?.value === 0 ? null : this.createTestForm.get('time_total')?.value,
             view_result_type_code: this.createTestForm.get('view_result_type_code')?.value,
             image_id: this.lesson.image.public_id,
+            total_question: <number>this.createTestForm.get('total_question')?.value,
           };
           console.log(this.createTest);
           Swal.fire({
@@ -127,18 +128,18 @@ export class CreateLessonTestComponent implements OnInit {
   }
 
   openOffcanvas(content: TemplateRef<any>) {
-    this.offcanvasService.open(content, {backdrop: 'static', scroll: true});
+    this.offcanvasService.open(content, {backdrop: 'static'});
   }
 
   initForm() {
     this.createTestForm = new FormGroup({
       'name': new FormControl("", [Validators.required]),
       'description': new FormControl("", [Validators.required]),
-      'time_total': new FormControl("0", [Validators.required]),
-      'time_question': new FormControl("0", [Validators.required]),
+      'time_total': new FormControl(0, [Validators.required]),
+      'time_question': new FormControl(0, [Validators.required]),
       'image_id': new FormControl(this.lesson.image.url, [Validators.required]),
       'view_result_type_code': new FormControl(this.resultTypes[0].code, [Validators.required]),
-      'test_size': new FormControl(1, [Validators.required]),
+      'total_question': new FormControl(1, [Validators.required]),
       'test_type': new FormControl("fullTime", [Validators.required]),
     });
   }
