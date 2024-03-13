@@ -56,7 +56,6 @@ import {ReportlessonComponent} from "./components/lesson/reportlesson/reportless
 import {
   EditQuestionItemComponent,
 } from './components/lesson/lesson-detail/edit-lesson/edit-questions/edit-question-item/edit-question-item.component';
-import {UpgradeComponent} from './components/upgrade/upgrade/upgrade.component';
 import {AddQuestionTestComponent} from './components/test/create-test/add-question-test/add-question-test.component';
 import { DemoScaQuestionComponent } from './components/test/create-test/demo-sca-question/demo-sca-question.component';
 import { DemoMcaQuestionComponent } from './components/test/create-test/demo-mca-question/demo-mca-question.component';
