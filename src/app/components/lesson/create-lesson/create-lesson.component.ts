@@ -60,6 +60,13 @@ export class CreateLessonComponent {
   }
 
   onCreateLesson() {
+    Swal.fire({
+      title: 'Đang tạo bài học...',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
     this.imgUpload.uploadImage(this.image_id, localStorage.getItem('token')).subscribe(
       (res : ImageResponses) => {
         this.image_id = res.public_id;

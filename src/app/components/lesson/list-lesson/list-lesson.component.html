@@ -1,20 +1,23 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
-      <h1>Thư viện bài học của tôi</h1>
+    <h1>Thư viện bài học</h1>
+
+    <div class="col-md-8">
       <div class="menu">
         <!--         <button class="menu-item" data-tab="all">All</button> -->
         <!--         <button class="menu-item" data-tab="my-lessons">My Lessons</button> -->
         <!--         <button class="menu-item" data-tab="following-lessons">Following Lessons</button> -->
         <!--         <button class="menu-item" data-tab="history-lessons">History Lessons</button> -->
         <a [routerLink]="['/list-lesson']" class="btn btn-app menu-item text-decoration-none" data-tab="all">All</a>
-        <a [routerLink]="['my-lesson']" class="btn btn-app menu-item text-decoration-none" data-tab="my-lessons">My Lessons</a>
-        <a [routerLink]="['following-lesson']" class="btn btn-app menu-item text-decoration-none" data-tab="following-lessons">Following Lessons</a>
-        <a [routerLink]="['history-lesson']" class="btn btn-app menu-item text-decoration-none" data-tab="history-lessons">History Lessons</a>
+        <a [routerLink]="['my-lesson']" class="btn btn-app menu-item text-decoration-none" data-tab="my-lessons">My
+          Lessons</a>
+        <a [routerLink]="['following-lesson']" class="btn btn-app menu-item text-decoration-none"
+          data-tab="following-lessons">Following Lessons</a>
+        <a [routerLink]="['history-lesson']" class="btn btn-app menu-item text-decoration-none"
+          data-tab="history-lessons">History Lessons</a>
       </div>
     </div>
+    <div class="row lesson-container">
+      <router-outlet></router-outlet>
+    </div>
   </div>
-  <div class="row lesson-container">
-    <router-outlet></router-outlet>
-  </div>
-</div>

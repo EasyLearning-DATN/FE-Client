@@ -15,9 +15,10 @@ export class LessonService {
   private apiGetListLesson = environment.API_URL + environment.API_PUBLIC + environment.VERSION_1 + environment.API_LESSON;
   private apiGetOneLesson = environment.API_URL + environment.API_PUBLIC + environment.VERSION_1 + environment.API_LESSON;
   private apiCreateLesson = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_LESSON;
-  private apiUpdateLesson = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_LESSON + environment.ID;
-  private apiDeleteLesson = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_LESSON + environment.ID;
+  private apiUpdateLesson = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_LESSON;
+  private apiDeleteLesson = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_LESSON;
   private apiGetListLessonByUser = environment.API_URL + environment.API_PUBLIC + environment.VERSION_1 + environment.API_LESSON;
+  private apiSearchLesson = environment.API_URL + environment.API_PUBLIC + environment.VERSION_1 + environment.API_LESSON;
 
   constructor(private http: HttpClient, private sharedService: SharedService, private router: Router) {
   }
@@ -27,6 +28,7 @@ export class LessonService {
     searchParams = searchParams.append('sort', 'des');
     searchParams = searchParams.append('page', 0);
     searchParams = searchParams.append('limit', 8);
+    searchParams = searchParams.append('sortBy', 'accessTimes');
     return this.http.get<any>(this.apiGetListLesson, {
       params: searchParams,
     })
@@ -63,6 +65,24 @@ export class LessonService {
       }));
   }
 
+  searchLesson(key: string) {
+    let searchParams = new HttpParams().set('key', key);
+    return this.http.get<any>(this.apiSearchLesson, {
+      params: searchParams,
+    })
+    .pipe(
+      map((response) => {
+        let lessons: LessonsResponses = response.data;
+        lessons.data = lessons.data.map(lesson => {
+          return {...lesson, questions: lesson.questions ? lesson.questions : []};
+        });
+        return lessons;
+      }),
+      tap((lessons: LessonsResponses) => {
+        this.sharedService.lessonsHome = lessons.data;
+      }));
+  }
+
   // create lesson
   createLesson(lessonDTO: LessonDTO) {
     const token = localStorage.getItem('token');
@@ -81,6 +101,7 @@ export class LessonService {
         console.log(response);
       }));
   }
+
 
   getOneLesson(id: number) {
     return this.http.get<any>(this.apiGetOneLesson + '/' + id).pipe(
@@ -145,5 +166,15 @@ export class LessonService {
         console.log(lessons.data);
         console.log(this.sharedService.allLessons);
       }));
+  }
+
+  updateLesson(id: string, lessonDTO: LessonDTO) {
+    const token = localStorage.getItem('token');
+    return this.http.put(this.apiUpdateLesson + '/' + id, lessonDTO, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+
   }
 }

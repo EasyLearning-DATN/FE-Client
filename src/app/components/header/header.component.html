@@ -81,6 +81,9 @@
             </li>
           </ul>
         </li>
+        <!--         <li class=" link-item p-0" ngbNavItem><a (click)="isMenuCollapsed = true" [routerLink]="['/demo/add-question']" aria-current="page" -->
+        <!--                                                  class="text-capitalize link-item px-2 " -->
+        <!--                                                  ngbNavLink>Demo thêm câu hỏi vào bài học</a></li> -->
       </ul>
     </div>
     <!-- End of the collapsed button content -->
@@ -110,7 +113,7 @@
         </ul>
       </div>
       <div class="d-flex">
-        <div class="create_new_wrapper" ngbDropdown>
+        <div *ngIf="userResponse" class="create_new_wrapper" ngbDropdown>
           <!-- Dropdown button of creating new data -->
           <button class="create_new text-black" id="dropdownBasic1" ngbDropdownToggle type="button">
             <i class="text-white" height="2rem" i-bs name="plus" width="2rem"></i>

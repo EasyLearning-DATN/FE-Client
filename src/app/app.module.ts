@@ -54,6 +54,8 @@ import {ConfirmModalComponent} from './components/commons/confirm-modal/confirm-
 import {HomeItemComponent} from './components/home/home-item/home-item.component';
 import {ReportlessonComponent} from "./components/lesson/reportlesson/reportlesson.component";
 import { SettingsComponent } from './components/settings/settings.component';
+import { EditQuestionItemComponent } from './components/lesson/lesson-detail/edit-lesson/edit-questions/edit-question-item/edit-question-item.component';
+import { UpgradeComponent } from './components/upgrade/upgrade/upgrade.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +91,8 @@ import { SettingsComponent } from './components/settings/settings.component';
     HomeItemComponent,
     ReportlessonComponent,
     SettingsComponent,
+    UpgradeComponent,
+    EditQuestionItemComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -97,6 +101,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     NgbModule,
     FormsModule,
     FontAwesomeModule,
+    NgOptimizedImage,
     NgxBootstrapIconsModule.pick(allIcons, {}),
     NgOptimizedImage,
     HttpClientModule,
@@ -132,6 +137,12 @@ import { SettingsComponent } from './components/settings/settings.component';
     {
       provide: LocationStrategy, useClass: PathLocationStrategy,
     },
+    // {
+    //   provide: IMAGE_LOADER,
+    //   useValue: (config: ImageLoaderConfig) => {
+    //     return ``;
+    //   },
+    // },
   ],
   bootstrap: [AppComponent],
 })

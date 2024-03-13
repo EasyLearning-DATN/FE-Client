@@ -1,10 +1,31 @@
-export interface TestResponses {
-  created_date: Date;
-  name: string;
+
+import {BaseReponses} from "../base.reponses";
+import { ImageResponses } from "../image/image.responses";
+import { QuestionListResponses, QuestionResponses } from "../question/question.responses";
+import { ResultTypeResponses } from "../result_type_id/result_type.responses";
+
+export interface TestResponses extends BaseReponses {
   id: string;
+  name: string;
+  description: string;
+  image: ImageResponses;
+  created_date: Date;
+  created_by: string;
+  last_modified_date: Date;
+  last_modified_by: string;
+  time_total: number;
+  time_question: number;
+  total_question: number;
+  view_result_type_id: ResultTypeResponses;
+  question_tests: QuestionListResponses[];
   user_info: {
     id: number;
     fullName: string;
-    avatar: string | null;
+    avatar: ImageResponses;
   };
+}
+
+export interface TestListResponses {
+  data: TestResponses[];
+  totalPage: number;
 }

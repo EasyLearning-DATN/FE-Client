@@ -12,10 +12,14 @@
       <div class="form-floating mb-3">
         <input class="form-control" formControlName="name" id="floatingName" placeholder="" type="text"> <label
         for="floatingName">Tên bài học</label>
+        <span *ngIf="!updateLessonForm.get('name')?.valid && updateLessonForm.get('name')?.touched"
+              class="text-danger">
+                     <span *ngIf="updateLessonForm.get('name')?.errors?.['required']">Vui lòng nhập câu hỏi!</span>
+        </span>
       </div>
       <div class="mb-3">
         <label class="form-label" for="inputImage">Ảnh</label>
-        <input (change)="onFileSelected($event)" accept="image/*" class="form-control" formControlName="image" id="inputImage"
+        <input (change)="onFileSelected($event)" accept="image/*" class="form-control" id="inputImage"
                placeholder="Ảnh"
                type="file">
         <span>Ảnh đã chọn: {{ lesson.image.url }}</span>
@@ -23,13 +27,17 @@
       <div class="form-floating mb-3">
 				<textarea class="form-control" formControlName="description" id="floatingDescription" placeholder="" rows="30"
                   type="text"></textarea> <label for="floatingDescription">Mô tả</label>
+        <span *ngIf="!updateLessonForm.get('description')?.valid && updateLessonForm.get('description')?.touched"
+              class="text-danger">
+                     <span *ngIf="updateLessonForm.get('description')?.errors?.['required']">Vui lòng nhập câu hỏi!</span>
+                  </span>
       </div>
     </form>
-    <app-add-questions></app-add-questions>
-    <app-edit-questions></app-edit-questions>
+    <app-add-questions [lessonId]="lesson.id"></app-add-questions>
+    <app-edit-questions [lessonId]="lesson.id"></app-edit-questions>
   </div>
   <div class="modal-footer">
-    <button (click)="openConfirmSave( image)" class="btn btn-app">Save</button>
+    <button (click)="openConfirmSave()" class="btn btn-app">Save</button>
     <button (click)="openConfirmDelete()" class="btn btn-app-warning">Delete</button>
     <button (click)="d('Close click')" class="btn btn-app" type="button">Close</button>
   </div>

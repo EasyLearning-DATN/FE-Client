@@ -47,16 +47,16 @@ export class ReportlessonComponent {
   }
 
   // xử lý upload ảnh
-  onSubmit() {
-    this.imgUpload.uploadImage(this.image, localStorage.getItem('token')).subscribe(
-      (res : ImageResponses) => {
-        this.image = res.public_id;
-        console.log(res.public_id);
-        this.sendReport();
-    }, error => {
-      console.log(error);
-    });
-  }
+  // onSendReport() {
+  //   this.imgUpload.uploadImage(this.image, localStorage.getItem('token')).subscribe(
+  //     (res : ImageResponses) => {
+  //       this.image = res.public_id;
+  //       console.log(res.public_id);
+  //       this.sendReport();
+  //   }, error => {
+  //     console.log(error);
+  //   });
+  //   }
 
   sendReport() {
     if (this.image) {
@@ -64,6 +64,7 @@ export class ReportlessonComponent {
       reportDTO.targetId = this.targetId;
       reportDTO.reason = this.reportLesson.get("reason")?.value || "";
       reportDTO.type = "LESSON";
+      reportDTO.image = this.image;
       console.log(this.image);
       this.reportService.sendReport(reportDTO, this.image).subscribe(
         response => {

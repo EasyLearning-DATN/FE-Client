@@ -14,6 +14,10 @@ import {ConfirmComponent} from './components/forget-password/confirm/confirm.com
 import {lessonResolver} from "./resolver/lesson.resolver";
 import {ItemsComponent} from "./components/lesson/items/items.component";
 import { SettingsComponent } from './components/settings/settings.component';
+import {questionTypeResolver} from "./resolver/question.type.resolver";
+import {questionsResolver} from "./resolver/questions.resolver";
+import { TestComponent } from './components/test/test.component';
+import { UpgradeComponent } from './components/upgrade/upgrade/upgrade.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -24,10 +28,10 @@ const routes: Routes = [
   {
     path: 'lesson', component: LessonComponent, children: [
       {
-        path: ':id', component: LessonDetailComponent, resolve: [lessonResolver], children: [
+        path: ':id', component: LessonDetailComponent, resolve: [lessonResolver, questionTypeResolver, questionsResolver], children: [
           {path: '', component: FlashcardComponent},
           {path: 'flashcard', component: FlashcardComponent},
-          {path: 'learn', component: LessonLearnComponent},
+          {path: 'learn', component: LessonLearnComponent}
         ],
       },
     ],
@@ -42,6 +46,9 @@ const routes: Routes = [
     ],
   },
   {path: 'settings', component: SettingsComponent},
+  {path: 'list-test', component: TestComponent},
+  // {path: 'demo/add-question', component: AddQuestionsComponent, resolve: [questionTypeResolver]},
+  {path: 'upgrade', component: UpgradeComponent},
   {path: '404', component: PageNotFoundComponent},
   {path: '**', redirectTo: '/404'},
   // add this one if your path is '' when you want to redirect - pathMatch: 'full'

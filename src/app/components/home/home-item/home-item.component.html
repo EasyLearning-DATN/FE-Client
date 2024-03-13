@@ -1,7 +1,8 @@
 <div class="mt-4 ">
-  <div class="card h-100 lesson_item">
-    <!-- <img class="card-img-top w-100" src="{{lesson.image_url}}" alt="courses" /> -->
-    <img alt="courses" class="card-img-top w-100" src="{{ lesson.image.url }}"/>
+  <div class="card h-100 lesson_item ">
+    <img [ngSrc]="lesson.image.url" alt="Course image" class="card-img-top w-100 img-item" height="175" width="100"/>
+    <!--     <img alt="courses" class="card-img-top w-100" height="150" ngSrc="https://treobangron.com.vn/wp-content/uploads/2022/09/background-hoc-tap-54.jpg" -->
+    <!--          width="100"/> -->
     <div *ngIf="lesson" class="content-container">
       <h5 class="font-sans-serif fw-bold fs-md-1 fs-lg-3">{{ lesson.name }}</h5>
       <small class="text-muted">Ngày tạo: {{ lesson.created_date | date }}</small>
@@ -13,10 +14,13 @@
     <div class="card-footer">
       <div *ngIf="lesson" class="d-flex justify-content-between pt-3 pb-3 row">
         <div class="detail d-flex align-items-center col-12 col-xxl-7">
-          <img alt="img" height="40" src="/assets/img/commons/default_user.jpeg" width="40">
+          <img *ngIf="lesson.user_info.avatar?.url == null" alt="img" class="rounded-5" height="40" src="/assets/img/commons/default_user.jpeg"
+               width="40">
+          <img *ngIf="lesson.user_info.avatar?.url != null" [src]="lesson.user_info.avatar.url" alt="img" class="rounded-5" height="40"
+               width="40">
           <span class="ms-1">{{ lesson.user_info.fullName | titlecase }}</span>
         </div>
-        <div class="detail col-12 col-xxl-5">
+        <div class="detail-btn col-12 col-xxl-5">
           <a [routerLink]="['lesson',lesson.id]" class="btn btn-app">Chi tiết</a>
         </div>
       </div>
@@ -25,7 +29,7 @@
           <img alt="img" height="40" src="/assets/img/commons/default_user.jpeg" width="40">
           <span class="ms-1">{{ test.user_info.fullName | titlecase }}</span>
         </div>
-        <div class="col-12 col-xxl-5">
+        <div class="detail-btn col-12 col-xxl-5">
           <a [routerLink]="['test',test.id]" class="btn btn-app">Chi tiết</a>
         </div>
       </div>
