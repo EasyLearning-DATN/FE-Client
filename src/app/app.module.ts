@@ -63,6 +63,8 @@ import { DemoMcaQuestionComponent } from './components/test/create-test/demo-mca
 import { DemoFitbQuestionComponent } from './components/test/create-test/demo-fitb-question/demo-fitb-question.component';
 import { AddQuestionSearchItemComponent } from './components/test/create-test/add-question-test/add-question-search-item/add-question-search-item.component';
 import { AddQuestionSearchItemQuestionComponent } from './components/test/create-test/add-question-test/add-question-search-item-question/add-question-search-item-question.component';
+import { CommentComponent } from './components/lesson/lesson-detail/comment/comment.component';
+import { CommentItemComponent } from './components/lesson/lesson-detail/comment/comment-item/comment-item.component';
 
 @NgModule({
   declarations: [
@@ -105,6 +107,8 @@ import { AddQuestionSearchItemQuestionComponent } from './components/test/create
     DemoFitbQuestionComponent,
     AddQuestionSearchItemComponent,
     AddQuestionSearchItemQuestionComponent,
+    CommentComponent,
+    CommentItemComponent,
   ],
   imports: [
     ReactiveFormsModule,
