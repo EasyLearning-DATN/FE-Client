@@ -65,6 +65,8 @@ import { AddQuestionSearchItemComponent } from './components/test/create-test/ad
 import { AddQuestionSearchItemQuestionComponent } from './components/test/create-test/add-question-test/add-question-search-item-question/add-question-search-item-question.component';
 import { CommentComponent } from './components/lesson/lesson-detail/comment/comment.component';
 import { CommentItemComponent } from './components/lesson/lesson-detail/comment/comment-item/comment-item.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { UpgradeComponent } from './components/upgrade/upgrade/upgrade.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +101,7 @@ import { CommentItemComponent } from './components/lesson/lesson-detail/comment/
     ConfirmModalComponent,
     HomeItemComponent,
     ReportlessonComponent,
+    SettingsComponent,
     UpgradeComponent,
     EditQuestionItemComponent,
     AddQuestionTestComponent,

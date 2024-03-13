@@ -13,6 +13,7 @@ import {LessonLearnComponent} from "./components/lesson/lesson-detail/lesson-lea
 import {ConfirmComponent} from './components/forget-password/confirm/confirm.component';
 import {lessonResolver} from "./resolver/lesson.resolver";
 import {ItemsComponent} from "./components/lesson/items/items.component";
+import { SettingsComponent } from './components/settings/settings.component';
 import {questionTypeResolver} from "./resolver/question.type.resolver";
 import {TestComponent} from './components/test/test.component';
 import {UpgradeComponent} from './components/upgrade/upgrade/upgrade.component';
@@ -50,6 +51,7 @@ const routes: Routes = [
       {path: 'history-lesson', component: ItemsComponent},
     ],
   },
+  {path: 'settings', component: SettingsComponent},
   {path: 'list-test', component: TestComponent},
   {path: 'demo/add-test', component: CreateLessonTestComponent, resolve: [resultTypeResolver]},
   {path: 'upgrade', component: UpgradeComponent},
