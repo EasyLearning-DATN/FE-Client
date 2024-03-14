@@ -38,7 +38,13 @@ export class ForgetPasswordComponent {
         });
       },
       (error) => {
-        console.log(error);
+        // thông báo lỗi 
+        Swal.fire({
+          title: 'Lỗi!',
+          text: error.error.message,
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       }
     );
   }

@@ -97,4 +97,13 @@ export class SharedService {
     this._allTest = value;
   }
 
+   checkLogin() {
+    let jsonData = localStorage.getItem('token');
+    if (jsonData) {
+      return JSON.parse(jsonData);
+    } else {
+      return false;
+    }
+  }
+
 }
