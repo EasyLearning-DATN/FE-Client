@@ -20,6 +20,8 @@ import {UpgradeComponent} from './components/upgrade/upgrade/upgrade.component';
 import {resultTypeResolver} from "./resolver/result-type.resolver";
 import {CreateTestComponent} from "./components/test/create-test/create-test.component";
 import {TestDetailComponent} from "./components/test/test-detail/test-detail.component";
+import {TestEditComponent} from "./components/test/test-detail/test-edit/test-edit.component";
+import {ListTestComponent} from "./components/test/list-test/list-test.component";
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -44,6 +46,7 @@ const routes: Routes = [
   {
     path: 'test', component: TestComponent, children: [
       {path: ':id', component: TestDetailComponent},
+      {path: ':id/edit', component: TestEditComponent},
     ],
   },
   {path: 'create-lesson', component: CreateLessonComponent},
@@ -57,7 +60,7 @@ const routes: Routes = [
     ],
   },
   {path: 'settings', component: SettingsComponent},
-  {path: 'list-test', component: TestComponent},
+  {path: 'list-test', component: ListTestComponent},
   // {path: 'demo/add-test', component: CreateLessonTestComponent, resolve: [resultTypeResolver]},
   {path: 'upgrade', component: UpgradeComponent},
   {path: '404', component: PageNotFoundComponent},
