@@ -21,7 +21,8 @@ export class ViewResultTypeService {
       map(res => {
         return res.data;
       }), tap((res: ResultTypeResponses[]) => {
-        this.sharedService.resultType = res;
+        // this.sharedService.resultType = res;
+        sessionStorage.setItem('resultTypes', JSON.stringify(res));
       }, err => {
         console.log(err);
       }))

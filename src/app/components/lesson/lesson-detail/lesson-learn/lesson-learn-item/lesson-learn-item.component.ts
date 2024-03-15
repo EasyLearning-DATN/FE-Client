@@ -18,8 +18,8 @@ export class LessonLearnItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.questionTypes = this.sharedService.questionTypeResponses;
-
+    // this.questionTypes = this.sharedService.questionTypeResponses;
+    this.questionTypes = JSON.parse(<string>sessionStorage.getItem("questionTypes"));
     this.questionTypes.forEach((questionType) => {
       if (questionType.id === this.question.question_type_id) {
         this.nameCode = questionType.code;

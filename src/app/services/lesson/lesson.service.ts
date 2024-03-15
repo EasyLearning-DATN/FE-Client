@@ -7,6 +7,7 @@ import {LessonsResponses} from "../../responses/lessons/lessons.responses";
 import {LessonDTO} from 'src/app/DTOS/lesson/lesson.dto';
 import {LessonResponses} from "src/app/responses/lesson/lesson.responses";
 import {Router} from "@angular/router";
+import {SearchLessonListResponse, SearchLessonResponses} from "../../responses/search-lesson/search-lesson.responses";
 
 @Injectable({
   providedIn: 'root',
@@ -34,13 +35,13 @@ export class LessonService {
     })
     .pipe(
       map((response) => {
-        let lessons: LessonsResponses = response.data;
+        let lessons: SearchLessonListResponse = response.data;
         lessons.data = lessons.data.map(lesson => {
-          return {...lesson, questions: lesson.questions ? lesson.questions : []};
+          return {...lesson};
         });
         return lessons;
       }),
-      tap((lessons: LessonsResponses) => {
+      tap((lessons: SearchLessonListResponse) => {
         this.sharedService.lessonsHome = lessons.data;
         // console.log(lessons.data);
         // console.log(this.sharedService.lessonsHome);
@@ -61,7 +62,7 @@ export class LessonService {
         return lessons;
       }),
       tap((lessons: LessonsResponses) => {
-        this.sharedService.lessonsHome = lessons.data;
+        // this.sharedService.lessonsHome = lessons.data;
       }));
   }
 
@@ -79,8 +80,33 @@ export class LessonService {
         return lessons;
       }),
       tap((lessons: LessonsResponses) => {
-        this.sharedService.lessonsHome = lessons.data;
+        // this.sharedService.lessonsHome = lessons.data;
       }));
+  }
+
+  searchLessonForTest(key: string, page: number = 0, createdBy: string = '') {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('key', key);
+    searchParams = searchParams.append('page', page);
+    searchParams = searchParams.append('createdBy', createdBy);
+    return this.http.get<any>(this.apiSearchLesson, {
+      params: searchParams,
+    })
+    .pipe(map((response) => {
+        let lessons: SearchLessonListResponse = response.data;
+        lessons.data = lessons.data.map(lesson => {
+          return {...lesson};
+        });
+        return lessons.data;
+      }),
+      tap((lessons: SearchLessonResponses[]) => {
+        // if (this.sharedService.lessonsSearch === undefined) {
+        this.sharedService.lessonsSearch = lessons;
+        // } else {
+        //   this.sharedService.onUpdateLessonsSearch(lessons);
+        // }
+      }),
+    );
   }
 
   // create lesson

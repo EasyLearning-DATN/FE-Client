@@ -5,6 +5,7 @@ import {QuestionTypeResponses} from "../../responses/question-type/question-type
 import {QuestionResponses} from "../../responses/question/question.responses";
 import {TestResponses} from 'src/app/responses/test/test.responses';
 import {ResultTypeResponses} from "../../responses/result_type_id/result_type.responses";
+import {SearchLessonResponses} from "../../responses/search-lesson/search-lesson.responses";
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +14,41 @@ export class SharedService {
 
   lessonsChanged = new Subject<LessonResponses[]>();
   lessonChanged = new Subject<LessonResponses>();
+  questionsOfTestChanged = new Subject<QuestionResponses[]>();
+  isFetching: Subject<boolean> = new Subject<boolean>();
 
   constructor() {
+  }
+
+  private _lessonViewInfo!: LessonResponses;
+
+  get lessonViewInfo(): LessonResponses {
+    return this._lessonViewInfo;
+  }
+
+  set lessonViewInfo(value: LessonResponses) {
+    this._lessonViewInfo = value;
+  }
+
+  private _questionsOfCreatingTest!: QuestionResponses[];
+
+  get questionsOfCreatingTest(): QuestionResponses[] {
+    return this._questionsOfCreatingTest.slice();
+  }
+
+  set questionsOfCreatingTest(value: QuestionResponses[]) {
+    this._questionsOfCreatingTest = value;
+    this.questionsOfTestChanged.next(this.questionsOfCreatingTest);
+  }
+
+  private _creatingTest!: TestResponses;
+
+  get creatingTest(): TestResponses {
+    return this._creatingTest;
+  }
+
+  set creatingTest(value: TestResponses) {
+    this._creatingTest = value;
   }
 
   private _tempTestQuestions!: QuestionResponses[];
@@ -37,6 +71,16 @@ export class SharedService {
     this._resultType = value;
   }
 
+  private _lessonsSearch!: SearchLessonResponses[];
+
+  get lessonsSearch(): SearchLessonResponses[] {
+    return this._lessonsSearch;
+  }
+
+  set lessonsSearch(value: SearchLessonResponses[]) {
+    this._lessonsSearch = value;
+  }
+
   private _questionTypeResponses!: QuestionTypeResponses[];
 
   get questionTypeResponses(): QuestionTypeResponses[] {
@@ -57,13 +101,13 @@ export class SharedService {
     this._allLessons = value;
   }
 
-  private _lessonsHome!: LessonResponses[];
+  private _lessonsHome!: SearchLessonResponses[];
 
-  get lessonsHome(): LessonResponses[] {
+  get lessonsHome(): SearchLessonResponses[] {
     return this._lessonsHome;
   }
 
-  set lessonsHome(value: LessonResponses[]) {
+  set lessonsHome(value: SearchLessonResponses[]) {
     this._lessonsHome = value;
   }
 
@@ -97,7 +141,17 @@ export class SharedService {
     this._allTest = value;
   }
 
-   checkLogin() {
+  private _testsHome!: TestResponses[];
+
+  get testsHome(): TestResponses[] {
+    return this._testsHome;
+  }
+
+  set testsHome(value: TestResponses[]) {
+    this._testsHome = value;
+  }
+
+  checkLogin() {
     let jsonData = localStorage.getItem('token');
     if (jsonData) {
       return JSON.parse(jsonData);
@@ -105,5 +159,26 @@ export class SharedService {
       return false;
     }
   }
+
+  onAddQuestionsOfTest(questions: QuestionResponses[]) {
+    if (this._questionsOfCreatingTest === undefined) {
+      this.questionsOfCreatingTest = questions;
+    } else {
+      this._questionsOfCreatingTest.push(...questions);
+      this.questionsOfTestChanged.next(this.questionsOfCreatingTest);
+    }
+
+  }
+
+  onRemoveQuestionOfTest(index: number) {
+    this._questionsOfCreatingTest.splice(index, 1);
+    console.log(this._questionsOfCreatingTest);
+    this.questionsOfTestChanged.next(this.questionsOfCreatingTest);
+  }
+
+  onUpdateLessonsSearch(newLessons: SearchLessonResponses[]) {
+    this.lessonsSearch.push(...newLessons);
+  }
+
 
 }

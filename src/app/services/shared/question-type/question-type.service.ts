@@ -22,7 +22,8 @@ export class QuestionTypeService {
         return questionTypeResponsesList.data;
       }),
       tap((questionTypeResponses) => {
-        this.sharedService.questionTypeResponses = questionTypeResponses;
+        // this.sharedService.questionTypeResponses = questionTypeResponses;
+        sessionStorage.setItem("questionTypes", JSON.stringify(questionTypeResponses));
       }),
     );
   }

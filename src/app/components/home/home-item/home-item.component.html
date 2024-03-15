@@ -1,22 +1,30 @@
 <div class="mt-4 ">
   <div class="card h-100 lesson_item ">
-    <img [ngSrc]="lesson.image.url" alt="Course image" class="card-img-top w-100 img-item" height="175" width="100"/>
-    <!--     <img alt="courses" class="card-img-top w-100" height="150" ngSrc="https://treobangron.com.vn/wp-content/uploads/2022/09/background-hoc-tap-54.jpg" -->
-    <!--          width="100"/> -->
+    <img *ngIf="lesson"
+         [ngSrc]="lesson.image.url ? lesson.image.url : 'https://treobangron.com.vn/wp-content/uploads/2022/09/background-hoc-tap-54.jpg'"
+         alt="Course image" class="card-img-top w-100 img-item" height="175" width="100"/>
+
+    <img *ngIf="test" [ngSrc]="test.image.url ? test.image.url : 'https://treobangron.com.vn/wp-content/uploads/2022/09/background-hoc-tap-54.jpg'"
+         alt="Course image" class="card-img-top w-100 img-item" height="175" width="100"/>
     <div *ngIf="lesson" class="content-container">
-      <h5 class="font-sans-serif fw-bold fs-md-1 fs-lg-3">{{ lesson.name }}</h5>
+      <h5 class="font-sans-serif fw-bold fs-md-1 fs-lg-3">{{ lesson.name | shortenText : 27 }}</h5>
       <small class="text-muted">Ngày tạo: {{ lesson.created_date | date }}</small>
+      <br>
+      <small class="text-muted">Tổng số câu hỏi: {{ lesson.number_of_question }}</small>
+      <br>
+      <small class="text-muted">Lượt truy cập: {{ lesson.access_times }}</small>
     </div>
     <div *ngIf="test" class="content-container">
-      <h5 class="font-sans-serif fw-bold fs-md-1 fs-lg-3">{{ test.name }}</h5>
-      <small class="text-muted">Ngày tạo: {{ test.created_date }}</small>
+      <h5 class="font-sans-serif fw-bold fs-md-1 fs-lg-3">{{ test.name | shortenText : 27 }}</h5>
+      <small class="text-muted">Ngày tạo: {{ test.created_date | date }}</small><br>
+      <small class="text-muted">Tổng số câu hỏi: {{ test.question_tests.length }}</small>
     </div>
     <div class="card-footer">
       <div *ngIf="lesson" class="d-flex justify-content-between pt-3 pb-3 row">
         <div class="detail d-flex align-items-center col-12 col-xxl-7">
           <img *ngIf="lesson.user_info.avatar?.url == null" alt="img" class="rounded-5" height="40" src="/assets/img/commons/default_user.jpeg"
                width="40">
-          <img *ngIf="lesson.user_info.avatar?.url != null" [src]="lesson.user_info.avatar.url" alt="img" class="rounded-5" height="40"
+          <img *ngIf="lesson.user_info.avatar?.url != null" [ngSrc]="lesson.user_info.avatar.url" alt="img" class="rounded-5" height="40"
                width="40">
           <span class="ms-1">{{ lesson.user_info.fullName | titlecase }}</span>
         </div>
@@ -26,7 +34,10 @@
       </div>
       <div *ngIf="test" class=" d-flex justify-content-between pt-3 pb-3 row">
         <div class="detail d-flex align-items-center col-12 col-xxl-7">
-          <img alt="img" height="40" src="/assets/img/commons/default_user.jpeg" width="40">
+          <img *ngIf="test.user_info.avatar?.url == null" alt="img" class="rounded-5" height="40" src="/assets/img/commons/default_user.jpeg"
+               width="40">
+          <img *ngIf="test.user_info.avatar?.url != null" [ngSrc]="test.user_info.avatar.url" alt="img" class="rounded-5" height="40"
+               width="40">
           <span class="ms-1">{{ test.user_info.fullName | titlecase }}</span>
         </div>
         <div class="detail-btn col-12 col-xxl-5">

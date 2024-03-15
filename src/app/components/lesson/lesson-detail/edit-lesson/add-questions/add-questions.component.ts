@@ -37,7 +37,8 @@ export class AddQuestionsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.questionTypes = this.sharedService.questionTypeResponses;
+    // this.questionTypes = this.sharedService.questionTypeResponses;
+    this.questionTypes = JSON.parse(<string>sessionStorage.getItem("questionTypes"));
     this.initForm();
   }
 

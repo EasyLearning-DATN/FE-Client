@@ -1,8 +1,7 @@
-
 import {BaseReponses} from "../base.reponses";
-import { ImageResponses } from "../image/image.responses";
-import { QuestionListResponses, QuestionResponses } from "../question/question.responses";
-import { ResultTypeResponses } from "../result_type_id/result_type.responses";
+import {ImageResponses} from "../image/image.responses";
+import {QuestionResponses} from "../question/question.responses";
+import {ResultTypeResponses} from "../result_type_id/result_type.responses";
 
 export interface TestResponses extends BaseReponses {
   id: string;
@@ -13,11 +12,11 @@ export interface TestResponses extends BaseReponses {
   created_by: string;
   last_modified_date: Date;
   last_modified_by: string;
-  time_total: number;
-  time_question: number;
+  time_total: number | null;
+  time_question: number | null;
   total_question: number;
   view_result_type_id: ResultTypeResponses;
-  question_tests: QuestionListResponses[];
+  question_tests: QuestionResponses[];
   user_info: {
     id: number;
     fullName: string;

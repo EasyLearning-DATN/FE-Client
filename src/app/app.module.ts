@@ -57,15 +57,21 @@ import {
   EditQuestionItemComponent,
 } from './components/lesson/lesson-detail/edit-lesson/edit-questions/edit-question-item/edit-question-item.component';
 import {AddQuestionTestComponent} from './components/test/create-test/add-question-test/add-question-test.component';
-import { DemoScaQuestionComponent } from './components/test/create-test/demo-sca-question/demo-sca-question.component';
-import { DemoMcaQuestionComponent } from './components/test/create-test/demo-mca-question/demo-mca-question.component';
-import { DemoFitbQuestionComponent } from './components/test/create-test/demo-fitb-question/demo-fitb-question.component';
-import { AddQuestionSearchItemComponent } from './components/test/create-test/add-question-test/add-question-search-item/add-question-search-item.component';
-import { AddQuestionSearchItemQuestionComponent } from './components/test/create-test/add-question-test/add-question-search-item-question/add-question-search-item-question.component';
-import { CommentComponent } from './components/lesson/lesson-detail/comment/comment.component';
-import { CommentItemComponent } from './components/lesson/lesson-detail/comment/comment-item/comment-item.component';
-import { SettingsComponent } from './components/settings/settings.component';
-import { UpgradeComponent } from './components/upgrade/upgrade/upgrade.component';
+import {DemoScaQuestionComponent} from './components/test/create-test/demo-sca-question/demo-sca-question.component';
+import {DemoMcaQuestionComponent} from './components/test/create-test/demo-mca-question/demo-mca-question.component';
+import {DemoFitbQuestionComponent} from './components/test/create-test/demo-fitb-question/demo-fitb-question.component';
+import {
+  AddQuestionSearchItemComponent,
+} from './components/test/create-test/add-question-test/add-question-search-item/add-question-search-item.component';
+import {
+  AddQuestionSearchItemQuestionComponent,
+} from './components/test/create-test/add-question-test/add-question-search-item-question/add-question-search-item-question.component';
+import {CommentComponent} from './components/lesson/lesson-detail/comment/comment.component';
+import {CommentItemComponent} from './components/lesson/lesson-detail/comment/comment-item/comment-item.component';
+import {SettingsComponent} from './components/settings/settings.component';
+import {UpgradeComponent} from './components/upgrade/upgrade/upgrade.component';
+import { TestEditComponent } from './components/test/test-detail/test-edit/test-edit.component';
+import { ListTestComponent } from './components/test/list-test/list-test.component';
 
 @NgModule({
   declarations: [
@@ -111,6 +117,8 @@ import { UpgradeComponent } from './components/upgrade/upgrade/upgrade.component
     AddQuestionSearchItemQuestionComponent,
     CommentComponent,
     CommentItemComponent,
+    TestEditComponent,
+    ListTestComponent,
   ],
   imports: [
     ReactiveFormsModule,

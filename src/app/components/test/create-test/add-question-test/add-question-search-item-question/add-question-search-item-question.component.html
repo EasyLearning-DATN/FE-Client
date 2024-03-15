@@ -1,1 +1,45 @@
-<p>add-question-search-item-question works!</p>
+<div class="single-question pt-1 p-2 user-select-none mb-2">
+  <div [ngClass]="{'justify-content-between' : isCreateTest}" class="type ms-1 d-flex align-items-center">
+    <div class="d-flex align-items-center">
+      <i-bs height="16" name="check-square" width="16"></i-bs>
+      <span [ngSwitch]="nameCode" class="ms-2 fw-semi-bold text-capitalize">
+        <ng-template [ngSwitchCase]="'mca'">{{ "lesson.lesson-learn.lesson-learn-item.mca" | translate }}</ng-template>
+        <ng-template [ngSwitchCase]="'fitb'">{{ "lesson.lesson-learn.lesson-learn-item.fitb" | translate }}</ng-template>
+        <ng-template ngSwitchDefault>{{ "lesson.lesson-learn.lesson-learn-item.sca" | translate }}</ng-template>
+      </span>
+    </div>
+    <div *ngIf="isCreateTest">
+      <button (click)="onAddQuestionTest()" class="btn btn-app-reverse btn-add-this-question teleport-variant-add-button">
+        <i-bs class="me-2 d-flex align-items-center" height="1rem" name="plus-circle" width="1rem"></i-bs>
+        <span>Thêm câu hỏi</span>
+      </button>
+    </div>
+  </div>
+  <div class="title ms-1 mt-2">
+    <span>{{ question.title | shortenText : 80 }}</span>
+  </div>
+  <div class="title ms-1 mt-2">
+    <span>{{ 'Trọng số: ' + question.weighted }}</span>
+  </div>
+  <div class="answer-title ms-1 mt-1 fw-semi-bold">
+    <span>{{ "lesson.lesson-learn.lesson-learn-item.answer-title" | translate }}</span>
+  </div>
+  <!--   <ng-content></ng-content> -->
+  <div [ngSwitch]="nameCode">
+    <div *ngSwitchCase="'fitb'">
+      <div class="answer mt-1 ms-1">
+        <input *ngFor="let answer of question.answers" [ngModel]="answer.value" class="form-control mt-2" disabled readonly
+               style="width: 90% !important"
+               type="text">
+      </div>
+    </div>
+    <div *ngSwitchDefault class="row">
+      <div *ngFor="let answer of question.answers" class="answer col-6 d-flex align-items-center mt-1">
+        <i-bs *ngIf="!answer.is_correct" class="text-danger" name="x"></i-bs>
+        <i-bs *ngIf="answer.is_correct" class="text-info" name="check"></i-bs>
+        <span class="ms-1">{{ answer.value | shortenText : 30 }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+

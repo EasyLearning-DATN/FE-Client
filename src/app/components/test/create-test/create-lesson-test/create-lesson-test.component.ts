@@ -30,7 +30,8 @@ export class CreateLessonTestComponent implements OnInit {
 
 
   ngOnInit() {
-    this.resultTypes = this.sharedService.resultType;
+    // this.resultTypes = this.sharedService.resultType;
+    this.resultTypes = JSON.parse(<string>sessionStorage.getItem('resultTypes'));
     this.questions = this.sharedService.lesson.questions;
     this.lesson = this.sharedService.lesson;
     this.initForm();
@@ -118,7 +119,7 @@ export class CreateLessonTestComponent implements OnInit {
   getRandomQuestions(): string[] {
     const randomQuestionsIds: string[] = [];
     const arrayCopy: QuestionResponses[] = [...this.questions]; // Create a copy of the original array
-    const testSize = <number>this.createTestForm.get('test_size')?.value;
+    const testSize = <number>this.createTestForm.get('total_question')?.value;
     for (let i = 0; i < testSize; i++) {
       const randomIndex = Math.floor(Math.random() * arrayCopy.length);
       const randomElement = arrayCopy.splice(randomIndex, 1)[0];
