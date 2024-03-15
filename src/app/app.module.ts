@@ -70,6 +70,8 @@ import {CommentComponent} from './components/lesson/lesson-detail/comment/commen
 import {CommentItemComponent} from './components/lesson/lesson-detail/comment/comment-item/comment-item.component';
 import {SettingsComponent} from './components/settings/settings.component';
 import {UpgradeComponent} from './components/upgrade/upgrade/upgrade.component';
+import { TestEditComponent } from './components/test/test-detail/test-edit/test-edit.component';
+import { ListTestComponent } from './components/test/list-test/list-test.component';
 
 @NgModule({
   declarations: [
@@ -115,6 +117,8 @@ import {UpgradeComponent} from './components/upgrade/upgrade/upgrade.component';
     AddQuestionSearchItemQuestionComponent,
     CommentComponent,
     CommentItemComponent,
+    TestEditComponent,
+    ListTestComponent,
   ],
   imports: [
     ReactiveFormsModule,
