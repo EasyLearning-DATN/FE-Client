@@ -22,7 +22,7 @@ export class CreateTestComponent implements OnInit, OnDestroy {
   createTestForm!: FormGroup;
   resultTypes!: ResultTypeResponses[];
   createTest!: TestDTO;
-  questionIDs!: string[];
+  questionIDs: string[] = [];
   questions!: QuestionResponses[];
   questionTypes!: QuestionTypeResponses[];
   questionSub!: Subscription;
@@ -71,8 +71,8 @@ export class CreateTestComponent implements OnInit, OnDestroy {
     this.createTestForm = new FormGroup({
       'name': new FormControl("", [Validators.required]),
       'description': new FormControl("", [Validators.required]),
-      'time_total': new FormControl("0", [Validators.required]),
-      'time_question': new FormControl("0", [Validators.required]),
+      'time_total': new FormControl(0),
+      'time_question': new FormControl(0),
       'view_result_type_code': new FormControl(this.resultTypes[0].code, [Validators.required]),
       'test_type': new FormControl("fullTime", [Validators.required]),
     });
@@ -109,62 +109,70 @@ export class CreateTestComponent implements OnInit, OnDestroy {
         console.log(this.closeResult);
         if (result === 'Confirm') {
 
-          // const token = localStorage.getItem('token');
-          // Swal.fire({
-          //   title: 'Đang tạo bài test...',
-          //   allowOutsideClick: false,
-          //   didOpen: () => {
-          //     Swal.showLoading();
-          //   },
-          // });
+          const token = localStorage.getItem('token');
+          Swal.fire({
+            title: 'Đang tạo bài test...',
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            },
+          });
 
           let imgFile = this.fileUpload.nativeElement.files[0];
-          console.log(imgFile);
-          if (imgFile === undefined) {
-
-            new FileSystemDirectoryEntry().getFile('/assets/img/gallery/hero-header.png', undefined, result => {
-              imgFile = result;
+          // console.log(imgFile);
+          // if (imgFile === undefined) {
+          //
+          //   new FileSystemDirectoryEntry().getFile('/assets/img/gallery/hero-header.png', undefined, result => {
+          //     imgFile = result;
+          //   });
+          //   // imgFile = new File( FileReader(), '/assets/img/gallery/hero-header.png');
+          // }
+          // console.log(imgFile);
+          this.setQuestionIds();
+          this.imageService.uploadImage(imgFile, token).subscribe(result => {
+            this.createTest = {
+              name: this.createTestForm.get('name')?.value,
+              description: this.createTestForm.get('description')?.value,
+              question_ids: this.questionIDs,
+              time_question: this.createTestForm.get('time_question')?.value === 0 ? null : this.createTestForm.get('time_question')?.value,
+              time_total: this.createTestForm.get('time_total')?.value === 0 ? null : this.createTestForm.get('time_total')?.value,
+              view_result_type_code: this.createTestForm.get('view_result_type_code')?.value,
+              image_id: result.public_id,
+              total_question: <number>this.createTestForm.get('total_question')?.value,
+            };
+            console.log(this.createTest);
+            this.testService.createTest(this.createTest).subscribe(
+              (response) => {
+                console.log(response);
+                Swal.close();
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Tạo bài test mới thành công!',
+                  confirmButtonColor: '#3085d6',
+                  confirmButtonText: 'OK',
+                });
+                this.initForm();
+              }, error => {
+                console.log(error);
+                Swal.close();
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Tạo bài test mới thất bại!',
+                  confirmButtonColor: '#3085d6',
+                  confirmButtonText: 'OK',
+                });
+              },
+            );
+            console.log(result);
+          }, error => {
+            Swal.close();
+            Swal.fire({
+              icon: 'error',
+              title: 'Vui lòng chọn hình ảnh!',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK',
             });
-            // imgFile = new File( FileReader(), '/assets/img/gallery/hero-header.png');
-          }
-          console.log(imgFile);
-          // this.setQuestionIds();
-          // this.imageService.uploadImage(imgFile, token).subscribe(result => {
-          //   this.createTest = {
-          //     name: this.createTestForm.get('name')?.value,
-          //     description: this.createTestForm.get('description')?.value,
-          //     question_ids: this.questionIDs,
-          //     time_question: this.createTestForm.get('time_question')?.value === 0 ? null : this.createTestForm.get('time_question')?.value,
-          //     time_total: this.createTestForm.get('time_total')?.value === 0 ? null : this.createTestForm.get('time_total')?.value,
-          //     view_result_type_code: this.createTestForm.get('view_result_type_code')?.value,
-          //     image_id: result.public_id,
-          //     total_question: <number>this.createTestForm.get('total_question')?.value,
-          //   };
-          //   console.log(this.createTest);
-          //   this.testService.createTest(this.createTest).subscribe(
-          //     (response) => {
-          //       console.log(response);
-          //       Swal.close();
-          //       Swal.fire({
-          //         icon: 'success',
-          //         title: 'Tạo bài test mới thành công!',
-          //         confirmButtonColor: '#3085d6',
-          //         confirmButtonText: 'OK',
-          //       });
-          //       this.initForm();
-          //     }, error => {
-          //       console.log(error);
-          //       Swal.close();
-          //       Swal.fire({
-          //         icon: 'error',
-          //         title: 'Tạo bài test mới thất bại!',
-          //         confirmButtonColor: '#3085d6',
-          //         confirmButtonText: 'OK',
-          //       });
-          //     },
-          //   );
-          //   console.log(result);
-          // });
+          });
         }
       },
       (reason) => {
