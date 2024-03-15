@@ -30,7 +30,8 @@ export class EditQuestionsComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.questionTypes = this.sharedService.questionTypeResponses;
+    // this.questionTypes = this.sharedService.questionTypeResponses;
+    this.questionTypes = JSON.parse(<string>sessionStorage.getItem("questionTypes"));
     this.questions = this.sharedService.lesson.questions;
     this.sharedService.lessonChanged.subscribe(
       (lesson) => {

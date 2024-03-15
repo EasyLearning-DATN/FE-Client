@@ -30,7 +30,8 @@ export class CreateLessonTestComponent implements OnInit {
 
 
   ngOnInit() {
-    this.resultTypes = this.sharedService.resultType;
+    // this.resultTypes = this.sharedService.resultType;
+    this.resultTypes = JSON.parse(<string>sessionStorage.getItem('resultTypes'));
     this.questions = this.sharedService.lesson.questions;
     this.lesson = this.sharedService.lesson;
     this.initForm();

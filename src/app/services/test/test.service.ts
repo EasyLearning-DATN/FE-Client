@@ -34,6 +34,23 @@ export class TestService {
       }));
   }
 
+  getHomeTest() {
+    return this.http.get<any>(this.apigetAllTest, {
+      params: {limit: 8},
+    })
+    .pipe(
+      map((response) => {
+        let tests: TestListResponses = response.data;
+        tests.data = tests.data.map(test => {
+          return {...test, questions: test.question_tests ? test.question_tests : []};
+        });
+        return tests;
+      }),
+      tap((tests: TestListResponses) => {
+        this.sharedService.testsHome = tests.data;
+      }));
+  }
+
   searchTest(key: string) {
     let searchParams = new HttpParams().set('key', key);
     return this.http.get<any>(this.apigetAllTest, {

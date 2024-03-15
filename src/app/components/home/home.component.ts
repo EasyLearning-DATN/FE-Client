@@ -2,8 +2,9 @@ import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChil
 import {Router} from "@angular/router";
 import {LessonService} from "../../services/lesson/lesson.service";
 import {SharedService} from "../../services/shared/shared.service";
-import {LessonResponses} from "../../responses/lesson/lesson.responses";
-import {LessonsResponses} from "../../responses/lessons/lessons.responses";
+import {TestListResponses, TestResponses} from "../../responses/test/test.responses";
+import {TestService} from "../../services/test/test.service";
+import {SearchLessonListResponse, SearchLessonResponses} from "../../responses/search-lesson/search-lesson.responses";
 
 @Component({
   selector: 'app-home',
@@ -12,8 +13,10 @@ import {LessonsResponses} from "../../responses/lessons/lessons.responses";
 })
 export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
   isLogin: any;
-  isFetching = false;
-  lessons: LessonResponses[] = [];
+  isLessonFetching = false;
+  isTestFetching: boolean = false;
+  lessons: SearchLessonResponses[] = [];
+  tests: TestResponses[] = [];
   error = null;
   date: any;
   now: any;
@@ -35,6 +38,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
     private router: Router,
     private lessonService: LessonService,
     private sharedService: SharedService,
+    private testService: TestService,
   ) {
     this.year = 2024;
     this.month = 4;
@@ -51,6 +55,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
     //     this.lessons = res.data;
     // });
     this.fetchLessons();
+    this.fetchTests();
   }
 
   ngAfterViewInit() {
@@ -87,17 +92,31 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   private fetchLessons() {
-    this.isFetching = true;
-    this.lessonService.getListLessonHome().subscribe((lessons: LessonsResponses) => {
-      this.isFetching = false;
+    this.isLessonFetching = true;
+    this.lessonService.getListLessonHome().subscribe((lessons: SearchLessonListResponse) => {
+      this.isLessonFetching = false;
       this.lessons = this.sharedService.lessonsHome;
       // console.log("Lessons: " + this.lessons);
     }, error => {
-      this.isFetching = false;
+      this.isLessonFetching = false;
       this.error = error.message;
       console.log(this.error);
 
     });
 
+  }
+
+  private fetchTests() {
+    this.isTestFetching = true;
+    this.testService.getHomeTest().subscribe((tests: TestListResponses) => {
+      this.isTestFetching = false;
+      this.tests = this.sharedService.testsHome;
+      console.log(this.tests);
+    }, error => {
+      this.isTestFetching = false;
+      this.error = error.message;
+      console.log(this.error);
+
+    });
   }
 }
