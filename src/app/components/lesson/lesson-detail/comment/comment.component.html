@@ -1,1 +1,19 @@
-<p>comment works!</p>
+<div class="container bg-light bg-opacity-50 rounded-2 py-3 mb-4">
+  <div class="header-comment mb-3">
+    <div class="row">
+      <div class="col-3 fs-3">
+        <span>500</span>
+        <span class="ms-2">Bình luận</span>
+      </div>
+      <div class="col-3 fs-2">
+        <span>=</span>
+        <span class="ms-2">Sắp xếp theo</span>
+      </div>
+    </div>
+  </div>
+  <div class="comment-body">
+    <ng-container *ngFor="let i of [].constructor(10)">
+      <app-comment-item></app-comment-item>
+    </ng-container>
+  </div>
+</div>

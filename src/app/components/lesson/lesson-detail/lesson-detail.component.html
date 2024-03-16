@@ -10,13 +10,15 @@
   <div class="row">
     <div class="col-auto">
       <a [routerLink]="['flashcard']" class="btn btn-app mt-2">
-        <fa-icon [icon]="['fas','credit-card']"></fa-icon>
-        Flashcards</a>
+        <fa-icon [icon]="['fas', 'credit-card']"></fa-icon>
+        Flashcards</a
+      >
     </div>
     <div class="col-auto">
       <a [routerLink]="['learn']" class="btn btn-app mt-2">
-        <fa-icon [icon]="['fas','book-open']"></fa-icon>
-        Học câu hỏi</a>
+        <fa-icon [icon]="['fas', 'book-open']"></fa-icon>
+        Học câu hỏi</a
+      >
     </div>
     <div class="col-auto">
       <app-create-lesson-test></app-create-lesson-test>
@@ -28,8 +30,14 @@
 
 <!--  -->
 <div class="container mt-3 d-flex align-content-center justify-content-between">
-  <div class="ms-5 d-flex align-items-center">
-    <img alt="Creator's avt" class="img-fluid avt-icon" height="57" ngSrc="assets/img/commons/default_user.jpeg" width="57">
+  <div class="d-flex align-items-center">
+    <img
+      alt="Creator's avt"
+      class="img-fluid avt-icon"
+      height="57"
+      ngSrc="assets/img/commons/default_user.jpeg"
+      width="57"
+    />
     <div class="ms-3">
       <p class="m-0 mt-3">Người tạo</p>
       <p class="fs-2">{{ lesson.user_info.fullName | titlecase }}</p>
@@ -37,7 +45,14 @@
   </div>
   <div class="d-flex align-items-center">
     <button class="btn btn-app me-2"><i i-bs name="share"></i></button>
-    <button (click)="onCopyURL()" class="btn btn-app me-2"><i i-bs name="files"></i></button>
-    <button class="btn btn-app me-4"><i i-bs name="three-dots-vertical"></i></button>
+    <button (click)="onCopyURL()" class="btn btn-app me-2">
+      <i i-bs name="files"></i>
+    </button>
+    <button class="btn btn-app me-4">
+      <i i-bs name="three-dots-vertical"></i>
+    </button>
   </div>
 </div>
+
+<!-- Comment-->
+<app-comment></app-comment>
