@@ -68,7 +68,7 @@ export class AddQuestionTestComponent implements OnInit, OnDestroy {
   }
 
   onAddAllQuestions() {
-    const questions = this.lesson.questions;
+    const questions = [...this.lesson.questions];
     this.sharedService.onAddQuestionsOfTest(questions);
     console.log(this.lesson);
   }

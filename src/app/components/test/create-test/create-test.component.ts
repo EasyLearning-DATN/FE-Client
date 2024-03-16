@@ -11,6 +11,7 @@ import {Subscription} from "rxjs";
 import Swal from "sweetalert2";
 import {ConfirmModalComponent} from "../../commons/confirm-modal/confirm-modal.component";
 import {UploadImageService} from "../../../services/shared/upload/upload-image.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-test',
@@ -23,14 +24,14 @@ export class CreateTestComponent implements OnInit, OnDestroy {
   resultTypes!: ResultTypeResponses[];
   createTest!: TestDTO;
   questionIDs: string[] = [];
-  questions!: QuestionResponses[];
+  questions: QuestionResponses[] = [];
   questionTypes!: QuestionTypeResponses[];
   questionSub!: Subscription;
   closeResult: string = '';
   @ViewChild('fileUpload', {static: true}) fileUpload !: ElementRef;
 
   constructor(private offcanvasService: NgbOffcanvas, private sharedService: SharedService,
-    private modalService: NgbModal, private testService: TestService, private imageService: UploadImageService) {
+    private modalService: NgbModal, private testService: TestService, private imageService: UploadImageService, private router: Router) {
   }
 
   ngOnInit() {
@@ -44,6 +45,8 @@ export class CreateTestComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.questionSub.unsubscribe();
+    this.sharedService.questionsOfCreatingTest = [];
+    this.sharedService.tempTestQuestions = [];
   }
 
   resetSelection(selection: string) {
@@ -89,15 +92,15 @@ export class CreateTestComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // if (this.questions.length === 0) {
-    //   Swal.fire({
-    //     icon: 'warning',
-    //     title: 'Bài test phải có ít nhất 1 câu hỏi!',
-    //     confirmButtonColor: '#3085d6',
-    //     confirmButtonText: 'OK',
-    //   });
-    //   return;
-    // }
+    if (this.questions.length === 0) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Bài test phải có ít nhất 1 câu hỏi!',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK',
+      });
+      return;
+    }
 
     const confirmModal = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
@@ -129,6 +132,7 @@ export class CreateTestComponent implements OnInit, OnDestroy {
           // }
           // console.log(imgFile);
           this.setQuestionIds();
+          console.log(this.questionIDs);
           this.imageService.uploadImage(imgFile, token).subscribe(result => {
             this.createTest = {
               name: this.createTestForm.get('name')?.value,
@@ -138,7 +142,7 @@ export class CreateTestComponent implements OnInit, OnDestroy {
               time_total: this.createTestForm.get('time_total')?.value === 0 ? null : this.createTestForm.get('time_total')?.value,
               view_result_type_code: this.createTestForm.get('view_result_type_code')?.value,
               image_id: result.public_id,
-              total_question: <number>this.createTestForm.get('total_question')?.value,
+              total_question: this.questionIDs.length,
             };
             console.log(this.createTest);
             this.testService.createTest(this.createTest).subscribe(
@@ -151,7 +155,8 @@ export class CreateTestComponent implements OnInit, OnDestroy {
                   confirmButtonColor: '#3085d6',
                   confirmButtonText: 'OK',
                 });
-                this.initForm();
+                this.router.navigate(['/list-test']);
+
               }, error => {
                 console.log(error);
                 Swal.close();
@@ -183,6 +188,7 @@ export class CreateTestComponent implements OnInit, OnDestroy {
   }
 
   private setQuestionIds() {
+    this.questionIDs = [];
     this.questionIDs.push(...this.questions.map(q => {
       return q.id;
     }));

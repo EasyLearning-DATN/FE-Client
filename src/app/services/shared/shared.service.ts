@@ -14,10 +14,21 @@ export class SharedService {
 
   lessonsChanged = new Subject<LessonResponses[]>();
   lessonChanged = new Subject<LessonResponses>();
+  testChanged = new Subject<TestResponses>();
   questionsOfTestChanged = new Subject<QuestionResponses[]>();
   isFetching: Subject<boolean> = new Subject<boolean>();
 
   constructor() {
+  }
+
+  private _test !: TestResponses;
+
+  get test(): TestResponses {
+    return this._test;
+  }
+
+  set test(value: TestResponses) {
+    this._test = value;
   }
 
   private _lessonViewInfo!: LessonResponses;
@@ -164,7 +175,11 @@ export class SharedService {
     if (this._questionsOfCreatingTest === undefined) {
       this.questionsOfCreatingTest = questions;
     } else {
-      this._questionsOfCreatingTest.push(...questions);
+      let fillterQuestions = questions.filter(
+        response => {
+          !this._questionsOfCreatingTest.includes(response);
+        });
+      this._questionsOfCreatingTest.push(...fillterQuestions);
       this.questionsOfTestChanged.next(this.questionsOfCreatingTest);
     }
 

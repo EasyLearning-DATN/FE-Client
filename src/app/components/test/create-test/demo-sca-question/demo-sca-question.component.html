@@ -5,9 +5,9 @@
              class="me-2" style="cursor: pointer"></fa-icon>
   </div>
   <div class="ps-3 pe-3 d-flex flex-column justify-content-between question-detail-container">
-    <!--     <div class="index d-flex justify-content-end"> -->
-    <!--       <span>{{ index }}/{{ total }}</span> -->
-    <!--     </div> -->
+    <div class="index d-flex justify-content-end">
+      <span>{{ index + 1 }}/{{ total }}</span>
+    </div>
     <div class="question-name">
       <span>{{ question.title }}</span>
     </div>
@@ -17,16 +17,16 @@
       </div>
       <div>
         <div class="row m-2 d-flex justify-content-around d-flex " disabled="true">
-          <button class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center disabled">
+          <button [ngClass]="checkAnswer[0]" class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center disabled">
             <span>A. {{ question.answers[0].value }}</span>
           </button>
-          <button class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center disabled">
+          <button [ngClass]="checkAnswer[1]" class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center disabled">
             <span>B. {{ question.answers[1].value }}</span>
           </button>
-          <button class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center disabled">
+          <button [ngClass]="checkAnswer[2]" class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center disabled">
             <span>C. {{ question.answers[2].value }}</span>
           </button>
-          <button class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center disabled">
+          <button [ngClass]="checkAnswer[3]" class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center disabled">
             <span>D. {{ question.answers[3].value }}</span>
           </button>
         </div>

@@ -27,6 +27,9 @@
 
         </div>
       </div>
+      <div class="mb-3 text-danger ms-3">
+        <small>Lưu ý: Những câu hỏi trùng nhau sẽ không được thêm vào</small>
+      </div>
       <div class="filter-section">
 
       </div>
@@ -93,14 +96,13 @@
               </div>
             </div>
           </div>
-          <!--           Phần này là để add toàn bộ câu hỏi, hiện đang bị lỗi -->
-          <!--           <button (click)="onAddAllQuestions()" class="btn btn-app-reverse btn-add-all-section"> -->
-          <!--             <i-bs class="me-2 d-flex align-items-center" -->
-          <!--                   height="1rem" -->
-          <!--                   name="plus-circle" width="1rem"> -->
-          <!--             </i-bs> -->
-          <!--             <span class="">Thêm {{ lesson.questions.length }} câu hỏi</span> -->
-          <!--           </button> -->
+          <button (click)="onAddAllQuestions()" class="btn btn-app-reverse btn-add-all-section">
+            <i-bs class="me-2 d-flex align-items-center"
+                  height="1rem"
+                  name="plus-circle" width="1rem">
+            </i-bs>
+            <span class="">Thêm {{ lesson.questions.length }} câu hỏi</span>
+          </button>
         </div>
         <div *ngIf="lesson && !isFetchingQuestions" class="teleport-questions-list-container add-all-option">
           <div class="flex flex-col gap-3 h-100 overflow-y-auto">
