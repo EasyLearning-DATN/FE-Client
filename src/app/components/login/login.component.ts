@@ -93,11 +93,10 @@ export class LoginComponent {
         error => {
           console.log(error);
           Swal.close(); // Đóng SweetAlert hiển thị hiệu ứng loading nếu có lỗi xảy ra
-
           Swal.fire({
             icon: 'error',
             title: 'Đăng nhập thất bại',
-            text: 'Có lỗi xảy ra trong quá trình đăng nhập. Vui lòng thử lại sau.',
+            text: error.error.message,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'OK'
           });

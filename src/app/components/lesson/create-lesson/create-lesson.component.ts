@@ -100,6 +100,13 @@ export class CreateLessonComponent {
         },
         error => {
           console.log(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Tạo bài học thất bại',
+            text: error.error.message,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+          });
         }
       );
     }

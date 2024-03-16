@@ -1,0 +1,9 @@
+.image {
+  border: 3px #1565FF;
+  border-style: groove;
+  border-radius: 5px;
+}
+
+.avt-icon {
+  border-radius: 50%;
+}

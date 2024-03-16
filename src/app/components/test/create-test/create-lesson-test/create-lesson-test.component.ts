@@ -30,8 +30,9 @@ export class CreateLessonTestComponent implements OnInit {
 
 
   ngOnInit() {
-    this.resultTypes = this.sharedService.resultType;
-    this.questions = this.sharedService.questionsOfLesson.data;
+    // this.resultTypes = this.sharedService.resultType;
+    this.resultTypes = JSON.parse(<string>sessionStorage.getItem('resultTypes'));
+    this.questions = this.sharedService.lesson.questions;
     this.lesson = this.sharedService.lesson;
     this.initForm();
   }
@@ -68,10 +69,11 @@ export class CreateLessonTestComponent implements OnInit {
             name: this.createTestForm.get('name')?.value,
             description: this.createTestForm.get('description')?.value,
             question_ids: this.getRandomQuestions(),
-            time_question: <number>this.createTestForm.get('time_question')?.value,
-            time_total: <number>this.createTestForm.get('time_total')?.value,
+            time_question: this.createTestForm.get('time_question')?.value === 0 ? null : this.createTestForm.get('time_question')?.value,
+            time_total: this.createTestForm.get('time_total')?.value === 0 ? null : this.createTestForm.get('time_total')?.value,
             view_result_type_code: this.createTestForm.get('view_result_type_code')?.value,
             image_id: this.lesson.image.public_id,
+            total_question: <number>this.createTestForm.get('total_question')?.value,
           };
           console.log(this.createTest);
           Swal.fire({
@@ -117,7 +119,7 @@ export class CreateLessonTestComponent implements OnInit {
   getRandomQuestions(): string[] {
     const randomQuestionsIds: string[] = [];
     const arrayCopy: QuestionResponses[] = [...this.questions]; // Create a copy of the original array
-    const testSize = <number>this.createTestForm.get('test_size')?.value;
+    const testSize = <number>this.createTestForm.get('total_question')?.value;
     for (let i = 0; i < testSize; i++) {
       const randomIndex = Math.floor(Math.random() * arrayCopy.length);
       const randomElement = arrayCopy.splice(randomIndex, 1)[0];
@@ -127,18 +129,30 @@ export class CreateLessonTestComponent implements OnInit {
   }
 
   openOffcanvas(content: TemplateRef<any>) {
-    this.offcanvasService.open(content, {backdrop: 'static', scroll: true});
+    const token = localStorage.getItem('token') || '';
+    if (token === '') {
+      if (!this.createTestForm.valid) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Vui lòng đăng nhập để làm test!',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        });
+        return;
+      }
+    }
+    this.offcanvasService.open(content, {backdrop: 'static'});
   }
 
   initForm() {
     this.createTestForm = new FormGroup({
       'name': new FormControl("", [Validators.required]),
       'description': new FormControl("", [Validators.required]),
-      'time_total': new FormControl("0", [Validators.required]),
-      'time_question': new FormControl("0", [Validators.required]),
+      'time_total': new FormControl(0, [Validators.required]),
+      'time_question': new FormControl(0, [Validators.required]),
       'image_id': new FormControl(this.lesson.image.url, [Validators.required]),
       'view_result_type_code': new FormControl(this.resultTypes[0].code, [Validators.required]),
-      'test_size': new FormControl(1, [Validators.required]),
+      'total_question': new FormControl(1, [Validators.required]),
       'test_type': new FormControl("fullTime", [Validators.required]),
     });
   }

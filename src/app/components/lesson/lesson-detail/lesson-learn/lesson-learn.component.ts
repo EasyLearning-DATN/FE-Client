@@ -16,10 +16,10 @@ export class LessonLearnComponent implements OnInit {
 
   ngOnInit() {
     // lấy câu hỏi từ shared service
-    this.questions = this.sharedService.questionsOfLesson.data;
-    this.sharedService.questionsOfLessonChanged.subscribe(
-      (questions) => {
-        this.questions = questions.data;
+    this.questions = this.sharedService.lesson.questions;
+    this.sharedService.lessonChanged.subscribe(
+      (lesson) => {
+        this.questions = lesson.questions;
       },
     );
   }

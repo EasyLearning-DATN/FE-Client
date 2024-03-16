@@ -7,6 +7,7 @@ import {QuestionResponses} from "../../../../../responses/question/question.resp
 import {ConfirmModalComponent} from "../../../../commons/confirm-modal/confirm-modal.component";
 import {QuestionService} from "../../../../../services/question/question.service";
 import {EditQuestionItemComponent} from "./edit-question-item/edit-question-item.component";
+import {LessonService} from "../../../../../services/lesson/lesson.service";
 
 @Component({
   selector: 'app-edit-questions',
@@ -24,16 +25,17 @@ export class EditQuestionsComponent implements OnInit, OnDestroy {
   private closeResult!: string;
 
   constructor(private sharedService: SharedService, private modalService: NgbModal, private config: NgbModalConfig,
-    private questionService: QuestionService) {
+    private questionService: QuestionService, private lessonService: LessonService) {
   }
 
 
   ngOnInit() {
-    this.questionTypes = this.sharedService.questionTypeResponses;
-    this.questions = this.sharedService.questionsOfLesson.data;
-    this.sharedService.questionsOfLessonChanged.subscribe(
-      (questions) => {
-        this.questions = questions.data;
+    // this.questionTypes = this.sharedService.questionTypeResponses;
+    this.questionTypes = JSON.parse(<string>sessionStorage.getItem("questionTypes"));
+    this.questions = this.sharedService.lesson.questions;
+    this.sharedService.lessonChanged.subscribe(
+      (lesson) => {
+        this.questions = lesson.questions;
       },
     );
   }
@@ -102,9 +104,9 @@ export class EditQuestionsComponent implements OnInit, OnDestroy {
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'OK',
           });
-          this.questionService.getListQuestion(this.lessonId).subscribe(
+          this.lessonService.getOneLesson(this.lessonId).subscribe(
             response => {
-              this.sharedService.questionsOfLessonChanged.next(response);
+              this.sharedService.lessonChanged.next(response);
             }, error => {
               console.log(error);
             });

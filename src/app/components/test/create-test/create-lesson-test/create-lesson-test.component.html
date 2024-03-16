@@ -38,21 +38,21 @@
         <select class="form-select mb-3" formControlName="view_result_type_code" id="type">
           <option *ngFor="let rType of resultTypes" [ngValue]="rType.code">{{ rType.name }}</option>
         </select>
-        <div class="row mt-3 g-3 d-flex justify-content-between">
+        <div class="row mt-3 g-1 d-flex justify-content-between">
           <div class="form-group col-sm-8">
             <label class="form_label">Số lượng câu hỏi (Tối đa {{ questions.length }})</label>
           </div>
           <div class="col-sm-3 me-2">
-            <select aria-label="Default select example" class="form-select" formControlName="test_size">
+            <select aria-label="Default select example" class="form-select" formControlName="total_question">
               <option disabled>Chọn</option>
               <option *ngFor="let question of questions; let i = index" value="{{i+1}}">{{ i + 1 }}</option>
             </select>
           </div>
-          <div *ngIf="!createTestForm.get('test_size')?.valid && createTestForm.get('test_size')?.touched">
-            <small *ngIf="createTestForm.get('test_size')?.errors?.['required']" style="color: red;">Vui lòng chọn số câu hỏi</small>
+          <div *ngIf="!createTestForm.get('total_question')?.valid && createTestForm.get('total_question')?.touched">
+            <small *ngIf="createTestForm.get('total_question')?.errors?.['required']" style="color: red;">Vui lòng chọn số câu hỏi</small>
           </div>
         </div>
-        <div class="row mt-3 g-3 d-flex justify-content-between">
+        <div class="row mt-3 g-3 d-flex justify-content-between align-items-center">
           <div class="form-check">
             <input (click)="resetSelection('fullTime')" class="form-check-input" formControlName="test_type" id="flexRadioDefault1" type="radio"
                    value="fullTime">

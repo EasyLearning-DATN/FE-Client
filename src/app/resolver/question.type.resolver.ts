@@ -1,16 +1,23 @@
 import {ResolveFn} from '@angular/router';
 import {inject} from "@angular/core";
-import {SharedService} from "../services/shared/shared.service";
 import {QuestionTypeService} from "../services/shared/question-type/question-type.service";
 import {QuestionTypeResponses} from "../responses/question-type/question-type.responses";
 
 export const questionTypeResolver: ResolveFn<QuestionTypeResponses[]> = (route, state) => {
-  const sharedService = inject(SharedService);
+  // Tiêm service
+  // const sharedService = inject(SharedService);
   const questionTypeService = inject(QuestionTypeService);
-  const questionTypes = sharedService.questionTypeResponses;
-  if (questionTypes === undefined) {
+
+  // Lấy dữ liệu sharedService
+  // const questionTypes = sharedService.questionTypeResponses;
+
+  // Lấy dữ liệu từ sessionStorage
+  const questionTypeSes: QuestionTypeResponses[] | null = JSON.parse(<string>sessionStorage.getItem('questionTypes'));
+
+  // Kiểm tra dữ liệu đó coi nó được tạo chưa
+  if (questionTypeSes === null) {
     return questionTypeService.getListQuestionTypes();
   } else {
-    return questionTypes;
+    return questionTypeSes;
   }
 };

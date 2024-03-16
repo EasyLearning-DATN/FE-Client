@@ -1,1 +1,151 @@
-<p>upgrade works!</p>
+<! ========================  
+    Syed Sahar Ali Raza   	 
+  ========================	!>
+<div id="generic_price_table">   
+<section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <!--PRICE HEADING START-->
+                    <div class="price-heading clearfix">
+                        <h1>BẢNG GIÁ</h1>
+                    </div>
+                    <!--//PRICE HEADING END-->
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            
+            <!--BLOCK ROW START-->
+            <div class="row">
+               
+                <div class="col-md-4">
+                
+                	<!--PRICE CONTENT START-->
+                    <div class="generic_content active clearfix">
+                        
+                        <!--HEAD PRICE DETAIL START-->
+                        <div class="generic_head_price clearfix">
+                        
+                            <!--HEAD CONTENT START-->
+                            <div class="generic_head_content clearfix">
+                            
+                            	<!--HEAD START-->
+                                <div class="head_bg"></div>
+                                <div class="head">
+                                    <span>PRO</span>
+                                </div>
+                                <!--//HEAD END-->
+                                
+                            </div>
+                            <!--//HEAD CONTENT END-->
+                            
+                            <!--PRICE START-->
+                            <div class="generic_price_tag clearfix">	
+                                <span class="price">
+                                    <span class="currency">99k</span>
+                                    <!-- <span class="sign">VNĐ</span> -->
+                                    <span class="month">/Tháng</span>
+                                </span>
+                            </div>
+                            <!--//PRICE END-->
+                            
+                        </div>                            
+                        <!--//HEAD PRICE DETAIL END-->
+                        
+                        <!--FEATURE LIST START-->
+                        <div class="generic_feature_list">
+                        	<ul>
+                            	<del><li><span>Không giới hạn</span> số lần tạo bài học</li></del>
+                                <li><span>Không</span> quảng cáo</li>
+                            </ul>
+                        </div>
+                        <!--//FEATURE LIST END-->
+                        
+                        <!--BUTTON START-->
+                        <div class="generic_price_btn clearfix">
+                        	<a class="" (click)="openPaymentModal()">Đăng ký ngay</a>
+                        </div>
+                        <!--//BUTTON END-->
+                        
+                    </div>
+                    <!--//PRICE CONTENT END-->
+                        
+                </div>
+                <div class="col-md-4">
+                
+                	<!--PRICE CONTENT START-->
+                    <div class="generic_content clearfix">
+                        
+                        <!--HEAD PRICE DETAIL START-->
+                        <div class="generic_head_price clearfix">
+                        
+                            <!--HEAD CONTENT START-->
+                            <div class="generic_head_content clearfix">
+                            
+                            	<!--HEAD START-->
+                                <div class="head_bg"></div>
+                                <div class="head">
+                                    <span>PREMIUM</span>
+                                </div>
+                                <!--//HEAD END-->
+                                
+                            </div>
+                            <!--//HEAD CONTENT END-->
+                            
+                            <!--PRICE START-->
+                            <div class="generic_price_tag clearfix">
+                                    <span class="price">
+                                        <span class="currency">250k</span>
+                                        <!-- <span class="sign">VNĐ</span> -->
+                                        <span class="month">/Tháng</span>
+                                </span>
+                            </div>
+                            <!--//PRICE END-->
+                            
+                        </div>                            
+                        <!--//HEAD PRICE DETAIL END-->
+                        
+                        <!--FEATURE LIST START-->
+                        <div class="generic_feature_list">
+                        	<ul>
+                            	<li><span>Không giới hạn</span> số lần tạo bài học</li>
+                                <li><span>Không</span> quảng cáo</li>
+                            </ul>
+                        </div>
+                        <!--//FEATURE LIST END-->
+                        
+                        <!--BUTTON START-->
+                        <div class="generic_price_btn clearfix">
+                        	<a class="" (click)="openPaymentModal()">ĐĂNG KÝ NGAY</a>
+                        </div>
+                        <!--//BUTTON END-->
+                        
+                    </div>
+                    <!--//PRICE CONTENT END-->
+                        
+                </div>
+            </div>	
+            <!--//BLOCK ROW END-->
+            
+        </div>
+    </section>     
+<!-- Modal -->
+<div class="modal" #paymentModal tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chọn Phương Thức Thanh Toán</h5>
+                <button type="button" class="close" (click)="closePaymentModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Thêm các lựa chọn thanh toán tại đây -->
+                <button class="btn btn-primary" (click)="choosePayment('VNPay')">Thanh toán qua VNPay</button>
+                <button class="btn btn-primary" (click)="choosePayment('MoMo')">Thanh toán qua MoMo</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

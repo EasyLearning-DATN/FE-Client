@@ -30,14 +30,11 @@
 
 <!--  -->
 <div class="container mt-3 d-flex align-content-center justify-content-between">
-  <div class="d-flex align-items-center">
-    <img
-      alt="Creator's avt"
-      class="img-fluid avt-icon"
-      height="57"
-      ngSrc="assets/img/commons/default_user.jpeg"
-      width="57"
-    />
+  <div class="ms-5 d-flex align-items-center">
+    <img [ngSrc]="lesson.user_info.avatar.url ?lesson.user_info.avatar.url :'assets/img/commons/default_user.jpeg'" alt="Creator's avt"
+         class="img-fluid avt-icon"
+         height="57"
+         width="57">
     <div class="ms-3">
       <p class="m-0 mt-3">Người tạo</p>
       <p class="fs-2">{{ lesson.user_info.fullName | titlecase }}</p>

@@ -47,20 +47,19 @@ export class EditLessonComponent implements OnInit {
       });
       return;
     }
-    console.log(this.image);
+    // console.log(this.image);
+    Swal.fire({
+      title: 'Đang cập nhật bài học...',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
     if (this.image !== '') {
       const token = localStorage.getItem("token");
-      Swal.fire({
-        title: 'Đang cập nhật bài học...',
-        allowOutsideClick: false,
-        didOpen: () => {
-          Swal.showLoading();
-        },
-      });
       this.imageService.uploadImage(this.image, token).subscribe(
         (response) => {
           const image_id = response.public_id;
-          console.log(response.public_id);
           this.updateLesson(image_id);
         }, error => {
           Swal.close();
@@ -74,6 +73,7 @@ export class EditLessonComponent implements OnInit {
         },
       );
     } else {
+
       this.updateLesson(this.lesson.image.public_id);
     }
 

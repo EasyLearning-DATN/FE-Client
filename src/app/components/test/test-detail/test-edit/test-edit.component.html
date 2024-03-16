@@ -1,0 +1,115 @@
+<div class="container">
+  <div class="header mb-3">
+    <span class="fs-4">Chỉnh Sửa Bài Test</span>
+  </div>
+  <form [formGroup]="editTestForm">
+    <div class="picture text-center mb-3">
+      <img (click)="fileUpload.click()" [ngSrc]="test.image.url ? test.image.url:'/assets/img/gallery/hero-header.png'" alt="Test" class="image p-2"
+           height="250"
+           width="250">
+    </div>
+    <div class="d-none">
+      <input #fileUpload (change)="uploadImage($event)" accept="image/*" type="file">
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="w-lg-75 w-100">
+        <div class="test-name mb-3 form-floating">
+          <input class="form-control" formControlName="name" id="floatingName" placeholder="">
+          <label for="floatingName">Tên của bài test</label>
+          <div *ngIf="!editTestForm.get('name')?.valid && editTestForm.get('name')?.touched" class="mt-1">
+              <span *ngIf="editTestForm.get('name')?.errors?.['required']" style="color: red;">Tên bài test
+                                                                                                  không được để trống!</span>
+          </div>
+        </div>
+        <div class="test-description mb-3 form-floating">
+          <textarea class="form-control" formControlName="description" id="floatingDescription" placeholder="" rows="2"></textarea>
+          <label for="floatingDescription">Mô tả</label>
+          <div *ngIf="!editTestForm.get('description')?.valid && editTestForm.get('description')?.touched" class="mt-1">
+              <span *ngIf="editTestForm.get('description')?.errors?.['required']" style="color: red;">Mô tả
+                                                                                                         không được để trống!</span>
+          </div>
+        </div>
+        <div class="test-result-type mb-3">
+          <select class="form-select mb-3" formControlName="view_result_type_code" id="type">
+            <option *ngFor="let rType of resultTypes" [ngValue]="rType.code">{{ rType.name }}</option>
+          </select>
+        </div>
+        <div class="row mb-3 g-1 d-flex justify-content-between align-items-center">
+          <div class="form-check">
+            <input (click)="resetSelection('fullTime')" class="form-check-input" formControlName="test_type" id="flexRadioDefault1" type="radio"
+                   value="fullTime">
+            <label class="form-check-label" for="flexRadioDefault1">
+              Bài thi có thời gian tổng
+            </label>
+          </div>
+          <div *ngIf="editTestForm.get('test_type')?.value === 'fullTime'" class="form-group col-sm-8">
+            <label for="timeTotal">Thời gian bài kiểm tra (phút)</label>
+          </div>
+          <div *ngIf="editTestForm.get('test_type')?.value === 'fullTime'" class="col-sm-3 me-2">
+            <select aria-label="Default select example" class="form-select" formControlName="time_total" id="timeTotal">
+              <option disabled>Chọn</option>
+              <option value="0">Không giới hạn thời gian</option>
+              <option value="{{15*60}}">15p</option>
+              <option value="{{30*60}}">30p</option>
+              <option value="{{60*60}}">60p</option>
+              <option value="{{90*60}}">90p</option>
+              <option value="{{120*60}}">120p</option>
+            </select>
+          </div>
+          <div *ngIf="!editTestForm.get('time_total')?.valid && editTestForm.get('time_total')?.touched">
+            <small *ngIf="editTestForm.get('time_total')?.errors?.['required']" style="color: red;">Vui lòng chọn thời gian giữa mỗi câu
+                                                                                                    hỏi</small>
+          </div>
+          <div class="form-check">
+            <input (click)="resetSelection('eachQuestion')" class="form-check-input"
+                   formControlName="test_type"
+                   id="flexRadioDefault2"
+                   type="radio"
+                   value="eachQuestion">
+            <label class="form-check-label" for="flexRadioDefault2">
+              Bài thi có thời gian mỗi câu hỏi
+            </label>
+          </div>
+          <div *ngIf="editTestForm.get('test_type')?.value === 'eachQuestion'" class="form-group col-sm-8">
+            <label for="timeQuestion">Thời gian mỗi câu hỏi (giây)</label>
+          </div>
+          <div *ngIf="editTestForm.get('test_type')?.value === 'eachQuestion'" class="col-sm-3 me-2">
+            <select aria-label="Default select example" class="form-select" formControlName="time_question" id="timeQuestion">
+              <option disabled>Chọn</option>
+              <option value="0">Không giới hạn thời gian</option>
+              <option value="15">15s</option>
+              <option value="30">30s</option>
+              <option value="45">45s</option>
+              <option value="60">60s</option>
+            </select>
+          </div>
+          <div *ngIf="!editTestForm.get('time_question')?.valid && editTestForm.get('time_question')?.touched">
+            <small *ngIf="editTestForm.get('time_question')?.errors?.['required']" style="color: red;">Vui lòng chọn thời gian giữa mỗi câu
+                                                                                                       hỏi</small>
+          </div>
+          <div class="add-question d-flex align-items-center justify-content-between mb-3 mt-3">
+            <app-add-question-test></app-add-question-test>
+            <div>
+
+              <button (click)="onEditTest()" class="btn btn-app me-3"><span>Lưu chỉnh sửa</span></button>
+              <button (click)="onDeleteTest()" class="btn btn-app-warning "><span>Xóa bài kiểm tra</span></button>
+            </div>
+          </div>
+          <div class="mb-3 d-flex flex-column align-items-center">
+            <div *ngFor="let question of questions; let i = index">
+              <app-demo-fitb-question *ngIf="question.question_type_id === questionTypes[0].id" [index]="i" [question]="question"
+                                      [total]="questions.length"></app-demo-fitb-question>
+              <app-demo-mca-question *ngIf="question.question_type_id === questionTypes[1].id" [index]="i" [question]="question"
+                                     [total]="questions.length"></app-demo-mca-question>
+              <app-demo-sca-question *ngIf="question.question_type_id === questionTypes[2].id" [index]="i" [question]="question"
+                                     [total]="questions.length"></app-demo-sca-question>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </form>
+</div>

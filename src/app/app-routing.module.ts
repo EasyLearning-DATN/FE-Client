@@ -13,13 +13,16 @@ import {LessonLearnComponent} from "./components/lesson/lesson-detail/lesson-lea
 import {ConfirmComponent} from './components/forget-password/confirm/confirm.component';
 import {lessonResolver} from "./resolver/lesson.resolver";
 import {ItemsComponent} from "./components/lesson/items/items.component";
+import {SettingsComponent} from './components/settings/settings.component';
 import {questionTypeResolver} from "./resolver/question.type.resolver";
-import {questionsResolver} from "./resolver/questions.resolver";
 import {TestComponent} from './components/test/test.component';
 import {UpgradeComponent} from './components/upgrade/upgrade/upgrade.component';
 import {resultTypeResolver} from "./resolver/result-type.resolver";
-import {CreateLessonTestComponent} from "./components/test/create-test/create-lesson-test/create-lesson-test.component";
 import {CreateTestComponent} from "./components/test/create-test/create-test.component";
+import {TestDetailComponent} from "./components/test/test-detail/test-detail.component";
+import {TestEditComponent} from "./components/test/test-detail/test-edit/test-edit.component";
+import {ListTestComponent} from "./components/test/list-test/list-test.component";
+import {testResolver} from "./resolver/test.resolver";
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -32,7 +35,7 @@ const routes: Routes = [
       {
         path: ':id',
         component: LessonDetailComponent,
-        resolve: [lessonResolver, questionTypeResolver, questionsResolver, resultTypeResolver],
+        resolve: [lessonResolver, questionTypeResolver, resultTypeResolver],
         children: [
           {path: '', component: FlashcardComponent},
           {path: 'flashcard', component: FlashcardComponent},
@@ -41,8 +44,14 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'test', component: TestComponent, children: [
+      {path: ':id', component: TestDetailComponent, resolve: [testResolver]},
+      {path: ':id/edit', component: TestEditComponent, resolve: [testResolver, questionTypeResolver, resultTypeResolver]},
+    ],
+  },
   {path: 'create-lesson', component: CreateLessonComponent},
-  {path: 'create-test', component: CreateTestComponent, resolve: [resultTypeResolver]},
+  {path: 'create-test', component: CreateTestComponent, resolve: [resultTypeResolver, questionTypeResolver, resultTypeResolver]},
   {
     path: 'list-lesson', component: ListLessonComponent, children: [
       {path: '', component: ItemsComponent},
@@ -51,8 +60,9 @@ const routes: Routes = [
       {path: 'history-lesson', component: ItemsComponent},
     ],
   },
-  {path: 'list-test', component: TestComponent},
-  {path: 'demo/add-test', component: CreateLessonTestComponent, resolve: [resultTypeResolver]},
+  {path: 'settings', component: SettingsComponent},
+  {path: 'list-test', component: ListTestComponent},
+  // {path: 'demo/add-test', component: CreateLessonTestComponent, resolve: [resultTypeResolver]},
   {path: 'upgrade', component: UpgradeComponent},
   {path: '404', component: PageNotFoundComponent},
   {path: '**', redirectTo: '/404'},
