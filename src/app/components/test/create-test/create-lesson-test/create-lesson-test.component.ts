@@ -129,6 +129,18 @@ export class CreateLessonTestComponent implements OnInit {
   }
 
   openOffcanvas(content: TemplateRef<any>) {
+    const token = localStorage.getItem('token') || '';
+    if (token === '') {
+      if (!this.createTestForm.valid) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Vui lòng đăng nhập để làm test!',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        });
+        return;
+      }
+    }
     this.offcanvasService.open(content, {backdrop: 'static'});
   }
 

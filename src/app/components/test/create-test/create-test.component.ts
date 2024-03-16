@@ -11,6 +11,7 @@ import {Subscription} from "rxjs";
 import Swal from "sweetalert2";
 import {ConfirmModalComponent} from "../../commons/confirm-modal/confirm-modal.component";
 import {UploadImageService} from "../../../services/shared/upload/upload-image.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-test',
@@ -23,14 +24,14 @@ export class CreateTestComponent implements OnInit, OnDestroy {
   resultTypes!: ResultTypeResponses[];
   createTest!: TestDTO;
   questionIDs: string[] = [];
-  questions!: QuestionResponses[];
+  questions: QuestionResponses[] = [];
   questionTypes!: QuestionTypeResponses[];
   questionSub!: Subscription;
   closeResult: string = '';
   @ViewChild('fileUpload', {static: true}) fileUpload !: ElementRef;
 
   constructor(private offcanvasService: NgbOffcanvas, private sharedService: SharedService,
-    private modalService: NgbModal, private testService: TestService, private imageService: UploadImageService) {
+    private modalService: NgbModal, private testService: TestService, private imageService: UploadImageService, private router: Router) {
   }
 
   ngOnInit() {
@@ -89,15 +90,15 @@ export class CreateTestComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // if (this.questions.length === 0) {
-    //   Swal.fire({
-    //     icon: 'warning',
-    //     title: 'Bài test phải có ít nhất 1 câu hỏi!',
-    //     confirmButtonColor: '#3085d6',
-    //     confirmButtonText: 'OK',
-    //   });
-    //   return;
-    // }
+    if (this.questions.length === 0) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Bài test phải có ít nhất 1 câu hỏi!',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK',
+      });
+      return;
+    }
 
     const confirmModal = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
@@ -151,7 +152,8 @@ export class CreateTestComponent implements OnInit, OnDestroy {
                   confirmButtonColor: '#3085d6',
                   confirmButtonText: 'OK',
                 });
-                this.initForm();
+                this.router.navigate(['/list-test']);
+
               }, error => {
                 console.log(error);
                 Swal.close();

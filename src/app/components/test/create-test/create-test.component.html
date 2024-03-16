@@ -86,7 +86,7 @@
             <small *ngIf="createTestForm.get('time_question')?.errors?.['required']" style="color: red;">Vui lòng chọn thời gian giữa mỗi câu
                                                                                                          hỏi</small>
           </div>
-          <div class="add-question d-flex align-items-center justify-content-between mb-3">
+          <div class="add-question d-flex align-items-center justify-content-between mb-3 mt-3">
             <app-add-question-test></app-add-question-test>
             <button (click)="onCreateTest()" class="btn btn-app"><span>Tạo bài test</span></button>
           </div>

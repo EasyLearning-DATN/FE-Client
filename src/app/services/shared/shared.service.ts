@@ -14,10 +14,21 @@ export class SharedService {
 
   lessonsChanged = new Subject<LessonResponses[]>();
   lessonChanged = new Subject<LessonResponses>();
+  testChanged = new Subject<TestResponses>();
   questionsOfTestChanged = new Subject<QuestionResponses[]>();
   isFetching: Subject<boolean> = new Subject<boolean>();
 
   constructor() {
+  }
+
+  private _test !: TestResponses;
+
+  get test(): TestResponses {
+    return this._test;
+  }
+
+  set test(value: TestResponses) {
+    this._test = value;
   }
 
   private _lessonViewInfo!: LessonResponses;

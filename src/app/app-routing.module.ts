@@ -22,6 +22,7 @@ import {CreateTestComponent} from "./components/test/create-test/create-test.com
 import {TestDetailComponent} from "./components/test/test-detail/test-detail.component";
 import {TestEditComponent} from "./components/test/test-detail/test-edit/test-edit.component";
 import {ListTestComponent} from "./components/test/list-test/list-test.component";
+import {testResolver} from "./resolver/test.resolver";
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -45,12 +46,12 @@ const routes: Routes = [
   },
   {
     path: 'test', component: TestComponent, children: [
-      {path: ':id', component: TestDetailComponent},
-      {path: ':id/edit', component: TestEditComponent},
+      {path: ':id', component: TestDetailComponent, resolve: [testResolver]},
+      {path: ':id/edit', component: TestEditComponent, resolve: [testResolver, questionTypeResolver, resultTypeResolver]},
     ],
   },
   {path: 'create-lesson', component: CreateLessonComponent},
-  {path: 'create-test', component: CreateTestComponent, resolve: [resultTypeResolver, questionTypeResolver]},
+  {path: 'create-test', component: CreateTestComponent, resolve: [resultTypeResolver, questionTypeResolver, resultTypeResolver]},
   {
     path: 'list-lesson', component: ListLessonComponent, children: [
       {path: '', component: ItemsComponent},

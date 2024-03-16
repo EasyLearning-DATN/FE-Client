@@ -16,7 +16,7 @@ export class DemoScaQuestionComponent implements OnInit {
   @Input() question!: QuestionResponses;
   @Input() index!: number;
   @Input() total!: number;
-  checkAnswer: Record<string, boolean> = {};
+  checkAnswer: Record<string, boolean>[] = [{}, {}, {}, {}];
 
   constructor(private renderer2: Renderer2, private sharedService: SharedService) {
 
@@ -24,6 +24,7 @@ export class DemoScaQuestionComponent implements OnInit {
 
   ngOnInit() {
     this.setCheckHoverDeleteButton();
+    this.setCheckAnswer();
   }
 
   setCheckHoverDeleteButton() {
@@ -34,10 +35,19 @@ export class DemoScaQuestionComponent implements OnInit {
   }
 
   setCheckAnswer() {
-    this.checkAnswer = {
+    this.checkAnswer = [{
       'correct': this.question.answers[0].is_correct,
       'incorrect': !this.question.answers[0].is_correct,
-    };
+    }, {
+      'correct': this.question.answers[1].is_correct,
+      'incorrect': !this.question.answers[1].is_correct,
+    }, {
+      'correct': this.question.answers[2].is_correct,
+      'incorrect': !this.question.answers[2].is_correct,
+    }, {
+      'correct': this.question.answers[3].is_correct,
+      'incorrect': !this.question.answers[3].is_correct,
+    }];
   }
 
   onDeleteQuestion() {
