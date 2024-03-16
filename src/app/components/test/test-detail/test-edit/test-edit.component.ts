@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ModalDismissReasons, NgbModal, NgbOffcanvas} from "@ng-bootstrap/ng-bootstrap";
+import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {SharedService} from "../../../../services/shared/shared.service";
 import {TestService} from "../../../../services/test/test.service";
 import {UploadImageService} from "../../../../services/shared/upload/upload-image.service";
@@ -12,6 +12,7 @@ import {QuestionResponses} from "../../../../responses/question/question.respons
 import {QuestionTypeResponses} from "../../../../responses/question-type/question-type.responses";
 import {Subscription} from "rxjs";
 import {TestResponses} from "../../../../responses/test/test.responses";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-test-edit',
@@ -20,7 +21,7 @@ import {TestResponses} from "../../../../responses/test/test.responses";
 })
 export class TestEditComponent implements OnInit, OnDestroy {
 
-  urlImage: any;
+  urlImage: any = null;
   test!: TestResponses;
   editTestForm!: FormGroup;
   resultTypes!: ResultTypeResponses[];
@@ -32,12 +33,19 @@ export class TestEditComponent implements OnInit, OnDestroy {
   closeResult: string = '';
   @ViewChild('fileUpload', {static: true}) fileUpload !: ElementRef;
 
-  constructor(private offcanvasService: NgbOffcanvas, private sharedService: SharedService,
-    private modalService: NgbModal, private testService: TestService, private imageService: UploadImageService) {
+  constructor(private sharedService: SharedService,
+    private modalService: NgbModal, private testService: TestService, private imageService: UploadImageService, private router: Router) {
   }
 
   ngOnInit() {
-
+    this.sharedService.testChanged.subscribe(
+      res => {
+        this.sharedService.test = res;
+        this.test = this.sharedService.test;
+        this.setQuestions();
+        this.initForm();
+      },
+    );
     this.test = this.sharedService.test;
     // this.resultTypes = this.sharedService.resultType;
     this.resultTypes = JSON.parse(<string>sessionStorage.getItem('resultTypes'));
@@ -49,6 +57,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.questionSub.unsubscribe();
+    this.sharedService.questionsOfCreatingTest = [];
   }
 
   resetSelection(selection: string) {
@@ -106,14 +115,13 @@ export class TestEditComponent implements OnInit, OnDestroy {
 
     const confirmModal = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    confirmModal.componentInstance.body = "Bạn có chắc chắn muốn tạo bài test không?";
+    confirmModal.componentInstance.body = "Bạn có chắc chắn muốn lưu chỉnh sửa không?";
     confirmModal
     .result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.closeResult);
         if (result === 'Confirm') {
-
           const token = localStorage.getItem('token');
           Swal.fire({
             title: 'Đang chỉnh sửa bài test...',
@@ -122,19 +130,9 @@ export class TestEditComponent implements OnInit, OnDestroy {
               Swal.showLoading();
             },
           });
-
           let imgFile = this.fileUpload.nativeElement.files[0];
-          // console.log(imgFile);
-          // if (imgFile === undefined) {
-          //
-          //   new FileSystemDirectoryEntry().getFile('/assets/img/gallery/hero-header.png', undefined, result => {
-          //     imgFile = result;
-          //   });
-          //   // imgFile = new File( FileReader(), '/assets/img/gallery/hero-header.png');
-          // }
-          // console.log(imgFile);
           this.setQuestionIds();
-          this.imageService.uploadImage(imgFile, token).subscribe(result => {
+          if (this.urlImage === null) {
             this.editTest = {
               name: this.editTestForm.get('name')?.value,
               description: this.editTestForm.get('description')?.value,
@@ -142,11 +140,10 @@ export class TestEditComponent implements OnInit, OnDestroy {
               time_question: this.editTestForm.get('time_question')?.value === 0 ? null : this.editTestForm.get('time_question')?.value,
               time_total: this.editTestForm.get('time_total')?.value === 0 ? null : this.editTestForm.get('time_total')?.value,
               view_result_type_code: this.editTestForm.get('view_result_type_code')?.value,
-              image_id: result.public_id,
+              image_id: this.test.image.public_id,
               total_question: <number>this.editTestForm.get('total_question')?.value,
             };
-            // console.log(this.editTest);
-            this.testService.createTest(this.editTest).subscribe(
+            this.testService.updateTest(this.test.id, this.editTest).subscribe(
               (response) => {
                 console.log(response);
                 Swal.close();
@@ -156,7 +153,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
                   confirmButtonColor: '#3085d6',
                   confirmButtonText: 'OK',
                 });
-                this.initForm();
+                // this.initForm();
               }, error => {
                 console.log(error);
                 Swal.close();
@@ -169,15 +166,56 @@ export class TestEditComponent implements OnInit, OnDestroy {
               },
             );
             console.log(result);
-          }, error => {
-            Swal.close();
-            Swal.fire({
-              icon: 'error',
-              title: 'Vui lòng chọn hình ảnh!',
-              confirmButtonColor: '#3085d6',
-              confirmButtonText: 'OK',
+          } else {
+            this.imageService.uploadImage(imgFile, token).subscribe(result => {
+              this.editTest = {
+                name: this.editTestForm.get('name')?.value,
+                description: this.editTestForm.get('description')?.value,
+                question_ids: this.questionIDs,
+                time_question: this.editTestForm.get('time_question')?.value === 0 ? null : this.editTestForm.get('time_question')?.value,
+                time_total: this.editTestForm.get('time_total')?.value === 0 ? null : this.editTestForm.get('time_total')?.value,
+                view_result_type_code: this.editTestForm.get('view_result_type_code')?.value,
+                image_id: this.test.image.public_id,
+                total_question: <number>this.editTestForm.get('total_question')?.value,
+              };
+              // console.log(this.editTest);
+              this.testService.updateTest(this.test.id, this.editTest).subscribe(
+                (response) => {
+                  console.log(response);
+                  Swal.close();
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Chỉnh sửa bài test thành công!',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK',
+                  });
+                  this.testService.getOneTest(this.test.id).subscribe(
+                    (res) => {
+                      this.sharedService.testChanged.next(res);
+                    },
+                  );
+                }, error => {
+                  console.log(error);
+                  Swal.close();
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Chỉnh sửa bài test thất bại!',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK',
+                  });
+                },
+              );
+              console.log(result);
+            }, error => {
+              Swal.close();
+              Swal.fire({
+                icon: 'error',
+                title: 'Vui lòng chọn hình ảnh!',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK',
+              });
             });
-          });
+          }
         }
       },
       (reason) => {
@@ -188,16 +226,65 @@ export class TestEditComponent implements OnInit, OnDestroy {
   }
 
   onDeleteTest() {
+    const confirmModal = this.modalService.open(ConfirmModalComponent);
+    // modalConfirm.componentInstance.title ="";
+    confirmModal.componentInstance.body = "Bạn có chắc chắn muốn xóa bài test này không?";
+    confirmModal
+    .result.then(
+      (result) => {
+        this.closeResult = `Closed with: ${result}`;
+        console.log(this.closeResult);
+        if (result === 'Confirm') {
 
+          const token = localStorage.getItem('token');
+          Swal.fire({
+            title: 'Đang xóa bài test...',
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            },
+          });
+
+          this.testService.deleteTest(this.test.id).subscribe(
+            (response) => {
+              console.log(response);
+              Swal.close();
+              Swal.fire({
+                icon: 'success',
+                title: 'Xóa bài test thành công!',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK',
+              });
+              this.router.navigate(['/list-test']);
+            }, error => {
+              console.log(error);
+              Swal.close();
+              Swal.fire({
+                icon: 'error',
+                title: 'Xóa bài test thất bại!',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK',
+              });
+            },
+          );
+        }
+      },
+      (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        console.log(this.closeResult);
+      },
+    );
   }
 
   private setQuestionIds() {
     this.questionIDs.push(...this.questions.map(q => {
       return q.id;
     }));
+    // console.log(this.questionIDs);
   }
 
   private setQuestions() {
+    this.sharedService.questionsOfCreatingTest = [...this.test.question_tests];
     this.questionSub = this.sharedService.questionsOfTestChanged.subscribe(questions => {
       this.questions = questions;
       console.log(this.questions);

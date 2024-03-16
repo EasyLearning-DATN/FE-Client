@@ -21,11 +21,10 @@ export class TestDetailComponent implements OnInit {
     this.test = this.sharedService.test;
     this.sharedService.testChanged.subscribe(
       (test) => {
-        this.test = test;
+        this.sharedService.test = test;
+        this.test = this.sharedService.test;
       },
     );
-
-    console.log(this.test);
 
     // truyển userInfo từ localStorage và lấy id
     const userInfoString = localStorage.getItem('userInfo') || '';

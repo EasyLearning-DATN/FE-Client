@@ -9,7 +9,6 @@ export const testResolver: ResolveFn<TestResponses> = (route, state) => {
   const sharedService = inject(SharedService);
   const test = sharedService.test;
   if (test === undefined || test.id !== <string>route.params['id']) {
-    console.log("Hello");
     return testService.getOneTest(route.params['id']);
   } else {
     return test;

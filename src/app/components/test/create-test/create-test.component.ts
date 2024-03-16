@@ -45,6 +45,8 @@ export class CreateTestComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.questionSub.unsubscribe();
+    this.sharedService.questionsOfCreatingTest = [];
+    this.sharedService.tempTestQuestions = [];
   }
 
   resetSelection(selection: string) {
@@ -130,6 +132,7 @@ export class CreateTestComponent implements OnInit, OnDestroy {
           // }
           // console.log(imgFile);
           this.setQuestionIds();
+          console.log(this.questionIDs);
           this.imageService.uploadImage(imgFile, token).subscribe(result => {
             this.createTest = {
               name: this.createTestForm.get('name')?.value,
@@ -139,7 +142,7 @@ export class CreateTestComponent implements OnInit, OnDestroy {
               time_total: this.createTestForm.get('time_total')?.value === 0 ? null : this.createTestForm.get('time_total')?.value,
               view_result_type_code: this.createTestForm.get('view_result_type_code')?.value,
               image_id: result.public_id,
-              total_question: <number>this.createTestForm.get('total_question')?.value,
+              total_question: this.questionIDs.length,
             };
             console.log(this.createTest);
             this.testService.createTest(this.createTest).subscribe(
@@ -185,6 +188,7 @@ export class CreateTestComponent implements OnInit, OnDestroy {
   }
 
   private setQuestionIds() {
+    this.questionIDs = [];
     this.questionIDs.push(...this.questions.map(q => {
       return q.id;
     }));

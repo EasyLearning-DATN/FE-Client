@@ -175,7 +175,11 @@ export class SharedService {
     if (this._questionsOfCreatingTest === undefined) {
       this.questionsOfCreatingTest = questions;
     } else {
-      this._questionsOfCreatingTest.push(...questions);
+      let fillterQuestions = questions.filter(
+        response => {
+          !this._questionsOfCreatingTest.includes(response);
+        });
+      this._questionsOfCreatingTest.push(...fillterQuestions);
       this.questionsOfTestChanged.next(this.questionsOfCreatingTest);
     }
 

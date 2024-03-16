@@ -16,6 +16,7 @@ export class TestService {
   private apiCreateTest = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_TEST;
   private apiGetTest = environment.API_URL + environment.API_PUBLIC + environment.VERSION_1 + environment.API_TEST;
   private apiUpdateTest = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_TEST;
+  private apiDeleteTest = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_TEST;
 
   constructor(private http: HttpClient, private sharedService: SharedService, private router: Router) {
   }
@@ -101,8 +102,13 @@ export class TestService {
     });
   }
 
-  deleteTest() {
-
+  deleteTest(id: string) {
+    const token = localStorage.getItem('token');
+    return this.http.delete(this.apiDeleteTest + '/' + id, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+    });
   }
 
   checkTestOfUser(userId: string, id: string) {
