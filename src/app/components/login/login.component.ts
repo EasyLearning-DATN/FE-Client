@@ -1,12 +1,6 @@
 import { flatMap } from 'rxjs/operators';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder, NgForm } from '@angular/forms'
-import {
-  SocialAuthService,
-  GoogleLoginProvider,
-  SocialUser,
-  FacebookLoginProvider,
-} from '@abacritt/angularx-social-login';
 import { UserService } from 'src/app/services/user/user-service.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -48,7 +42,6 @@ export class LoginComponent {
   });
   constructor(
     private formBuilder: FormBuilder,
-    private socialAuthService: SocialAuthService,
     private router: Router,
     private userService: UserService) {
 
