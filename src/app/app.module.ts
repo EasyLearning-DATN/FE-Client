@@ -22,6 +22,7 @@ import {TestDetailComponent} from './components/test/test-detail/test-detail.com
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {allIcons, NgxBootstrapIconsModule} from 'ngx-bootstrap-icons';
 import {LocationStrategy, NgOptimizedImage, PathLocationStrategy} from "@angular/common";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
@@ -39,13 +40,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {EditLessonComponent} from './components/lesson/lesson-detail/edit-lesson/edit-lesson.component';
 import {AddQuestionsComponent} from './components/lesson/lesson-detail/edit-lesson/add-questions/add-questions.component';
 import {EditQuestionsComponent} from './components/lesson/lesson-detail/edit-lesson/edit-questions/edit-questions.component';
-import {
-  FacebookLoginProvider,
-  GoogleLoginProvider,
-  GoogleSigninButtonModule,
-  SocialAuthServiceConfig,
-  SocialLoginModule,
-} from '@abacritt/angularx-social-login';
 import {ConfirmComponent} from './components/forget-password/confirm/confirm.component';
 import {ItemsComponent} from './components/lesson/items/items.component';
 import {LessonLearnItemComponent} from './components/lesson/lesson-detail/lesson-learn/lesson-learn-item/lesson-learn-item.component';
@@ -72,6 +66,7 @@ import {SettingsComponent} from './components/settings/settings.component';
 import {UpgradeComponent} from './components/upgrade/upgrade/upgrade.component';
 import { TestEditComponent } from './components/test/test-detail/test-edit/test-edit.component';
 import { ListTestComponent } from './components/test/list-test/list-test.component';
+import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
 
 @NgModule({
   declarations: [
@@ -119,11 +114,14 @@ import { ListTestComponent } from './components/test/list-test/list-test.compone
     CommentItemComponent,
     TestEditComponent,
     ListTestComponent,
+    ThemeToggleComponent,
   ],
   imports: [
+    MatSlideToggleModule,
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
+    NgbModule,
     NgbModule,
     FormsModule,
     FontAwesomeModule,
@@ -131,8 +129,6 @@ import { ListTestComponent } from './components/test/list-test/list-test.compone
     NgxBootstrapIconsModule.pick(allIcons, {}),
     NgOptimizedImage,
     HttpClientModule,
-    SocialLoginModule,
-    GoogleSigninButtonModule,
     BrowserAnimationsModule,
     TranslateModule.forRoot({
       loader: {
@@ -143,23 +139,6 @@ import { ListTestComponent } from './components/test/list-test/list-test.compone
     }),
   ],
   providers: [
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider('46624841666-rhb1ravu863ip9b1i1k572ujfpvaqijb.apps.googleusercontent.com'),
-          }
-          ,
-          {
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider("240925951497184"),
-          },
-        ],
-      } as SocialAuthServiceConfig,
-    },
     {
       provide: LocationStrategy, useClass: PathLocationStrategy,
     },

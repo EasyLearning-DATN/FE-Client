@@ -4,7 +4,6 @@
         <div class="user-profile mb-5">
             <div class="row">
                 <div class="col-md-auto">
-                    <p class="title">User Profile</p>
                     <img src="\assets\img\commons\default_user.jpeg" alt="" class="avatar">
                 </div>
                 <div class="col-sm-6 d-flex align-items-md-center">
@@ -25,10 +24,7 @@
                 </div>
                 <div class="col-md-auto d-flex align-items-md-center">
                     <div>
-                        <a class="btn btn-app order-1 order-lg-0 text-capitalize py-2 px-4"><fa-icon
-                                [icon]="['fas', 'moon']"></fa-icon> Tối</a>
-                        <a class="btn btn-app order-1 order-lg-0 ms-4 text-capitalize py-2 px-4"><fa-icon
-                                [icon]="['fas', 'sun']"></fa-icon> Sáng</a>
+                        <app-theme-toggle></app-theme-toggle>
                     </div>
                 </div>
             </div>
