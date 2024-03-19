@@ -4,11 +4,11 @@
         <div class="user-profile mb-5">
             <div class="row">
                 <div class="col-md-auto">
-                    <img src="\assets\img\commons\default_user.jpeg" alt="" class="avatar">
+                    <img [ngSrc]="user.avatar ?user.avatar :'assets/img/commons/default_user.jpeg'" alt="" class="avatar" width="150" height="150">
                 </div>
                 <div class="col-sm-6 d-flex align-items-md-center">
                     <div>
-                        <span class="name-user">{{fullName}} <a class="text-dark" href="#!">
+                        <span class="name-user">{{user.fullName}} <a class="text-dark" href="#!">
                                 <fa-icon [icon]="['fas', 'edit']"></fa-icon>
                             </a></span><br>
                         <div class="row">
@@ -17,7 +17,7 @@
                             </div>
                             <div class="col-auto p-0">
                                 <span>Premium</span><br>
-                                <span>100k Theo dõi</span>
+                                <!-- <span>100k Theo dõi</span> -->
                             </div>
                         </div>
                     </div>
@@ -34,20 +34,29 @@
                 <span class="title text-decoration-none"><fa-icon [icon]="['fas', 'user']"></fa-icon> Tài khoản</span>
                 <hr class="border border-secondary border-1 opacity-50 m-0">
             </div>
-            <form class="form-group p-4">
+            <form class="form-group p-4" [formGroup]="userInfoChangeForm">
                 <div class="mb-3">
                     <label for="fullName" class="form-label">Họ và tên<span class="text-danger"> *</span></label>
-                    <input type="text" class="form-control" id="fullName">
+                    <input type="text" class="form-control" formControlName="fullName">
+                    <div *ngIf="!userInfoChangeForm.get('fullName')?.valid && userInfoChangeForm.get('fullName')?.touched" class="text-danger">
+                        <small *ngIf="userInfoChangeForm.get('fullName')?.errors?.['required']">*Họ và tên không được để trống</small>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email<span class="text-danger"> *</span></label>
-                    <input type="email" class="form-control" id="email">
+                    <input type="email" class="form-control" id="email" formControlName="email">
+                    <div *ngIf="!userInfoChangeForm.get('email')?.valid && userInfoChangeForm.get('email')?.touched" class="text-danger">
+                        <small *ngIf="userInfoChangeForm.get('email')?.errors?.['required']">*Họ và tên không được để trống</small>
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="dayOfBirth" class="form-label">Ngày sinh<span class="text-danger"> *</span></label>
-                    <input type="date" class="form-control" id="dayOfBirth">
+                    <label class="form-label" for="dayOfBirth">Ngày sinh<span class="text-danger"> *</span></label>
+                    <input class="form-control" type="date" id="dayOfBirth" formControlName="dayOfBirth">
+                    <div *ngIf="!userInfoChangeForm.get('dayOfBirth')?.valid && userInfoChangeForm.get('dayOfBirth')?.touched" class="text-danger">
+                        <small *ngIf="userInfoChangeForm.get('dayOfBirth')?.errors?.['required']">*Họ và tên không được để trống</small>
+                    </div>
                 </div>
-                <a class="btn btn-app w-100 mt-2 py-2" href="#!"><fa-icon [icon]="['fas', 'floppy-disk']"></fa-icon> Save changes</a>
+                <button class="btn btn-app-reverse w-100 mt-2 py-2" (click)="updateInfo()"><fa-icon [icon]="['fas', 'floppy-disk']"></fa-icon> Save changes</button>
             </form>
         </div>
         <div class="password my-5">
@@ -68,7 +77,7 @@
                     <label for="confirmNewPass" class="form-label">New password again<span class="text-danger"> *</span></label>
                     <input type="password" class="form-control" id="confirmNewPass">
                 </div>
-                <a class="btn btn-app w-100 mt-2 py-2" href="#!"><fa-icon [icon]="['fas', 'edit']"></fa-icon> Update password</a>
+                <a class="btn btn-app-reverse w-100 mt-2 py-2" href="#!"><fa-icon [icon]="['fas', 'edit']"></fa-icon> Update password</a>
             </form>
         </div>
         <div class="language my-5">

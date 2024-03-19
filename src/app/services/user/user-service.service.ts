@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LoginDTO } from 'src/app/dtos/user/login.dto';
-import { SignupDTO } from 'src/app/dtos/user/signup.dto';
+import { UserDTO } from 'src/app/DTOS/user/updateInfo.dto';
+import { LoginDTO } from 'src/app/DTOS/user/login.dto';
+import { SignupDTO } from 'src/app/DTOS/user/signup.dto';
 import { UserResponse } from 'src/app/responses/user/user.responses';
 import { environment } from 'src/environments/environments';
 
@@ -17,6 +18,7 @@ export class UserService {
   private apiUpdatePassword = `${environment.apiMember}/user/password`;
   private apiVaildToken = `${environment.apiExternal}/user/valid-token?token=`;
   private apiLogout = `${environment.apiMember}/user/logout`;
+  private apiUpdateInfo = `${environment.apiMember}/user/info`;
 
   constructor(private http: HttpClient) { }
 
@@ -71,6 +73,16 @@ export class UserService {
       headers: {
         Authorization: `Bearer ${token}`
       }
+    });
+  }
+
+  updateInfo(userDTO: UserDTO): Observable<any>  {
+    const token = localStorage.getItem('token');
+    console.log(token);
+    return this.http.patch(this.apiUpdateInfo, userDTO, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
     });
   }
 }

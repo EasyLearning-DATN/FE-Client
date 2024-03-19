@@ -6,6 +6,7 @@ import {QuestionResponses} from "../../responses/question/question.responses";
 import {TestResponses} from 'src/app/responses/test/test.responses';
 import {ResultTypeResponses} from "../../responses/result_type_id/result_type.responses";
 import {SearchLessonResponses} from "../../responses/search-lesson/search-lesson.responses";
+import {UserResponse} from '../../responses/user/user.responses';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,7 @@ export class SharedService {
   testChanged = new Subject<TestResponses>();
   questionsOfTestChanged = new Subject<QuestionResponses[]>();
   isFetching: Subject<boolean> = new Subject<boolean>();
+  userInfoChanged = new Subject<UserResponse>();
 
   constructor() {
   }
