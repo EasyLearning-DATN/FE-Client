@@ -67,6 +67,7 @@ import {UpgradeComponent} from './components/upgrade/upgrade/upgrade.component';
 import { TestEditComponent } from './components/test/test-detail/test-edit/test-edit.component';
 import { ListTestComponent } from './components/test/list-test/list-test.component';
 import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
+import { PaymentSuccessComponent } from './components/upgrade/success/success.component';
 
 @NgModule({
   declarations: [
@@ -115,6 +116,7 @@ import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.com
     TestEditComponent,
     ListTestComponent,
     ThemeToggleComponent,
+    PaymentSuccessComponent,
   ],
   imports: [
     MatSlideToggleModule,
