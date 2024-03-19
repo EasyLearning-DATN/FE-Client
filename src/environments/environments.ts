@@ -35,6 +35,8 @@ export const environment = {
   API_ANSWER: "/answer",
   API_LIST: "/list",
   API_INVOICE: "/invoice",
+  API_MOMO: "/momo",
+  API_PAYMENT: "/payment",
   PATH_ID: "/{id}",
   ID: "id",
   LANGUAGE: "vi",
