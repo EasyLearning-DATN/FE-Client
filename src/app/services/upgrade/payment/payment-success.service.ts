@@ -11,6 +11,7 @@ import { invoiceDTO } from 'src/app/DTOS/invoice/invoice.dto';
 
 export class PaymentSuccessService {
   private apiPaymentSuccess = environment.API_URL + environment.API_ADMIN + environment.VERSION_1 + environment.API_INVOICE;
+  private apiCheckStatus = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_PAYMENT + environment.API_MOMO + '/payment-status';
 
   constructor(
     private http: HttpClient,
@@ -32,6 +33,17 @@ export class PaymentSuccessService {
       Authorization: `Bearer ${token}`,
     };
     return this.http.post(this.apiPaymentSuccess + '/create', invoice, {
+      headers: headers,
+    });
+  }
+
+  // check status
+  checkStatus(orderId: string, requestId: string) {
+    const token = this.sharedService.getToken();
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return this.http.post(this.apiCheckStatus + `?requestId=${requestId}&orderId=${orderId}`, null, {
       headers: headers,
     });
   }
