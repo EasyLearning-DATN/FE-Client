@@ -19,11 +19,8 @@ export class UploadImageService {
 
   uploadImage(image: any, token: any) {
     const formData = new FormData();
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
     formData.append('file', image);
-    return this.http.post(this.apiUploadImage, formData, {headers})
+    return this.http.post(this.apiUploadImage, formData)
     .pipe(
       map((response: any) => {
         const imageResponse: ImageResponses = response.data;
@@ -33,13 +30,7 @@ export class UploadImageService {
   }
 
   deleteImage(id: string) {
-    const token = localStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    return this.http.delete(this.apiDeleteImage + '/' + id, {
-      headers: headers,
-    });
+    return this.http.delete(this.apiDeleteImage + '/' + id);
   }
 
 

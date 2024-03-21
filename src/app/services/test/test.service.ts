@@ -83,32 +83,15 @@ export class TestService {
   }
 
   createTest(test: TestDTO) {
-    const token = localStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    return this.http.post(this.apiCreateTest, test, {
-      headers: headers,
-    });
+    return this.http.post(this.apiCreateTest, test);
   }
 
   updateTest(id: string, test: TestDTO) {
-    const token = localStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    return this.http.put(this.apiUpdateTest + '/' + id, test, {
-      headers,
-    });
+    return this.http.put(this.apiUpdateTest + '/' + id, test);
   }
 
   deleteTest(id: string) {
-    const token = localStorage.getItem('token');
-    return this.http.delete(this.apiDeleteTest + '/' + id, {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-      },
-    });
+    return this.http.delete(this.apiDeleteTest + '/' + id);
   }
 
   checkTestOfUser(userId: string, id: string) {

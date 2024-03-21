@@ -17,32 +17,14 @@ export class QuestionService {
   }
 
   putListQuestion(listQuestion: QuestionDTO[]) {
-    const token = localStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    return this.http.post(this.apiCreateListQuestion, listQuestion, {
-      headers,
-    });
+    return this.http.post(this.apiCreateListQuestion, listQuestion);
   }
 
   deleteQuestion(id: string) {
-    const token = localStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    return this.http.delete(this.apiDeleteQuestion + '/' + id, {
-      headers,
-    });
+    return this.http.delete(this.apiDeleteQuestion + '/' + id);
   }
 
   updateQuestion(updateQuestion: QuestionDTO, questionId: string) {
-    const token = localStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    return this.http.put(this.apiUpdateQuestion + '/' + questionId, updateQuestion, {
-      headers,
-    });
+    return this.http.put(this.apiUpdateQuestion + '/' + questionId, updateQuestion);
   }
 }
