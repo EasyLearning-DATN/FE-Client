@@ -75,7 +75,7 @@ export class UpgradeComponent {
     const id = JSON.parse(userString).id;
     // gọi service
     this.upgradeSrv.MoMo(amount).subscribe((res: any) => {
-      console.log(res);
+      console.log(res.payUrl);
       window.open(res.payUrl, '_blank');
     }, err => {
       console.log(err);

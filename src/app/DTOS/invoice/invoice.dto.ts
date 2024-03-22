@@ -29,5 +29,5 @@ export class invoiceDTO {
     
     @IsString()
     @IsNotEmpty()
-    status: string = 'Khởi tạo hoá đơn';
+    status: string = '';
 }
