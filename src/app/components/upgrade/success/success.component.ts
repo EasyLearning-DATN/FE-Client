@@ -22,7 +22,7 @@ export class PaymentSuccessComponent implements OnInit {
   date: string = '';
   orderID: string = '';
   userId: string = '';
-  status: string = 'Khởi tạo hoá đơn!';
+  status: string = '';
 
   constructor(
     private userService: UserService,
@@ -37,7 +37,7 @@ export class PaymentSuccessComponent implements OnInit {
     this.date = queryParams.get('responseTime') || '';
     this.orderID = queryParams.get('orderId') || '';
     this.userId = this.userResponse?.id || '';
-    this.status = this.status;
+    this.status = queryParams.get('localMessage') || '';
     console.log(this.userId);
     this.fetchCreateInvoice();
   }
@@ -54,9 +54,10 @@ export class PaymentSuccessComponent implements OnInit {
     }).subscribe(
       (response) => {
         this.checkStatus();
+        console.log(this.transId, this.status)
       },
       (error) => {
-        console.error('Error creating invoice:', error);
+        
       }
     );
   }
