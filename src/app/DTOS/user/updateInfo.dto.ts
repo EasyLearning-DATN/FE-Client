@@ -4,7 +4,7 @@ import {
     IsDate
 } from 'class-validator';
 
-export class UserDTO {
+export class UpdateInfoDTO {
     @IsString()
     fullName: string = '';
 
