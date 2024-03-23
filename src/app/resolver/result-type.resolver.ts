@@ -1,6 +1,6 @@
 import {ResolveFn} from '@angular/router';
 import {inject} from "@angular/core";
-import {ViewResultTypeService} from "../services/view-result-type/view-result-type.service";
+import {ViewResultTypeService} from "../services/shared/view-result-type/view-result-type.service";
 import {ResultTypeResponses} from "../responses/result_type_id/result_type.responses";
 
 export const resultTypeResolver: ResolveFn<ResultTypeResponses[]> = (route, state) => {

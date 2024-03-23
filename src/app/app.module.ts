@@ -22,10 +22,10 @@ import {TestDetailComponent} from './components/test/test-detail/test-detail.com
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {allIcons, NgxBootstrapIconsModule} from 'ngx-bootstrap-icons';
 import {LocationStrategy, NgOptimizedImage, PathLocationStrategy} from "@angular/common";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {CreateLessonTestComponent} from './components/test/create-test/create-lesson-test/create-lesson-test.component';
@@ -64,9 +64,13 @@ import {CommentComponent} from './components/lesson/lesson-detail/comment/commen
 import {CommentItemComponent} from './components/lesson/lesson-detail/comment/comment-item/comment-item.component';
 import {SettingsComponent} from './components/settings/settings.component';
 import {UpgradeComponent} from './components/upgrade/upgrade/upgrade.component';
-import { TestEditComponent } from './components/test/test-detail/test-edit/test-edit.component';
-import { ListTestComponent } from './components/test/list-test/list-test.component';
-import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
+import {TestEditComponent} from './components/test/test-detail/test-edit/test-edit.component';
+import {ListTestComponent} from './components/test/list-test/list-test.component';
+import {ThemeToggleComponent} from './components/theme-toggle/theme-toggle.component';
+
+import {PaymentSuccessComponent} from './components/upgrade/success/success.component';
+import {AuthInterceptor} from "./interceptors/auth.interceptor";
+
 
 @NgModule({
   declarations: [
@@ -115,6 +119,7 @@ import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.com
     TestEditComponent,
     ListTestComponent,
     ThemeToggleComponent,
+    PaymentSuccessComponent,
   ],
   imports: [
     MatSlideToggleModule,
@@ -141,6 +146,11 @@ import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.com
   providers: [
     {
       provide: LocationStrategy, useClass: PathLocationStrategy,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: AuthInterceptor,
     },
     // {
     //   provide: IMAGE_LOADER,

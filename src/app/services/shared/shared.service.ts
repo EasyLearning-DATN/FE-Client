@@ -173,6 +173,11 @@ export class SharedService {
     }
   }
 
+  getToken() {
+    let token = localStorage.getItem('token');
+    return token;
+  }
+
   onAddQuestionsOfTest(questions: QuestionResponses[]) {
     if (this._questionsOfCreatingTest === undefined) {
       this.questionsOfCreatingTest = questions;
