@@ -5,8 +5,8 @@ import { UserService } from 'src/app/services/user/user-service.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { UserResponse } from "../../responses/user/user.responses";
-import { LoginDTO } from "../../dtos/user/login.dto";
-import { SignupDTO } from "../../dtos/user/signup.dto";
+import { LoginDTO } from "../../DTOS/user/login.dto";
+import { SignupDTO } from "../../DTOS/user/signup.dto";
 
 
 @Component({

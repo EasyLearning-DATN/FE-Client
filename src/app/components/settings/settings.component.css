@@ -38,15 +38,20 @@
 } */
 
 .btn-delete {
+    transition: all ease-in-out 0.3s;
+    background-color: #FF0303;
+    color: #ffffff;
+    border: #FF0303 solid 1px;
+    border-radius: 10px;
+}
+
+.btn-delete:hover {
     background-color: #ffffff;
     color: #FF0303;
     border: #FF0303 solid 1px;
     border-radius: 10px;
 }
 
-.btn-delete:hover {
-    background-color: #FF0303;
-    color: #ffffff;
-    border: #ffffff solid 1px;
-    border-radius: 10px;
+.cursos {
+    cursor: pointer;
 }
