@@ -81,7 +81,6 @@ export class UserService {
       }
     });
   }
-
   
   // hàm update info user có sử dụng bearer token và body là fullName, email, dayOfBirth
   updateInfo(updateInfoDTO: UpdateInfoDTO): Observable<any>  {
@@ -112,6 +111,7 @@ export class UserService {
       },
     });
   }
+
   // get all role
   getAllRole(): Observable<any> {
     return this.http.get(this.apiGetRole + '/all', {
