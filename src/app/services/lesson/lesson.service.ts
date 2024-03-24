@@ -43,8 +43,6 @@ export class LessonService {
       }),
       tap((lessons: SearchLessonListResponse) => {
         this.sharedService.lessonsHome = lessons.data;
-        // console.log(lessons.data);
-        // console.log(this.sharedService.lessonsHome);
       }));
   }
 
@@ -111,14 +109,7 @@ export class LessonService {
 
   // create lesson
   createLesson(lessonDTO: LessonDTO) {
-    const token = localStorage.getItem('token');
-    console.log(lessonDTO);
-    console.log(token);
-    return this.http.post<any>(this.apiCreateLesson, lessonDTO, {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-      },
-    })
+    return this.http.post<any>(this.apiCreateLesson, lessonDTO)
     .pipe(
       map((response) => {
         return response;
@@ -147,12 +138,7 @@ export class LessonService {
   }
 
   deleteLesson(id: string) {
-    const token = localStorage.getItem('token');
-    return this.http.delete(this.apiDeleteLesson + '/' + id, {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-      },
-    });
+    return this.http.delete(this.apiDeleteLesson + '/' + id);
   }
 
   checkLessonOfUser(userId: string, id: string) {
@@ -195,12 +181,6 @@ export class LessonService {
   }
 
   updateLesson(id: string, lessonDTO: LessonDTO) {
-    const token = localStorage.getItem('token');
-    return this.http.put(this.apiUpdateLesson + '/' + id, lessonDTO, {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-      },
-    });
-
+    return this.http.put(this.apiUpdateLesson + '/' + id, lessonDTO);
   }
 }

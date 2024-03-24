@@ -1,10 +1,13 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LoginDTO } from 'src/app/dtos/user/login.dto';
-import { SignupDTO } from 'src/app/dtos/user/signup.dto';
+import { UpdateInfoDTO } from 'src/app/DTOS/user/updateInfo.dto';
+import { LoginDTO } from 'src/app/DTOS/user/login.dto';
+import { SignupDTO } from 'src/app/DTOS/user/signup.dto';
 import { UserResponse } from 'src/app/responses/user/user.responses';
 import { environment } from 'src/environments/environments';
+import { SharedService } from '../shared/shared.service';
+import { ChangePassDTO } from 'src/app/DTOS/user/changePass.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +17,16 @@ export class UserService {
   private apiLogin = `${environment.apiExternal}/user/authenticate`;
   private apiSignup = `${environment.apiExternal}/user/sign-up`;
   private apiForgotPassword = `${environment.apiExternal}/user/get-token-forgot-pass?email=`;
-  private apiUpdatePassword = `${environment.apiMember}/user/password`;
+  private apiUpdatePassword = `${environment.apiMember}/user/forgot-pass`;
   private apiVaildToken = `${environment.apiExternal}/user/valid-token?token=`;
   private apiLogout = `${environment.apiMember}/user/logout`;
+  private apiUpdateInfo = `${environment.apiMember}/user/info`;
+  private apiGetRole = environment.API_URL + environment.API_ADMIN + environment.VERSION_1 + environment.API_ROLE;
+  private apiLockAccount = `${environment.apiMember}/user/lock`;
+  private apiChangePassword = `${environment.apiMember}/user/password`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private shareSerivce : SharedService) { }
 
   login(loginDTO: LoginDTO): Observable<any> {
     return this.http.post(this.apiLogin, loginDTO);
@@ -70,6 +78,69 @@ export class UserService {
     return this.http.get<UserResponse>(`${environment.apiMember}/user/info`, {
       headers: {
         Authorization: `Bearer ${token}`
+      }
+    });
+  }
+  
+  // hàm update info user có sử dụng bearer token và body là fullName, email, dayOfBirth
+  updateInfo(updateInfoDTO: UpdateInfoDTO): Observable<any>  {
+    const token = localStorage.getItem('token');
+    return this.http.patch(this.apiUpdateInfo, updateInfoDTO, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+  }
+
+  // hàm change password có sử dụng bearer token và body là password_old, password_new
+  changePassword(changePassDTO: ChangePassDTO): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.patch(this.apiChangePassword, changePassDTO, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+  }
+
+  // hàm lock account từ token sử dụng bearer token
+  lockAccount(): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.patch(this.apiLockAccount, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+  }
+
+  // get all role
+  getAllRole(): Observable<any> {
+    return this.http.get(this.apiGetRole + '/all', {
+      headers: {
+        Authorization: `Bearer ${this.shareSerivce.getToken()}`
+      }
+    });
+  }
+
+  // get role user
+  getRoleUser(userId: any): Observable<any> {
+    let Params = new HttpParams();
+    Params = Params.append('userId', userId);
+    return this.http.get(this.apiGetRole, {
+      headers: {
+    Authorization: `Bearer ${this.shareSerivce.getToken()}`
+    },
+    params: Params
+    });
+  }
+  
+
+  updateRoleUser(userID: any): Observable<any> {
+    return this.http.put(this.apiGetRole, {
+      userID, 
+      roleIds: ["1ea38000-e236-4291-8f2e-8023ca323479"]
+    }, {
+      headers: {
+        Authorization: `Bearer ${this.shareSerivce.getToken()}`
       }
     });
   }
