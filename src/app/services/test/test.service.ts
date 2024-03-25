@@ -110,4 +110,19 @@ export class TestService {
       }));
   }
 
+  getTestByUser(userId: string) {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('createdBy', userId);
+    return this.http.get<any>(this.apigetAllTest, {
+      params: searchParams,
+    }).pipe(
+      map((response) => {
+        let tests: TestListResponses = response.data;
+        tests.data = tests.data.map(test => {
+          return {...test};
+        });
+        return tests.data;
+      }));
+  }
+
 }
