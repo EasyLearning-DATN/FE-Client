@@ -64,64 +64,68 @@ export class CreateLessonTestComponent implements OnInit {
     // modalConfirm.componentInstance.title ="";
     confirmModal.componentInstance.body = "Bạn có chắc chắn muốn tạo bài test không?";
     confirmModal
-      .result.then(
-        (result) => {
-          this.closeResult = `Closed with: ${result}`;
-          console.log(this.closeResult);
-          if (result === 'Confirm') {
-            this.createTest = {
-              name: this.createTestForm.get('name')?.value,
-              description: this.createTestForm.get('description')?.value,
-              question_ids: this.getRandomQuestions(),
-              time_question: this.createTestForm.get('time_question')?.value === 0 ? null : this.createTestForm.get('time_question')?.value,
-              time_total: this.createTestForm.get('time_total')?.value === 0 ? null : this.createTestForm.get('time_total')?.value,
-              view_result_type_code: this.createTestForm.get('view_result_type_code')?.value,
-              image_id: this.lesson.image.public_id,
-              total_question: <number>this.createTestForm.get('total_question')?.value,
-            };
-            console.log(this.createTest);
-            if (this.numberOfTest > 10 && this.role === 'user') {
-              Swal.fire({
-                icon: 'warning',
-                title: 'Chỉ được tạo tối đa 10 bài Test! Vui lòng nâng cấp tài khoản để tạo thêm bài test',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'OK',
-              });
-              return;
-            } else {
-              Swal.fire({
-                title: 'Đang tạo bài test...',
-                allowOutsideClick: false,
-                didOpen: () => {
-                  Swal.showLoading();
-                },
-              });
-              this.testService.createTest(this.createTest).subscribe(
-                (response: any) => {
-                  console.log(response);
-                  Swal.close();
-                  Swal.fire({
-                    icon: 'success',
-                    title: 'Tạo bài test mới thành công!',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'OK',
-                  });
-                  this.initForm();
-                  this.router.navigate(['test', response.data.id]);
-                }, error => {
-                  console.log(error);
-                  Swal.close();
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Tạo bài test mới thất bại!',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'OK',
-                  });
-                },
-              );
-            }
-            console.log(result);
+    .result.then(
+      (result) => {
+        this.closeResult = `Closed with: ${result}`;
+        console.log(this.closeResult);
+        if (result === 'Confirm') {
+          this.createTest = {
+            name: this.createTestForm.get('name')?.value,
+            description: this.createTestForm.get('description')?.value,
+            question_ids: this.getRandomQuestions(),
+            time_question: this.createTestForm.get('time_question')?.value === 0 ? null : this.createTestForm.get('time_question')?.value,
+            time_total: this.createTestForm.get('time_total')?.value === 0 ? null : this.createTestForm.get('time_total')?.value,
+            view_result_type_code: this.createTestForm.get('view_result_type_code')?.value,
+            image_id: this.lesson.image.public_id,
+            total_question: <number>this.createTestForm.get('total_question')?.value,
+          };
+          console.log(this.createTest);
+          if (this.numberOfTest > 10 && this.role === 'user') {
+            Swal.fire({
+              icon: 'warning',
+              title: 'Chỉ được tạo tối đa 10 bài Test! Vui lòng nâng cấp tài khoản để tạo thêm bài test',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK',
+            });
+            return;
+          } else {
+            Swal.fire({
+              title: 'Đang tạo bài test...',
+              allowOutsideClick: false,
+              didOpen: () => {
+                Swal.showLoading();
+              },
+            });
+            this.testService.createTest(this.createTest).subscribe(
+              (response: any) => {
+                console.log(response);
+                Swal.close();
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Tạo bài test mới thành công!',
+                  confirmButtonColor: '#3085d6',
+                  confirmButtonText: 'OK',
+                });
+                this.initForm();
+                this.router.navigate(['test', response.data.id]).then(
+                  response => {
+                    this.offcanvasService.dismiss();
+                  },
+                );
+              }, error => {
+                console.log(error);
+                Swal.close();
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Tạo bài test mới thất bại!',
+                  confirmButtonColor: '#3085d6',
+                  confirmButtonText: 'OK',
+                });
+              },
+            );
           }
+          console.log(result);
+        }
 
       },
       (reason) => {

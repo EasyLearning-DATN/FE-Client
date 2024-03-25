@@ -14,7 +14,7 @@
         for="floatingName">Tên bài học</label>
         <span *ngIf="!updateLessonForm.get('name')?.valid && updateLessonForm.get('name')?.touched"
               class="text-danger">
-                     <span *ngIf="updateLessonForm.get('name')?.errors?.['required']">Vui lòng nhập câu hỏi!</span>
+                     <span *ngIf="updateLessonForm.get('name')?.errors?.['required']">Vui lòng nhập tên bài học!</span>
         </span>
       </div>
       <div class="mb-3">
@@ -29,7 +29,7 @@
                   type="text"></textarea> <label for="floatingDescription">Mô tả</label>
         <span *ngIf="!updateLessonForm.get('description')?.valid && updateLessonForm.get('description')?.touched"
               class="text-danger">
-                     <span *ngIf="updateLessonForm.get('description')?.errors?.['required']">Vui lòng nhập câu hỏi!</span>
+                     <span *ngIf="updateLessonForm.get('description')?.errors?.['required']">Vui lòng nhập mô tả!</span>
                   </span>
       </div>
     </form>
