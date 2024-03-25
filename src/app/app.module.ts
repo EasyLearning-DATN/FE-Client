@@ -67,7 +67,7 @@ import {UpgradeComponent} from './components/upgrade/upgrade/upgrade.component';
 import {TestEditComponent} from './components/test/test-detail/test-edit/test-edit.component';
 import {ListTestComponent} from './components/test/list-test/list-test.component';
 import {ThemeToggleComponent} from './components/theme-toggle/theme-toggle.component';
-
+import { InvoiceComponent } from './components/upgrade/invoice/invoice.component';
 import {PaymentSuccessComponent} from './components/upgrade/success/success.component';
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
 
@@ -120,6 +120,7 @@ import {AuthInterceptor} from "./interceptors/auth.interceptor";
     ListTestComponent,
     ThemeToggleComponent,
     PaymentSuccessComponent,
+    InvoiceComponent,
   ],
   imports: [
     MatSlideToggleModule,

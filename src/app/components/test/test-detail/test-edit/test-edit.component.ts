@@ -287,7 +287,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
     this.sharedService.questionsOfCreatingTest = [...this.test.question_tests];
     this.questionSub = this.sharedService.questionsOfTestChanged.subscribe(questions => {
       this.questions = questions;
-      console.log(this.questions);
+      console.log('question: ' +this.questions);
     });
     this.questions = [...this.test.question_tests];
   }

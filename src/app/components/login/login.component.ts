@@ -27,6 +27,7 @@ export class LoginComponent {
   avatar: string = '';
   email: string = '';
   dayOfBirth: string = '';
+  role: string = '';
   loginF: FormGroup = new FormGroup(
     {
       username: new FormControl('', [Validators.required]),
@@ -63,25 +64,45 @@ export class LoginComponent {
       this.userService.login(loginDTO).subscribe(
         (response: any) => {
           const token = response.data.token;
+          localStorage.setItem('token', token);
           // lấy user info và đưa thông tin vào userResponse
           this.userService.getUserInfo(token).subscribe(
             (data: any) => {
-              const userInfo = data.data;
-              // set userInfo vào UserResponse
-              this.userResponse = userInfo;
-              localStorage.setItem('userInfo', JSON.stringify(this.userResponse));
-              localStorage.setItem('token', token);
-              location.assign('/');
-              console.log(this.userResponse);
+              // gọi dến getRoleUser
+              this.userService.getRoleUser(data.data.id).subscribe(
+                (role: any) => {
+                  this.userResponse = data.data;
+                if (this.userResponse) {
+                this.userResponse.role = role.data[0].role;
+                }
+                  localStorage.setItem('userInfo', JSON.stringify(this.userResponse));
+                  Swal.close(); // Đóng SweetAlert hiển thị hiệu ứng loading
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Đăng nhập thành công!',
+                    text: 'Chào mừng bạn quay trở lại!',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      location.assign('/');
+                    }
+                  });
+                },
+                err => {
+                  console.log(err);
+                  Swal.close(); // Đóng SweetAlert hiển thị hiệu ứng loading nếu có lỗi xảy ra
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Đăng nhập thất bại',
+                    text: 'Có lỗi xảy ra trong quá trình đăng nhập. Vui lòng thử lại sau.',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK'
+                  });
+                }
+              );
             }
           )
-          Swal.fire({
-            icon: 'success',
-            title: 'Đăng nhập thành công!',
-            text: 'Bạn đã đăng nhập thành công tài khoản!',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'OK'
-          });
         },
         error => {
           console.log(error);

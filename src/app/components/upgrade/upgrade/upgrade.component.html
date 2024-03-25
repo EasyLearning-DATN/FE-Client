@@ -19,7 +19,7 @@
             <!--BLOCK ROW START-->
             <div class="row">
                
-                <div class="col-md-4">
+                <div class="col-md-4" *ngFor="let package of packages">
                 
                 	<!--PRICE CONTENT START-->
                     <div class="generic_content active clearfix">
@@ -33,7 +33,7 @@
                             	<!--HEAD START-->
                                 <div class="head_bg"></div>
                                 <div class="head">
-                                    <span>PRO</span>
+                                    <span> {{package.name}}</span>
                                 </div>
                                 <!--//HEAD END-->
                                 
@@ -43,9 +43,9 @@
                             <!--PRICE START-->
                             <div class="generic_price_tag clearfix">	
                                 <span class="price">
-                                    <span class="currency">99k</span>
+                                    <span class="currency">{{package.price | currency:'VND'}} </span>
                                     <!-- <span class="sign">VNĐ</span> -->
-                                    <span class="month">/Tháng</span>
+                                    <span class="month">/Vĩnh viễn</span>
                                 </span>
                             </div>
                             <!--//PRICE END-->
@@ -56,68 +56,14 @@
                         <!--FEATURE LIST START-->
                         <div class="generic_feature_list">
                         	<ul>
-                            	<del><li><span>Không giới hạn</span> số lần tạo bài học</li></del>
-                                <li><span>Không</span> quảng cáo</li>
+                            	{{package.description}}
                             </ul>
                         </div>
                         <!--//FEATURE LIST END-->
                         
                         <!--BUTTON START-->
                         <div class="generic_price_btn clearfix">
-                        	<a class="" (click)="openPaymentModal()">Đăng ký ngay</a>
-                        </div>
-                        <!--//BUTTON END-->
-                        
-                    </div>
-                    <!--//PRICE CONTENT END-->
-                        
-                </div>
-                <div class="col-md-4">
-                
-                	<!--PRICE CONTENT START-->
-                    <div class="generic_content clearfix">
-                        
-                        <!--HEAD PRICE DETAIL START-->
-                        <div class="generic_head_price clearfix">
-                        
-                            <!--HEAD CONTENT START-->
-                            <div class="generic_head_content clearfix">
-                            
-                            	<!--HEAD START-->
-                                <div class="head_bg"></div>
-                                <div class="head">
-                                    <span>PREMIUM</span>
-                                </div>
-                                <!--//HEAD END-->
-                                
-                            </div>
-                            <!--//HEAD CONTENT END-->
-                            
-                            <!--PRICE START-->
-                            <div class="generic_price_tag clearfix">
-                                    <span class="price">
-                                        <span class="currency">250k</span>
-                                        <!-- <span class="sign">VNĐ</span> -->
-                                        <span class="month">/Tháng</span>
-                                </span>
-                            </div>
-                            <!--//PRICE END-->
-                            
-                        </div>                            
-                        <!--//HEAD PRICE DETAIL END-->
-                        
-                        <!--FEATURE LIST START-->
-                        <div class="generic_feature_list">
-                        	<ul>
-                            	<li><span>Không giới hạn</span> số lần tạo bài học</li>
-                                <li><span>Không</span> quảng cáo</li>
-                            </ul>
-                        </div>
-                        <!--//FEATURE LIST END-->
-                        
-                        <!--BUTTON START-->
-                        <div class="generic_price_btn clearfix">
-                        	<a class="" (click)="openPaymentModal()">ĐĂNG KÝ NGAY</a>
+                        	<a class="" (click)="openPaymentModal(package.price)">Đăng ký ngay</a>
                         </div>
                         <!--//BUTTON END-->
                         

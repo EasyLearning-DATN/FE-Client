@@ -37,6 +37,7 @@ export const environment = {
   API_INVOICE: "/invoice",
   API_MOMO: "/momo",
   API_PAYMENT: "/payment",
+  API_PACKAGE: "/package-upgrade",
   PATH_ID: "/{id}",
   ID: "id",
   LANGUAGE: "vi",

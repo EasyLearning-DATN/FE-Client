@@ -165,9 +165,9 @@ export class SharedService {
   }
 
   checkLogin() {
-    let jsonData = localStorage.getItem('token');
-    if (jsonData) {
-      return JSON.parse(jsonData);
+    const token = localStorage.getItem('token');
+    if (token) {
+      return true;
     } else {
       return false;
     }

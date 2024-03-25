@@ -13,21 +13,20 @@
       <div class="col-auto ms-md-auto order-md-2 d-none d-sm-block">
         <ul class="list-unstyled list-inline my-2">
           <li class="list-inline-item"><a class="text-decoration-none" href="#!">
-            <fa-icon [icon]="['fab', 'facebook-f']" class="text-900 text-white"></fa-icon>
-          </a></li>
+              <fa-icon [icon]="['fab', 'facebook-f']" class="text-900 text-white"></fa-icon>
+            </a></li>
           <li class="list-inline-item"><a class="text-decoration-none" href="#!">
-            <fa-icon [icon]="['fab', 'twitter']" class="text-900 text-white"></fa-icon>
-          </a></li>
+              <fa-icon [icon]="['fab', 'twitter']" class="text-900 text-white"></fa-icon>
+            </a></li>
           <li class="list-inline-item"><a class="text-decoration-none" href="#!">
-            <fa-icon [icon]="['fab', 'instagram']" class="text-900 text-white"></fa-icon>
-          </a></li>
+              <fa-icon [icon]="['fab', 'instagram']" class="text-900 text-white"></fa-icon>
+            </a></li>
         </ul>
       </div>
       <div class="col-auto">
         <p class="my-2 fs--1">
           <fa-icon [icon]="['fas','envelope']" class="me-3"></fa-icon>
-          <a class="text-900 email text-white"
-             href="mailto:easylearning@codeaz.edu.vn">easylearning@codeaz.edu.vn</a>
+          <a class="text-900 email text-white" href="mailto:easylearning@codeaz.edu.vn">easylearning@codeaz.edu.vn</a>
         </p>
       </div>
     </div>
@@ -41,43 +40,38 @@
 <!-- ============================================-->
 <!-- <nav> begin ================================-->
 <nav class="navbar backdrop navbar-expand-lg navbar-light sticky-top py-3 d-block"
-     data-navbar-on-scroll="data-navbar-on-scroll">
+  data-navbar-on-scroll="data-navbar-on-scroll">
   <!-- start of .container   -->
   <div class="container">
     <!-- Branding name and logo -->
     <a [routerLink]="['/']" class="navbar-brand"> <img alt="logo" height="52" ngSrc="assets/img/gallery/logo-n1.png"
-                                                       priority width="71"/> <span class="logo_name">Easy Learning</span> </a>
+        priority width="71" /> <span class="logo_name">Easy Learning</span> </a>
     <!-- End of the name and logo -->
 
     <!-- Collapse button when minimize the screen -->
-    <button (click)="isMenuCollapsed = !isMenuCollapsed" [attr.aria-expanded]="!isMenuCollapsed" aria-controls="collapseExample" aria-expanded="false"
-            aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent"
-            data-bs-toggle="collapse"
-            type="button"><span
-      class="navbar-toggler-icon"> </span></button>
+    <button (click)="isMenuCollapsed = !isMenuCollapsed" [attr.aria-expanded]="!isMenuCollapsed"
+      aria-controls="collapseExample" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+      data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button"><span
+        class="navbar-toggler-icon"> </span></button>
     <!-- End of the collapse button -->
 
     <!-- The content inside of the collapsed navbar button -->
     <div [(ngbCollapse)]="isMenuCollapsed"
-         class="collapse navbar-collapse border-lg-0 mt-4 mt-lg-0 justify-content-between"
-         id="navbarSupportedContent">
+      class="collapse navbar-collapse border-lg-0 mt-4 mt-lg-0 justify-content-between" id="navbarSupportedContent">
       <ul class="navbar-nav pt-1 pt-lg-0 font-base" ngbNav>
         <li class=" px-2" ngbNavItem><a (click)="isMenuCollapsed = true" [routerLink]="['/']" aria-current="page"
-                                        class="active text-capitalize "
-                                        ngbNavLink>{{ 'header.home' | translate }}</a></li>
+            class="active text-capitalize " ngbNavLink>{{ 'header.home' | translate }}</a></li>
         <li class=" px-2" ngbDropdown ngbNavItem>
-          <a aria-current="page" class="nav-link text-capitalize" id="dropdownList" ngbDropdownToggle
-             ngbNavLink> {{ 'header.list'|translate }} </a>
+          <a aria-current="page" class="nav-link text-capitalize" id="dropdownList" ngbDropdownToggle ngbNavLink> {{
+            'header.list'|translate }} </a>
           <ul aria-labelledby="dropdownList" class="my-dropdown" ngbDropdownMenu>
-            <li class="link-item p-0" ngbDropdownItem ngbNavItem><a (click)="isMenuCollapsed = true" [routerLink]="['/list-lesson']"
-                                                                    aria-current="page"
-                                                                    class="text-capitalize link-item px-2"
-                                                                    ngbNavLink>{{ 'header.lesson-list'|translate }}</a>
+            <li class="link-item p-0" ngbDropdownItem ngbNavItem><a (click)="isMenuCollapsed = true"
+                [routerLink]="['/list-lesson']" aria-current="page" class="text-capitalize link-item px-2" ngbNavLink>{{
+                'header.lesson-list'|translate }}</a>
             </li>
-            <li class="link-item p-0" ngbDropdownItem ngbNavItem><a (click)="isMenuCollapsed = true" [routerLink]="['/list-test']"
-                                                                    aria-current="page"
-                                                                    class="text-capitalize link-item px-2"
-                                                                    ngbNavLink>{{ 'header.test-list'|translate }}</a>
+            <li class="link-item p-0" ngbDropdownItem ngbNavItem><a (click)="isMenuCollapsed = true"
+                [routerLink]="['/list-test']" aria-current="page" class="text-capitalize link-item px-2" ngbNavLink>{{
+                'header.test-list'|translate }}</a>
             </li>
           </ul>
         </li>
@@ -90,11 +84,12 @@
 
 
     <div class="d-flex align-items-center justify-content-end mt-1">
-
       <div class="dropdown" ngbDropdown>
         <button *ngIf="userResponse" class="user_setting" data-bs-toggle="dropdown" ngbDropdownToggle type="button">
           <img *ngIf="avatar != null" alt="img" src="{{avatar}}">
           <img *ngIf="avatar == null" alt="img" src="/assets/img/commons/default_user.jpeg">
+          <span class="user_name"
+            [ngClass]="{ 'premium-effect': userResponse.role === 'premium' }">{{userResponse.username}}</span>
         </button>
         <ul class="dropdown-menu">
           <li><a [routerLink]="['/user-detail']" class="dropdown-item">Hồ sơ</a></li>
@@ -105,6 +100,7 @@
             <a [routerLink]="['/']" aria-current="page" class="dropdown-item">Giúp đỡ & Phản hồi</a>
           </li>
           <li>
+          <li *ngIf="userResponse && userResponse.role !== 'premium'">
             <a [routerLink]="['/upgrade']" aria-current="page" class="dropdown-item">Nâng cấp Premium</a>
           </li>
           <li>
@@ -122,37 +118,36 @@
 
           <!-- Content of dropdown button of creating new data -->
           <ul aria-labelledby="dropdownBasic1" class="my-dropdown" ngbDropdownMenu>
-            <li><a [routerLink]="['/create-lesson']" class="link-item text-capitalize"
-                   ngbDropdownItem>{{ 'header.create-lesson'|translate }}</a>
+            <li><a [routerLink]="['/create-lesson']" class="link-item text-capitalize" ngbDropdownItem>{{
+                'header.create-lesson'|translate }}</a>
             </li>
-            <li><a [routerLink]="['/create-test']" class="link-item text-capitalize"
-                   ngbDropdownItem>{{ 'header.create-test'|translate }}</a>
+            <li><a [routerLink]="['/create-test']" class="link-item text-capitalize" ngbDropdownItem>{{
+                'header.create-test'|translate }}</a>
             </li>
           </ul>
           <!-- End of content of dropdown button of creating new data -->
         </div>
         <div class="d-flex align-items-center">
-          <a *ngIf="!userResponse" [routerLink]="['/login']"
-             class="btn btn-app order-1 order-lg-0 text-capitalize">{{ 'header.login'|translate }}</a> <a
-          *ngIf="!userResponse" [routerLink]="['/login']"
-          class="btn btn-app order-1 order-lg-0 ms-2 text-capitalize">{{ 'header.register'|translate }}</a>
+          <a *ngIf="!userResponse" [routerLink]="['/login']" class="btn btn-app order-1 order-lg-0 text-capitalize">{{
+            'header.login'|translate }}</a> <a *ngIf="!userResponse" [routerLink]="['/login']"
+            class="btn btn-app order-1 order-lg-0 ms-2 text-capitalize">{{ 'header.register'|translate }}</a>
         </div>
       </div>
 
       <div class="d-none d-lg-block" ngbDropdown>
         <button aria-expanded="false" class="btn btn-app ms-2" data-bs-toggle="dropdown" id="dropdownMenuButton1"
-                ngbDropdownToggle>
+          ngbDropdownToggle>
           <fa-icon [icon]="['fas','search']" class=" text-800"></fa-icon>
         </button>
         <ul aria-labelledby="dropdownMenuButton1" class="dropdown-menu-lg-end search_main" ngbDropdownMenu
-            style="top: 60px; width: 60vw;">
+          style="top: 60px; width: 60vw;">
           <input (keyup.enter)="onGoToSearchPage()" [(ngModel)]="keyword" aria-label="Search" class="form-control"
-                 placeholder="{{'header.search'|translate}}"
-                 type="search"/>
+            placeholder="{{'header.search'|translate}}" type="search" />
         </ul>
       </div>
       <form class=" d-flex d-lg-none ms-2">
-        <input aria-label="Search" class="form-control me-2" placeholder="{{'header.search'|translate}}" type="search"/>
+        <input aria-label="Search" class="form-control me-2" placeholder="{{'header.search'|translate}}"
+          type="search" />
         <button [routerLink]="['/search']" class="btn btn-app">
           <fa-icon [icon]="['fas','search']" class="text-800"></fa-icon>
         </button>

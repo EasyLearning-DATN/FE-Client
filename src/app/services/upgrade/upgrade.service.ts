@@ -9,7 +9,7 @@ import { SharedService } from '../shared/shared.service';
 export class UpgradeService {
 
   private apiPaymentMoMo = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_PAYMENT + environment.API_MOMO;
-
+  private apiGetAllPackage = environment.API_URL + environment.API_PUBLIC + environment.VERSION_1 + environment.API_PACKAGE;
   constructor(
     private sharedService: SharedService,
     private http: HttpClient) { }
@@ -30,5 +30,9 @@ export class UpgradeService {
         'Authorization': `Bearer ${token}`
       })
     })
+  }
+
+  getAllPackage() {
+    return this.http.get(this.apiGetAllPackage);
   }
 }

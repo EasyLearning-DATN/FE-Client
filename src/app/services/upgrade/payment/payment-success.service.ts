@@ -10,7 +10,7 @@ import { invoiceDTO } from 'src/app/DTOS/invoice/invoice.dto';
 
 
 export class PaymentSuccessService {
-  private apiPaymentSuccess = environment.API_URL + environment.API_ADMIN + environment.VERSION_1 + environment.API_INVOICE;
+  private apiPaymentSuccess = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_INVOICE;
   private apiCheckStatus = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_PAYMENT + environment.API_MOMO + '/payment-status';
 
   constructor(
@@ -19,20 +19,18 @@ export class PaymentSuccessService {
   ) { }
 
   // create invoice
-  //    {
-  //     "orderID": 123,
-  //     "requestId": 456,
-  //     "date": "12/07/20274",
-  //     "total": 999999,
-  //     "userId": "129df52e-2ad2-4065-ac18-8f998da1cf3d",
-  //     "status": "Khởi tạo hoá đơn"
-  // }
+  //   "order_id": "AAAAAAAAAA",
+  //   "trans_id": "TTTTTTTTTTT",
+  //   "total": 700000,
+  //   "status": "pending",
+  //   "user_info_id": 1,
+  //   "package_upgrade_id": "24be4f8d-077a-4d30-b834-364db6596533"
   createInvoice(invoice: invoiceDTO) {
     const token = this.sharedService.getToken();
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    return this.http.post(this.apiPaymentSuccess + '/create', invoice, {
+    return this.http.post(this.apiPaymentSuccess , invoice, {
       headers: headers,
     });
   }

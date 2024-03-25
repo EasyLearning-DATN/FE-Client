@@ -19,4 +19,5 @@ export interface UserResponse {
   dayOfBirth: string;
   locked?: boolean;
   id?: string;
+  role: string;
 }

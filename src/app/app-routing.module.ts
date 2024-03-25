@@ -24,6 +24,7 @@ import {TestEditComponent} from "./components/test/test-detail/test-edit/test-ed
 import {ListTestComponent} from "./components/test/list-test/list-test.component";
 import {testResolver} from "./resolver/test.resolver";
 import { PaymentSuccessComponent } from './components/upgrade/success/success.component';
+import { InvoiceComponent } from './components/upgrade/invoice/invoice.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -66,6 +67,7 @@ const routes: Routes = [
   // {path: 'demo/add-test', component: CreateLessonTestComponent, resolve: [resultTypeResolver]},
   {path: 'upgrade', component: UpgradeComponent},
   {path: 'payment-success', component: PaymentSuccessComponent},
+  {path: 'invoice', component: InvoiceComponent},
   {path: '404', component: PageNotFoundComponent},
   {path: '**', redirectTo: '/404'},
   // add this one if your path is '' when you want to redirect - pathMatch: 'full'
