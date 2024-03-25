@@ -6,11 +6,10 @@ import { LoginDTO } from 'src/app/DTOS/user/login.dto';
 import { SignupDTO } from 'src/app/DTOS/user/signup.dto';
 import { UserResponse } from 'src/app/responses/user/user.responses';
 import { environment } from 'src/environments/environments';
-import { SharedService } from '../shared/shared.service';
 import { ChangePassDTO } from 'src/app/DTOS/user/changePass.dto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
 
@@ -25,8 +24,7 @@ export class UserService {
   private apiLockAccount = `${environment.apiMember}/user/lock`;
   private apiChangePassword = `${environment.apiMember}/user/password`;
 
-  constructor(private http: HttpClient,
-    private shareSerivce : SharedService) { }
+  constructor(private http: HttpClient) { }
 
   login(loginDTO: LoginDTO): Observable<any> {
     return this.http.post(this.apiLogin, loginDTO);
@@ -34,12 +32,12 @@ export class UserService {
 
   signUp(signupDTO: SignupDTO): Observable<any> {
     const formData = new FormData();
-      formData.append('username', signupDTO.username);
-      formData.append('password', signupDTO.password);
-      formData.append('fullName', signupDTO.fullName);
-      formData.append('email', signupDTO.email);
-      formData.append('avatar', signupDTO.avatar);
-      formData.append('dayOfBirth', signupDTO.dayOfBirth);
+    formData.append('username', signupDTO.username);
+    formData.append('password', signupDTO.password);
+    formData.append('fullName', signupDTO.fullName);
+    formData.append('email', signupDTO.email);
+    formData.append('avatar', signupDTO.avatar);
+    formData.append('dayOfBirth', signupDTO.dayOfBirth);
     return this.http.post(this.apiSignup, formData);
   }
 
@@ -49,11 +47,7 @@ export class UserService {
   }
 
   logout(token: string): Observable<any> {
-    return this.http.post(this.apiLogout, null, {
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    })
+    return this.http.post(this.apiLogout, null);
   }
 
   // hàm validate token
@@ -65,23 +59,15 @@ export class UserService {
   // lấy ?token trên url và gán vào biến token http://localhost:4200/confirm-password?token=eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJmY2VjYTU5Yi00N2Q0LTQyZTAtOGQ3NS00OTJlYTMzOTY0YzMiLCJzdWIiOiJhbmhkdDA3IiwiaWF0IjoxNzA5NDcyNzY3LCJleHAiOjE3MTEyNzI3Njd9.ti5LCGHG4239VNa_JmxlXVynnnbnSsbq0fQVxFVVFRQ
   updatePassword(password: string, token: string): Observable<any> {
     return this.http.patch(this.apiUpdatePassword, {
-      password
-    }, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+      password,
     });
   }
 
   //  lấy user info từ token sử dụng bearer token
   getUserInfo(token: string): Observable<UserResponse> {
-    return this.http.get<UserResponse>(`${environment.apiMember}/user/info`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+    return this.http.get<UserResponse>(`${environment.apiMember}/user/info`);
   }
-  
+
   // hàm update info user có sử dụng bearer token và body là fullName, email, dayOfBirth
   updateInfo(updateInfoDTO: UpdateInfoDTO): Observable<any>  {
     const token = localStorage.getItem('token');
@@ -114,11 +100,7 @@ export class UserService {
 
   // get all role
   getAllRole(): Observable<any> {
-    return this.http.get(this.apiGetRole + '/all', {
-      headers: {
-        Authorization: `Bearer ${this.shareSerivce.getToken()}`
-      }
-    });
+    return this.http.get(this.apiGetRole + '/all');
   }
 
   // get role user
@@ -126,22 +108,15 @@ export class UserService {
     let Params = new HttpParams();
     Params = Params.append('userId', userId);
     return this.http.get(this.apiGetRole, {
-      headers: {
-    Authorization: `Bearer ${this.shareSerivce.getToken()}`
-    },
-    params: Params
+      params: Params,
     });
   }
-  
+
 
   updateRoleUser(userID: any): Observable<any> {
     return this.http.put(this.apiGetRole, {
-      userID, 
-      roleIds: ["1ea38000-e236-4291-8f2e-8023ca323479"]
-    }, {
-      headers: {
-        Authorization: `Bearer ${this.shareSerivce.getToken()}`
-      }
+      userID,
+      roleIds: ["1ea38000-e236-4291-8f2e-8023ca323479"],
     });
   }
 }

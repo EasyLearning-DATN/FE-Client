@@ -9,7 +9,6 @@ export const lessonResolver: ResolveFn<LessonResponses> = (route, state) => {
   const sharedService = inject(SharedService);
   const lesson = sharedService.lesson;
   if (lesson === undefined || lesson.id !== <string>route.params['id']) {
-    console.log("Hello");
     return lessonService.getOneLesson(route.params['id']);
   } else {
     return lesson;

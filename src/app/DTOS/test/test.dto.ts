@@ -1,4 +1,5 @@
 import {IsNumber, IsString} from "class-validator";
+import {TestResponses} from "../../responses/test/test.responses";
 
 export class TestDTO {
   @IsString()
@@ -17,4 +18,10 @@ export class TestDTO {
   image_id: string = '';
   @IsNumber()
   total_question: number | null = null;
+}
+
+export class TempTest {
+  test: TestResponses | null = null;
+  endTime: Date | null = null;
+  idCurrentQuestion: string = "";
 }

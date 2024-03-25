@@ -1,0 +1,23 @@
+<div class="title text-center mb-5">
+  <span class="fs-6">{{ 'This is a quiz' | uppercase }}</span>
+</div>
+<div *ngIf="isTotalTimeTest" class="container text-center fs-6 mb-5"><span>{{ totalMinutes }}</span> :
+  <span>{{ totalSeconds }}</span>
+</div>
+<div *ngIf="isEachQuestionTimeTest" class="container text-center fs-6 mb-5"><span #minutes></span> : <span #seconds></span></div>
+<div class="container mb-3">
+  <app-do-test-sca-item></app-do-test-sca-item>
+</div>
+<div class="container d-flex align-items-center justify-content-between">
+  <div>
+    <button class="btn btn-app fs-3">Kết thúc</button>
+  </div>
+  <div class="d-flex align-items-center">
+    <button class="btn btn-app me-2 btn-navigate d-flex align-items-center justify-content-center">
+      <fa-icon [icon]="['fas','caret-left']" class="fs-3"></fa-icon>
+    </button>
+    <button class="btn btn-app btn-navigate d-flex align-items-center justify-content-center">
+      <fa-icon [icon]="['fas','caret-right']" class="fs-3"></fa-icon>
+    </button>
+  </div>
+</div>

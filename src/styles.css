@@ -1,14 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 * {
-  font-family: 'Quicksand-Regular', sans-serif !important;
+  font-family: 'Quicksand', sans-serif !important;
   /*transition: all ease-in-out 0.5s;*/
 
 }
 
 /* Dark Theme Styles */
 .dark-theme {
-  background-color: #121212;
   color: #ffffff;
+  background-color: #121212;
 }
 
 .btn-app {
@@ -228,9 +228,20 @@ div.carousel-indicators > button.ng-star-inserted {
 }
 
 
+html, body {
+  height: 100%;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+}

@@ -141,22 +141,6 @@ export class LessonService {
     return this.http.delete(this.apiDeleteLesson + '/' + id);
   }
 
-  checkLessonOfUser(userId: string, id: string) {
-    let searchParams = new HttpParams();
-    searchParams = searchParams.append('createdBy', userId);
-    searchParams = searchParams.append('id', id);
-    return this.http.get<any>(this.apiGetListLesson, {
-      params: searchParams,
-    }).pipe(
-      map((response) => {
-        let lessons: LessonsResponses = response.data;
-        lessons.data = lessons.data.map(lesson => {
-          return {...lesson, questions: lesson.questions ? lesson.questions : []};
-        });
-        return lessons;
-      }));
-  }
-
   getAllLessons(page: number = 0) {
     let searchParams = new HttpParams();
     searchParams = searchParams.append('sort', 'des');

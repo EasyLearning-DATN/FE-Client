@@ -6,6 +6,7 @@ import {environment} from 'src/environments/environments';
 import {SharedService} from '../shared/shared.service';
 import {TestListResponses, TestResponses} from 'src/app/responses/test/test.responses';
 import {TestDTO} from "../../DTOS/test/test.dto";
+import {CookieService} from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ export class TestService {
   private apiUpdateTest = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_TEST;
   private apiDeleteTest = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_TEST;
 
-  constructor(private http: HttpClient, private sharedService: SharedService, private router: Router) {
+  constructor(private http: HttpClient, private sharedService: SharedService, private router: Router, private cookieService: CookieService) {
   }
 
   // get all test và gán vào test responses
@@ -94,21 +95,6 @@ export class TestService {
     return this.http.delete(this.apiDeleteTest + '/' + id);
   }
 
-  checkTestOfUser(userId: string, id: string) {
-    let searchParams = new HttpParams();
-    searchParams = searchParams.append('createdBy', userId);
-    searchParams = searchParams.append('id', id);
-    return this.http.get<any>(this.apigetAllTest, {
-      params: searchParams,
-    }).pipe(
-      map((response) => {
-        let tests: TestListResponses = response.data;
-        tests.data = tests.data.map(test => {
-          return {...test};
-        });
-        return tests.data;
-      }));
-  }
 
   getTestByUser(userId: string) {
     let searchParams = new HttpParams();

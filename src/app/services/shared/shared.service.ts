@@ -23,6 +23,15 @@ export class SharedService {
   constructor() {
   }
 
+  private _doTest!: TestResponses;
+  get doTest(): TestResponses {
+    return this._doTest;
+  }
+
+  set doTest(value: TestResponses) {
+    this._doTest = value;
+  }
+
   private _test !: TestResponses;
 
   get test(): TestResponses {
@@ -182,11 +191,13 @@ export class SharedService {
     if (this._questionsOfCreatingTest === undefined) {
       this.questionsOfCreatingTest = questions;
     } else {
-      let fillterQuestions = questions.filter(
-        response => {
-          !this._questionsOfCreatingTest.includes(response);
-        });
-      this._questionsOfCreatingTest.push(...fillterQuestions);
+      // let filterQuestions = questions.filter(
+      //   response => {
+      //     this._questionsOfCreatingTest.includes(response);
+      //   },
+      // );
+      // this._questionsOfCreatingTest.push(...filterQuestions);
+      this._questionsOfCreatingTest.push(...questions);
       this.questionsOfTestChanged.next(this.questionsOfCreatingTest);
     }
 

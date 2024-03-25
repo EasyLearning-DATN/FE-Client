@@ -1,14 +1,15 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { ModalDismissReasons, NgbModal, NgbOffcanvas } from "@ng-bootstrap/ng-bootstrap";
-import { ResultTypeResponses } from "../../../../responses/result_type_id/result_type.responses";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { SharedService } from "../../../../services/shared/shared.service";
-import { QuestionResponses } from "../../../../responses/question/question.responses";
-import { LessonResponses } from "../../../../responses/lesson/lesson.responses";
-import { TestDTO } from "../../../../DTOS/test/test.dto";
+import {Component, OnInit, TemplateRef} from '@angular/core';
+import {ModalDismissReasons, NgbModal, NgbOffcanvas} from "@ng-bootstrap/ng-bootstrap";
+import {ResultTypeResponses} from "../../../../responses/result_type_id/result_type.responses";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {SharedService} from "../../../../services/shared/shared.service";
+import {QuestionResponses} from "../../../../responses/question/question.responses";
+import {LessonResponses} from "../../../../responses/lesson/lesson.responses";
+import {TestDTO} from "../../../../DTOS/test/test.dto";
 import Swal from "sweetalert2";
-import { ConfirmModalComponent } from "../../../commons/confirm-modal/confirm-modal.component";
-import { TestService } from "../../../../services/test/test.service";
+import {ConfirmModalComponent} from "../../../commons/confirm-modal/confirm-modal.component";
+import {TestService} from "../../../../services/test/test.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-lesson-test',
@@ -27,7 +28,7 @@ export class CreateLessonTestComponent implements OnInit {
   closeResult!: string;
 
   constructor(private offcanvasService: NgbOffcanvas, private sharedService: SharedService,
-    private modalService: NgbModal, private testService: TestService) {
+    private modalService: NgbModal, private testService: TestService, private router: Router) {
   }
 
 
@@ -42,10 +43,10 @@ export class CreateLessonTestComponent implements OnInit {
 
   resetSelection(selection: string) {
     if (this.createTestForm.get('test_type')?.value !== 'eachQuestion' && selection === 'eachQuestion') {
-      this.createTestForm.patchValue({ 'time_total': 0 });
+      this.createTestForm.patchValue({'time_total': 0});
     }
     if (this.createTestForm.get('test_type')?.value !== 'fullTime' && selection === 'fullTime') {
-      this.createTestForm.patchValue({ 'time_question': 0 });
+      this.createTestForm.patchValue({'time_question': 0});
     }
   }
 
@@ -96,7 +97,7 @@ export class CreateLessonTestComponent implements OnInit {
                 },
               });
               this.testService.createTest(this.createTest).subscribe(
-                (response) => {
+                (response: any) => {
                   console.log(response);
                   Swal.close();
                   Swal.fire({
@@ -106,6 +107,7 @@ export class CreateLessonTestComponent implements OnInit {
                     confirmButtonText: 'OK',
                   });
                   this.initForm();
+                  this.router.navigate(['test', response.data.id]);
                 }, error => {
                   console.log(error);
                   Swal.close();
@@ -121,12 +123,12 @@ export class CreateLessonTestComponent implements OnInit {
             console.log(result);
           }
 
-        },
-        (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-          console.log(this.closeResult);
-        },
-      );
+      },
+      (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        console.log(this.closeResult);
+      },
+    );
   }
 
   getRandomQuestions(): string[] {
@@ -154,7 +156,7 @@ export class CreateLessonTestComponent implements OnInit {
         return;
       }
     }
-    this.offcanvasService.open(content, { backdrop: 'static' });
+    this.offcanvasService.open(content, {backdrop: 'static'});
   }
 
   initForm() {
