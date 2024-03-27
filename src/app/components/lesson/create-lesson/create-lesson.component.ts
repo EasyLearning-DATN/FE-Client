@@ -1,18 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LessonDTO } from 'src/app/DTOS/lesson/lesson.dto';
-import { ImageResponses } from 'src/app/responses/image/image.responses';
-import { LessonService } from 'src/app/services/lesson/lesson.service';
-import { UploadImageService } from 'src/app/services/shared/upload/upload-image.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {LessonDTO} from 'src/app/DTOS/lesson/lesson.dto';
+import {ImageResponses} from 'src/app/responses/image/image.responses';
+import {LessonService} from 'src/app/services/lesson/lesson.service';
+import {UploadImageService} from 'src/app/services/shared/upload/upload-image.service';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-lesson',
   templateUrl: './create-lesson.component.html',
-  styleUrls: ['./create-lesson.component.css']
+  styleUrls: ['./create-lesson.component.css'],
 })
-export class CreateLessonComponent implements OnInit{
+export class CreateLessonComponent implements OnInit {
   @ViewChild('lessonForm') lessonForm!: NgForm;
   numberOfLesson: number = 0;
   userId: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).id : '';
@@ -21,6 +21,12 @@ export class CreateLessonComponent implements OnInit{
   description: string = '';
   image_id: string = '';
   createLessonF: FormGroup;
+  lessonF: FormGroup = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    description: new FormControl(''),
+    image_id: new FormControl(''),
+    is_public: new FormControl(''),
+  });
 
   constructor(
     private fb: FormBuilder,
@@ -32,20 +38,18 @@ export class CreateLessonComponent implements OnInit{
       description: [''],
       image: [''],
       questions: this.fb.array([
-        this.createQuestionFormGroup()
-      ])
+        this.createQuestionFormGroup(),
+      ]),
     });
   }
+
+  get questionForms() {
+    return this.createLessonF.get('questions') as FormArray;
+  }
+
   ngOnInit(): void {
     this.getAllLesson();
   }
-
-  lessonF: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    description: new FormControl(''),
-    image_id: new FormControl(''),
-    is_public: new FormControl('')
-  });
 
   createQuestionFormGroup(): FormGroup {
     return this.fb.group({
@@ -53,12 +57,8 @@ export class CreateLessonComponent implements OnInit{
       answerA: [''],
       answerB: [''],
       answerC: [''],
-      correctAnswer: ['']
+      correctAnswer: [''],
     });
-  }
-
-  get questionForms() {
-    return this.createLessonF.get('questions') as FormArray;
   }
 
   addQuestion(): void {
@@ -71,7 +71,7 @@ export class CreateLessonComponent implements OnInit{
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
-      }
+      },
     });
     this.imgUpload.uploadImage(this.image_id, localStorage.getItem('token')).subscribe(
       (res: ImageResponses) => {
@@ -89,8 +89,8 @@ export class CreateLessonComponent implements OnInit{
       const LessonDTO: LessonDTO = {
         name: this.name,
         description: this.description,
-        image_id: this.image_id
-      }
+        image_id: this.image_id,
+      };
       if (this.numberOfLesson > 10 && this.role === 'user') {
         Swal.fire({
           icon: 'error',
@@ -104,10 +104,10 @@ export class CreateLessonComponent implements OnInit{
               icon: 'success',
               title: 'Tạo bài học thành công!',
               confirmButtonColor: '#3085d6',
-              confirmButtonText: 'OK'
+              confirmButtonText: 'OK',
             }).then((result) => {
               if (result.isConfirmed) {
-                this.router.navigate(['/list-lesson']);
+                this.router.navigate(['/list-lesson/my-lesson']);
               }
             });
           },
@@ -118,9 +118,9 @@ export class CreateLessonComponent implements OnInit{
               title: 'Tạo bài học thất bại',
               text: error.error.message,
               confirmButtonColor: '#3085d6',
-              confirmButtonText: 'OK'
+              confirmButtonText: 'OK',
             });
-          }
+          },
         );
       }
     }
@@ -141,7 +141,7 @@ export class CreateLessonComponent implements OnInit{
         },
         error => {
           console.log(error);
-        }
+        },
       );
     }
   }

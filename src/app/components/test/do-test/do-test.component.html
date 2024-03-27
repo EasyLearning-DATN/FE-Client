@@ -1,22 +1,37 @@
 <div class="title text-center mb-5">
-  <span class="fs-6">{{ 'This is a quiz' | uppercase }}</span>
+  <span class="fs-6">{{ name | uppercase }}</span>
 </div>
 <div *ngIf="isTotalTimeTest" class="container text-center fs-6 mb-5"><span>{{ totalMinutes }}</span> :
   <span>{{ totalSeconds }}</span>
 </div>
 <div *ngIf="isEachQuestionTimeTest" class="container text-center fs-6 mb-5"><span #minutes></span> : <span #seconds></span></div>
-<div class="container mb-3">
-  <app-do-test-sca-item></app-do-test-sca-item>
+<div class="container mb-3 d-flex align-items-center justify-content-center">
+  <app-do-test-sca-item *ngIf="currentQuestionType.code === 'sca'" [index]="currentQuestionIndex"
+                        [question]="questionsOfTest[currentQuestionIndex]"
+                        [showRealAnswer]="testViewResultCode === environment.SHOW_RESULT"
+                        [total]="totalQuestions"
+                        [userAnswer]="currentQuestionUserAnswer"></app-do-test-sca-item>
+  <app-do-test-mca-item *ngIf="currentQuestionType.code === 'mca'" [index]="currentQuestionIndex"
+                        [question]="questionsOfTest[currentQuestionIndex]"
+                        [showRealAnswer]="testViewResultCode === environment.SHOW_RESULT"
+                        [total]="totalQuestions"
+                        [userAnswers]="currentQuestionUserAnswer"></app-do-test-mca-item>
+  <app-do-test-fitb-item *ngIf="currentQuestionType.code === 'fitb'" [index]="currentQuestionIndex"
+                         [question]="questionsOfTest[currentQuestionIndex]"
+                         [total]="totalQuestions"></app-do-test-fitb-item>
+
 </div>
 <div class="container d-flex align-items-center justify-content-between">
   <div>
     <button class="btn btn-app fs-3">Kết thúc</button>
   </div>
   <div class="d-flex align-items-center">
-    <button class="btn btn-app me-2 btn-navigate d-flex align-items-center justify-content-center">
+    <button (click)="toPrevQuestion()" *ngIf="currentQuestionIndex !== 0"
+            class="btn btn-app me-2 btn-navigate d-flex align-items-center justify-content-center">
       <fa-icon [icon]="['fas','caret-left']" class="fs-3"></fa-icon>
     </button>
-    <button class="btn btn-app btn-navigate d-flex align-items-center justify-content-center">
+    <button (click)="toNextQuestion()" *ngIf="currentQuestionIndex !== totalQuestions - 1"
+            class="btn btn-app btn-navigate d-flex align-items-center justify-content-center">
       <fa-icon [icon]="['fas','caret-right']" class="fs-3"></fa-icon>
     </button>
   </div>

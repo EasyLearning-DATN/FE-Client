@@ -7,6 +7,8 @@ import {TestResponses} from 'src/app/responses/test/test.responses';
 import {ResultTypeResponses} from "../../responses/result_type_id/result_type.responses";
 import {SearchLessonResponses} from "../../responses/search-lesson/search-lesson.responses";
 import {UserResponse} from '../../responses/user/user.responses';
+import {TestReportDTO, TestReportItemDTO} from "../../DTOS/test-report/test-report.dto";
+import {TempTest} from "../../DTOS/test/test.dto";
 
 @Injectable({
   providedIn: 'root',
@@ -17,19 +19,29 @@ export class SharedService {
   lessonChanged = new Subject<LessonResponses>();
   testChanged = new Subject<TestResponses>();
   questionsOfTestChanged = new Subject<QuestionResponses[]>();
+  tempTestChanged = new Subject<TempTest>();
   isFetching: Subject<boolean> = new Subject<boolean>();
   userInfoChanged = new Subject<UserResponse>();
 
   constructor() {
   }
 
-  private _doTest!: TestResponses;
-  get doTest(): TestResponses {
+  private _doTest!: TempTest;
+  get doTest(): TempTest {
     return this._doTest;
   }
 
-  set doTest(value: TestResponses) {
+  set doTest(value: TempTest) {
     this._doTest = value;
+    this.tempTestChanged.next(this._doTest);
+  }
+
+  get tempTestReport() {
+    return (<TestReportDTO>this.doTest.test_report);
+  }
+
+  get testOfDoTest() {
+    return (<TestResponses>this.doTest.test);
   }
 
   private _test !: TestResponses;
@@ -211,6 +223,22 @@ export class SharedService {
 
   onUpdateLessonsSearch(newLessons: SearchLessonResponses[]) {
     this.lessonsSearch.push(...newLessons);
+  }
+
+  saveQuestions(tempTestId: string, item?: TestReportItemDTO, indexCurrentQuestion?: number) {
+    if (this.tempTestReport.report_items && item !== undefined) {
+      const reportItemIndex = this.tempTestReport.report_items.findIndex(i => i.question_id === item.question_id);
+      if (reportItemIndex !== -1) {
+        this.tempTestReport.report_items[reportItemIndex] = item;
+      } else {
+        this.tempTestReport.report_items.push(item);
+      }
+    }
+    if (indexCurrentQuestion !== undefined) {
+      this._doTest.indexCurrentQuestion = indexCurrentQuestion;
+    }
+    localStorage.setItem(tempTestId, JSON.stringify(this._doTest));
+    this.tempTestChanged.next(this._doTest);
   }
 
 

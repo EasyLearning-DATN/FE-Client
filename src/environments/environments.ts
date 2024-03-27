@@ -42,4 +42,6 @@ export const environment = {
   PATH_ID: "/{id}",
   ID: "id",
   LANGUAGE: "vi",
+  SHOW_RESULT: "cur",
+  NOT_SHOW_RESULT: "aff",
 };

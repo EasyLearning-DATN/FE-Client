@@ -6,6 +6,7 @@ import {SharedService} from "../../../services/shared/shared.service";
 import {v4 as uuidv4} from 'uuid';
 import {CookieService} from "ngx-cookie-service";
 import {TempTest} from "../../../DTOS/test/test.dto";
+import {TestReportItemDTO} from "../../../DTOS/test-report/test-report.dto";
 
 @Component({
   selector: 'app-test-detail',
@@ -15,6 +16,7 @@ import {TempTest} from "../../../DTOS/test/test.dto";
 export class TestDetailComponent implements OnInit {
   test !: TestResponses;
   isCreator: boolean = false;
+  userId!: string;
 
   constructor(private testService: TestService, private route: ActivatedRoute, private sharedService: SharedService, private router: Router,
     private cookieService: CookieService) {
@@ -36,8 +38,8 @@ export class TestDetailComponent implements OnInit {
       this.isCreator = false;
     } else {
       const userInfo = JSON.parse(localStorage.getItem('userInfo') || '');
-      const userId = userInfo ? userInfo.id : '';
-      if (userId === this.test.created_by) {
+      this.userId = userInfo ? userInfo.id : '';
+      if (this.userId === this.test.created_by) {
         this.isCreator = true;
       } else {
         this.isCreator = false;
@@ -52,10 +54,22 @@ export class TestDetailComponent implements OnInit {
 
   onDoTest() {
     const tempTestId = uuidv4();
+    const reportItems: TestReportItemDTO[] = this.test.question_tests.map(value => {
+      return {
+        question_id: value.id,
+        answers: null,
+      };
+    });
     const tempTest: TempTest = {
       test: this.test,
-      idCurrentQuestion: "",
+      indexCurrentQuestion: 0,
       endTime: null,
+      test_report: {
+        report_items: reportItems,
+        total_point: 0,
+        user_info_id: this.userId,
+        test_id: this.test.id,
+      },
     };
     if (this.test.time_total === null) {
       localStorage.setItem(tempTestId, JSON.stringify(tempTest));

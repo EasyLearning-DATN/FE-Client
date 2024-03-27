@@ -17,7 +17,8 @@
     <div *ngIf="test" class="content-container">
       <h5 class="font-sans-serif fw-bold fs-md-1 fs-lg-3">{{ test.name | shortenText : 27 }}</h5>
       <small class="text-muted">Ngày tạo: {{ test.created_date | date }}</small><br>
-      <small class="text-muted">Tổng số câu hỏi: {{ test.question_tests.length }}</small>
+      <small class="text-muted">Tổng số câu hỏi: {{ test.question_tests.length }}</small><br>
+      <small class="text-muted">Lượt làm: {{ test.doing_time }}</small>
     </div>
     <div class="card-footer">
       <div *ngIf="lesson" class="d-flex justify-content-between pt-3 pb-3 row">
