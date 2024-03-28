@@ -42,4 +42,5 @@ export const environment = {
   PATH_ID: '/{id}',
   ID: 'id',
   LANGUAGE: 'vi',
+  API_PACKAGE: '/package-upgrade',
 };

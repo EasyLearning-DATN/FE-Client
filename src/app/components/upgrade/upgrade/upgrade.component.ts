@@ -1,14 +1,18 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/services/shared/shared.service';
 import { UpgradeService } from 'src/app/services/upgrade/upgrade.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-upgrade',
   templateUrl: './upgrade.component.html',
   styleUrls: ['./upgrade.component.css']
 })
-export class UpgradeComponent {
+export class UpgradeComponent implements OnInit{
   isLogin: any
+  packages: any;
+  amount: any;
+  role = localStorage.getItem('userInfo.role');
   @ViewChild('paymentModal') paymentModal: any;
 
   constructor(
@@ -18,10 +22,12 @@ export class UpgradeComponent {
 
   ngOnInit(): void {
     this.isLogin = this.sharedService.checkLogin();
+    this.getAllPackage();
     console.log(this.isLogin);
   }
 
-  openPaymentModal() {
+  openPaymentModal(price: number) {
+    this.amount = price;
     this.paymentModal.nativeElement.style.display = 'block';
   }
 
@@ -41,26 +47,10 @@ export class UpgradeComponent {
   }
 
   PayVNPay() {
-    if (this.isLogin == false) {
-      alert('Bạn cần đăng nhập để nâng cấp tài khoản');
-      return;
-    }
-    const userString = localStorage.getItem('userInfo');
-    if (!userString) {
-      alert('Không tìm thấy thông tin người dùng');
-      return;
-    }
-    const price = 99000;
-    const id = JSON.parse(userString).id;
-    // gọi service
-    this.upgradeSrv.VNPay(price, id).subscribe((res: any) => {
-      console.log(res);
-      window.open(res, '_blank');
-    }, err => {
-      console.log(err);
-    });
-
+    alert("Chức năng đang được phát triển")
   }
+
+
   PayMomo() {
     if (this.isLogin == false) {
       alert('Bạn cần đăng nhập để nâng cấp tài khoản');
@@ -71,16 +61,24 @@ export class UpgradeComponent {
       alert('Không tìm thấy thông tin người dùng');
       return;
     }
-    const amount = 99000;
     const id = JSON.parse(userString).id;
     // gọi service
-    this.upgradeSrv.MoMo(amount).subscribe((res: any) => {
+    this.upgradeSrv.MoMo(this.amount).subscribe((res: any) => {
       console.log(res.payUrl);
       window.open(res.payUrl, '_blank');
     }, err => {
       console.log(err);
     });
 
+  }
+
+  getAllPackage() {
+    this.upgradeSrv.getAllPackage().subscribe((res: any) => {
+      this.packages = res.data.data;
+      console.log(this.packages);
+    }, err => {
+      console.log(err);
+    });
   }
 }
 
