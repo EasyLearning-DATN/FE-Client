@@ -1,29 +1,28 @@
-import {Injectable} from '@angular/core';
-import {LessonResponses} from "../../responses/lesson/lesson.responses";
-import {Subject} from "rxjs";
-import {QuestionTypeResponses} from "../../responses/question-type/question-type.responses";
-import {QuestionResponses} from "../../responses/question/question.responses";
-import {TestResponses} from 'src/app/responses/test/test.responses';
-import {ResultTypeResponses} from "../../responses/result_type_id/result_type.responses";
-import {SearchLessonResponses} from "../../responses/search-lesson/search-lesson.responses";
-import {UserResponse} from '../../responses/user/user.responses';
+import { Injectable } from '@angular/core';
+import { LessonResponses } from '../../responses/lesson/lesson.responses';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { QuestionTypeResponses } from '../../responses/question-type/question-type.responses';
+import { QuestionResponses } from '../../responses/question/question.responses';
+import { TestResponses } from 'src/app/responses/test/test.responses';
+import { ResultTypeResponses } from '../../responses/result_type_id/result_type.responses';
+import { SearchLessonResponses } from '../../responses/search-lesson/search-lesson.responses';
+import { UserResponse } from '../../responses/user/user.responses';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedService {
-
   lessonsChanged = new Subject<LessonResponses[]>();
   lessonChanged = new Subject<LessonResponses>();
   testChanged = new Subject<TestResponses>();
   questionsOfTestChanged = new Subject<QuestionResponses[]>();
   isFetching: Subject<boolean> = new Subject<boolean>();
   userInfoChanged = new Subject<UserResponse>();
+  commentReplyChanged = new BehaviorSubject<any[]>([]);
 
-  constructor() {
-  }
+  constructor() {}
 
-  private _test !: TestResponses;
+  private _test!: TestResponses;
 
   get test(): TestResponses {
     return this._test;
@@ -182,14 +181,12 @@ export class SharedService {
     if (this._questionsOfCreatingTest === undefined) {
       this.questionsOfCreatingTest = questions;
     } else {
-      let fillterQuestions = questions.filter(
-        response => {
-          !this._questionsOfCreatingTest.includes(response);
-        });
+      let fillterQuestions = questions.filter((response) => {
+        !this._questionsOfCreatingTest.includes(response);
+      });
       this._questionsOfCreatingTest.push(...fillterQuestions);
       this.questionsOfTestChanged.next(this.questionsOfCreatingTest);
     }
-
   }
 
   onRemoveQuestionOfTest(index: number) {
@@ -201,6 +198,4 @@ export class SharedService {
   onUpdateLessonsSearch(newLessons: SearchLessonResponses[]) {
     this.lessonsSearch.push(...newLessons);
   }
-
-
 }
