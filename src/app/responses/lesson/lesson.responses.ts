@@ -19,8 +19,8 @@
 // }
 // }
 // }
-import {QuestionResponses} from "../question/question.responses";
-import {ImageResponses} from "../image/image.responses";
+import { QuestionResponses } from '../question/question.responses';
+import { ImageResponses } from '../image/image.responses';
 
 export interface LessonResponses {
   id: string;
@@ -32,6 +32,7 @@ export interface LessonResponses {
   last_modified_by: string;
   is_public: boolean;
   access_times: number;
+  totalComment: number;
   image: ImageResponses;
   user_info: {
     id: number;
