@@ -9,9 +9,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./forget-password.component.css']
 })
 export class ForgetPasswordComponent {
-  @ViewChild('resetPasswordForm') resetPasswordFormDirective: any;
-  email: string = '';
-
   constructor(
     private FormBuilder: FormBuilder,
     private userService: UserService
@@ -27,26 +24,32 @@ export class ForgetPasswordComponent {
   }
 
   onSubmit(): void {
-    // truyền email từ form vào hàm forgotPassword
-    this.userService.forgotPassword(this.email).subscribe(
-      (response: any) => {
-        Swal.fire({
-          title: 'Thành công!',
-          text: 'Vui lòng kiểm tra email để lấy liên kết đặt lại mật khẩu!',
-          icon: 'success',
-          confirmButtonText: 'OK'
-        });
-      },
-      (error) => {
-        // thông báo lỗi 
-        Swal.fire({
-          title: 'Lỗi!',
-          text: error.error.message,
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
-      }
-    );
+    if (this.resetPasswordForm.valid) {
+      // truyền email từ form vào hàm forgotPassword
+      console.log(this.resetPasswordForm.get('email')?.value);
+      this.userService.forgotPassword(this.resetPasswordForm.get('email')?.value).subscribe(
+        (response: any) => {
+          Swal.fire({
+            title: 'Thành công!',
+            text: 'Vui lòng kiểm tra email để lấy liên kết đặt lại mật khẩu!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
+        },
+        (error) => {
+          // thông báo lỗi 
+          Swal.fire({
+            title: 'Lỗi!',
+            text: error.error.message,
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
+        }
+      );
+    } else {
+      this.resetPasswordForm.markAllAsTouched();
+      console.log('invalid form');
+    }
   }
 
 }

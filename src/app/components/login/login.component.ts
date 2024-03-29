@@ -146,6 +146,9 @@ export class LoginComponent implements OnInit {
         }
       );
     } else {
+      Object.values(this.loginForm.form.controls).forEach(control => {
+        control.markAsTouched();
+      });
       console.log('invalid form');
     }
   }
@@ -264,6 +267,11 @@ export class LoginComponent implements OnInit {
           });
         }
       );
+    } else {
+      Object.values(this.signupForm.form.controls).forEach(control => {
+        control.markAsTouched();
+      });
+      console.log('invalid form');
     }
   }
 

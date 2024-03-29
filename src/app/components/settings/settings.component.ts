@@ -148,6 +148,7 @@ export class SettingsComponent implements OnInit {
           },
         );
     } else {
+      this.userInfoChangeForm.markAllAsTouched();
       console.log('invalid form');
     }
   }
@@ -218,6 +219,7 @@ export class SettingsComponent implements OnInit {
           },
         );
     } else {
+      this.changePasswordForm.markAllAsTouched();
       console.log('invalid form');
     }
   }
