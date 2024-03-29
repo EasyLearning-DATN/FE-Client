@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user/user-service.service';
 import { environment } from 'src/environments/environments';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-confirm',
@@ -10,19 +11,26 @@ import { environment } from 'src/environments/environments';
   styleUrls: ['./confirm.component.css']
 })
 export class ConfirmComponent {
-    @ViewChild('newPassword') newPassword: any;
-    password: string = '';
-    confirmPassword: string = '';
-    constructor(
-      private route: ActivatedRoute,
-      private userService: UserService,
-      private router: Router
-    ) { }
-  
-    ngOnInit(): void {
-    }
-    
-    onConfirm() {
+  @ViewChild('newPassword') newPassword: any;
+  password: string = '';
+  confirmPassword: string = '';
+  constructor(
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private router: Router
+  ) { }
+
+  resetPasswordForm: FormGroup = new FormGroup({
+    password: new FormControl('', [Validators.required]),
+    confirmPassword: new FormControl('', [Validators.required])
+  }
+  );
+
+  ngOnInit(): void {
+  }
+
+  onConfirm() {
+    if (this.resetPasswordForm.valid) {
       this.route.queryParams.pipe(
         switchMap(params => {
           const token = params['token'];
@@ -51,5 +59,9 @@ export class ConfirmComponent {
           alert('Invalid token');
         }
       );
+    } else {
+      this.resetPasswordForm.markAllAsTouched();
+      console.log('invalid form');
+    }
   }
 }
