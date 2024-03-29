@@ -58,7 +58,6 @@ export class LoginComponent implements OnInit {
     ({
       client_id: "12657364022-uhc8klb6t57fkeqvvcb0fjfoscsjf2c3.apps.googleusercontent.com",
       callback: (resp: any) => {
-        console.log(resp.credential);
         this.continueGoole(resp.credential);
       }
     })
@@ -152,7 +151,6 @@ export class LoginComponent implements OnInit {
   }
 
   continueGoole(tokenGoogle:string) {
-    console.log("loginggggg")
     const continueGoogoleDto: ContinueGoogoleDto = {
       token: tokenGoogle,
     };

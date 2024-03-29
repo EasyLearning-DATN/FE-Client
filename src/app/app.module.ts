@@ -68,9 +68,18 @@ import {TestEditComponent} from './components/test/test-detail/test-edit/test-ed
 import {ListTestComponent} from './components/test/list-test/list-test.component';
 import {ThemeToggleComponent} from './components/theme-toggle/theme-toggle.component';
 import { InvoiceComponent } from './components/upgrade/invoice/invoice.component';
+import {DoTestComponent} from './components/test/do-test/do-test.component';
 import {PaymentSuccessComponent} from './components/upgrade/success/success.component';
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
-
+import {DoTestScaItemComponent} from './components/test/do-test/do-test-sca-item/do-test-sca-item.component';
+import {DoTestMcaItemComponent} from './components/test/do-test/do-test-mca-item/do-test-mca-item.component';
+import {DoTestFitbItemComponent} from './components/test/do-test/do-test-fitb-item/do-test-fitb-item.component';
+import {CookieService} from "ngx-cookie-service";
+import { TestReportComponent } from './components/test-report/test-report.component';
+import { ListTestReportComponent } from './components/test-report/list-test-report/list-test-report.component';
+import { TestReportFitbItemComponent } from './components/test-report/test-report-fitb-item/test-report-fitb-item.component';
+import { TestReportMcaItemComponent } from './components/test-report/test-report-mca-item/test-report-mca-item.component';
+import { TestReportScaItemComponent } from './components/test-report/test-report-sca-item/test-report-sca-item.component';
 
 @NgModule({
   declarations: [
@@ -121,6 +130,15 @@ import {AuthInterceptor} from "./interceptors/auth.interceptor";
     ThemeToggleComponent,
     PaymentSuccessComponent,
     InvoiceComponent,
+    DoTestComponent,
+    DoTestScaItemComponent,
+    DoTestMcaItemComponent,
+    DoTestFitbItemComponent,
+    TestReportComponent,
+    ListTestReportComponent,
+    TestReportFitbItemComponent,
+    TestReportMcaItemComponent,
+    TestReportScaItemComponent,
   ],
   imports: [
     MatSlideToggleModule,
@@ -159,6 +177,7 @@ import {AuthInterceptor} from "./interceptors/auth.interceptor";
     //     return ``;
     //   },
     // },
+    CookieService,
   ],
   bootstrap: [AppComponent],
 })

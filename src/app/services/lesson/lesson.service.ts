@@ -1,13 +1,16 @@
-import {Injectable} from '@angular/core';
-import {environment} from "../../../environments/environments";
-import {HttpClient, HttpParams} from "@angular/common/http";
-import {map, tap} from "rxjs";
-import {SharedService} from "../shared/shared.service";
-import {LessonsResponses} from "../../responses/lessons/lessons.responses";
-import {LessonDTO} from 'src/app/DTOS/lesson/lesson.dto';
-import {LessonResponses} from "src/app/responses/lesson/lesson.responses";
-import {Router} from "@angular/router";
-import {SearchLessonListResponse, SearchLessonResponses} from "../../responses/search-lesson/search-lesson.responses";
+import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environments';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { map, tap } from 'rxjs';
+import { SharedService } from '../shared/shared.service';
+import { LessonsResponses } from '../../responses/lessons/lessons.responses';
+import { LessonDTO } from 'src/app/DTOS/lesson/lesson.dto';
+import { LessonResponses } from 'src/app/responses/lesson/lesson.responses';
+import { Router } from '@angular/router';
+import {
+  SearchLessonListResponse,
+  SearchLessonResponses,
+} from '../../responses/search-lesson/search-lesson.responses';
 
 @Injectable({
   providedIn: 'root',
@@ -119,7 +122,6 @@ export class LessonService {
       }));
   }
 
-
   getOneLesson(id: string) {
     return this.http.get<any>(this.apiGetOneLesson + '/' + id).pipe(
       map((response) => {
@@ -139,22 +141,6 @@ export class LessonService {
 
   deleteLesson(id: string) {
     return this.http.delete(this.apiDeleteLesson + '/' + id);
-  }
-
-  checkLessonOfUser(userId: string, id: string) {
-    let searchParams = new HttpParams();
-    searchParams = searchParams.append('createdBy', userId);
-    searchParams = searchParams.append('id', id);
-    return this.http.get<any>(this.apiGetListLesson, {
-      params: searchParams,
-    }).pipe(
-      map((response) => {
-        let lessons: LessonsResponses = response.data;
-        lessons.data = lessons.data.map(lesson => {
-          return {...lesson, questions: lesson.questions ? lesson.questions : []};
-        });
-        return lessons;
-      }));
   }
 
   getAllLessons(page: number = 0) {

@@ -133,6 +133,7 @@ export class EditQuestionItemComponent implements OnInit {
       'weighted': new FormControl(this.question.weighted, [
         Validators.required,
         Validators.pattern(/^[1-9]+[0-9]*$/),
+        Validators.max(3),
       ]),
       'question_type_id': new FormControl(questionTypeCode),
       'answers': this.getAnswersFormArray(this.question),

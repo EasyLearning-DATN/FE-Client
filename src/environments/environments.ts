@@ -1,11 +1,12 @@
+// const BASE_API = 'https://be-cdj2.onrender.com'
+// const BASE_API = 'http://localhost:1001';
+const BASE_API = 'http://localhost:1001';
+
 export const environment = {
   production: false,
-  apiExternal: 'http://localhost:1001/easy-learning/public/v1',
-  apiMember: 'http://localhost:1001/easy-learning/member/v1',
-  API_URL: 'http://localhost:1001/easy-learning',
-  // apiExternal: 'http://localhost:1002/easy-learning/public/v1',
-  // apiMember: 'http://localhost:1002/easy-learning/member/v1',
-  // API_URL: 'http://localhost:1002/easy-learning',
+  apiExternal: BASE_API + '/easy-learning/public/v1',
+  apiMember: BASE_API + '/easy-learning/member/v1',
+  API_URL: BASE_API + '/easy-learning',
   USER_URL: '/user',
   ADMIN_URL: '/admin',
   API_ADMIN: "/admin",
@@ -18,6 +19,7 @@ export const environment = {
   API_REPORT: "/report",
   API_TEST: "/test",
   API_VIEW_RESULT_TYPE: "/view-result-type",
+  API_TEST_REPORT: "/test-report",
   API_USERINFO: "/info",
   API_AVATAR: "/avatar",
   API_PASSWORD: "/password",
@@ -41,5 +43,12 @@ export const environment = {
   PATH_ID: "/{id}",
   ID: "id",
   LANGUAGE: "vi",
-  GOOGLE_ID: "12657364022-uhc8klb6t57fkeqvvcb0fjfoscsjf2c3.apps.googleusercontent.com"
+  GOOGLE_ID: "12657364022-uhc8klb6t57fkeqvvcb0fjfoscsjf2c3.apps.googleusercontent.com",
+  SHOW_RESULT: "cur",
+  NOT_SHOW_RESULT: "aff",
+  API_COMMENT: '/comment',
+  API_REACTION: '/reaction',
+  FITB_ID: "dabc3414-759f-4d57-a45e-8d74c6d40d43",
+  MCA_ID: "98b2588b-8f5d-449e-a5cf-62cce69b9216",
+  SCA_ID: "7c0d13cd-60c3-43ca-a132-b6a52673f460",
 };

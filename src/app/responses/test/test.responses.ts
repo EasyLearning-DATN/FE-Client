@@ -17,6 +17,7 @@ export interface TestResponses extends BaseReponses {
   total_question: number;
   view_result_type_id: ResultTypeResponses;
   question_tests: QuestionResponses[];
+  doing_time: number;
   user_info: {
     id: number;
     fullName: string;

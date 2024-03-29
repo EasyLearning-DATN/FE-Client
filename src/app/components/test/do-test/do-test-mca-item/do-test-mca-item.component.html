@@ -1,0 +1,62 @@
+<div class="question-container mb-4">
+  <div class="ps-3 pe-3 d-flex flex-column justify-content-between question-detail-container">
+    <div class="index d-flex justify-content-end mt-2">
+      <span>{{ index + 1 }}/{{ total }}</span>
+    </div>
+    <div class="index d-flex justify-content-end mt-2">
+      <span>Trọng số: {{ question.weighted }}</span>
+    </div>
+    <div class="question-name">
+      <span>{{ question.title }}</span>
+    </div>
+    <div>
+      <div class="question-answer-title fw-semi-bold mb-3">
+        <span>Chọn đáp án ({{ totalAnswer }} đáp án đúng)</span>
+      </div>
+      <div>
+        <div class="row m-2 d-flex justify-content-around d-flex">
+          <button #btn1 (click)="checkAnswer(shuffledArray[0], btn1, chkbox1)" [class.disabled]="isDisabledBtn[shuffledArray[0]]"
+                  [name]="shuffledArray[0]" [value]="question.answers[shuffledArray[0]].value"
+                  class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center">
+            <div class="form-check">
+              <input #chkbox1 [checked]="false" class="form-check-input" height="15px" id="answerA" type="checkbox"
+                     value="true" width="15px">
+              <label class="form-check-label" for="answerA">A. {{ question.answers[shuffledArray[0]].value }}</label>
+            </div>
+
+          </button>
+          <button #btn2 (click)="checkAnswer(shuffledArray[1], btn2, chkbox2)" [class.disabled]="isDisabledBtn[shuffledArray[1]]"
+                  [name]="shuffledArray[1]" [value]="question.answers[shuffledArray[1]].value"
+                  class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center">
+            <div class="form-check">
+              <input #chkbox2 [checked]="false" class="form-check-input" height="15px" id="answerB" type="checkbox"
+                     value="true" width="15px">
+              <label class="form-check-label" for="answerB">B. {{ question.answers[shuffledArray[1]].value }}</label>
+            </div>
+
+          </button>
+          <button #btn3 (click)="checkAnswer(shuffledArray[2], btn3, chkbox3)" [class.disabled]="isDisabledBtn[shuffledArray[2]]"
+                  [name]="shuffledArray[2]" [value]="question.answers[shuffledArray[2]].value"
+                  class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center">
+            <div class="form-check">
+              <input #chkbox3 [checked]="false" class="form-check-input" height="15px" id="answerC" type="checkbox"
+                     value="true" width="15px">
+              <label class="form-check-label" for="answerC">C. {{ question.answers[shuffledArray[2]].value }}</label>
+            </div>
+
+          </button>
+          <button #btn4 (click)="checkAnswer(shuffledArray[3], btn4, chkbox4)" [class.disabled]="isDisabledBtn[shuffledArray[3]]"
+                  [name]="shuffledArray[3]" [value]="question.answers[shuffledArray[3]].value"
+                  class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center">
+            <div class="form-check">
+              <input #chkbox4 [checked]="false" class="form-check-input" height="15px" id="answerD" type="checkbox"
+                     value="true" width="15px">
+              <label class="form-check-label" for="answerD">D. {{ question.answers[shuffledArray[3]].value }}</label>
+            </div>
+
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

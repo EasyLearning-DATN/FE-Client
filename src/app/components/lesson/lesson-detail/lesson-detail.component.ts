@@ -13,6 +13,7 @@ export class LessonDetailComponent implements OnInit {
 
   lesson!: LessonResponses;
   isCreator: boolean = false;
+  totalCMT: number = 0;
 
 
   constructor(private route: ActivatedRoute, private sharedService: SharedService, private lessonService: LessonService) {
@@ -34,23 +35,20 @@ export class LessonDetailComponent implements OnInit {
     } else {
       const userInfo = JSON.parse(localStorage.getItem('userInfo') || '');
       const userId = userInfo ? userInfo.id : '';
-
-      // Kiểm tra xem user có phải người tạo bài học hay không
-      this.lessonService.checkLessonOfUser(userId, this.lesson.id).subscribe(
-        (response) => {
-          // console.log(response.data.length);
-          this.isCreator = response.data.length !== 0;
-        },
-        error => {
-          this.isCreator = false;
-        },
-      );
+      if (userId === this.lesson.created_by) {
+        this.isCreator = true;
+      } else {
+        this.isCreator = false;
+      }
     }
-
   }
 
   onCopyURL() {
     // Copy đường dãn vào clipboard
     navigator.clipboard.writeText(window.location.href);
+  }
+
+  updateTotalCMT() {
+    this.totalCMT += 1;
   }
 }

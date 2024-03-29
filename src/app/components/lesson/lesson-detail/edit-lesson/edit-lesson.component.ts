@@ -128,7 +128,7 @@ export class EditLessonComponent implements OnInit {
         console.log(this.closeResult);
         if (result === 'Confirm') {
           Swal.fire({
-            title: 'Đang đăng ký...',
+            title: 'Đang xóa bài học...',
             allowOutsideClick: false,
             didOpen: () => {
               Swal.showLoading();
