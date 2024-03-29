@@ -41,4 +41,5 @@ export const environment = {
   PATH_ID: "/{id}",
   ID: "id",
   LANGUAGE: "vi",
+  GOOGLE_ID: "12657364022-uhc8klb6t57fkeqvvcb0fjfoscsjf2c3.apps.googleusercontent.com"
 };

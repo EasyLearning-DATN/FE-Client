@@ -8,6 +8,7 @@ import { UserResponse } from 'src/app/responses/user/user.responses';
 import { environment } from 'src/environments/environments';
 import { SharedService } from '../shared/shared.service';
 import { ChangePassDTO } from 'src/app/DTOS/user/changePass.dto';
+import {ContinueGoogoleDto} from "../../DTOS/user/continueGoogole.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +25,17 @@ export class UserService {
   private apiGetRole = environment.API_URL + environment.API_ADMIN + environment.VERSION_1 + environment.API_ROLE;
   private apiLockAccount = `${environment.apiMember}/user/lock`;
   private apiChangePassword = `${environment.apiMember}/user/password`;
+  private apiContinueGoogle = `${environment.apiExternal}/user/continue-google`;
 
   constructor(private http: HttpClient,
     private shareSerivce : SharedService) { }
 
   login(loginDTO: LoginDTO): Observable<any> {
     return this.http.post(this.apiLogin, loginDTO);
+  }
+
+  continueGoogle(continueGoogoleDto: ContinueGoogoleDto): Observable<any> {
+    return this.http.post(this.apiContinueGoogle, continueGoogoleDto);
   }
 
   signUp(signupDTO: SignupDTO): Observable<any> {
@@ -81,7 +87,7 @@ export class UserService {
       }
     });
   }
-  
+
   // hàm update info user có sử dụng bearer token và body là fullName, email, dayOfBirth
   updateInfo(updateInfoDTO: UpdateInfoDTO): Observable<any>  {
     const token = localStorage.getItem('token');
@@ -132,11 +138,11 @@ export class UserService {
     params: Params
     });
   }
-  
+
 
   updateRoleUser(userID: any): Observable<any> {
     return this.http.put(this.apiGetRole, {
-      userID, 
+      userID,
       roleIds: ["1ea38000-e236-4291-8f2e-8023ca323479"]
     }, {
       headers: {
