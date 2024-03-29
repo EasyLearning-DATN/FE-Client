@@ -12,11 +12,62 @@ import {ConfirmModalComponent} from "../../commons/confirm-modal/confirm-modal.c
 import {lastValueFrom} from "rxjs";
 import Swal from "sweetalert2";
 import {CookieService} from "ngx-cookie-service";
+import {animate, keyframes, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-do-test',
   templateUrl: './do-test.component.html',
   styleUrls: ['./do-test.component.css'],
+  animations: [trigger('item', [
+    transition(':enter', [
+      animate('1s ease-in-out', keyframes([
+        style({
+          opacity: 0,
+          'transform': 'translateX(-60px)',
+          offset: 0,
+        }),
+        style({
+          opacity: 0.5,
+          'transform': 'translateX(-40px)',
+          offset: 0.3,
+        }),
+        style({
+          opacity: 1,
+          'transform': 'translateX(-20px)',
+          offset: 0.7,
+        }),
+        style({
+          opacity: 1,
+          'transform': 'translateX(0)',
+          offset: 1,
+        }),
+      ])),
+    ]),
+    transition(':leave', [
+      animate('0.5s ease-in-out', keyframes([
+        style({
+          opacity: 1,
+          'transform': 'translateX(0)',
+          offset: 0,
+        }),
+        style({
+          opacity: 0.5,
+          'transform': 'translateX(20px)',
+          offset: 0.3,
+        }),
+        style({
+          opacity: 0.25,
+          'transform': 'translateX(40px)',
+          offset: 0.7,
+        }),
+        style({
+          opacity: 0,
+          'transform': 'translateX(60px)',
+          offset: 1,
+        }),
+      ])),
+    ]),
+  ])],
 })
 export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
 
