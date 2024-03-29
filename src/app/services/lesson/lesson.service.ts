@@ -143,7 +143,7 @@ export class LessonService {
     return this.http.delete(this.apiDeleteLesson + '/' + id);
   }
 
-  getAllLessons(page: number = 0) {
+  getAllLessons(page: number) {
     let searchParams = new HttpParams();
     searchParams = searchParams.append('sort', 'des');
     searchParams = searchParams.append('page', page);

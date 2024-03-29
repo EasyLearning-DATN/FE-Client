@@ -12,6 +12,10 @@ import { LessonService } from 'src/app/services/lesson/lesson.service';
   styleUrls: ['./list-lesson.component.css']
 })
 export class ListLessonComponent {
+  currentPage = 0;
+  lessonsPerPage = 10;
+  totalPages = 0;
+  totalPageArray: number[] = [];
   originalLessons: LessonResponses[] = [];
   lessons: LessonResponses[] = [];
   isFetching = false;
@@ -27,9 +31,11 @@ export class ListLessonComponent {
 
   fetchLessons() {
     this.isFetching = true;
-    this.lessonService.getAllLessons().subscribe(
-      (lessons: LessonsResponses) => {
+    this.lessonService.getAllLessons(this.currentPage).subscribe(
+      (lessons: any) => {
         this.isFetching = false;
+        this.totalPages = lessons.data.totalPage; // Tổng số trang
+        this.calculateTotalPageArray();
         this.originalLessons = lessons.data; // Lưu danh sách gốc
         this.lessons = this.originalLessons; // Gán danh sách gốc cho danh sách hiển thị ban đầu
       },
@@ -38,6 +44,18 @@ export class ListLessonComponent {
         this.error = error.message;
       },
     );
+  }
+
+  calculateTotalPageArray(): void {
+    this.totalPageArray = [];
+    for (let i = 0; i <= this.totalPages; i++) {
+      this.totalPageArray.push(i);
+    }
+  }
+
+  onPageChange(pageNumber: number) {
+    this.currentPage = pageNumber;
+    this.fetchLessons();
   }
 
   getMyLesson(id: number) {
