@@ -59,7 +59,6 @@
             <div class="form_group mb-2">
               <div class="label_wrapper">
                 <label class="form_label" for="">Mật khẩu</label>
-                <a [routerLink]="['/fogot-password']" tabindex="-1" class="forgot_pass-link">Quên mật khẩu</a>
               </div>
               <input class="form-control" type="password" [(ngModel)]="password" name="password"
                 placeholder="Nhập mật khẩu ..." required  #passControl="ngModel">
@@ -80,7 +79,7 @@
               </label>
             </div>
             <button class="login-btn">
-              <span>">Đăng ký</span>
+              <span>Đăng ký</span>
             </button>
             <button class="sign_up-btn" data-bs-toggle="tab" data-bs-target="#sign_up-tab-pane" type="button" role="tab"
               aria-selected="false">
@@ -103,7 +102,7 @@
             <div class="form_group mb-2">
               <div class="label_wrapper">
                 <label class="form_label" for="">Mật khẩu</label>
-                <a [routerLink]="['/fogot-password']" class="forgot_pass-link">Quên mật khẩu</a>
+                <a [routerLink]="['/forgot-password']" class="forgot_pass-link">Quên mật khẩu</a>
               </div>
 
               <input class="form-control" [(ngModel)]="loginPassword" name="loginPassword" type="password"

@@ -11,7 +11,7 @@ export interface TestReportResponse extends BaseReponses {
   test: TestOfTestReportResponse;
   question_report: QuestionReportResponse[];
   user_info: UserResponse;
-  doing_date: Date;
+  doingDate: Date;
   total_point: number;
 }
 
