@@ -28,7 +28,10 @@ import {authCanActivateGuard} from "./guards/auth.can-activate.guard";
 import {authCanActivateChildGuard} from "./guards/auth.can-activate-child.guard";
 import {DoTestComponent} from "./components/test/do-test/do-test.component";
 import {doTestResolver} from "./resolver/do-test.resolver";
-import { InvoiceComponent } from './components/upgrade/invoice/invoice.component';
+import {InvoiceComponent} from './components/upgrade/invoice/invoice.component';
+import {TestReportComponent} from "./components/test-report/test-report.component";
+import {ListTestReportComponent} from "./components/test-report/list-test-report/list-test-report.component";
+import {testReportResolver} from "./resolver/test-report.resolver";
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -64,6 +67,12 @@ const routes: Routes = [
         resolve: [doTestResolver, questionTypeResolver, resultTypeResolver],
       },
     ],
+  },
+  {
+    path: 'test-report/:id', component: TestReportComponent, resolve: [testReportResolver], canActivate: [authCanActivateGuard],
+  },
+  {
+    path: 'my-test-report', component: ListTestReportComponent, canActivate: [authCanActivateGuard],
   },
   {path: 'create-lesson', component: CreateLessonComponent, canActivate: [authCanActivateGuard]},
   {

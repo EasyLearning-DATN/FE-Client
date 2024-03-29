@@ -15,10 +15,11 @@ export class DoTestMcaItemComponent implements OnInit, AfterViewInit {
   @Input() total!: number;
   shuffledArray: number[] = [];
   originalArray: number[] = [0, 1, 2, 3];
-  // originalAnswers: AnswerResponses[] = [];
-  isDisabled: boolean = false;
+  // isDisabled: boolean = false;
   totalAnswer: number = 0;
-  @Input() userAnswers!: string[] | null;
+  isCorrect!: boolean;
+  scoreEachAnswer: number = 0;
+  @Input() userAnswers!: string[] | null | undefined;
   @Input() showRealAnswer: boolean = false;
   @ViewChild("btn1", {static: true}) btn1!: ElementRef;
   @ViewChild("btn2", {static: true}) btn2!: ElementRef;
@@ -28,12 +29,14 @@ export class DoTestMcaItemComponent implements OnInit, AfterViewInit {
   @ViewChild("chkbox2", {static: true}) chkbox2!: ElementRef;
   @ViewChild("chkbox3", {static: true}) chkbox3!: ElementRef;
   @ViewChild("chkbox4", {static: true}) chkbox4!: ElementRef;
+  isDisabledBtn: boolean[] = [false, false, false, false];
 
   constructor(private routes: ActivatedRoute, private renderer2: Renderer2, private sharedService: SharedService) {
   }
 
   ngOnInit() {
     this.randomizeArray();
+    this.isCorrect = false;
     this.question.answers.forEach(
       value => {
         if (value.is_correct) {
@@ -41,6 +44,7 @@ export class DoTestMcaItemComponent implements OnInit, AfterViewInit {
         }
       },
     );
+
   }
 
   ngAfterViewInit() {
@@ -49,6 +53,7 @@ export class DoTestMcaItemComponent implements OnInit, AfterViewInit {
         this.checkAnswerAgain(this.userAnswers[i]);
       }
     }
+    this.scoreEachAnswer = this.question.weighted / this.totalAnswer;
   }
 
   checkAnswer(ans: number, btn: HTMLButtonElement, checkBox: HTMLInputElement) {
@@ -62,12 +67,16 @@ export class DoTestMcaItemComponent implements OnInit, AfterViewInit {
       answers: this.userAnswers,
       question_id: this.question.id,
     };
-    console.log(this.userAnswers.length);
-    console.log(this.userAnswers.length <= this.totalAnswer);
-    this.sharedService.saveQuestions(this.routes.snapshot.params['doTestId'], testReportItem);
     if (this.userAnswers.length >= this.totalAnswer) {
-      this.isDisabled = true;
-      return;
+      this.isDisabledBtn.fill(true);
+
+    }
+    if (this.userAnswers.length <= this.totalAnswer) {
+      if (this.isCorrect) {
+        this.sharedService.saveQuestions(this.routes.snapshot.params['doTestId'], testReportItem, undefined, this.scoreEachAnswer);
+      } else {
+        this.sharedService.saveQuestions(this.routes.snapshot.params['doTestId'], testReportItem);
+      }
     }
   }
 
@@ -95,7 +104,8 @@ export class DoTestMcaItemComponent implements OnInit, AfterViewInit {
     }
 
     if (this.userAnswers && this.userAnswers.length === this.totalAnswer) {
-      this.isDisabled = true;
+      // this.isDisabled = true;
+      this.isDisabledBtn.fill(true);
     }
   }
 
@@ -103,12 +113,16 @@ export class DoTestMcaItemComponent implements OnInit, AfterViewInit {
     checkBox.checked = true;
     if (this.showRealAnswer) {
       if (this.question.answers[index].is_correct) {
+        this.isCorrect = true;
         btn.classList.add("correct");
       } else {
+        this.isCorrect = false;
         btn.classList.add("incorrect");
       }
     } else {
       btn.classList.add("answer_selected");
+      this.isCorrect = this.question.answers[index].is_correct;
     }
+    this.isDisabledBtn[index] = true;
   }
 }

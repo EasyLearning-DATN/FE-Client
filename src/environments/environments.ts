@@ -46,5 +46,7 @@ export const environment = {
   NOT_SHOW_RESULT: "aff",
   API_COMMENT: '/comment',
   API_REACTION: '/reaction',
-
+  FITB_ID: "dabc3414-759f-4d57-a45e-8d74c6d40d43",
+  MCA_ID: "98b2588b-8f5d-449e-a5cf-62cce69b9216",
+  SCA_ID: "7c0d13cd-60c3-43ca-a132-b6a52673f460",
 };

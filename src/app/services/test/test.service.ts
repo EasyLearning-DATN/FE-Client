@@ -23,8 +23,15 @@ export class TestService {
   }
 
   // get all test và gán vào test responses
-  getAllTest() {
-    return this.http.get<any>(this.apigetAllTest)
+  getAllTest(page: number, size?: number) {
+    return this.http.get<any>(this.apigetAllTest, {
+      params: {
+        limit: size ? size : 10,
+        page: page,
+        sort: "des",
+        sortBy: "createdDate",
+      },
+    })
     .pipe(
       map((response) => {
         let tests: TestListResponses = response.data;

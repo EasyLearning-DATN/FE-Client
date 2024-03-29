@@ -107,11 +107,8 @@ export class CreateLessonTestComponent implements OnInit {
                   confirmButtonText: 'OK',
                 });
                 this.initForm();
-                this.router.navigate(['test', response.data.id]).then(
-                  response => {
-                    this.offcanvasService.dismiss();
-                  },
-                );
+                this.offcanvasService.dismiss();
+                this.router.navigate(['test', response.data.id]);
               }, error => {
                 console.log(error);
                 Swal.close();

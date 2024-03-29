@@ -7,6 +7,8 @@ import {v4 as uuidv4} from 'uuid';
 import {CookieService} from "ngx-cookie-service";
 import {TempTest} from "../../../DTOS/test/test.dto";
 import {TestReportItemDTO} from "../../../DTOS/test-report/test-report.dto";
+import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ConfirmModalComponent} from "../../commons/confirm-modal/confirm-modal.component";
 
 @Component({
   selector: 'app-test-detail',
@@ -17,9 +19,11 @@ export class TestDetailComponent implements OnInit {
   test !: TestResponses;
   isCreator: boolean = false;
   userId!: string;
+  userInfoId!: number;
+  closeResult: string = "";
 
   constructor(private testService: TestService, private route: ActivatedRoute, private sharedService: SharedService, private router: Router,
-    private cookieService: CookieService) {
+    private cookieService: CookieService, private modalService: NgbModal) {
 
   }
 
@@ -39,6 +43,7 @@ export class TestDetailComponent implements OnInit {
     } else {
       const userInfo = JSON.parse(localStorage.getItem('userInfo') || '');
       this.userId = userInfo ? userInfo.id : '';
+      this.userInfoId = userInfo ? userInfo.userInfoId : 0;
       if (this.userId === this.test.created_by) {
         this.isCreator = true;
       } else {
@@ -50,6 +55,28 @@ export class TestDetailComponent implements OnInit {
   onCopyURL() {
     // Copy đường dãn vào clipboard
     navigator.clipboard.writeText(window.location.href);
+  }
+
+  openConfirmDialog() {
+    const confirmModalComponent = this.modalService.open(ConfirmModalComponent);
+    confirmModalComponent.componentInstance.title = 'Làm bài thi';
+    confirmModalComponent.componentInstance.body = 'Bạn có muốn làm bài thi này không?';
+    confirmModalComponent
+    .result.then(
+      (result) => {
+        this.closeResult = `Closed with: ${result}`;
+        console.log(this.closeResult);
+        if (result === 'Confirm') {
+          this.onDoTest();
+          console.log(result);
+        }
+
+      },
+      (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        console.log(this.closeResult);
+      },
+    );
   }
 
   onDoTest() {
@@ -67,7 +94,7 @@ export class TestDetailComponent implements OnInit {
       test_report: {
         report_items: reportItems,
         total_point: 0,
-        user_info_id: this.userId,
+        user_info_id: this.userInfoId,
         test_id: this.test.id,
       },
     };
@@ -85,5 +112,16 @@ export class TestDetailComponent implements OnInit {
       this.cookieService.set(tempTestId, "doing", endTime);
     }
     this.router.navigate(['do-test', tempTestId], {relativeTo: this.route});
+  }
+
+  private getDismissReason(reason: any): string {
+    switch (reason) {
+      case ModalDismissReasons.ESC:
+        return 'by pressing ESC';
+      case ModalDismissReasons.BACKDROP_CLICK:
+        return 'by clicking on a backdrop';
+      default:
+        return `with: ${reason}`;
+    }
   }
 }

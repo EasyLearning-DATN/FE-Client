@@ -1,3 +1,4 @@
+import {TestReportResponse} from "../../responses/test-report/test-report.responses";
 import {TestReportDTO, TestReportItemDTO} from "../../DTOS/test-report/test-report.dto";
 import {TempTest} from "../../DTOS/test/test.dto";
 import { Injectable } from '@angular/core';
@@ -22,8 +23,19 @@ export class SharedService {
   isFetching: Subject<boolean> = new Subject<boolean>();
   userInfoChanged = new Subject<UserResponse>();
   commentReplyChanged = new BehaviorSubject<any[]>([]);
+  nextQuestion: Subject<any> = new Subject<any>();
 
   constructor() {
+  }
+
+  private _testReport!: TestReportResponse;
+
+  get testReport(): TestReportResponse {
+    return this._testReport;
+  }
+
+  set testReport(value: TestReportResponse) {
+    this._testReport = value;
   }
 
   private _doTest!: TempTest;
@@ -224,7 +236,7 @@ export class SharedService {
     this.lessonsSearch.push(...newLessons);
   }
 
-  saveQuestions(tempTestId: string, item?: TestReportItemDTO, indexCurrentQuestion?: number) {
+  saveQuestions(tempTestId: string, item?: TestReportItemDTO, indexCurrentQuestion?: number, score?: number) {
     if (this.tempTestReport.report_items && item !== undefined) {
       const reportItemIndex = this.tempTestReport.report_items.findIndex(i => i.question_id === item.question_id);
       if (reportItemIndex !== -1) {
@@ -236,7 +248,11 @@ export class SharedService {
     if (indexCurrentQuestion !== undefined) {
       this._doTest.indexCurrentQuestion = indexCurrentQuestion;
     }
+    if (score !== undefined) {
+      this.tempTestReport.total_point += score;
+    }
     localStorage.setItem(tempTestId, JSON.stringify(this._doTest));
+    // this.cookieService
     this.tempTestChanged.next(this._doTest);
   }
 

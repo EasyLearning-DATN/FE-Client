@@ -17,7 +17,8 @@ export class DoTestScaItemComponent implements OnInit, AfterViewInit {
   originalArray: number[] = [0, 1, 2, 3];
   // originalAnswers: AnswerResponses[] = [];
   isDisabled: boolean = false;
-  @Input() userAnswer!: string[] | null;
+  isCorrect: boolean = false;
+  @Input() userAnswer!: string[] | null | undefined;
   @Input() showRealAnswer: boolean = false;
   @ViewChild("btn1", {static: true}) btn1!: ElementRef;
   @ViewChild("btn2", {static: true}) btn2!: ElementRef;
@@ -45,7 +46,12 @@ export class DoTestScaItemComponent implements OnInit, AfterViewInit {
       answers: this.userAnswer,
       question_id: this.question.id,
     };
-    this.sharedService.saveQuestions(this.routes.snapshot.params['doTestId'], testReportItem);
+    if (this.isCorrect) {
+      this.sharedService.saveQuestions(this.routes.snapshot.params['doTestId'], testReportItem, undefined, this.question.weighted);
+    } else {
+      this.sharedService.saveQuestions(this.routes.snapshot.params['doTestId'], testReportItem);
+
+    }
   }
 
   private randomizeArray() {
@@ -76,12 +82,15 @@ export class DoTestScaItemComponent implements OnInit, AfterViewInit {
   private checkResultAnswer(index: number, btn: HTMLButtonElement) {
     if (this.showRealAnswer) {
       if (this.question.answers[index].is_correct) {
+        this.isCorrect = true;
         btn.classList.add("correct");
       } else {
+        this.isCorrect = false;
         btn.classList.add("incorrect");
       }
     } else {
       btn.classList.add("answer_selected");
+      this.isCorrect = this.question.answers[index].is_correct;
     }
   }
 
