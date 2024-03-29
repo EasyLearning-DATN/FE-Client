@@ -1,15 +1,15 @@
 import {TestReportResponse} from "../../responses/test-report/test-report.responses";
 import {TestReportDTO, TestReportItemDTO} from "../../DTOS/test-report/test-report.dto";
 import {TempTest} from "../../DTOS/test/test.dto";
-import { Injectable } from '@angular/core';
-import { LessonResponses } from '../../responses/lesson/lesson.responses';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { QuestionTypeResponses } from '../../responses/question-type/question-type.responses';
-import { QuestionResponses } from '../../responses/question/question.responses';
-import { TestResponses } from 'src/app/responses/test/test.responses';
-import { ResultTypeResponses } from '../../responses/result_type_id/result_type.responses';
-import { SearchLessonResponses } from '../../responses/search-lesson/search-lesson.responses';
-import { UserResponse } from '../../responses/user/user.responses';
+import {Injectable} from '@angular/core';
+import {LessonResponses} from '../../responses/lesson/lesson.responses';
+import {BehaviorSubject, Subject} from 'rxjs';
+import {QuestionTypeResponses} from '../../responses/question-type/question-type.responses';
+import {QuestionResponses} from '../../responses/question/question.responses';
+import {TestResponses} from 'src/app/responses/test/test.responses';
+import {ResultTypeResponses} from '../../responses/result_type_id/result_type.responses';
+import {SearchLessonResponses} from '../../responses/search-lesson/search-lesson.responses';
+import {UserResponse} from '../../responses/user/user.responses';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +24,7 @@ export class SharedService {
   userInfoChanged = new Subject<UserResponse>();
   commentReplyChanged = new BehaviorSubject<any[]>([]);
   nextQuestion: Subject<any> = new Subject<any>();
+  isDoTest: Subject<boolean> = new Subject<boolean>();
 
   constructor() {
   }

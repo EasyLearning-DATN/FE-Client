@@ -11,6 +11,7 @@ import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ConfirmModalComponent} from "../../commons/confirm-modal/confirm-modal.component";
 import {lastValueFrom} from "rxjs";
 import Swal from "sweetalert2";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-do-test',
@@ -44,7 +45,7 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
   private isEndTestManually: boolean = false;
 
   constructor(private renderer2: Renderer2, private sharedService: SharedService, private route: ActivatedRoute,
-    private testReportService: TestReportService, private modalService: NgbModal, private router: Router) {
+    private testReportService: TestReportService, private modalService: NgbModal, private router: Router, private cookieService: CookieService) {
 
   }
 
@@ -76,6 +77,9 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     clearInterval(this.clockInterval);
     this.sharedService.doTest = new TempTest();
+    this.sharedService.isDoTest.next(false);
+    localStorage.removeItem(this.route.snapshot.params['doTestId']);
+    this.cookieService.delete(this.route.snapshot.params['doTestId']);
   }
 
   getTempTest() {
@@ -200,15 +204,22 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
       },
     });
     await lastValueFrom(testReport$).then(res => {
-      localStorage.removeItem(this.route.snapshot.params['doTestId']);
+
       Swal.close();
       clearInterval(this.clockInterval);
       Swal.fire({
         icon: 'success',
-        title: 'Tính kết quả thành công!',
-        confirmButtonColor: '#3085d6',
+        title: 'Tính kết quả thành công! Đang chuyển hướng',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
       });
-      this.router.navigate(["test-report", res.id]);
+      this.router.navigate(["test-report", res.id]).then(
+        () => {
+          Swal.close();
+        },
+      );
       return res;
     }).catch(reason => {
       Swal.close();
