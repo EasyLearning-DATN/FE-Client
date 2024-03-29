@@ -13,6 +13,10 @@ import {Subscription} from "rxjs";
 })
 
 export class ItemsComponent implements OnInit, OnDestroy {
+  currentPage = 0;
+  lessonsPerPage = 10;
+  totalPages = 0;
+  totalPageArray: number[] = [];
   originalLessons: LessonResponses[] = [];
   lessons: LessonResponses[] = [];
   isFetching = false;
@@ -79,7 +83,7 @@ export class ItemsComponent implements OnInit, OnDestroy {
     this.isFetching = true;
     console.log(userId);
     this.lessonService.getListLessonByUser(userId).subscribe(
-      (lessons: LessonsResponses) => {
+      (lessons: any) => {
         this.isFetching = false;
         this.lessons = lessons.data;
         console.log(this.lessons);
@@ -88,6 +92,18 @@ export class ItemsComponent implements OnInit, OnDestroy {
         this.error = error.message;
       },
     );
+  }
+
+  calculateTotalPageArray(): void {
+    this.totalPageArray = [];
+    for (let i = 0; i <= this.totalPages;i++) {
+      this.totalPageArray.push(i);
+    }
+  }
+
+  onPageChange(pageNumber: number) {
+    this.currentPage = pageNumber;
+    this.fetchAllLessons();
   }
 
   private fetchFollowingLessons() {
@@ -100,11 +116,14 @@ export class ItemsComponent implements OnInit, OnDestroy {
 
   fetchAllLessons() {
     this.isFetching = true;
-    this.lessonService.getAllLessons().subscribe(
-      (lessons: LessonsResponses) => {
+    this.lessonService.getAllLessons(this.currentPage).subscribe(
+      (lessons: any) => {
         this.isFetching = false;
-        this.originalLessons = lessons.data; // Lưu danh sách gốc
-        this.lessons = this.originalLessons; // Gán danh sách gốc cho danh sách hiển thị ban đầu
+        this.totalPages = lessons.totalPage; // Tổng số trang
+        console.log(this.totalPages);
+        this.calculateTotalPageArray();
+        this.originalLessons = lessons.data; 
+        this.lessons = this.originalLessons; 
       },
       error => {
         this.isFetching = false;
