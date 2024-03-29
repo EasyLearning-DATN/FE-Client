@@ -11,14 +11,10 @@ export const doTestResolver: ResolveFn<TempTest> = (route, state) => {
 
   const res = cookieService.get(route.params['doTestId']);
   const data = localStorage.getItem(route.params['doTestId']);
+  sharedService.isDoTest.next(true);
   if (!res) {
     return router.navigate(['/404']).then();
-  }
-    // else if (res === 'creating') {
-    //   console.log('hello creating');
-    //   return testService.getDoTest(route.params['id'], route.params['doTestId']);
-  // }
-  else if (data) {
+  } else if (data) {
     sharedService.doTest = JSON.parse(data);
     return sharedService.doTest;
   } else {

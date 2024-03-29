@@ -111,7 +111,11 @@ export class TestDetailComponent implements OnInit {
       localStorage.setItem(tempTestId, JSON.stringify(tempTest));
       this.cookieService.set(tempTestId, "doing", endTime);
     }
-    this.router.navigate(['do-test', tempTestId], {relativeTo: this.route});
+    this.router.navigate(['do-test', tempTestId], {relativeTo: this.route}).then(
+      () => {
+        this.sharedService.isDoTest.next(true);
+      },
+    );
   }
 
   private getDismissReason(reason: any): string {
