@@ -64,8 +64,8 @@ export class UserService {
   // hàm confirm password có sử dụng bearer token và body là newPassword
   // lấy ?token trên url và gán vào biến token http://localhost:4200/confirm-password?token=eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJmY2VjYTU5Yi00N2Q0LTQyZTAtOGQ3NS00OTJlYTMzOTY0YzMiLCJzdWIiOiJhbmhkdDA3IiwiaWF0IjoxNzA5NDcyNzY3LCJleHAiOjE3MTEyNzI3Njd9.ti5LCGHG4239VNa_JmxlXVynnnbnSsbq0fQVxFVVFRQ
   updatePassword(password: string, token: string): Observable<any> {
-    return this.http.patch(this.apiUpdatePassword, {
-      password,
+    return this.http.patch(this.apiUpdatePassword, { password_update: password}, {
+      headers: { 'Authorization': `Bearer ${token}` }
     });
   }
 
