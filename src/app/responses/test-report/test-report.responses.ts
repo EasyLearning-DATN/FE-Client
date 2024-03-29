@@ -1,6 +1,5 @@
 import {BaseReponses} from "../base.reponses";
 import {ImageResponses} from "../image/image.responses";
-import {UserResponse} from "../user/user.responses";
 
 export interface TestReportListResponse {
   data: TestReportResponse[];
@@ -10,7 +9,12 @@ export interface TestReportListResponse {
 export interface TestReportResponse extends BaseReponses {
   test: TestOfTestReportResponse;
   question_report: QuestionReportResponse[];
-  user_info: UserResponse;
+  user_info: {
+    id: number, fullName: string, avatar: {
+      url: string;
+      publicId: string
+    }
+  };
   doingDate: Date;
   total_point: number;
 }

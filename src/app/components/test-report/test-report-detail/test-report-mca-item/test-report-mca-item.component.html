@@ -1,0 +1,41 @@
+<div [id]="questionNumber" class="fs-1 result-item-container ms-4 me-4 mb-2 p-1">
+  <div class="mb-2 ms-4 pt-2">
+    <span>Câu {{ questionNumber + 1 }}</span>
+  </div>
+  <div class="mb-2 ms-4">
+    <span>{{ resultItem.title }}</span>
+  </div>
+  <div *ngIf="message" class="mb-2 ms-4 text-danger">
+    <span>{{ message }}</span>
+  </div>
+  <div class="m-4">
+    <div class="form-check mb-2">
+      <input [checked]="isChecked[0]" class="form-check-input" disabled
+             id="flexRadioDefault1_{{questionNumber+1}}" name="flexRadioDefault{{questionNumber+1}}" type="checkbox">
+      <label #label1 class="form-check-label" for="flexRadioDefault1_{{questionNumber+1}}">
+        {{ resultItem.answers[0].value }}
+      </label>
+    </div>
+    <div class="form-check mb-2">
+      <input [checked]="isChecked[1]" class="form-check-input" disabled
+             id="flexRadioDefault2_{{questionNumber+1}}" name="flexRadioDefault{{questionNumber+1}}" type="checkbox">
+      <label #label2 class="form-check-label" for="flexRadioDefault2_{{questionNumber+1}}">
+        {{ resultItem.answers[1].value }}
+      </label>
+    </div>
+    <div class="form-check mb-2">
+      <input [checked]="isChecked[2]" class="form-check-input" disabled
+             id="flexRadioDefault3_{{questionNumber+1}}" name="flexRadioDefault{{questionNumber+1}}" type="checkbox">
+      <label #label3 class="form-check-label" for="flexRadioDefault3_{{questionNumber+1}}">
+        {{ resultItem.answers[2].value }}
+      </label>
+    </div>
+    <div class="form-check pb-2">
+      <input [checked]="isChecked[3]" class="form-check-input" disabled
+             id="flexRadioDefault4_{{questionNumber+1}}" name="flexRadioDefault{{questionNumber+1}}" type="checkbox">
+      <label #label4 class="form-check-label" for="flexRadioDefault4_{{questionNumber+1}}">
+        {{ resultItem.answers[3].value }}
+      </label>
+    </div>
+  </div>
+</div>

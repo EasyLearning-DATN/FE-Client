@@ -1,0 +1,43 @@
+.boundary {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #007bff;
+  border-radius: 10px;
+  /*background-color: #dae8ff;*/
+  box-shadow: #5ec1ff 2px 2px 5px;
+}
+
+.user-data-container {
+  padding: 12px 16px;
+}
+
+.date-container {
+  /*padding: 12px 16px;*/
+  height: 72px;
+}
+
+.avatar-container {
+  display: flex;
+  width: 72px;
+  height: 72px;
+  vertical-align: top;
+
+}
+
+.name-container {
+  height: 72px;
+}
+
+.score-container {
+  height: 72px;
+}
+
+.answer-container {
+  height: 72px;
+}
+
+.avatar-des {
+  border-radius: 50% !important;
+}

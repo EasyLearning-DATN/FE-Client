@@ -1,0 +1,27 @@
+<div class="container boundary">
+  <div class="container text-center fs-4 fw-semi-bold text-uppercase mt-3">kết quả</div>
+  <div class="container user-data-container d-flex align-items-start">
+    <div class="avatar-container ms-4">
+      <img [ngSrc]="testReport.user_info.avatar.url" alt="user avatar" class="avatar-des" height="75" width="75">
+    </div>
+    <div class="ms-4 name-container d-flex align-items-center fs-2 fw-medium">
+      <span>{{ testReport.user_info.fullName }}</span>
+    </div>
+  </div>
+  <div class="container date-container d-flex align-items-center fs-2 fw-medium ">
+    <span class="ms-4">Ngày hoàn thành: <span>{{ testReport.doingDate | date : "dd/MM/yyyy" }}</span></span>
+  </div>
+  <div class="container score-container d-flex align-items-center fs-2 fw-medium ">
+    <span class="ms-4">Điểm: <span>{{ testReport.total_point }}</span></span>
+  </div>
+  <div class="container answer-container d-flex align-items-center fs-2 fw-medium ">
+    <span class="ms-4">Xem lại câu trả lời: </span>
+  </div>
+  <div class="container">
+    <div *ngFor="let item of testReport.question_report; let i = index">
+      <app-test-report-sca-item *ngIf="item.question_type_code === 'sca'" [questionNumber]="i" [resultItem]="item"></app-test-report-sca-item>
+      <app-test-report-mca-item *ngIf="item.question_type_code === 'mca'" [questionNumber]="i" [resultItem]="item"></app-test-report-mca-item>
+      <app-test-report-fitb-item *ngIf="item.question_type_code === 'fitb'" [questionNumber]="i" [resultItem]="item"></app-test-report-fitb-item>
+    </div>
+  </div>
+</div>
