@@ -1,13 +1,16 @@
-import {Injectable} from '@angular/core';
-import {environment} from "../../../environments/environments";
-import {HttpClient, HttpParams} from "@angular/common/http";
-import {map, tap} from "rxjs";
-import {SharedService} from "../shared/shared.service";
-import {LessonsResponses} from "../../responses/lessons/lessons.responses";
-import {LessonDTO} from 'src/app/DTOS/lesson/lesson.dto';
-import {LessonResponses} from "src/app/responses/lesson/lesson.responses";
-import {Router} from "@angular/router";
-import {SearchLessonListResponse, SearchLessonResponses} from "../../responses/search-lesson/search-lesson.responses";
+import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environments';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { map, tap } from 'rxjs';
+import { SharedService } from '../shared/shared.service';
+import { LessonsResponses } from '../../responses/lessons/lessons.responses';
+import { LessonDTO } from 'src/app/DTOS/lesson/lesson.dto';
+import { LessonResponses } from 'src/app/responses/lesson/lesson.responses';
+import { Router } from '@angular/router';
+import {
+  SearchLessonListResponse,
+  SearchLessonResponses,
+} from '../../responses/search-lesson/search-lesson.responses';
 
 @Injectable({
   providedIn: 'root',
@@ -118,7 +121,6 @@ export class LessonService {
         console.log(response);
       }));
   }
-
 
   getOneLesson(id: string) {
     return this.http.get<any>(this.apiGetOneLesson + '/' + id).pipe(

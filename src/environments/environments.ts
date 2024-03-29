@@ -1,11 +1,11 @@
+// const BASE_API = 'https://be-cdj2.onrender.com'
+const BASE_API = 'http://localhost:1001';
+
 export const environment = {
   production: false,
-  // apiExternal: 'http://localhost:1001/easy-learning/public/v1',
-  // apiMember: 'http://localhost:1001/easy-learning/member/v1',
-  // API_URL: 'http://localhost:1001/easy-learning',
-  apiExternal: 'http://localhost:1002/easy-learning/public/v1',
-  apiMember: 'http://localhost:1002/easy-learning/member/v1',
-  API_URL: 'http://localhost:1002/easy-learning',
+  apiExternal: BASE_API + '/easy-learning/public/v1',
+  apiMember: BASE_API + '/easy-learning/member/v1',
+  API_URL: BASE_API + '/easy-learning',
   USER_URL: '/user',
   ADMIN_URL: '/admin',
   API_ADMIN: "/admin",
@@ -44,4 +44,7 @@ export const environment = {
   LANGUAGE: "vi",
   SHOW_RESULT: "cur",
   NOT_SHOW_RESULT: "aff",
+  API_COMMENT: '/comment',
+  API_REACTION: '/reaction',
+
 };

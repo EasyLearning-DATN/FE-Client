@@ -13,6 +13,7 @@ export class LessonDetailComponent implements OnInit {
 
   lesson!: LessonResponses;
   isCreator: boolean = false;
+  totalCMT: number = 0;
 
 
   constructor(private route: ActivatedRoute, private sharedService: SharedService, private lessonService: LessonService) {
@@ -40,11 +41,14 @@ export class LessonDetailComponent implements OnInit {
         this.isCreator = false;
       }
     }
-
   }
 
   onCopyURL() {
     // Copy đường dãn vào clipboard
     navigator.clipboard.writeText(window.location.href);
+  }
+
+  updateTotalCMT() {
+    this.totalCMT += 1;
   }
 }

@@ -44,3 +44,10 @@
     <button class="btn btn-app me-4"><i i-bs name="three-dots-vertical"></i></button>
   </div>
 </div>
+
+<!-- Comment-->
+<app-comment
+  [lessonId]="lesson.id"
+  [totalCMT]="totalCMT"
+  (updateTotalCMT)="updateTotalCMT()"
+></app-comment>
