@@ -188,3 +188,10 @@
   color-stop(0.72, #1565FF),
   color-stop(0.86, #0055f6));
 }
+
+.add-all-question-animation {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: #1565FF !important;
+}
