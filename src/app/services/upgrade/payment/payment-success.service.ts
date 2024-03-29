@@ -1,11 +1,10 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environments';
-import { SharedService } from '../../shared/shared.service';
-import { invoiceDTO } from 'src/app/DTOS/invoice/invoice.dto';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from 'src/environments/environments';
+import {invoiceDTO} from 'src/app/DTOS/invoice/invoice.dto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 
@@ -15,8 +14,8 @@ export class PaymentSuccessService {
 
   constructor(
     private http: HttpClient,
-    private sharedService: SharedService,
-  ) { }
+  ) {
+  }
 
   // create invoice
   //   "order_id": "AAAAAAAAAA",
@@ -26,23 +25,11 @@ export class PaymentSuccessService {
   //   "user_info_id": 1,
   //   "package_upgrade_id": "24be4f8d-077a-4d30-b834-364db6596533"
   createInvoice(invoice: invoiceDTO) {
-    const token = this.sharedService.getToken();
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    return this.http.post(this.apiPaymentSuccess , invoice, {
-      headers: headers,
-    });
+    return this.http.post(this.apiPaymentSuccess, invoice);
   }
 
   // check status
   checkStatus(orderId: string, requestId: string) {
-    const token = this.sharedService.getToken();
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    return this.http.post(this.apiCheckStatus + `?requestId=${requestId}&orderId=${orderId}`, null, {
-      headers: headers,
-    });
+    return this.http.post(this.apiCheckStatus + `?requestId=${requestId}&orderId=${orderId}`, null);
   }
 }

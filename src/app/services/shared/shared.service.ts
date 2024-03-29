@@ -1,3 +1,6 @@
+import {TestReportResponse} from "../../responses/test-report/test-report.responses";
+import {TestReportDTO, TestReportItemDTO} from "../../DTOS/test-report/test-report.dto";
+import {TempTest} from "../../DTOS/test/test.dto";
 import { Injectable } from '@angular/core';
 import { LessonResponses } from '../../responses/lesson/lesson.responses';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -16,13 +19,44 @@ export class SharedService {
   lessonChanged = new Subject<LessonResponses>();
   testChanged = new Subject<TestResponses>();
   questionsOfTestChanged = new Subject<QuestionResponses[]>();
+  tempTestChanged = new Subject<TempTest>();
   isFetching: Subject<boolean> = new Subject<boolean>();
   userInfoChanged = new Subject<UserResponse>();
   commentReplyChanged = new BehaviorSubject<any[]>([]);
+  nextQuestion: Subject<any> = new Subject<any>();
 
-  constructor() {}
+  constructor() {
+  }
 
-  private _test!: TestResponses;
+  private _testReport!: TestReportResponse;
+
+  get testReport(): TestReportResponse {
+    return this._testReport;
+  }
+
+  set testReport(value: TestReportResponse) {
+    this._testReport = value;
+  }
+
+  private _doTest!: TempTest;
+  get doTest(): TempTest {
+    return this._doTest;
+  }
+
+  set doTest(value: TempTest) {
+    this._doTest = value;
+    this.tempTestChanged.next(this._doTest);
+  }
+
+  get tempTestReport() {
+    return (<TestReportDTO>this.doTest.test_report);
+  }
+
+  get testOfDoTest() {
+    return (<TestResponses>this.doTest.test);
+  }
+
+  private _test !: TestResponses;
 
   get test(): TestResponses {
     return this._test;
@@ -181,10 +215,13 @@ export class SharedService {
     if (this._questionsOfCreatingTest === undefined) {
       this.questionsOfCreatingTest = questions;
     } else {
-      let fillterQuestions = questions.filter((response) => {
-        !this._questionsOfCreatingTest.includes(response);
-      });
-      this._questionsOfCreatingTest.push(...fillterQuestions);
+      // let filterQuestions = questions.filter(
+      //   response => {
+      //     this._questionsOfCreatingTest.includes(response);
+      //   },
+      // );
+      // this._questionsOfCreatingTest.push(...filterQuestions);
+      this._questionsOfCreatingTest.push(...questions);
       this.questionsOfTestChanged.next(this.questionsOfCreatingTest);
     }
   }
@@ -198,4 +235,26 @@ export class SharedService {
   onUpdateLessonsSearch(newLessons: SearchLessonResponses[]) {
     this.lessonsSearch.push(...newLessons);
   }
+
+  saveQuestions(tempTestId: string, item?: TestReportItemDTO, indexCurrentQuestion?: number, score?: number) {
+    if (this.tempTestReport.report_items && item !== undefined) {
+      const reportItemIndex = this.tempTestReport.report_items.findIndex(i => i.question_id === item.question_id);
+      if (reportItemIndex !== -1) {
+        this.tempTestReport.report_items[reportItemIndex] = item;
+      } else {
+        this.tempTestReport.report_items.push(item);
+      }
+    }
+    if (indexCurrentQuestion !== undefined) {
+      this._doTest.indexCurrentQuestion = indexCurrentQuestion;
+    }
+    if (score !== undefined) {
+      this.tempTestReport.total_point += score;
+    }
+    localStorage.setItem(tempTestId, JSON.stringify(this._doTest));
+    // this.cookieService
+    this.tempTestChanged.next(this._doTest);
+  }
+
+
 }

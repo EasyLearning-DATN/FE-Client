@@ -23,8 +23,15 @@ import {TestDetailComponent} from "./components/test/test-detail/test-detail.com
 import {TestEditComponent} from "./components/test/test-detail/test-edit/test-edit.component";
 import {ListTestComponent} from "./components/test/list-test/list-test.component";
 import {testResolver} from "./resolver/test.resolver";
-import { PaymentSuccessComponent } from './components/upgrade/success/success.component';
-import { InvoiceComponent } from './components/upgrade/invoice/invoice.component';
+import {PaymentSuccessComponent} from './components/upgrade/success/success.component';
+import {authCanActivateGuard} from "./guards/auth.can-activate.guard";
+import {authCanActivateChildGuard} from "./guards/auth.can-activate-child.guard";
+import {DoTestComponent} from "./components/test/do-test/do-test.component";
+import {doTestResolver} from "./resolver/do-test.resolver";
+import {InvoiceComponent} from './components/upgrade/invoice/invoice.component';
+import {TestReportComponent} from "./components/test-report/test-report.component";
+import {ListTestReportComponent} from "./components/test-report/list-test-report/list-test-report.component";
+import {testReportResolver} from "./resolver/test-report.resolver";
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -47,13 +54,33 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'test', component: TestComponent, children: [
+    path: 'test', component: TestComponent, canActivateChild: [authCanActivateChildGuard], children: [
       {path: ':id', component: TestDetailComponent, resolve: [testResolver]},
-      {path: ':id/edit', component: TestEditComponent, resolve: [testResolver, questionTypeResolver, resultTypeResolver]},
+      {
+        path: ':id/edit',
+        component: TestEditComponent,
+        resolve: [testResolver, questionTypeResolver, resultTypeResolver],
+      },
+      {
+        path: ':id/do-test/:doTestId',
+        component: DoTestComponent,
+        resolve: [doTestResolver, questionTypeResolver, resultTypeResolver],
+      },
     ],
   },
-  {path: 'create-lesson', component: CreateLessonComponent},
-  {path: 'create-test', component: CreateTestComponent, resolve: [resultTypeResolver, questionTypeResolver, resultTypeResolver]},
+  {
+    path: 'test-report/:id', component: TestReportComponent, resolve: [testReportResolver], canActivate: [authCanActivateGuard],
+  },
+  {
+    path: 'my-test-report', component: ListTestReportComponent, canActivate: [authCanActivateGuard],
+  },
+  {path: 'create-lesson', component: CreateLessonComponent, canActivate: [authCanActivateGuard]},
+  {
+    path: 'create-test',
+    component: CreateTestComponent,
+    canActivate: [authCanActivateGuard],
+    resolve: [resultTypeResolver, questionTypeResolver, resultTypeResolver],
+  },
   {
     path: 'list-lesson', component: ListLessonComponent, children: [
       {path: '', component: ItemsComponent},
@@ -64,9 +91,9 @@ const routes: Routes = [
   },
   {path: 'settings', component: SettingsComponent},
   {path: 'list-test', component: ListTestComponent},
-  // {path: 'demo/add-test', component: CreateLessonTestComponent, resolve: [resultTypeResolver]},
-  {path: 'upgrade', component: UpgradeComponent},
-  {path: 'payment-success', component: PaymentSuccessComponent},
+  {path: 'demo/do-test', component: DoTestComponent, resolve: []},
+  {path: 'upgrade', component: UpgradeComponent, canActivate: [authCanActivateGuard]},
+  {path: 'payment-success', component: PaymentSuccessComponent, canActivate: [authCanActivateGuard]},
   {path: 'invoice', component: InvoiceComponent},
   {path: '404', component: PageNotFoundComponent},
   {path: '**', redirectTo: '/404'},

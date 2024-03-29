@@ -7,7 +7,7 @@
       <fa-icon [icon]="['fas','pen-to-square']"></fa-icon>
     </a>
     <div class="ms-3">
-      <button class="btn btn-app">
+      <button (click)="openConfirmDialog()" class="btn btn-app">
         <fa-icon [icon]="['far','file-lines']"></fa-icon>
         Làm bài thi này
       </button>
@@ -18,10 +18,10 @@
       <span><fa-icon [icon]="['fas','pen']" class="me-2"></fa-icon>Miêu tả bài kiểm tra: {{ test.description }}</span>
       <span><fa-icon [icon]="['fas','question']" class="me-2"></fa-icon> Tổng số câu hỏi: {{ test.total_question }}</span>
       <span><fa-icon [icon]="['fas','hourglass']" class="me-2"></fa-icon> Thời gian làm bài: {{
-          test.time_total === null ? 'Không giới hạn' : test.time_total
+          test.time_total === null ? 'Không giới hạn' : test.time_total / 60 + ' Phút'
         }}</span>
       <span><fa-icon [icon]="['fas','stopwatch']" class="me-2"></fa-icon> Thời gian giữa mỗi câu hỏi: {{
-          test.time_question === null ? 'Không giới hạn' : test.time_question
+          test.time_question === null ? 'Không giới hạn' : test.time_question + ' Giây'
         }}</span>
     </div>
     <div class="picture mb-3 col-auto d-flex justify-content-end col-lg-4">

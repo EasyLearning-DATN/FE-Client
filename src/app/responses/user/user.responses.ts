@@ -20,4 +20,5 @@ export interface UserResponse {
   locked?: boolean;
   id?: string;
   role: string;
+  userInfoId?: number;
 }

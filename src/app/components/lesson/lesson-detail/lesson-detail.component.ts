@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { LessonResponses } from '../../../responses/lesson/lesson.responses';
-import { SharedService } from '../../../services/shared/shared.service';
-import { LessonService } from '../../../services/lesson/lesson.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {LessonResponses} from "../../../responses/lesson/lesson.responses";
+import {SharedService} from "../../../services/shared/shared.service";
+import {LessonService} from "../../../services/lesson/lesson.service";
 
 @Component({
   selector: 'app-lesson-detail',
@@ -10,23 +10,23 @@ import { LessonService } from '../../../services/lesson/lesson.service';
   styleUrls: ['./lesson-detail.component.css'],
 })
 export class LessonDetailComponent implements OnInit {
+
   lesson!: LessonResponses;
   isCreator: boolean = false;
   totalCMT: number = 0;
 
-  constructor(
-    private route: ActivatedRoute,
-    private sharedService: SharedService,
-    private lessonService: LessonService
-  ) {}
+
+  constructor(private route: ActivatedRoute, private sharedService: SharedService, private lessonService: LessonService) {
+  }
 
   ngOnInit() {
     // lấy lesson từ shared service
     this.lesson = this.sharedService.lesson;
-    this.sharedService.lessonChanged.subscribe((lesson) => {
-      this.lesson = lesson;
-    });
-    this.totalCMT = this.lesson.totalComment;
+    this.sharedService.lessonChanged.subscribe(
+      (lesson) => {
+        this.lesson = lesson;
+      },
+    );
 
     // truyển userInfo từ localStorage và lấy id
     const userInfoString = localStorage.getItem('userInfo') || '';
@@ -35,17 +35,11 @@ export class LessonDetailComponent implements OnInit {
     } else {
       const userInfo = JSON.parse(localStorage.getItem('userInfo') || '');
       const userId = userInfo ? userInfo.id : '';
-
-      // Kiểm tra xem user có phải người tạo bài học hay không
-      this.lessonService.checkLessonOfUser(userId, this.lesson.id).subscribe(
-        (response) => {
-          // console.log(response.data.length);
-          this.isCreator = response.data.length !== 0;
-        },
-        (error) => {
-          this.isCreator = false;
-        }
-      );
+      if (userId === this.lesson.created_by) {
+        this.isCreator = true;
+      } else {
+        this.isCreator = false;
+      }
     }
   }
 

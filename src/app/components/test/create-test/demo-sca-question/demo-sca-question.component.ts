@@ -1,5 +1,4 @@
-import {Component, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {NgxBootstrapIconsLibComponent} from "ngx-bootstrap-icons";
+import {Component, Input, OnInit, Renderer2} from '@angular/core';
 import {QuestionResponses} from "../../../../responses/question/question.responses";
 import {SharedService} from "../../../../services/shared/shared.service";
 
@@ -10,7 +9,6 @@ import {SharedService} from "../../../../services/shared/shared.service";
 })
 export class DemoScaQuestionComponent implements OnInit {
 
-  @ViewChild('deleteIcon', {static: true}) deleteIcon!: NgxBootstrapIconsLibComponent;
   isHover: boolean = false;
   checkHoverDeleteButton: Record<string, boolean> = {};
   @Input() question!: QuestionResponses;

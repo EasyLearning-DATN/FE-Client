@@ -1,0 +1,29 @@
+<div class="question-container mb-4">
+  <div class="ps-3 pe-3 d-flex flex-column justify-content-between question-detail-container">
+    <div class="index d-flex justify-content-end mt-2">
+      <span>{{ index + 1 }}/{{ total }}</span>
+    </div>
+    <div class="index d-flex justify-content-end mt-2">
+      <span>Trọng số: {{ question.weighted }}</span>
+    </div>
+    <div class="question-name">
+      <span>{{ question.title }}</span>
+    </div>
+    <div>
+      <div class="question-answer-title fw-semi-bold mb-3">
+        <span>Viết đáp án</span>
+      </div>
+      <div class="row ">
+        <div class="col-12 col-sm-8">
+          <input #input [(ngModel)]="answer" [class.disabled]="isDisabled" [readonly]="isDisabled" class="form-control">
+        </div>
+
+        <button (click)="submitAnswer()" [class.disabled]="isDisabled" class="btn btn-app col-sm-3 col-12">Nộp câu trả lời</button>
+      </div>
+      <!--       <div *ngIf="showRealAnswer"> -->
+      <!--         <span>Đáp án đúng: <span *ngFor="let answer of question.answers">{{ answer.value }} |</span></span> -->
+      <!--       </div> -->
+    </div>
+  </div>
+</div>
+

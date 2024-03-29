@@ -15,6 +15,7 @@ export class ListTestComponent implements OnInit {
   error = null;
   routeSub = new Subscription();
   searchKey: string = '';
+  currentPageIndex: number = 0;
 
   constructor(
     private testService: TestService,
@@ -29,7 +30,7 @@ export class ListTestComponent implements OnInit {
   // get all test
   fetchListTest() {
     this.isFetching = true;
-    this.testService.getAllTest().subscribe(
+    this.testService.getAllTest(this.currentPageIndex).subscribe(
       (tests: TestListResponses) => {
         this.isFetching = false;
         this.originalTests = tests.data; // Lưu danh sách gốc
