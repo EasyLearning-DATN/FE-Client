@@ -7,6 +7,7 @@ import { SignupDTO } from 'src/app/DTOS/user/signup.dto';
 import { UserResponse } from 'src/app/responses/user/user.responses';
 import { environment } from 'src/environments/environments';
 import { ChangePassDTO } from 'src/app/DTOS/user/changePass.dto';
+import {ContinueGoogoleDto} from "../../DTOS/user/continueGoogole.dto";
 
 @Injectable({
   providedIn: 'root',
@@ -23,11 +24,16 @@ export class UserService {
   private apiGetRole = environment.API_URL + environment.API_ADMIN + environment.VERSION_1 + environment.API_ROLE;
   private apiLockAccount = `${environment.apiMember}/user/lock`;
   private apiChangePassword = `${environment.apiMember}/user/password`;
+  private apiContinueGoogle = `${environment.apiExternal}/user/continue-google`;
 
   constructor(private http: HttpClient) { }
 
   login(loginDTO: LoginDTO): Observable<any> {
     return this.http.post(this.apiLogin, loginDTO);
+  }
+
+  continueGoogle(continueGoogoleDto: ContinueGoogoleDto): Observable<any> {
+    return this.http.post(this.apiContinueGoogle, continueGoogoleDto);
   }
 
   signUp(signupDTO: SignupDTO): Observable<any> {

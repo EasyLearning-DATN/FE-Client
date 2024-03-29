@@ -1,6 +1,6 @@
 // const BASE_API = 'https://be-cdj2.onrender.com'
 // const BASE_API = 'http://localhost:1001';
-const BASE_API = 'http://localhost:1002';
+const BASE_API = 'http://localhost:1001';
 
 export const environment = {
   production: false,
@@ -43,6 +43,7 @@ export const environment = {
   PATH_ID: "/{id}",
   ID: "id",
   LANGUAGE: "vi",
+  GOOGLE_ID: "12657364022-uhc8klb6t57fkeqvvcb0fjfoscsjf2c3.apps.googleusercontent.com",
   SHOW_RESULT: "cur",
   NOT_SHOW_RESULT: "aff",
   API_COMMENT: '/comment',

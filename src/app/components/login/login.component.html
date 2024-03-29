@@ -19,10 +19,7 @@
       <div class="tab-content mt-3" id="myTabContent">
         <div class="tab-pane fade" id="sign_up-tab-pane" role="tabpanel" tabindex="0">
           <form #signupForm="ngForm" (ngSubmit)="signup()" class="form_data">
-            <button class="google__login-btn">
-              <img class="logo" src="assets/img/commons/gg_logo.png" alt="img">
-              <span>Tiếp tục với Google</span>
-            </button>
+            <div id="google-btn-register"></div>
             <div class="orther_option">
               <span>hoặc email</span>
             </div>
@@ -93,11 +90,7 @@
         </div>
         <div class="tab-pane fade show active" id="sign_in-tab-pane" role="tabpanel" tabindex="0">
           <form #loginForm="ngForm" (ngSubmit)="login()" class="form_data">
-            <button id="btnGGLOGIN" class="google__login-btn">
-              <img class="logo" src="assets/img/commons/gg_logo.png" alt="img">
-              <span>Đăng nhập bằng Google</span>
-            </button>
-
+            <div id="google-btn-login"></div>
             <div class="orther_option">
               <span>hoặc email</span>
             </div>
