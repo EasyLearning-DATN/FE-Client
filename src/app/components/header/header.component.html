@@ -78,6 +78,12 @@
                 'header.test-list'|translate
               }}</a>
             </li>
+            <li class="link-item p-0" ngbDropdownItem ngbNavItem><a (click)="isMenuCollapsed = true" *ngIf="userResponse"
+                                                                    [routerLink]="['/my-test-report']" aria-current="page"
+                                                                    class="text-capitalize link-item px-2" ngbNavLink>{{
+                'header.my-test-report'|translate
+              }}</a>
+            </li>
           </ul>
         </li>
         <!--         <li class=" link-item p-0" ngbNavItem><a (click)="isMenuCollapsed = true" [routerLink]="['/demo/add-question']" aria-current="page" -->
@@ -97,7 +103,7 @@
                 class="user_name">{{ userResponse.username }}</span>
         </button>
         <ul ngbDropdownMenu>
-          <li><a [routerLink]="['/user-detail']" ngbDropdownItem>Hồ sơ</a></li>
+          <li><a [routerLink]="['/']" ngbDropdownItem>Hồ sơ</a></li>
           <li>
             <a [routerLink]="['/settings']" ngbDropdownItem>Cài đặt</a>
           </li>
@@ -142,24 +148,24 @@
         </div>
       </div>
 
-      <div class="d-none d-lg-block" ngbDropdown>
-        <button aria-expanded="false" class="btn btn-app ms-2" data-bs-toggle="dropdown" id="dropdownMenuButton1"
-                ngbDropdownToggle>
-          <fa-icon [icon]="['fas','search']" class=" text-800"></fa-icon>
-        </button>
-        <ul aria-labelledby="dropdownMenuButton1" class="dropdown-menu-lg-end search_main" ngbDropdownMenu
-            style="top: 60px; width: 60vw;">
-          <input (keyup.enter)="onGoToSearchPage()" [(ngModel)]="keyword" aria-label="Search" class="form-control"
-                 placeholder="{{'header.search'|translate}}" type="search"/>
-        </ul>
-      </div>
-      <form class=" d-flex d-lg-none ms-2">
-        <input aria-label="Search" class="form-control me-2" placeholder="{{'header.search'|translate}}"
-               type="search"/>
-        <button [routerLink]="['/search']" class="btn btn-app">
-          <fa-icon [icon]="['fas','search']" class="text-800"></fa-icon>
-        </button>
-      </form>
+      <!--       <div class="d-none d-lg-block" ngbDropdown> -->
+      <!--         <button aria-expanded="false" class="btn btn-app ms-2" data-bs-toggle="dropdown" id="dropdownMenuButton1" -->
+      <!--                 ngbDropdownToggle> -->
+      <!--           <fa-icon [icon]="['fas','search']" class=" text-800"></fa-icon> -->
+      <!--         </button> -->
+      <!--         <ul aria-labelledby="dropdownMenuButton1" class="dropdown-menu-lg-end search_main" ngbDropdownMenu -->
+      <!--             style="top: 60px; width: 60vw;"> -->
+      <!--           <input (keyup.enter)="onGoToSearchPage()" [(ngModel)]="keyword" aria-label="Search" class="form-control" -->
+      <!--                  placeholder="{{'header.search'|translate}}" type="search"/> -->
+      <!--         </ul> -->
+      <!--       </div> -->
+      <!--       <form class=" d-flex d-lg-none ms-2"> -->
+      <!--         <input aria-label="Search" class="form-control me-2" placeholder="{{'header.search'|translate}}" -->
+      <!--                type="search"/> -->
+      <!--         <button [routerLink]="['/search']" class="btn btn-app"> -->
+      <!--           <fa-icon [icon]="['fas','search']" class="text-800"></fa-icon> -->
+      <!--         </button> -->
+      <!--       </form> -->
 
     </div>
   </div>

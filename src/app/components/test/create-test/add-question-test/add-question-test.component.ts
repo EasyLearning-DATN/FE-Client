@@ -6,14 +6,64 @@ import {LessonResponses} from "../../../../responses/lesson/lesson.responses";
 import {LessonService} from "../../../../services/lesson/lesson.service";
 import {lastValueFrom, Observable, Subscription} from "rxjs";
 import {FormControl, FormGroup} from "@angular/forms";
+import {animate, keyframes, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-add-question-test',
   templateUrl: './add-question-test.component.html',
   styleUrls: ['./add-question-test.component.css'],
+  animations: [trigger('addAllQuestions', [
+    transition(':enter', [
+      animate('3s ease-in-out', keyframes([
+        style({
+          opacity: 0,
+          'transform': 'translateX(0) translateY(0)',
+          'background-color': '#1565FF !important',
+          offset: 0,
+        }),
+        style({
+          opacity: 1,
+          'transform': 'translateX(0) translateY(0)',
+          'background-color': '#1565FF !important',
+          offset: 0.1,
+        }),
+        style({
+          opacity: 1,
+          'transform': 'translateX(-50vw) translateY(40vh)',
+          'background-color': '#1565FF !important',
+          offset: 0.7,
+        }),
+        style({
+          opacity: 0,
+          'transform': 'translateX(-50vw) translateY(40vh)',
+          'background-color': '#1565FF !important',
+          width: '8rem',
+          height: '8rem',
+          offset: 0.9,
+        }),
+        style({
+          opacity: 0,
+          'transform': 'translateX(0) translateY(0)',
+          'background-color': '#1565FF !important',
+          offset: 1,
+        }),
+      ])),
+    ]),
+    // transition(':leave', [
+    //   group([
+    //     animate('0.5s ease-in-out', style({
+    //       color: 'red',
+    //     })),
+    //     animate('1s ease-in-out', style({
+    //       opacity: '0',
+    //       'transform': 'translateX(100%)',
+    //     })),
+    //   ]),
+    // ]),
+  ])],
 })
 export class AddQuestionTestComponent implements OnInit, OnDestroy {
-
+  isAddingQuestions = false;
   searchKey: string = '';
   lessons!: SearchLessonResponses[];
   lesson!: LessonResponses;
@@ -70,7 +120,11 @@ export class AddQuestionTestComponent implements OnInit, OnDestroy {
   onAddAllQuestions() {
     const questions = [...this.lesson.questions];
     this.sharedService.onAddQuestionsOfTest(questions);
-    console.log(this.lesson);
+    this.isAddingQuestions = true;
+    setTimeout(() => {
+      this.isAddingQuestions = false;
+    }, 3000);
+
   }
 
   private initForm() {

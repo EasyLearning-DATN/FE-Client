@@ -56,8 +56,7 @@
             </select>
           </div>
           <div *ngIf="!createTestForm.get('time_total')?.valid && createTestForm.get('time_total')?.touched">
-            <small *ngIf="createTestForm.get('time_total')?.errors?.['required']" style="color: red;">Vui lòng chọn thời gian giữa mỗi câu
-                                                                                                      hỏi</small>
+            <small *ngIf="createTestForm.get('time_total')?.errors?.['required']" style="color: red;">Vui lòng chọn thời gian của bài kiểm tra</small>
           </div>
           <div class="form-check">
             <input (click)="resetSelection('eachQuestion')" class="form-check-input"
@@ -76,10 +75,10 @@
             <select aria-label="Default select example" class="form-select" formControlName="time_question" id="timeQuestion">
               <option disabled>Chọn</option>
               <option value="0">Không giới hạn thời gian</option>
-              <option value="15">15s</option>
-              <option value="30">30s</option>
-              <option value="45">45s</option>
-              <option value="60">60s</option>
+              <!--               <option value="15">15s</option> -->
+              <!--               <option value="30">30s</option> -->
+              <!--               <option value="45">45s</option> -->
+              <!--               <option value="60">60s</option> -->
             </select>
           </div>
           <div *ngIf="!createTestForm.get('time_question')?.valid && createTestForm.get('time_question')?.touched">

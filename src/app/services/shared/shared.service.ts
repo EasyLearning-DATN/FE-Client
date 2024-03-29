@@ -216,13 +216,17 @@ export class SharedService {
     if (this._questionsOfCreatingTest === undefined) {
       this.questionsOfCreatingTest = questions;
     } else {
-      // let filterQuestions = questions.filter(
-      //   response => {
-      //     this._questionsOfCreatingTest.includes(response);
-      //   },
-      // );
-      // this._questionsOfCreatingTest.push(...filterQuestions);
-      this._questionsOfCreatingTest.push(...questions);
+      let filterQuestions = questions.filter(
+        response => {
+          if (!this._questionsOfCreatingTest.includes(response)) {
+            return response;
+          } else {
+            return false;
+          }
+        },
+      );
+      this._questionsOfCreatingTest.push(...filterQuestions);
+      // this._questionsOfCreatingTest.push(...questions);
       this.questionsOfTestChanged.next(this.questionsOfCreatingTest);
     }
   }

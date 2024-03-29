@@ -96,12 +96,13 @@
               </div>
             </div>
           </div>
-          <button (click)="onAddAllQuestions()" class="btn btn-app-reverse btn-add-all-section">
+          <button (click)="onAddAllQuestions()" [disabled]="isAddingQuestions" class="btn btn-app-reverse btn-add-all-section position-relative">
             <i-bs class="me-2 d-flex align-items-center"
                   height="1rem"
                   name="plus-circle" width="1rem">
             </i-bs>
             <span class="">Thêm {{ lesson.questions.length }} câu hỏi</span>
+            <div *ngIf="isAddingQuestions" [@addAllQuestions] class="position-absolute add-all-question-animation"></div>
           </button>
         </div>
         <div *ngIf="lesson && !isFetchingQuestions" class="teleport-questions-list-container add-all-option">
