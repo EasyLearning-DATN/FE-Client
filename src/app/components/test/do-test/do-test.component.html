@@ -5,42 +5,18 @@
   <span>{{ totalSeconds }}</span>
 </div>
 <div *ngIf="isEachQuestionTimeTest" class="container text-center fs-6 mb-5"><span #minutes></span> : <span #seconds></span></div>
-<!-- <div [ngSwitch]="currentQuestionType.code" class="container mb-3 d-flex align-items-center justify-content-center"> -->
-<!--   <ng-template [ngSwitchCase]="'mca'"> -->
-<!--     <app-do-test-mca-item [index]="currentQuestionIndex" -->
-<!--                           [question]="questionsOfTest[currentQuestionIndex]" -->
-<!--                           [showRealAnswer]="testViewResultCode === environment.SHOW_RESULT" -->
-<!--                           [total]="totalQuestions" -->
-<!--                           [userAnswers]="currentQuestionUserAnswer"></app-do-test-mca-item> -->
-<!--   </ng-template> -->
-<!--   <ng-template ngSwitchDefault> -->
-<!--     <app-do-test-sca-item [index]="currentQuestionIndex" -->
-<!--                           [question]="questionsOfTest[currentQuestionIndex]" -->
-<!--                           [showRealAnswer]="testViewResultCode === environment.SHOW_RESULT" -->
-<!--                           [total]="totalQuestions" -->
-<!--                           [userAnswer]="currentQuestionUserAnswer"></app-do-test-sca-item> -->
-<!--   </ng-template> -->
-
-<!--   <ng-template [ngSwitchCase]="'fitb'"> -->
-<!--     <app-do-test-fitb-item [index]="currentQuestionIndex" -->
-<!--                            [question]="questionsOfTest[currentQuestionIndex]" -->
-<!--                            [showRealAnswer]="testViewResultCode === environment.SHOW_RESULT" -->
-<!--                            [total]="totalQuestions" -->
-<!--                            [userAnswers]="currentQuestionUserAnswer"></app-do-test-fitb-item> -->
-<!--   </ng-template> -->
-
-<!-- </div> -->
 <div *ngFor="let question of questionsOfTest; let i = index" class="container">
   <div *ngIf="currentQuestionIndex === i" [ngSwitch]="question.question_type_id" class=" mb-3 d-flex align-items-center justify-content-center">
     <ng-template [ngSwitchCase]="environment.MCA_ID">
-      <app-do-test-mca-item [index]="i"
+      <app-do-test-mca-item [@item]
+                            [index]="i"
                             [question]="question"
                             [showRealAnswer]="testViewResultCode === environment.SHOW_RESULT"
-                            [total]="totalQuestions"
-                            [userAnswers]="reportItems[i].answers"></app-do-test-mca-item>
+                            [total]="totalQuestions" [userAnswers]="reportItems[i].answers"></app-do-test-mca-item>
     </ng-template>
     <ng-template ngSwitchDefault>
-      <app-do-test-sca-item [index]="i"
+      <app-do-test-sca-item [@item]
+                            [index]="i"
                             [question]="question"
                             [showRealAnswer]="testViewResultCode === environment.SHOW_RESULT"
                             [total]="totalQuestions"
@@ -48,7 +24,8 @@
     </ng-template>
 
     <ng-template [ngSwitchCase]="environment.FITB_ID">
-      <app-do-test-fitb-item [index]="i"
+      <app-do-test-fitb-item [@item]
+                             [index]="i"
                              [question]="question"
                              [showRealAnswer]="testViewResultCode === environment.SHOW_RESULT"
                              [total]="totalQuestions"
