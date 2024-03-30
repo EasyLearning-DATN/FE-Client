@@ -1,18 +1,18 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {SharedService} from "../../../../services/shared/shared.service";
-import {TestService} from "../../../../services/test/test.service";
-import {UploadImageService} from "../../../../services/shared/upload/upload-image.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import Swal from "sweetalert2";
-import {ConfirmModalComponent} from "../../../commons/confirm-modal/confirm-modal.component";
-import {ResultTypeResponses} from "../../../../responses/result_type_id/result_type.responses";
-import {TestDTO} from "../../../../DTOS/test/test.dto";
-import {QuestionResponses} from "../../../../responses/question/question.responses";
-import {QuestionTypeResponses} from "../../../../responses/question-type/question-type.responses";
-import {Subscription} from "rxjs";
-import {TestResponses} from "../../../../responses/test/test.responses";
-import {Router} from "@angular/router";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Subscription} from 'rxjs';
+import Swal from 'sweetalert2';
+import {TestDTO} from '../../../../DTOS/test/test.dto';
+import {QuestionTypeResponses} from '../../../../responses/question-type/question-type.responses';
+import {QuestionResponses} from '../../../../responses/question/question.responses';
+import {ResultTypeResponses} from '../../../../responses/result_type_id/result_type.responses';
+import {TestResponses} from '../../../../responses/test/test.responses';
+import {SharedService} from '../../../../services/shared/shared.service';
+import {UploadImageService} from '../../../../services/shared/upload/upload-image.service';
+import {TestService} from '../../../../services/test/test.service';
+import {ConfirmModalComponent} from '../../../commons/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-test-edit',
@@ -34,7 +34,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
   @ViewChild('fileUpload', {static: true}) fileUpload !: ElementRef;
 
   constructor(private sharedService: SharedService,
-    private modalService: NgbModal, private testService: TestService, private imageService: UploadImageService, private router: Router) {
+              private modalService: NgbModal, private testService: TestService, private imageService: UploadImageService, private router: Router) {
   }
 
   ngOnInit() {
@@ -50,7 +50,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
     // this.resultTypes = this.sharedService.resultType;
     this.resultTypes = JSON.parse(<string>sessionStorage.getItem('resultTypes'));
     // this.questionTypes = this.sharedService.questionTypeResponses;
-    this.questionTypes = JSON.parse(<string>sessionStorage.getItem("questionTypes"));
+    this.questionTypes = JSON.parse(<string>sessionStorage.getItem('questionTypes'));
     this.setQuestions();
     this.initForm();
   }
@@ -61,10 +61,10 @@ export class TestEditComponent implements OnInit, OnDestroy {
   }
 
   resetSelection(selection: string) {
-    if (this.editTestForm.get('test_type')?.value !== 'eachQuestion' && selection === 'eachQuestion') {
+    if (this.editTestForm.get('test_type')?.value!=='eachQuestion' && selection==='eachQuestion') {
       this.editTestForm.patchValue({'time_total': 0});
     }
-    if (this.editTestForm.get('test_type')?.value !== 'fullTime' && selection === 'fullTime') {
+    if (this.editTestForm.get('test_type')?.value!=='fullTime' && selection==='fullTime') {
       this.editTestForm.patchValue({'time_question': 0});
     }
   }
@@ -88,7 +88,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
       'time_total': new FormControl(this.test.time_total ?? 0),
       'time_question': new FormControl(this.test.time_question ?? 0),
       'view_result_type_code': new FormControl(this.test.view_result_type_id.code, [Validators.required]),
-      'test_type': new FormControl(this.test.time_total ? 'fullTime' : 'eachQuestion', [Validators.required]),
+      'test_type': new FormControl(this.test.time_total ? 'fullTime': 'eachQuestion', [Validators.required]),
     });
   }
 
@@ -103,7 +103,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.questions.length === 0) {
+    if (this.questions.length===0) {
       Swal.fire({
         icon: 'warning',
         title: 'Bài test phải có ít nhất 1 câu hỏi!',
@@ -115,13 +115,13 @@ export class TestEditComponent implements OnInit, OnDestroy {
 
     const confirmModal = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    confirmModal.componentInstance.body = "Bạn có chắc chắn muốn lưu chỉnh sửa không?";
+    confirmModal.componentInstance.body = 'Bạn có chắc chắn muốn lưu chỉnh sửa không?';
     confirmModal
     .result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.closeResult);
-        if (result === 'Confirm') {
+        if (result==='Confirm') {
           const token = localStorage.getItem('token');
           Swal.fire({
             title: 'Đang chỉnh sửa bài test...',
@@ -132,13 +132,13 @@ export class TestEditComponent implements OnInit, OnDestroy {
           });
           let imgFile = this.fileUpload.nativeElement.files[0];
           this.setQuestionIds();
-          if (this.urlImage === null) {
+          if (this.urlImage===null) {
             this.editTest = {
               name: this.editTestForm.get('name')?.value,
               description: this.editTestForm.get('description')?.value,
               question_ids: this.questionIDs,
-              time_question: this.editTestForm.get('time_question')?.value === 0 ? null : this.editTestForm.get('time_question')?.value,
-              time_total: this.editTestForm.get('time_total')?.value === 0 ? null : this.editTestForm.get('time_total')?.value,
+              time_question: this.editTestForm.get('time_question')?.value===0 ? null: this.editTestForm.get('time_question')?.value,
+              time_total: this.editTestForm.get('time_total')?.value===0 ? null: this.editTestForm.get('time_total')?.value,
               view_result_type_code: this.editTestForm.get('view_result_type_code')?.value,
               image_id: this.test.image.public_id,
               total_question: <number>this.editTestForm.get('total_question')?.value,
@@ -172,8 +172,8 @@ export class TestEditComponent implements OnInit, OnDestroy {
                 name: this.editTestForm.get('name')?.value,
                 description: this.editTestForm.get('description')?.value,
                 question_ids: this.questionIDs,
-                time_question: this.editTestForm.get('time_question')?.value === 0 ? null : this.editTestForm.get('time_question')?.value,
-                time_total: this.editTestForm.get('time_total')?.value === 0 ? null : this.editTestForm.get('time_total')?.value,
+                time_question: this.editTestForm.get('time_question')?.value===0 ? null: this.editTestForm.get('time_question')?.value,
+                time_total: this.editTestForm.get('time_total')?.value===0 ? null: this.editTestForm.get('time_total')?.value,
                 view_result_type_code: this.editTestForm.get('view_result_type_code')?.value,
                 image_id: this.test.image.public_id,
                 total_question: <number>this.editTestForm.get('total_question')?.value,
@@ -228,13 +228,13 @@ export class TestEditComponent implements OnInit, OnDestroy {
   onDeleteTest() {
     const confirmModal = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    confirmModal.componentInstance.body = "Bạn có chắc chắn muốn xóa bài test này không?";
+    confirmModal.componentInstance.body = 'Bạn có chắc chắn muốn xóa bài test này không?';
     confirmModal
     .result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.closeResult);
-        if (result === 'Confirm') {
+        if (result==='Confirm') {
 
           const token = localStorage.getItem('token');
           Swal.fire({
@@ -255,7 +255,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK',
               });
-              this.router.navigate(['/list-test']);
+              this.router.navigate(['/test/list-test']);
             }, error => {
               console.log(error);
               Swal.close();
@@ -287,7 +287,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
     this.sharedService.questionsOfCreatingTest = [...this.test.question_tests];
     this.questionSub = this.sharedService.questionsOfTestChanged.subscribe(questions => {
       this.questions = questions;
-      console.log('question: ' +this.questions);
+      console.log('question: ' + this.questions);
     });
     this.questions = [...this.test.question_tests];
   }

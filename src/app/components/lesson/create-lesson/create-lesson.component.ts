@@ -15,8 +15,8 @@ import Swal from 'sweetalert2';
 export class CreateLessonComponent implements OnInit {
   @ViewChild('lessonForm') lessonForm!: NgForm;
   numberOfLesson: number = 0;
-  userId: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).id : '';
-  role: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).role : '';
+  userId: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).id: '';
+  role: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).role: '';
   name: string = '';
   description: string = '';
   image_id: string = '';
@@ -91,7 +91,7 @@ export class CreateLessonComponent implements OnInit {
         description: this.description,
         image_id: this.image_id,
       };
-      if (this.numberOfLesson > 10 && this.role === 'user') {
+      if (this.numberOfLesson > 10 && this.role==='user') {
         Swal.fire({
           icon: 'error',
           title: 'Chỉ được tạo tối đa 10 bài học! Vui lòng nâng cấp tài khoản để tạo thêm bài học!',
@@ -107,7 +107,7 @@ export class CreateLessonComponent implements OnInit {
               confirmButtonText: 'OK',
             }).then((result) => {
               if (result.isConfirmed) {
-                this.router.navigate(['/list-lesson/my-lesson']);
+                this.router.navigate(['/lesson/list-lesson/my-lesson']);
               }
             });
           },

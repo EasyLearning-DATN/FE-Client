@@ -1,27 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
-import { NgbDropdownConfig } from "@ng-bootstrap/ng-bootstrap";
-import { TranslateService } from "@ngx-translate/core";
-import { UserResponse } from 'src/app/responses/user/user.responses';
-import { UserService } from 'src/app/services/user/user-service.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {UserResponse} from 'src/app/responses/user/user.responses';
+import {UserService} from 'src/app/services/user/user-service.service';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
   userResponse?: UserResponse | null;
   avatar: any;
   isMenuCollapsed = true;
-  keyword = "";
+  keyword = '';
   isCreateOpened = false;
 
   constructor(
     private userService: UserService,
     private router: Router,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     // truyển userResponse từ localStorage
@@ -36,7 +35,7 @@ export class HeaderComponent implements OnInit {
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
-      }
+      },
     });
     this.userService.logout(token).subscribe(res => {
       localStorage.removeItem('userInfo');
@@ -45,12 +44,4 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  onSearch() {
-
-  }
-
-  onGoToSearchPage() {
-    this.router.navigate(['search']);
-    this.onSearch();
-  }
 }

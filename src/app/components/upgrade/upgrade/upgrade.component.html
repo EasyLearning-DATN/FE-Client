@@ -1,97 +1,97 @@
-<! ========================  
-    Syed Sahar Ali Raza   	 
-  ========================	!>
-<div id="generic_price_table">   
-<section>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <!--PRICE HEADING START-->
-                    <div class="price-heading clearfix">
-                        <h1>BẢNG GIÁ</h1>
-                    </div>
-                    <!--//PRICE HEADING END-->
-                </div>
-            </div>
+<! ========================
+Syed Sahar Ali Raza
+========================  !>
+<div id="generic_price_table">
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <!--PRICE HEADING START-->
+          <div class="price-heading clearfix">
+            <h1>BẢNG GIÁ</h1>
+          </div>
+          <!--//PRICE HEADING END-->
         </div>
-        <div class="container">
-            
-            <!--BLOCK ROW START-->
-            <div class="row">
-               
-                <div class="col-md-4" *ngFor="let package of packages">
-                
-                	<!--PRICE CONTENT START-->
-                    <div class="generic_content active clearfix">
-                        
-                        <!--HEAD PRICE DETAIL START-->
-                        <div class="generic_head_price clearfix">
-                        
-                            <!--HEAD CONTENT START-->
-                            <div class="generic_head_content clearfix">
-                            
-                            	<!--HEAD START-->
-                                <div class="head_bg"></div>
-                                <div class="head">
-                                    <span> {{package.name}}</span>
-                                </div>
-                                <!--//HEAD END-->
-                                
-                            </div>
-                            <!--//HEAD CONTENT END-->
-                            
-                            <!--PRICE START-->
-                            <div class="generic_price_tag clearfix">	
+      </div>
+    </div>
+    <div class="container">
+
+      <!--BLOCK ROW START-->
+      <div class="row">
+
+        <div *ngFor="let package of packages" class="col-md-4">
+
+          <!--PRICE CONTENT START-->
+          <div class="generic_content active clearfix">
+
+            <!--HEAD PRICE DETAIL START-->
+            <div class="generic_head_price clearfix">
+
+              <!--HEAD CONTENT START-->
+              <div class="generic_head_content clearfix">
+
+                <!--HEAD START-->
+                <div class="head_bg"></div>
+                <div class="head">
+                  <span> {{ package.name }}</span>
+                </div>
+                <!--//HEAD END-->
+
+              </div>
+              <!--//HEAD CONTENT END-->
+
+              <!--PRICE START-->
+              <div class="generic_price_tag clearfix">
                                 <span class="price">
-                                    <span class="currency">{{package.price | currency:'VND'}} </span>
-                                    <!-- <span class="sign">VNĐ</span> -->
+                                    <span class="currency">{{ package.price | currency:'VND' }} </span>
+                                  <!-- <span class="sign">VNĐ</span> -->
                                     <span class="month">/Vĩnh viễn</span>
                                 </span>
-                            </div>
-                            <!--//PRICE END-->
-                            
-                        </div>                            
-                        <!--//HEAD PRICE DETAIL END-->
-                        
-                        <!--FEATURE LIST START-->
-                        <div class="generic_feature_list">
-                        	<ul>
-                            	{{package.description}}
-                            </ul>
-                        </div>
-                        <!--//FEATURE LIST END-->
-                        
-                        <!--BUTTON START-->
-                        <div class="generic_price_btn clearfix">
-                        	<a class="" (click)="openPaymentModal(package.price)">Đăng ký ngay</a>
-                        </div>
-                        <!--//BUTTON END-->
-                        
-                    </div>
-                    <!--//PRICE CONTENT END-->
-                        
-                </div>
-            </div>	
-            <!--//BLOCK ROW END-->
-            
-        </div>
-    </section>     
-<!-- Modal -->
-<div class="modal" #paymentModal tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Chọn Phương Thức Thanh Toán</h5>
-                <button type="button" class="close" (click)="closePaymentModal()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+              </div>
+              <!--//PRICE END-->
+
             </div>
-            <div class="modal-body">
-                <!-- Thêm các lựa chọn thanh toán tại đây -->
-                <button class="btn btn-primary" (click)="choosePayment('VNPay')">Thanh toán qua VNPay</button>
-                <button class="btn btn-primary" (click)="choosePayment('MoMo')">Thanh toán qua MoMo</button>
+            <!--//HEAD PRICE DETAIL END-->
+
+            <!--FEATURE LIST START-->
+            <div class="generic_feature_list">
+              <ul>
+                {{ package.description }}
+              </ul>
             </div>
+            <!--//FEATURE LIST END-->
+
+            <!--BUTTON START-->
+            <div class="generic_price_btn clearfix">
+              <a (click)="openPaymentModal(package.price)" class="" style="cursor: pointer">Đăng ký ngay</a>
+            </div>
+            <!--//BUTTON END-->
+
+          </div>
+          <!--//PRICE CONTENT END-->
+
         </div>
+      </div>
+      <!--//BLOCK ROW END-->
+
     </div>
-</div>
+  </section>
+  <!-- Modal -->
+  <div #paymentModal class="modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Chọn Phương Thức Thanh Toán</h5>
+          <button (click)="closePaymentModal()" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Thêm các lựa chọn thanh toán tại đây -->
+          <button (click)="choosePayment('VNPay')" class="btn btn-primary">Thanh toán qua VNPay</button>
+          <button (click)="choosePayment('MoMo')" class="btn btn-primary">Thanh toán qua MoMo</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

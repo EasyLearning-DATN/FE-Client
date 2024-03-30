@@ -1,18 +1,18 @@
+import {animate, keyframes, style, transition, trigger} from '@angular/animations';
 import {AfterViewInit, Component, OnDestroy, OnInit, Renderer2} from '@angular/core';
-import {SharedService} from "../../../services/shared/shared.service";
-import {TempTest} from "../../../DTOS/test/test.dto";
-import {ActivatedRoute, Router} from "@angular/router";
-import {QuestionTypeResponses} from "../../../responses/question-type/question-type.responses";
-import {QuestionResponses} from "../../../responses/question/question.responses";
-import {TestReportItemDTO} from "../../../DTOS/test-report/test-report.dto";
-import {environment} from "../../../../environments/environments";
-import {TestReportService} from "../../../services/test-report/test-report.service";
-import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {ConfirmModalComponent} from "../../commons/confirm-modal/confirm-modal.component";
-import {lastValueFrom} from "rxjs";
-import Swal from "sweetalert2";
-import {CookieService} from "ngx-cookie-service";
-import {animate, keyframes, style, transition, trigger} from "@angular/animations";
+import {ActivatedRoute, Router} from '@angular/router';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CookieService} from 'ngx-cookie-service';
+import {lastValueFrom} from 'rxjs';
+import Swal from 'sweetalert2';
+import {environment} from '../../../../environments/environments';
+import {TestReportItemDTO} from '../../../DTOS/test-report/test-report.dto';
+import {TempTest} from '../../../DTOS/test/test.dto';
+import {QuestionTypeResponses} from '../../../responses/question-type/question-type.responses';
+import {QuestionResponses} from '../../../responses/question/question.responses';
+import {SharedService} from '../../../services/shared/shared.service';
+import {TestReportService} from '../../../services/test-report/test-report.service';
+import {ConfirmModalComponent} from '../../commons/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-do-test',
@@ -71,12 +71,12 @@ import {animate, keyframes, style, transition, trigger} from "@angular/animation
 })
 export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  name: string = "";
+  name: string = '';
   doTest!: TempTest;
   questionsOfTest!: QuestionResponses[];
   totalQuestions!: number;
   testViewResultCode!: string;
-  closeResult: string = "";
+  closeResult: string = '';
   // resultTypes!: ResultTypeResponses[];
   questionTypes!: QuestionTypeResponses[];
   testReportItems: TestReportItemDTO[] = [];
@@ -96,7 +96,7 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
   private isEndTestManually: boolean = false;
 
   constructor(private renderer2: Renderer2, private sharedService: SharedService, private route: ActivatedRoute,
-    private testReportService: TestReportService, private modalService: NgbModal, private router: Router, private cookieService: CookieService) {
+              private testReportService: TestReportService, private modalService: NgbModal, private router: Router, private cookieService: CookieService) {
 
   }
 
@@ -115,7 +115,7 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
       totalSeconds--;
       // console.log(totalSeconds);
       this.setTiming(totalSeconds);
-      if (totalSeconds === 0) {
+      if (totalSeconds===0) {
         this.stopTimer();
       }
     }, 1000);
@@ -134,7 +134,7 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getTempTest() {
-    this.questionTypes = JSON.parse(<string>sessionStorage.getItem("questionTypes"));
+    this.questionTypes = JSON.parse(<string>sessionStorage.getItem('questionTypes'));
     let tempTest = localStorage.getItem(this.route.snapshot.params['doTestId']);
     if (tempTest) {
       this.doTest = <TempTest>JSON.parse(tempTest);
@@ -203,7 +203,7 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
   changeCurrentQuestion(index: number) {
     this.currentQuestionIndex = index;
     this.currentQuestionType = <QuestionTypeResponses>this.questionTypes.find(item =>
-      item.id === (<QuestionResponses[]>this.doTest.test?.question_tests)[this.currentQuestionIndex].question_type_id);
+      item.id===(<QuestionResponses[]>this.doTest.test?.question_tests)[this.currentQuestionIndex].question_type_id);
     this.currentQuestionUserAnswer = (<TestReportItemDTO[]>this.sharedService.tempTestReport.report_items)[index].answers;
     this.sharedService.saveQuestions(this.route.snapshot.params['doTestId'], undefined, this.currentQuestionIndex);
     const emitData = {
@@ -215,14 +215,14 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
 
   openConfirmEndTest() {
     const modalConfirm = this.modalService.open(ConfirmModalComponent);
-    modalConfirm.componentInstance.title = "Kết thúc";
-    modalConfirm.componentInstance.body = "Bạn có chắc chắn muốn kết thúc bài thi không?";
+    modalConfirm.componentInstance.title = 'Kết thúc';
+    modalConfirm.componentInstance.body = 'Bạn có chắc chắn muốn kết thúc bài thi không?';
     modalConfirm
     .result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.closeResult);
-        if (result === 'Confirm') {
+        if (result==='Confirm') {
           this.isEndTestManually = true;
           this.stopTimer();
           console.log(result);
@@ -266,7 +266,7 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
           Swal.showLoading();
         },
       });
-      this.router.navigate(["test-report", res.id]).then(
+      this.router.navigate(['/test/test-report', res.id]).then(
         () => {
           Swal.close();
         },

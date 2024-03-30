@@ -67,19 +67,20 @@
             }} </a>
           <ul aria-labelledby="dropdownList" class="my-dropdown" ngbDropdownMenu>
             <li class="link-item p-0" ngbDropdownItem ngbNavItem><a (click)="isMenuCollapsed = true"
-                                                                    [routerLink]="['/list-lesson']" aria-current="page"
+                                                                    [routerLink]="['/lesson/list-lesson']" aria-current="page"
                                                                     class="text-capitalize link-item px-2" ngbNavLink>{{
                 'header.lesson-list'|translate
               }}</a>
+
             </li>
             <li class="link-item p-0" ngbDropdownItem ngbNavItem><a (click)="isMenuCollapsed = true"
-                                                                    [routerLink]="['/list-test']" aria-current="page"
+                                                                    [routerLink]="['/test/list-test']" aria-current="page"
                                                                     class="text-capitalize link-item px-2" ngbNavLink>{{
                 'header.test-list'|translate
               }}</a>
             </li>
             <li class="link-item p-0" ngbDropdownItem ngbNavItem><a (click)="isMenuCollapsed = true" *ngIf="userResponse"
-                                                                    [routerLink]="['/my-test-report']" aria-current="page"
+                                                                    [routerLink]="['/test/my-test-report']" aria-current="page"
                                                                     class="text-capitalize link-item px-2" ngbNavLink>{{
                 'header.my-test-report'|translate
               }}</a>
@@ -105,7 +106,7 @@
         <ul ngbDropdownMenu>
           <li><a [routerLink]="['/']" ngbDropdownItem>Hồ sơ</a></li>
           <li>
-            <a [routerLink]="['/settings']" ngbDropdownItem>Cài đặt</a>
+            <a [routerLink]="['/user/settings']" ngbDropdownItem>Cài đặt</a>
           </li>
           <li>
             <a [routerLink]="['/']" aria-current="page" ngbDropdownItem>Giúp đỡ & Phản hồi</a>
@@ -129,11 +130,11 @@
 
           <!-- Content of dropdown button of creating new data -->
           <ul aria-labelledby="dropdownBasic1" class="my-dropdown" ngbDropdownMenu>
-            <li><a [routerLink]="['/create-lesson']" class="link-item text-capitalize" ngbDropdownItem>{{
+            <li><a [routerLink]="['/lesson/create-lesson']" class="link-item text-capitalize" ngbDropdownItem>{{
                 'header.create-lesson'|translate
               }}</a>
             </li>
-            <li><a [routerLink]="['/create-test']" class="link-item text-capitalize" ngbDropdownItem>{{
+            <li><a [routerLink]="['/test/create-test']" class="link-item text-capitalize" ngbDropdownItem>{{
                 'header.create-test'|translate
               }}</a>
             </li>
