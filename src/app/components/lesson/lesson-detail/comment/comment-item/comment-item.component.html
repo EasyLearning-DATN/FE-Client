@@ -15,15 +15,6 @@
         <span class="time-res ms-3">{{ timeDuration }}</span>
       </div>
       <div class="data mb-1">
-        <span
-          *ngIf="
-            comment.rootId &&
-            comment.creator?.username !== comment.usernameReply
-          "
-          class="username-reply fw-bold"
-        >
-          @{{ comment.usernameReply }}
-        </span>
         {{ comment.content }}
       </div>
       <div class="action-group d-flex align-items-center gap-2">
@@ -35,7 +26,7 @@
           ></fa-icon>
           <span>{{ comment.amountLike }}</span>
         </div>
-        <div
+        <!-- <div
           class="unlike-group"
           (click)="handleActionComment(comment.id, false)"
         >
@@ -45,7 +36,7 @@
             [ngClass]="isDisLiked ? 'disliked' : ''"
           ></fa-icon>
           <span>{{ comment.amountDislike }}</span>
-        </div>
+        </div> -->
         <div class="reply-group" (click)="showFormReplyComment(comment.id)">
           <fa-icon class="mask p-2" [icon]="['fas', 'reply']"></fa-icon>
         </div>

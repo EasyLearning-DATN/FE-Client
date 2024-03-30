@@ -12,7 +12,6 @@ import { LessonService } from '../../../services/lesson/lesson.service';
 export class LessonDetailComponent implements OnInit {
   lesson!: LessonResponses;
   isCreator: boolean = false;
-  totalCMT: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -47,6 +46,7 @@ export class LessonDetailComponent implements OnInit {
         }
       );
     }
+
   }
 
   onCopyURL() {
@@ -55,6 +55,6 @@ export class LessonDetailComponent implements OnInit {
   }
 
   updateTotalCMT() {
-    this.totalCMT += 1;
+    this.lesson.totalComment += 1;
   }
 }

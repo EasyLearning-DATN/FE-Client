@@ -7,6 +7,8 @@ import {
 } from '@angular/forms';
 import { CommentDTO } from 'src/app/DTOS/comment/comment.dto';
 import { CommentService } from 'src/app/services/comment/comment.service';
+import { LessonService } from 'src/app/services/lesson/lesson.service';
+import { SharedService } from 'src/app/services/shared/shared.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -28,7 +30,9 @@ export class CommentComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private lessonService: LessonService,
+    private sharedService: SharedService
   ) {}
 
   ngOnInit() {
@@ -36,6 +40,9 @@ export class CommentComponent implements OnInit {
       comment: ['', Validators.required],
     });
     this.initData();
+    this.sharedService.lessonChanged.subscribe((lesson) => {
+      this.totalCMT = lesson.totalComment;
+    })
   }
 
   initData() {
@@ -81,6 +88,9 @@ export class CommentComponent implements OnInit {
           this.createCommentF.setValue({ comment: '' });
           this.listComment.unshift(response.data);
           this.updateTotalCMT.emit();
+          this.lessonService.getOneLesson(this.lessonId).subscribe((response: any) => {
+            this.sharedService.lessonChanged.next(response.data);
+        })
         },
         (error) => {
           Swal.fire({

@@ -17,6 +17,7 @@ import {
 } from '@angular/forms';
 import { CommentDTO } from 'src/app/DTOS/comment/comment.dto';
 import Swal from 'sweetalert2';
+import { LessonService } from 'src/app/services/lesson/lesson.service';
 
 @Component({
   selector: 'app-comment-item',
@@ -51,7 +52,9 @@ export class CommentItemComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private lessonService: LessonService,
+    private sharedService: SharedService
   ) {}
 
   ngOnInit() {
@@ -96,6 +99,7 @@ export class CommentItemComponent implements OnInit {
     } else {
       this.isShowReplyForm = false;
     }
+    console.log("this.isShowReplyForm", this.idCommentReply);
   }
 
   hideFormReplyComment(id: string) {
@@ -164,6 +168,9 @@ export class CommentItemComponent implements OnInit {
           }
           this.comment.amountChild += 1;
           this.isShowReplyForm = false;
+        //   this.lessonService.getOneLesson(this.lessonId).subscribe((response: any) => {
+        //     this.sharedService.lessonChanged.next(response.data);
+        // })
         },
         (error) => {
           Swal.fire({

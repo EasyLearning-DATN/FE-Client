@@ -81,6 +81,7 @@ export class EditQuestionItemComponent implements OnInit {
               Swal.showLoading();
             },
           });
+          console.log(this.question);
           this.questionService.updateQuestion(this.updatedQuestion, this.question.id).subscribe(
             (response) => {
               console.log(response);
@@ -91,6 +92,7 @@ export class EditQuestionItemComponent implements OnInit {
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK',
               });
+
               this.lessonService.getOneLesson(this.lessonId).subscribe(
                 response => {
                   this.sharedService.lessonChanged.next(response);

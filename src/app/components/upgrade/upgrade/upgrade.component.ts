@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/services/shared/shared.service';
 import { UpgradeService } from 'src/app/services/upgrade/upgrade.service';
+import { UserResponse } from 'src/app/responses/user/user.responses';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,6 +13,7 @@ export class UpgradeComponent implements OnInit{
   isLogin: any
   packages: any;
   amount: any;
+  userResponse: UserResponse[] = [];
   role = localStorage.getItem('userInfo.role');
   @ViewChild('paymentModal') paymentModal: any;
 
