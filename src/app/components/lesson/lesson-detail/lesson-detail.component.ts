@@ -25,7 +25,6 @@ export class LessonDetailComponent implements OnInit {
     this.sharedService.lessonChanged.subscribe((lesson) => {
       this.lesson = lesson;
     });
-    this.totalCMT = this.lesson.totalComment;
 
     // truyển userInfo từ localStorage và lấy id
     const userInfoString = localStorage.getItem('userInfo') || '';

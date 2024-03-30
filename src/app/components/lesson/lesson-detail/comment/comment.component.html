@@ -58,6 +58,7 @@
     </div>
     <ng-container *ngFor="let item of listComment">
       <app-comment-item
+        [isRoot]="true"
         [isShowTotalRPL]="true"
         [comment]="item"
         [lessonId]="lessonId"

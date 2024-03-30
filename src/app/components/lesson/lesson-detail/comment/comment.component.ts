@@ -89,7 +89,7 @@ export class CommentComponent implements OnInit {
           this.listComment.unshift(response.data);
           this.updateTotalCMT.emit();
           this.lessonService.getOneLesson(this.lessonId).subscribe((response: any) => {
-            this.sharedService.lessonChanged.next(response.data);
+            this.sharedService.lessonChanged.next(response);
         })
         },
         (error) => {

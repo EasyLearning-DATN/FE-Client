@@ -30,6 +30,7 @@ export class CommentItemComponent implements OnInit {
   @Input() idCommentReply!: string;
   @Input() rootId!: string;
   @Input() isShowTotalRPL!: boolean;
+  @Input() isRoot!: boolean;
   @Output() showReplyComment = new EventEmitter<string>();
   isShowReplyForm: boolean = false;
   isLoadingCommentReply: boolean = false;
@@ -168,9 +169,9 @@ export class CommentItemComponent implements OnInit {
           }
           this.comment.amountChild += 1;
           this.isShowReplyForm = false;
-        //   this.lessonService.getOneLesson(this.lessonId).subscribe((response: any) => {
-        //     this.sharedService.lessonChanged.next(response.data);
-        // })
+          this.lessonService.getOneLesson(this.lessonId).subscribe((response: any) => {
+            this.sharedService.lessonChanged.next(response);
+        })
         },
         (error) => {
           Swal.fire({
