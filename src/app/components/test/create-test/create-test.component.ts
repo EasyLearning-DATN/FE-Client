@@ -149,6 +149,8 @@ export class CreateTestComponent implements OnInit, OnDestroy {
               view_result_type_code: this.createTestForm.get('view_result_type_code')?.value,
               image_id: result.public_id,
               total_question: this.questionIDs.length,
+              close_time: null,
+              open_time: null,
             };
             console.log(this.createTest);
             if (this.numberOfTest > 10 && this.role==='user') {

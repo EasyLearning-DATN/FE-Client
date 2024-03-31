@@ -97,6 +97,7 @@ export class TestDetailComponent implements OnInit {
         total_point: 0,
         user_info_id: this.userInfoId,
         test_id: this.test.id,
+        total_time_finish: 0,
       },
     };
     if (this.test.time_total===null) {

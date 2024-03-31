@@ -1,4 +1,4 @@
-import {IsNotEmpty, IsNumber, IsString} from "class-validator";
+import {IsNotEmpty, IsNumber, IsString} from 'class-validator';
 
 export class TestReportItemDTO {
   @IsNotEmpty()
@@ -14,5 +14,5 @@ export class TestReportDTO {
   report_items: TestReportItemDTO[] = [];
   @IsNumber()
   total_point: number = 0;
-
+  total_time_finish: number = 0;
 }
