@@ -2,7 +2,7 @@
   <span class="fs-6">{{ name | uppercase }}</span>
 </div>
 <div *ngIf="isTotalTimeTest" class="container text-center fs-6 mb-5"><span>{{ totalMinutes }}</span> :
-  <span>{{ totalSeconds }}</span>
+  <span>{{ totalSeconds >= 10 ? totalSeconds : '0' + totalSeconds }}</span>
 </div>
 <div *ngIf="isEachQuestionTimeTest" class="container text-center fs-6 mb-5"><span #minutes></span> : <span #seconds></span></div>
 <div *ngFor="let question of questionsOfTest; let i = index" class="container">

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CookieService} from 'ngx-cookie-service';
+import screenfull from 'screenfull';
 import {v4 as uuidv4} from 'uuid';
 import {TestReportItemDTO} from '../../../DTOS/test-report/test-report.dto';
 import {TempTest} from '../../../DTOS/test/test.dto';
@@ -114,6 +115,9 @@ export class TestDetailComponent implements OnInit {
     this.router.navigate(['do-test', tempTestId], {relativeTo: this.route}).then(
       () => {
         this.sharedService.isDoTest.next(true);
+        if (screenfull.isEnabled) {
+          screenfull.toggle();
+        }
       },
     );
   }
@@ -128,4 +132,5 @@ export class TestDetailComponent implements OnInit {
         return `with: ${reason}`;
     }
   }
+
 }

@@ -1,6 +1,6 @@
 import {AfterContentInit, Component} from '@angular/core';
-import {TranslateService} from "@ngx-translate/core";
-import {SharedService} from "./services/shared/shared.service";
+import {TranslateService} from '@ngx-translate/core';
+import {SharedService} from './services/shared/shared.service';
 
 @Component({
   selector: 'app-root',
@@ -23,5 +23,6 @@ export class AppComponent implements AfterContentInit {
       },
     );
   }
+
 
 }

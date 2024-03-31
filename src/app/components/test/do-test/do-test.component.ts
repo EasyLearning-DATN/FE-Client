@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CookieService} from 'ngx-cookie-service';
 import {lastValueFrom} from 'rxjs';
+import screenfull from 'screenfull';
 import Swal from 'sweetalert2';
 import {environment} from '../../../../environments/environments';
 import {TestReportItemDTO} from '../../../DTOS/test-report/test-report.dto';
@@ -77,6 +78,7 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
   totalQuestions!: number;
   testViewResultCode!: string;
   closeResult: string = '';
+  canNavigate: boolean = false;
   // resultTypes!: ResultTypeResponses[];
   questionTypes!: QuestionTypeResponses[];
   testReportItems: TestReportItemDTO[] = [];
@@ -97,7 +99,18 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private renderer2: Renderer2, private sharedService: SharedService, private route: ActivatedRoute,
               private testReportService: TestReportService, private modalService: NgbModal, private router: Router, private cookieService: CookieService) {
-
+    // router.events.pipe(
+    //   filter(
+    //     (event: any) => {
+    //       return (event instanceof NavigationStart);
+    //     },
+    //   ),
+    // ).subscribe(
+    //   (event: NavigationStart) => {
+    //     if (event.navigationTrigger)
+    //       this.openConfirmEndTest(event);
+    //   },
+    // );
   }
 
   get reportItems() {
@@ -123,9 +136,9 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (!this.isEndTestManually) {
-      this.stopTimer();
-    }
+    // if (!this.isEndTestManually) {
+    //   this.stopTimer();
+    // }
     clearInterval(this.clockInterval);
     this.sharedService.doTest = new TempTest();
     this.sharedService.isDoTest.next(false);
@@ -169,6 +182,7 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   stopTimer() {
+    this.canNavigate = true;
     this.onEndTest().then();
   }
 
@@ -224,13 +238,17 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
         console.log(this.closeResult);
         if (result==='Confirm') {
           this.isEndTestManually = true;
+          this.canNavigate = true;
           this.stopTimer();
           console.log(result);
         }
-
+        if (result==='Reject') {
+          this.canNavigate = false;
+        }
       },
       (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        this.canNavigate = false;
         console.log(this.closeResult);
       },
     );
@@ -265,10 +283,14 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
         didOpen: () => {
           Swal.showLoading();
         },
+
       });
       this.router.navigate(['/test/test-report', res.id]).then(
         () => {
           Swal.close();
+          if (screenfull.isEnabled) {
+            screenfull.toggle();
+          }
         },
       );
       return res;

@@ -9,6 +9,7 @@ import {TestDetailComponent} from '../../components/test/test-detail/test-detail
 import {TestEditComponent} from '../../components/test/test-detail/test-edit/test-edit.component';
 import {TestComponent} from '../../components/test/test.component';
 import {authCanActivateChildGuard} from '../../guards/auth.can-activate-child.guard';
+import {testCanDeactivateGuard} from '../../guards/test.can-deactivate.guard';
 import {doTestResolver} from '../../resolver/do-test.resolver';
 import {questionTypeResolver} from '../../resolver/question.type.resolver';
 import {resultTypeResolver} from '../../resolver/result-type.resolver';
@@ -39,6 +40,7 @@ const routes: Routes = [
       {
         path: ':id/do-test/:doTestId',
         component: DoTestComponent,
+        canDeactivate: [testCanDeactivateGuard],
         resolve: [doTestResolver, questionTypeResolver, resultTypeResolver],
       },
     ],
