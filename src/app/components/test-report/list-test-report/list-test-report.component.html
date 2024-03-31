@@ -18,7 +18,7 @@
           <h5 class="card-title">Tên bài test: {{ testReport.test.name }}</h5>
           <p class="card-text">Điểm số: <b style="color: red;">{{ testReport.total_point }}đ</b></p>
           <p class="card-text">Ngày làm: {{ testReport.doingDate | date : 'dd/MM/yyyy' }}</p>
-          <a [routerLink]="['/test-report',testReport.id]" class="btn btn-primary">Chi tiết</a>
+          <a [routerLink]="['/test/test-report',testReport.id]" class="btn btn-primary">Chi tiết</a>
         </div>
       </div>
     </div>
