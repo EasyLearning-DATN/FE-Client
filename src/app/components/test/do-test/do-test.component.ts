@@ -99,18 +99,6 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private renderer2: Renderer2, private sharedService: SharedService, private route: ActivatedRoute,
               private testReportService: TestReportService, private modalService: NgbModal, private router: Router, private cookieService: CookieService) {
-    // router.events.pipe(
-    //   filter(
-    //     (event: any) => {
-    //       return (event instanceof NavigationStart);
-    //     },
-    //   ),
-    // ).subscribe(
-    //   (event: NavigationStart) => {
-    //     if (event.navigationTrigger)
-    //       this.openConfirmEndTest(event);
-    //   },
-    // );
   }
 
   get reportItems() {
