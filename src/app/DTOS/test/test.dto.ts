@@ -1,6 +1,6 @@
-import {IsNumber, IsString} from "class-validator";
-import {TestResponses} from "../../responses/test/test.responses";
-import {TestReportDTO} from "../test-report/test-report.dto";
+import {IsNumber, IsString} from 'class-validator';
+import {TestResponses} from '../../responses/test/test.responses';
+import {TestReportDTO} from '../test-report/test-report.dto';
 
 export class TestDTO {
   @IsString()
@@ -19,6 +19,8 @@ export class TestDTO {
   image_id: string = '';
   @IsNumber()
   total_question: number | null = null;
+  open_time: Date | null = null;
+  close_time: Date | null = null;
 }
 
 export class TempTest {

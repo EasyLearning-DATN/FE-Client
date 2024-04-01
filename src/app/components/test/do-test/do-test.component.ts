@@ -92,6 +92,7 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
   currentQuestionIndex: number = 0;
   currentQuestionType!: QuestionTypeResponses;
   currentQuestionUserAnswer: string[] | null | undefined = [];
+  totalSecondsLeft: number = 0;
   protected readonly environment = environment;
   // currentQuestion!: QuestionResponses;
   private clockInterval!: number;
@@ -99,18 +100,6 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private renderer2: Renderer2, private sharedService: SharedService, private route: ActivatedRoute,
               private testReportService: TestReportService, private modalService: NgbModal, private router: Router, private cookieService: CookieService) {
-    // router.events.pipe(
-    //   filter(
-    //     (event: any) => {
-    //       return (event instanceof NavigationStart);
-    //     },
-    //   ),
-    // ).subscribe(
-    //   (event: NavigationStart) => {
-    //     if (event.navigationTrigger)
-    //       this.openConfirmEndTest(event);
-    //   },
-    // );
   }
 
   get reportItems() {
@@ -123,12 +112,12 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    let totalSeconds = Math.floor((this.targetTime - this.date.getTime()) / 1000);
+    this.totalSecondsLeft = Math.floor((this.targetTime - this.date.getTime()) / 1000);
     this.clockInterval = window.setInterval(() => {
-      totalSeconds--;
+      this.totalSecondsLeft--;
       // console.log(totalSeconds);
-      this.setTiming(totalSeconds);
-      if (totalSeconds===0) {
+      this.setTiming(this.totalSecondsLeft);
+      if (this.totalSecondsLeft===0) {
         this.stopTimer();
       }
     }, 1000);
@@ -264,6 +253,10 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
         return res;
       },
     );
+    if (this.sharedService.testOfDoTest.time_total) {
+      this.sharedService.tempTestReport.total_time_finish = this.sharedService.testOfDoTest.time_total - this.totalSecondsLeft;
+    }
+    console.log(this.sharedService.tempTestReport);
     const testReport$ = this.testReportService.createTestReport(this.sharedService.tempTestReport);
     Swal.fire({
       title: 'Đang tính toán kết quả...',

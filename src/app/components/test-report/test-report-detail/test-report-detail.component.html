@@ -11,6 +11,10 @@
   <div class="container date-container d-flex align-items-center fs-2 fw-medium ">
     <span class="ms-4">Ngày hoàn thành: <span>{{ testReport.doingDate | date : "dd/MM/yyyy" }}</span></span>
   </div>
+  <div class="container date-container d-flex align-items-center fs-2 fw-medium ">
+    <span class="ms-4">Thời gian hoàn hành: <span *ngIf="testReport.total_time_finish > 60">{{ testReport.total_time_finish / 60 }} phút
+    </span><span>{{ testReport.total_time_finish % 60 }} giây</span></span>
+  </div>
   <div class="container score-container d-flex align-items-center fs-2 fw-medium ">
     <span class="ms-4">Điểm: <span>{{ testReport.total_point }}</span></span>
   </div>

@@ -142,6 +142,8 @@ export class TestEditComponent implements OnInit, OnDestroy {
               view_result_type_code: this.editTestForm.get('view_result_type_code')?.value,
               image_id: this.test.image.public_id,
               total_question: <number>this.editTestForm.get('total_question')?.value,
+              open_time: null,
+              close_time: null,
             };
             this.testService.updateTest(this.test.id, this.editTest).subscribe(
               (response) => {
@@ -177,6 +179,8 @@ export class TestEditComponent implements OnInit, OnDestroy {
                 view_result_type_code: this.editTestForm.get('view_result_type_code')?.value,
                 image_id: this.test.image.public_id,
                 total_question: <number>this.editTestForm.get('total_question')?.value,
+                close_time: null,
+                open_time: null,
               };
               // console.log(this.editTest);
               this.testService.updateTest(this.test.id, this.editTest).subscribe(

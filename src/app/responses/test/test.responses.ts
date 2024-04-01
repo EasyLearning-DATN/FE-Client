@@ -1,7 +1,7 @@
-import {BaseReponses} from "../base.reponses";
-import {ImageResponses} from "../image/image.responses";
-import {QuestionResponses} from "../question/question.responses";
-import {ResultTypeResponses} from "../result_type_id/result_type.responses";
+import {BaseReponses} from '../base.reponses';
+import {ImageResponses} from '../image/image.responses';
+import {QuestionResponses} from '../question/question.responses';
+import {ResultTypeResponses} from '../result_type_id/result_type.responses';
 
 export interface TestResponses extends BaseReponses {
   id: string;
@@ -23,6 +23,8 @@ export interface TestResponses extends BaseReponses {
     fullName: string;
     avatar: ImageResponses;
   };
+  open_time: Date | null;
+  close_time: Date | null;
 }
 
 export interface TestListResponses {

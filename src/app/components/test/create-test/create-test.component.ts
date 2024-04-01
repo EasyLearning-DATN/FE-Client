@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal, NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import {Subscription} from 'rxjs';
 import Swal from 'sweetalert2';
+import {environment} from '../../../../environments/environments';
 import {TestDTO} from '../../../DTOS/test/test.dto';
 import {QuestionTypeResponses} from '../../../responses/question-type/question-type.responses';
 import {QuestionResponses} from '../../../responses/question/question.responses';
@@ -32,6 +33,7 @@ export class CreateTestComponent implements OnInit, OnDestroy {
   questionSub!: Subscription;
   closeResult: string = '';
   @ViewChild('fileUpload', {static: true}) fileUpload !: ElementRef;
+  protected readonly environment = environment;
 
   constructor(private offcanvasService: NgbOffcanvas, private sharedService: SharedService,
               private modalService: NgbModal, private testService: TestService, private imageService: UploadImageService, private router: Router) {
@@ -147,6 +149,8 @@ export class CreateTestComponent implements OnInit, OnDestroy {
               view_result_type_code: this.createTestForm.get('view_result_type_code')?.value,
               image_id: result.public_id,
               total_question: this.questionIDs.length,
+              close_time: null,
+              open_time: null,
             };
             console.log(this.createTest);
             if (this.numberOfTest > 10 && this.role==='user') {

@@ -1,5 +1,5 @@
-import {BaseReponses} from "../base.reponses";
-import {ImageResponses} from "../image/image.responses";
+import {BaseReponses} from '../base.reponses';
+import {ImageResponses} from '../image/image.responses';
 
 export interface TestReportListResponse {
   data: TestReportResponse[];
@@ -17,6 +17,7 @@ export interface TestReportResponse extends BaseReponses {
   };
   doingDate: Date;
   total_point: number;
+  total_time_finish: number;
 }
 
 export interface TestOfTestReportResponse {
