@@ -1,8 +1,8 @@
 import {AfterContentInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {QuestionResponses} from "../../../../responses/question/question.responses";
-import {ActivatedRoute} from "@angular/router";
-import {SharedService} from "../../../../services/shared/shared.service";
-import {TestReportItemDTO} from "../../../../DTOS/test-report/test-report.dto";
+import {ActivatedRoute} from '@angular/router';
+import {TestReportItemDTO} from '../../../../DTOS/test-report/test-report.dto';
+import {QuestionResponses} from '../../../../responses/question/question.responses';
+import {SharedService} from '../../../../services/shared/shared.service';
 
 @Component({
   selector: 'app-do-test-fitb-item',
@@ -18,13 +18,13 @@ export class DoTestFitbItemComponent implements OnInit, AfterContentInit {
   answer!: string;
   @Input() userAnswers: string[] | null | undefined;
   @Input() showRealAnswer: boolean = false;
-  @ViewChild("input", {static: true}) inputElement!: ElementRef;
+  @ViewChild('input', {static: true}) inputElement!: ElementRef;
 
   constructor(private routes: ActivatedRoute, private renderer2: Renderer2, private sharedService: SharedService) {
   }
 
   ngOnInit() {
-    this.answer = "";
+    this.answer = '';
     this.isDisabled = false;
   }
 
@@ -50,7 +50,7 @@ export class DoTestFitbItemComponent implements OnInit, AfterContentInit {
 
   submitAnswer() {
     if (!this.userAnswers) {
-      this.userAnswers = [this.answer];
+      this.userAnswers = [this.answer.toLowerCase().trim()];
       this.checkResultAnswer(this.userAnswers[0]);
       const testReportItem: TestReportItemDTO = {
         answers: this.userAnswers,
@@ -64,7 +64,7 @@ export class DoTestFitbItemComponent implements OnInit, AfterContentInit {
 
     }
 
-    if (this.userAnswers.length === 1 && this.userAnswers) {
+    if (this.userAnswers.length===1 && this.userAnswers) {
       this.isDisabled = true;
       return;
     }
@@ -73,31 +73,33 @@ export class DoTestFitbItemComponent implements OnInit, AfterContentInit {
   private checkAnswerAgain(ans: string) {
     this.answer = ans;
     this.checkResultAnswer(ans);
-    if (this.userAnswers && this.userAnswers.length === 1) {
+    if (this.userAnswers && this.userAnswers.length===1) {
       this.isDisabled = true;
     }
   }
 
   private checkResultAnswer(ans: string) {
-    if (ans === "") {
-      (<HTMLInputElement>this.inputElement.nativeElement).classList.remove("correct", "incorrect", "answer_selected");
+    if (ans==='') {
+      (<HTMLInputElement>this.inputElement.nativeElement).classList.remove('correct', 'incorrect', 'answer_selected');
       return;
     }
+
     if (this.showRealAnswer) {
       this.question.answers.forEach(answer => {
-        if (answer.value === ans) {
+        if (answer.value.trim().toLowerCase()===ans) {
           this.isCorrect = true;
-          this.inputElement.nativeElement.classList.add("correct");
+          (<HTMLInputElement>this.inputElement.nativeElement).classList.remove('correct', 'incorrect', 'answer_selected');
+          this.inputElement.nativeElement.classList.add('correct');
           return;
         } else {
-          this.inputElement.nativeElement.classList.add("incorrect");
+          (<HTMLInputElement>this.inputElement.nativeElement).classList.remove('correct', 'incorrect', 'answer_selected');
+          this.inputElement.nativeElement.classList.add('incorrect');
         }
       });
-
     } else {
-      this.inputElement.nativeElement.classList.add("answer_selected");
+      this.inputElement.nativeElement.classList.add('answer_selected');
       this.question.answers.forEach(answer => {
-        if (answer.value === ans) {
+        if (answer.value.trim().toLowerCase()===ans) {
           this.isCorrect = true;
           return;
         }
@@ -106,11 +108,11 @@ export class DoTestFitbItemComponent implements OnInit, AfterContentInit {
   }
 
   private initAnswer() {
-    if (this.userAnswers != null) {
+    if (this.userAnswers!=null) {
       this.answer = this.userAnswers[0];
       this.checkAnswerAgain(this.answer);
     } else {
-      this.answer = "";
+      this.answer = '';
       this.isDisabled = false;
       this.checkAnswerAgain(this.answer);
     }

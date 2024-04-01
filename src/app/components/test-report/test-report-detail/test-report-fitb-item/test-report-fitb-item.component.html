@@ -14,7 +14,7 @@
              resultItem.answer_of_user[0]: ''"
              class="form-control" disabled id="textBox_{{questionNumber+1}}" name="textBox_{{questionNumber+1}}" type="text">
     </div>
-    <div class="mb-2 text-danger">
+    <div [class.text-danger]="!isAnswerCorrect" [class.text-success]="isAnswerCorrect" class="mb-2 text-danger">
       <span>Đáp án đúng: {{ correctAnswers.toString() }}</span>
     </div>
   </div>

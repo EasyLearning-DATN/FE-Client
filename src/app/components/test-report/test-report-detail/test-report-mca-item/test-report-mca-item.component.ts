@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {QuestionReportResponse} from "../../../../responses/test-report/test-report.responses";
+import {QuestionReportResponse} from '../../../../responses/test-report/test-report.responses';
 
 @Component({
   selector: 'app-test-report-mca-item',
@@ -10,12 +10,12 @@ export class TestReportMcaItemComponent implements OnInit, AfterViewInit {
   @Input() resultItem!: QuestionReportResponse;
   @Input() questionNumber!: number;
   correctAnswerIndex!: number[];
-  message: string = "";
+  message: string = '';
   isChecked: boolean[] = [false, false, false, false];
-  @ViewChild("label1", {static: true}) label1!: ElementRef;
-  @ViewChild("label2", {static: true}) label2!: ElementRef;
-  @ViewChild("label3", {static: true}) label3!: ElementRef;
-  @ViewChild("label4", {static: true}) label4!: ElementRef;
+  @ViewChild('label1', {static: true}) label1!: ElementRef;
+  @ViewChild('label2', {static: true}) label2!: ElementRef;
+  @ViewChild('label3', {static: true}) label3!: ElementRef;
+  @ViewChild('label4', {static: true}) label4!: ElementRef;
 
   constructor() {
   }
@@ -32,10 +32,10 @@ export class TestReportMcaItemComponent implements OnInit, AfterViewInit {
   checkAnswer() {
     this.resultItem.answers.forEach(
       (answer, index) => {
-        if (this.resultItem.answer_of_user[0].length !== 0) {
+        if (this.resultItem.answer_of_user[0].length!==0) {
           this.resultItem.answer_of_user.forEach(
             userAnswer => {
-              if (answer.value === userAnswer) {
+              if (answer.value===userAnswer) {
                 this.isChecked[index] = true;
                 if (answer.is_correct) {
                   this.setChosenElements(index, true);
@@ -46,7 +46,7 @@ export class TestReportMcaItemComponent implements OnInit, AfterViewInit {
             },
           );
         } else {
-          this.message = "Người dùng chưa chọn câu trả lời";
+          this.message = 'Người dùng chưa chọn câu trả lời';
           this.correctAnswerIndex.forEach(
             index => {
               this.setChosenElements(index, true);
@@ -62,19 +62,19 @@ export class TestReportMcaItemComponent implements OnInit, AfterViewInit {
   setChosenElements(index: number, isCorrect: boolean = false) {
     switch (index) {
       case 1: {
-        this.label2.nativeElement.classList.add(isCorrect ? 'correct' : 'inCorrect');
+        this.label2.nativeElement.classList.add(isCorrect ? 'correct': 'incorrect');
         break;
       }
       case 2: {
-        this.label3.nativeElement.classList.add(isCorrect ? 'correct' : 'inCorrect');
+        this.label3.nativeElement.classList.add(isCorrect ? 'correct': 'incorrect');
         break;
       }
       case 3: {
-        this.label4.nativeElement.classList.add(isCorrect ? 'correct' : 'inCorrect');
+        this.label4.nativeElement.classList.add(isCorrect ? 'correct': 'incorrect');
         break;
       }
       default: {
-        this.label1.nativeElement.classList.add(isCorrect ? 'correct' : 'inCorrect');
+        this.label1.nativeElement.classList.add(isCorrect ? 'correct': 'incorrect');
       }
     }
     if (isCorrect) {
