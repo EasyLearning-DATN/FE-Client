@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserResponse} from 'src/app/responses/user/user.responses';
 import {UserService} from 'src/app/services/user/user-service.service';
@@ -20,6 +20,21 @@ export class HeaderComponent implements OnInit {
     private userService: UserService,
     private router: Router,
   ) {
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.ctrlKey && event.key === 'u') {
+      event.preventDefault();
+    }
+    if (event.key === 'F12') {
+      event.preventDefault();
+    }
+  }
+
+  @HostListener('document:contextmenu', ['$event'])
+  onRightClick(event: MouseEvent) {
+    event.preventDefault(); 
   }
 
   ngOnInit() {

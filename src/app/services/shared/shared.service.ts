@@ -10,6 +10,7 @@ import {TestResponses} from 'src/app/responses/test/test.responses';
 import {ResultTypeResponses} from '../../responses/result_type_id/result_type.responses';
 import {SearchLessonResponses} from '../../responses/search-lesson/search-lesson.responses';
 import {UserResponse} from '../../responses/user/user.responses';
+import { ExamResultResponses } from "src/app/responses/ExamResult/examresult.responses";
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +38,16 @@ export class SharedService {
 
   set testReport(value: TestReportResponse) {
     this._testReport = value;
+  }
+
+  private _examResult!: ExamResultResponses;
+
+  get examResult(): ExamResultResponses {
+    return this._examResult;
+  }
+
+  set examResult(value: ExamResultResponses) {
+    this._examResult = value;
   }
 
   private _doTest!: TempTest;

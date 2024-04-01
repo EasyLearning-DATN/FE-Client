@@ -20,6 +20,7 @@ import {HomeComponent} from './components/home/home.component';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {AuthInterceptor} from './interceptors/auth.interceptor';
 import {SharedModule} from './modules/shared/shared.module';
+import { ExamResultComponent } from './components/test/exam-result/exam-result.component';
 
 @NgModule({
   declarations: [
