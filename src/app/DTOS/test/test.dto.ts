@@ -26,6 +26,7 @@ export class TestDTO {
 export class TempTest {
   test: TestResponses | null = null;
   endTime: Date | null = null;
+  startTime: Date | null = null;
   indexCurrentQuestion: number = 0;
   test_report: TestReportDTO | null = null;
 }

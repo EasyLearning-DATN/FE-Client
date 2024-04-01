@@ -1,12 +1,12 @@
+import {animate, keyframes, style, transition, trigger} from '@angular/animations';
 import {Component, OnDestroy, OnInit, TemplateRef} from '@angular/core';
-import {NgbOffcanvas} from "@ng-bootstrap/ng-bootstrap";
-import {SharedService} from "../../../../services/shared/shared.service";
-import {SearchLessonResponses} from "../../../../responses/search-lesson/search-lesson.responses";
-import {LessonResponses} from "../../../../responses/lesson/lesson.responses";
-import {LessonService} from "../../../../services/lesson/lesson.service";
-import {lastValueFrom, Observable, Subscription} from "rxjs";
-import {FormControl, FormGroup} from "@angular/forms";
-import {animate, keyframes, style, transition, trigger} from "@angular/animations";
+import {FormControl, FormGroup} from '@angular/forms';
+import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
+import {lastValueFrom, Observable, Subscription} from 'rxjs';
+import {LessonResponses} from '../../../../responses/lesson/lesson.responses';
+import {SearchLessonResponses} from '../../../../responses/search-lesson/search-lesson.responses';
+import {LessonService} from '../../../../services/lesson/lesson.service';
+import {SharedService} from '../../../../services/shared/shared.service';
 
 @Component({
   selector: 'app-add-question-test',
@@ -14,7 +14,7 @@ import {animate, keyframes, style, transition, trigger} from "@angular/animation
   styleUrls: ['./add-question-test.component.css'],
   animations: [trigger('addAllQuestions', [
     transition(':enter', [
-      animate('3s ease-in-out', keyframes([
+      animate('1.5s ease-in-out', keyframes([
         style({
           opacity: 0,
           'transform': 'translateX(0) translateY(0)',
@@ -94,7 +94,7 @@ export class AddQuestionTestComponent implements OnInit, OnDestroy {
   }
 
   openOffcanvas(content: TemplateRef<any>) {
-    this.offcanvasService.open(content, {backdrop: 'static', position: "end"});
+    this.offcanvasService.open(content, {backdrop: 'static', position: 'end'});
   }
 
   async onSearch() {
@@ -102,7 +102,7 @@ export class AddQuestionTestComponent implements OnInit, OnDestroy {
       return;
     }
     let result$: Observable<SearchLessonResponses[]>;
-    if (this.sourceForm.get('source')?.value === 'myLibrary') {
+    if (this.sourceForm.get('source')?.value==='myLibrary') {
       const userInfo = JSON.parse(<string>localStorage.getItem('userInfo'));
       result$ = this.lessonService.searchLessonForTest(this.searchKey, 0, userInfo.id);
     } else {
@@ -129,7 +129,7 @@ export class AddQuestionTestComponent implements OnInit, OnDestroy {
 
   private initForm() {
     this.sourceForm = new FormGroup({
-      source: new FormControl("community"),
+      source: new FormControl('community'),
     });
   }
 }

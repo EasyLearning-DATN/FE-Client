@@ -34,7 +34,8 @@
                   <span *ngIf="!question.get('weighted')?.valid && question.get('weighted')?.touched"
                         class="text-danger">
                      <span *ngIf="question.get('weighted')?.errors?.['required']">Vui lòng nhập trọng số điểm!</span>
-                     <span *ngIf="question.get('weighted')?.errors?.['pattern']">Vui lòng nhập số!</span>
+                     <span *ngIf="question.get('weighted')?.errors?.['min']">Trọng số phải >= 1 và <= 3!</span>
+                     <span *ngIf="question.get('weighted')?.errors?.['max']">Trọng số phải >= 1 và <= 3!</span>
                   </span>
                 </div>
                 <div class="form-group mb-3" formArrayName="answers">
@@ -70,7 +71,8 @@
                   <span *ngIf="!question.get('weighted')?.valid && question.get('weighted')?.touched"
                         class="text-danger">
                      <span *ngIf="question.get('weighted')?.errors?.['required']">Vui lòng nhập trọng số điểm!</span>
-                     <span *ngIf="question.get('weighted')?.errors?.['pattern']">Vui lòng nhập số!</span>
+                     <span *ngIf="question.get('weighted')?.errors?.['min']">Trọng số phải >= 1 và <= 3!</span>
+                     <span *ngIf="question.get('weighted')?.errors?.['max']">Trọng số phải >= 1 và <= 3!</span>
                   </span>
                 </div>
                 <div class="form-group mb-3" formArrayName="answers">
@@ -101,7 +103,8 @@
                   <span *ngIf="!question.get('weighted')?.valid && question.get('weighted')?.touched"
                         class="text-danger">
                      <span *ngIf="question.get('weighted')?.errors?.['required']">Vui lòng nhập trọng số điểm!</span>
-                     <span *ngIf="question.get('weighted')?.errors?.['pattern']">Vui lòng nhập số!</span>
+                     <span *ngIf="question.get('weighted')?.errors?.['min']">Trọng số phải >= 1 và <= 3!</span>
+                     <span *ngIf="question.get('weighted')?.errors?.['max']">Trọng số phải >= 1 và <= 3!</span>
                   </span>
                 </div>
                 <div class="form-group mb-3" formArrayName="answers">

@@ -23,7 +23,8 @@
             <span *ngIf="!editQuestionForm.get('weighted')?.valid && editQuestionForm.get('weighted')?.touched"
                   class="text-danger">
                      <span *ngIf="editQuestionForm.get('weighted')?.errors?.['required']">Vui lòng nhập trọng số điểm!</span>
-                     <span *ngIf="editQuestionForm.get('weighted')?.errors?.['pattern']">Vui lòng nhập số!</span>
+                     <span *ngIf="editQuestionForm.get('weighted')?.errors?.['min']">Trọng số phải >= 1 và <= 3!</span>
+                     <span *ngIf="editQuestionForm.get('weighted')?.errors?.['max']">Trọng số phải >= 1 và <= 3!</span>
                   </span>
           </div>
           <div class="form-group mb-3" formArrayName="answers">
@@ -56,11 +57,12 @@
           </div>
           <div class="form-group mb-3">
             <label class="form-label">Trọng số:</label>
-            <input class="form-control mb-2" formControlName="weighted" type="number">
+            <input class="form-control mb-2" formControlName="weighted" max="3" min="1" type="number">
             <span *ngIf="!editQuestionForm.get('weighted')?.valid && editQuestionForm.get('weighted')?.touched"
                   class="text-danger">
                      <span *ngIf="editQuestionForm.get('weighted')?.errors?.['required']">Vui lòng nhập trọng số điểm!</span>
-                     <span *ngIf="editQuestionForm.get('weighted')?.errors?.['pattern']">Vui lòng nhập số!</span>
+                      <span *ngIf="editQuestionForm.get('weighted')?.errors?.['min']">Trọng số phải >= 1 và <= 3!</span>
+                     <span *ngIf="editQuestionForm.get('weighted')?.errors?.['max']">Trọng số phải >= 1 và <= 3!</span>
                   </span>
           </div>
           <div class="form-group mb-3" formArrayName="answers">
@@ -81,10 +83,20 @@
           <div class="form-group mb-3">
             <label class="form-label">Câu hỏi:</label>
             <input class="form-control mb-2" formControlName="title" type="text">
+            <span *ngIf="!editQuestionForm.get('title')?.valid && editQuestionForm.get('title')?.touched"
+                  class="text-danger">
+                     <span *ngIf="editQuestionForm.get('title')?.errors?.['required']">Vui lòng nhập câu hỏi!</span>
+                  </span>
           </div>
           <div class="form-group mb-3">
             <label class="form-label">Trọng số:</label>
-            <input class="form-control mb-2" formControlName="weighted" type="number">
+            <input class="form-control mb-2" formControlName="weighted" max="3" min="1" type="number">
+            <span *ngIf="!editQuestionForm.get('weighted')?.valid && editQuestionForm.get('weighted')?.touched"
+                  class="text-danger">
+                     <span *ngIf="editQuestionForm.get('weighted')?.errors?.['required']">Vui lòng nhập trọng số điểm!</span>
+                      <span *ngIf="editQuestionForm.get('weighted')?.errors?.['min']">Trọng số phải >= 1 và <= 3!</span>
+                     <span *ngIf="editQuestionForm.get('weighted')?.errors?.['max']">Trọng số phải >= 1 và <= 3!</span>
+                  </span>
           </div>
           <div class="form-group mb-3" formArrayName="answers">
             <label class="form-label">Đáp án:</label>

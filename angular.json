@@ -29,6 +29,7 @@
               "src/assets/css/theme.css",
               "node_modules/sweetalert2/src/sweetalert2.scss",
               "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/assets/scss/date-time-picker.scss",
               "src/styles.css"
             ],
             "scripts": [

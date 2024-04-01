@@ -1,13 +1,13 @@
 import {Component, Input, OnInit, TemplateRef} from '@angular/core';
-import {SharedService} from "../../../../../services/shared/shared.service";
-import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
-import {ModalDismissReasons, NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
-import {QuestionTypeResponses} from "../../../../../responses/question-type/question-type.responses";
-import Swal from "sweetalert2";
-import {ConfirmModalComponent} from "../../../../commons/confirm-modal/confirm-modal.component";
-import {QuestionService} from "../../../../../services/question/question.service";
-import {QuestionDTO} from "../../../../../DTOS/question/question.dto";
-import {LessonService} from "../../../../../services/lesson/lesson.service";
+import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ModalDismissReasons, NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
+import {QuestionDTO} from '../../../../../DTOS/question/question.dto';
+import {QuestionTypeResponses} from '../../../../../responses/question-type/question-type.responses';
+import {LessonService} from '../../../../../services/lesson/lesson.service';
+import {QuestionService} from '../../../../../services/question/question.service';
+import {SharedService} from '../../../../../services/shared/shared.service';
+import {ConfirmModalComponent} from '../../../../commons/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-add-questions',
@@ -23,7 +23,7 @@ export class AddQuestionsComponent implements OnInit {
   private closeResult!: string;
 
   constructor(private sharedService: SharedService, private modalService: NgbModal, private config: NgbModalConfig,
-    private questionService: QuestionService, private lessonService: LessonService) {
+              private questionService: QuestionService, private lessonService: LessonService) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
@@ -38,7 +38,7 @@ export class AddQuestionsComponent implements OnInit {
 
   ngOnInit() {
     // this.questionTypes = this.sharedService.questionTypeResponses;
-    this.questionTypes = JSON.parse(<string>sessionStorage.getItem("questionTypes"));
+    this.questionTypes = JSON.parse(<string>sessionStorage.getItem('questionTypes'));
     this.initForm();
   }
 
@@ -66,14 +66,14 @@ export class AddQuestionsComponent implements OnInit {
   }
 
   getAnswersFormArray(typeCode: string) {
-    if (typeCode === 'fitb') {
+    if (typeCode==='fitb') {
       return new FormArray([
         new FormGroup({
           'value': new FormControl('', Validators.required),
           'is_correct': new FormControl(true),
         }),
       ]);
-    } else if (typeCode === 'mca') {
+    } else if (typeCode==='mca') {
       return new FormArray([
         new FormGroup({
           'value': new FormControl('', Validators.required),
@@ -120,7 +120,8 @@ export class AddQuestionsComponent implements OnInit {
       'title': new FormControl(null, Validators.required),
       'weighted': new FormControl(null, [
         Validators.required,
-        Validators.pattern(/^[1-9]+[0-9]*$/),
+        Validators.max(3),
+        Validators.min(1),
       ]),
       'question_type_id': new FormControl('sca', Validators.required),
       'answers': this.getAnswersFormArray('sca'),
@@ -132,7 +133,8 @@ export class AddQuestionsComponent implements OnInit {
       'title': new FormControl(null, Validators.required),
       'weighted': new FormControl(null, [
         Validators.required,
-        Validators.pattern(/^[1-9]+[0-9]*$/),
+        Validators.max(3),
+        Validators.min(1),
       ]),
       'question_type_id': new FormControl(typeCode, Validators.required),
       'answers': this.getAnswersFormArray(typeCode),
@@ -147,7 +149,7 @@ export class AddQuestionsComponent implements OnInit {
   }
 
   onDeleteQuestion(index: number) {
-    if ((this.createQuestionForm.get('questions') as FormArray).length === 1) {
+    if ((this.createQuestionForm.get('questions') as FormArray).length===1) {
       Swal.fire({
         icon: 'error',
         title: 'Không thể xóa câu hỏi!',
@@ -182,7 +184,7 @@ export class AddQuestionsComponent implements OnInit {
     this.createQuestionForm.value.questions.forEach((question: any) => {
       const type = question.question_type_id;
       this.questionTypes.forEach((qType: QuestionTypeResponses) => {
-        if (qType.code === type) {
+        if (qType.code===type) {
           question.question_type_id = qType.id;
         }
       });
@@ -190,13 +192,13 @@ export class AddQuestionsComponent implements OnInit {
 
     const confirmModal = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    confirmModal.componentInstance.body = "Bạn có chắc chắn muốn thêm câu hỏi vào bài học này không?";
+    confirmModal.componentInstance.body = 'Bạn có chắc chắn muốn thêm câu hỏi vào bài học này không?';
     confirmModal
     .result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.closeResult);
-        if (result === 'Confirm') {
+        if (result==='Confirm') {
           this.listQuestion = ((this.createQuestionForm.get('questions') as FormArray).value as QuestionDTO[]);
           this.listQuestion.forEach((question: QuestionDTO) => {
             question.lesson_id = this.lessonId;
@@ -254,7 +256,8 @@ export class AddQuestionsComponent implements OnInit {
         'title': new FormControl(null, Validators.required),
         'weighted': new FormControl(null, [
           Validators.required,
-          Validators.pattern(/^[1-9]+[0-9]*$/),
+          Validators.max(3),
+          Validators.min(1),
         ]),
         'question_type_id': new FormControl('sca', Validators.required),
         'answers': this.getAnswersFormArray('sca'),

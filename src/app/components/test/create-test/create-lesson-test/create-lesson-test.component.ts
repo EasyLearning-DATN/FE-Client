@@ -166,7 +166,12 @@ export class CreateLessonTestComponent implements OnInit {
         return;
       }
     }
-    this.offcanvasService.open(content, {backdrop: 'static'});
+    this.offcanvasService.open(content,
+      {
+        backdrop: 'static',
+        position: 'end',
+      },
+    );
   }
 
   initForm() {
