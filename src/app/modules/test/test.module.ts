@@ -31,6 +31,7 @@ import {TestComponent} from '../../components/test/test.component';
 import {SharedModule} from '../shared/shared.module';
 
 import {TestRoutingModule} from './test-routing.module';
+import { ExamResultComponent } from 'src/app/components/test/exam-result/exam-result.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import {TestRoutingModule} from './test-routing.module';
     TestReportMcaItemComponent,
     TestReportScaItemComponent,
     TestReportDetailComponent,
+    ExamResultComponent
   ],
   imports: [
     TestRoutingModule,

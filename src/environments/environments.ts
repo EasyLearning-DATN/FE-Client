@@ -1,6 +1,6 @@
 // const BASE_API = 'https://be-cdj2.onrender.com'
-const BASE_API = 'http://localhost:1002';
-// const BASE_API = 'http://localhost:1001';
+// const BASE_API = 'http://localhost:1002';
+const BASE_API = 'http://localhost:1001';
 
 export const environment = {
   production: false,
@@ -40,6 +40,8 @@ export const environment = {
   API_MOMO: '/momo',
   API_PAYMENT: '/payment',
   API_PACKAGE: '/package-upgrade',
+  API_TESTREPORT: '/test-report',
+  API_EXAMRESULT: '/rank-report',
   PATH_ID: '/{id}',
   ID: 'id',
   LANGUAGE: 'vi',

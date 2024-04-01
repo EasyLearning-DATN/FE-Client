@@ -12,6 +12,12 @@
         Làm bài thi này
       </button>
     </div>
+    <div class="ms-3" *ngIf="isCreator">
+      <button class="btn btn-app">
+        <fa-icon [icon]="['far','file-lines']"></fa-icon>
+        <a href="/test/exam-result/{{test.id}}" style="color: black; text-decoration: none;">Xem kết quả thi</a>
+      </button>
+    </div>
   </div>
   <div class="row flex-shrink-0 flex-row">
     <div class="mb-3 fs-1 d-flex flex-column flex-shrink-0 align-items-start justify-content-around col-auto col-lg-8">

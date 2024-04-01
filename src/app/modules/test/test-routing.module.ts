@@ -15,6 +15,7 @@ import {questionTypeResolver} from '../../resolver/question.type.resolver';
 import {resultTypeResolver} from '../../resolver/result-type.resolver';
 import {testReportResolver} from '../../resolver/test-report.resolver';
 import {testResolver} from '../../resolver/test.resolver';
+import { ExamResultComponent } from 'src/app/components/test/exam-result/exam-result.component';
 
 const routes: Routes = [
   {path: 'list-test', component: ListTestComponent},
@@ -43,6 +44,9 @@ const routes: Routes = [
         canDeactivate: [testCanDeactivateGuard],
         resolve: [doTestResolver, questionTypeResolver, resultTypeResolver],
       },
+      { 
+        path: 'exam-result/:id', component: ExamResultComponent
+      }
     ],
   },
   {path: ':id', component: TestDetailComponent, resolve: [testResolver]},

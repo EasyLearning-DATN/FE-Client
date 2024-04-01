@@ -10,6 +10,8 @@ import {TestResponses} from '../../../responses/test/test.responses';
 import {SharedService} from '../../../services/shared/shared.service';
 import {TestService} from '../../../services/test/test.service';
 import {ConfirmModalComponent} from '../../commons/confirm-modal/confirm-modal.component';
+import { ExamResultResponses } from 'src/app/responses/ExamResult/examresult.responses';
+import { ExamResultService } from 'src/app/services/test/ExamResult/exam-result.service';
 
 @Component({
   selector: 'app-test-detail',
@@ -24,7 +26,7 @@ export class TestDetailComponent implements OnInit {
   closeResult: string = '';
 
   constructor(private testService: TestService, private route: ActivatedRoute, private sharedService: SharedService, private router: Router,
-              private cookieService: CookieService, private modalService: NgbModal) {
+              private cookieService: CookieService, private modalService: NgbModal, private examResultService: ExamResultService) {
 
   }
 
@@ -132,6 +134,16 @@ export class TestDetailComponent implements OnInit {
       default:
         return `with: ${reason}`;
     }
+  }
+
+  getExamResult(testId: string) {
+    this.examResultService.getExamResult(testId).subscribe(
+      (res: ExamResultResponses) => {
+        console.log(res);
+      }, error => {
+        console.log(error.message);
+      }
+    );
   }
 
 }
