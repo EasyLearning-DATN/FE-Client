@@ -1,3 +1,4 @@
+import {NgxMatDatetimePickerModule, NgxMatTimepickerModule} from '@angular-material-components/datetime-picker';
 import {NgModule} from '@angular/core';
 import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
 import {fab} from '@fortawesome/free-brands-svg-icons';
@@ -49,6 +50,8 @@ import {LessonRoutingModule} from './lesson-routing.module';
   ],
   imports: [
     LessonRoutingModule,
+    NgxMatTimepickerModule,
+    NgxMatDatetimePickerModule,
     SharedModule,
   ],
 })

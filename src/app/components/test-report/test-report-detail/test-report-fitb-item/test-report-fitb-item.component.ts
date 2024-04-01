@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {QuestionReportResponse} from "../../../../responses/test-report/test-report.responses";
+import {QuestionReportResponse} from '../../../../responses/test-report/test-report.responses';
 
 @Component({
   selector: 'app-test-report-fitb-item',
@@ -9,9 +9,10 @@ import {QuestionReportResponse} from "../../../../responses/test-report/test-rep
 export class TestReportFitbItemComponent implements OnInit, AfterViewInit {
   @Input() resultItem!: QuestionReportResponse;
   @Input() questionNumber!: number;
-  message: string = "";
+  isAnswerCorrect = false;
+  message: string = '';
   correctAnswers!: string[];
-  @ViewChild("input", {static: true}) inputField!: ElementRef;
+  @ViewChild('input', {static: true}) inputField!: ElementRef;
 
   constructor() {
   }
@@ -25,31 +26,31 @@ export class TestReportFitbItemComponent implements OnInit, AfterViewInit {
   }
 
   checkAnswer() {
-    console.log("hello");
+    console.log('hello');
     this.resultItem.answers.forEach(
       (answer, index) => {
         if (this.resultItem.answer_of_user.length > 0) {
-          if (answer.value === this.resultItem.answer_of_user[0]) {
-            this.inputField.nativeElement.classList.add("correct");
+          if (answer.value.trim().toLowerCase()===this.resultItem.answer_of_user[0].trim().toLowerCase()) {
+            this.inputField.nativeElement.classList.add('correct');
             return;
           }
         } else {
-          this.message = "Người dùng chưa chọn câu trả lời";
-          this.inputField.nativeElement.classList.add("inCorrect");
+          this.message = 'Người dùng chưa chọn câu trả lời';
+          this.inputField.nativeElement.classList.add('incorrect');
           return;
         }
 
       },
     );
-    const isAnswerCorrect = (<HTMLInputElement>this.inputField.nativeElement).classList.contains("correct");
-    if (!isAnswerCorrect) {
-      this.inputField.nativeElement.classList.add("inCorrect");
+    this.isAnswerCorrect = (<HTMLInputElement>this.inputField.nativeElement).classList.contains('correct');
+    if (!this.isAnswerCorrect) {
+      this.inputField.nativeElement.classList.add('incorrect');
     }
   }
 
   private getCorrectAnswers() {
     this.correctAnswers = this.resultItem.answers.map(answer => {
-      return answer.value;
+      return answer.value.trim().toLowerCase();
     });
   }
 
