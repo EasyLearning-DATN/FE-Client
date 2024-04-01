@@ -20,7 +20,18 @@ import {HomeComponent} from './components/home/home.component';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {AuthInterceptor} from './interceptors/auth.interceptor';
 import {SharedModule} from './modules/shared/shared.module';
-import { ExamResultComponent } from './components/test/exam-result/exam-result.component';
+
+// const MY_NGX_DATE_FORMATS: NgxMatDateFormats = {
+//   parse: {
+//     dateInput: 'l, LTS',
+//   },
+//   display: {
+//     dateInput: 'DD.MM.yyyy HH:mm',
+//     monthYearLabel: 'MMM YYYY',
+//     dateA11yLabel: 'LL',
+//     monthYearA11yLabel: 'MMMM YYYY',
+//   },
+// };
 
 @NgModule({
   declarations: [
@@ -44,6 +55,7 @@ import { ExamResultComponent } from './components/test/exam-result/exam-result.c
         deps: [HttpClient],
       },
     }),
+
   ],
   providers: [
     {
@@ -61,6 +73,12 @@ import { ExamResultComponent } from './components/test/exam-result/exam-result.c
     //   },
     // },
     CookieService,
+    // {
+    //   provide: NgxMatDateAdapter,
+    //   useClass: NgxMatMomentAdapter, //Moment adapter
+    //   deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    // },
+    // {provide: NGX_MAT_DATE_FORMATS, useValue: MY_NGX_DATE_FORMATS},
   ],
   bootstrap: [AppComponent],
 })
@@ -74,3 +92,5 @@ export class AppModule {
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }
+
+

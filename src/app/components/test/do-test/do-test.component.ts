@@ -1,5 +1,5 @@
 import {animate, keyframes, style, transition, trigger} from '@angular/animations';
-import {AfterViewInit, Component, OnDestroy, OnInit, Renderer2} from '@angular/core';
+import {AfterViewInit, Component, HostListener, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CookieService} from 'ngx-cookie-service';
@@ -105,6 +105,26 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
   get reportItems() {
     return (<TestReportItemDTO[]>this.sharedService.tempTestReport.report_items);
   }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key==='Tab' ||
+      event.key==='F11' ||
+      event.key==='Escape') {
+      event.preventDefault();
+    }
+  }
+
+  // @HostListener('document:mousemove', ['$event'])
+  // handleMouseMovement(event: MouseEvent) {
+  //   console.log(event.screenX);
+  //   if (event.screenY <= 5
+  //     // || event.screenX <= 5
+  //   ) {
+  //     event.preventDefault();
+  //     window.alert('Xin vui lòng không di chuyển chuột khỏi phạm vi bài thi!');
+  //   }
+  // }
 
   ngOnInit() {
     this.getTempTest();

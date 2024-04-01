@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {QuestionResponses} from "../../../../responses/question/question.responses";
-import {ActivatedRoute} from "@angular/router";
-import {SharedService} from "../../../../services/shared/shared.service";
-import {TestReportItemDTO} from "../../../../DTOS/test-report/test-report.dto";
+import {ActivatedRoute} from '@angular/router';
+import {TestReportItemDTO} from '../../../../DTOS/test-report/test-report.dto';
+import {QuestionResponses} from '../../../../responses/question/question.responses';
+import {SharedService} from '../../../../services/shared/shared.service';
 
 @Component({
   selector: 'app-do-test-mca-item',
@@ -21,14 +21,14 @@ export class DoTestMcaItemComponent implements OnInit, AfterViewInit {
   scoreEachAnswer: number = 0;
   @Input() userAnswers!: string[] | null | undefined;
   @Input() showRealAnswer: boolean = false;
-  @ViewChild("btn1", {static: true}) btn1!: ElementRef;
-  @ViewChild("btn2", {static: true}) btn2!: ElementRef;
-  @ViewChild("btn3", {static: true}) btn3!: ElementRef;
-  @ViewChild("btn4", {static: true}) btn4!: ElementRef;
-  @ViewChild("chkbox1", {static: true}) chkbox1!: ElementRef;
-  @ViewChild("chkbox2", {static: true}) chkbox2!: ElementRef;
-  @ViewChild("chkbox3", {static: true}) chkbox3!: ElementRef;
-  @ViewChild("chkbox4", {static: true}) chkbox4!: ElementRef;
+  @ViewChild('btn1', {static: true}) btn1!: ElementRef;
+  @ViewChild('btn2', {static: true}) btn2!: ElementRef;
+  @ViewChild('btn3', {static: true}) btn3!: ElementRef;
+  @ViewChild('btn4', {static: true}) btn4!: ElementRef;
+  @ViewChild('chkbox1', {static: true}) chkbox1!: ElementRef;
+  @ViewChild('chkbox2', {static: true}) chkbox2!: ElementRef;
+  @ViewChild('chkbox3', {static: true}) chkbox3!: ElementRef;
+  @ViewChild('chkbox4', {static: true}) chkbox4!: ElementRef;
   isDisabledBtn: boolean[] = [false, false, false, false];
 
   constructor(private routes: ActivatedRoute, private renderer2: Renderer2, private sharedService: SharedService) {
@@ -48,7 +48,7 @@ export class DoTestMcaItemComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (this.userAnswers != null) {
+    if (this.userAnswers!=null) {
       for (let i = 0; i < this.userAnswers.length; i++) {
         this.checkAnswerAgain(this.userAnswers[i]);
       }
@@ -56,7 +56,7 @@ export class DoTestMcaItemComponent implements OnInit, AfterViewInit {
     this.scoreEachAnswer = this.question.weighted / this.totalAnswer;
   }
 
-  checkAnswer(ans: number, btn: HTMLButtonElement, checkBox: HTMLInputElement) {
+  checkAnswer(ans: number, btn: HTMLButtonElement, checkBox: HTMLInputElement, event: Event) {
     if (!this.userAnswers) {
       this.userAnswers = [this.question.answers[ans].value];
     } else {
@@ -93,36 +93,36 @@ export class DoTestMcaItemComponent implements OnInit, AfterViewInit {
   }
 
   private checkAnswerAgain(ans: string) {
-    if (ans === (<HTMLButtonElement>this.btn1.nativeElement).value) {
+    if (ans===(<HTMLButtonElement>this.btn1.nativeElement).value) {
       this.checkResultAnswer(parseInt((<HTMLButtonElement>this.btn1.nativeElement).name), this.btn1.nativeElement, this.chkbox1.nativeElement);
-    } else if (ans === (<HTMLButtonElement>this.btn2.nativeElement).value) {
+    } else if (ans===(<HTMLButtonElement>this.btn2.nativeElement).value) {
       this.checkResultAnswer(parseInt((<HTMLButtonElement>this.btn2.nativeElement).name), this.btn2.nativeElement, this.chkbox2.nativeElement);
-    } else if (ans === (<HTMLButtonElement>this.btn3.nativeElement).value) {
+    } else if (ans===(<HTMLButtonElement>this.btn3.nativeElement).value) {
       this.checkResultAnswer(parseInt((<HTMLButtonElement>this.btn3.nativeElement).name), this.btn3.nativeElement, this.chkbox3.nativeElement);
     } else {
       this.checkResultAnswer(parseInt((<HTMLButtonElement>this.btn4.nativeElement).name), this.btn4.nativeElement, this.chkbox4.nativeElement);
     }
 
-    if (this.userAnswers && this.userAnswers.length === this.totalAnswer) {
+    if (this.userAnswers && this.userAnswers.length===this.totalAnswer) {
       // this.isDisabled = true;
       this.isDisabledBtn.fill(true);
     }
   }
 
   private checkResultAnswer(index: number, btn: HTMLButtonElement, checkBox: HTMLInputElement) {
+    this.isDisabledBtn[index] = true;
     checkBox.checked = true;
     if (this.showRealAnswer) {
       if (this.question.answers[index].is_correct) {
         this.isCorrect = true;
-        btn.classList.add("correct");
+        btn.classList.add('correct');
       } else {
         this.isCorrect = false;
-        btn.classList.add("incorrect");
+        btn.classList.add('incorrect');
       }
     } else {
-      btn.classList.add("answer_selected");
+      btn.classList.add('answer_selected');
       this.isCorrect = this.question.answers[index].is_correct;
     }
-    this.isDisabledBtn[index] = true;
   }
 }

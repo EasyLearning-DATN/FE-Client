@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {NgxBootstrapIconsLibComponent} from "ngx-bootstrap-icons";
-import {SharedService} from "../../../../services/shared/shared.service";
-import {QuestionResponses} from "../../../../responses/question/question.responses";
+import {NgxBootstrapIconsLibComponent} from 'ngx-bootstrap-icons';
+import {QuestionResponses} from '../../../../responses/question/question.responses';
+import {SharedService} from '../../../../services/shared/shared.service';
 
 @Component({
   selector: 'app-demo-fitb-question',
@@ -49,8 +49,8 @@ export class DemoFitbQuestionComponent implements OnInit {
   }
 
   private getAnswers() {
-    this.question.answers.forEach(answer => {
-      this.answer = this.answer + answer.value + ', ';
-    });
+    this.answer = this.question.answers.map(
+      answer => answer.value,
+    ).toString();
   }
 }

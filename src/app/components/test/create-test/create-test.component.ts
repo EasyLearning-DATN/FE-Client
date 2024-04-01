@@ -31,6 +31,8 @@ export class CreateTestComponent implements OnInit, OnDestroy {
   questions: QuestionResponses[] = [];
   questionTypes!: QuestionTypeResponses[];
   questionSub!: Subscription;
+  maxDate!: Date;
+  minDate!: Date;
   closeResult: string = '';
   @ViewChild('fileUpload', {static: true}) fileUpload !: ElementRef;
   protected readonly environment = environment;
@@ -47,6 +49,11 @@ export class CreateTestComponent implements OnInit, OnDestroy {
     this.questionTypes = JSON.parse(<string>sessionStorage.getItem('questionTypes'));
     this.setQuestions();
     this.initForm();
+    const now = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(now.getDate() - 1);
+    this.maxDate = new Date();
+    this.maxDate.setDate(now.getDate() + 365);
   }
 
   ngOnDestroy() {
@@ -84,6 +91,10 @@ export class CreateTestComponent implements OnInit, OnDestroy {
       'time_question': new FormControl(0),
       'view_result_type_code': new FormControl(this.resultTypes[0].code, [Validators.required]),
       'test_type': new FormControl('fullTime', [Validators.required]),
+      'isHasOpenTime': new FormControl(false),
+      'isHasCloseTime': new FormControl(false),
+      'open_time': new FormControl(new Date(), [Validators.required]),
+      'close_time': new FormControl(new Date(), [Validators.required]),
     });
   }
 

@@ -3,6 +3,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CookieService} from 'ngx-cookie-service';
 import screenfull from 'screenfull';
+import {ExamResultResponses} from 'src/app/responses/ExamResult/examresult.responses';
+import {ExamResultService} from 'src/app/services/test/ExamResult/exam-result.service';
 import {v4 as uuidv4} from 'uuid';
 import {TestReportItemDTO} from '../../../DTOS/test-report/test-report.dto';
 import {TempTest} from '../../../DTOS/test/test.dto';
@@ -10,8 +12,6 @@ import {TestResponses} from '../../../responses/test/test.responses';
 import {SharedService} from '../../../services/shared/shared.service';
 import {TestService} from '../../../services/test/test.service';
 import {ConfirmModalComponent} from '../../commons/confirm-modal/confirm-modal.component';
-import { ExamResultResponses } from 'src/app/responses/ExamResult/examresult.responses';
-import { ExamResultService } from 'src/app/services/test/ExamResult/exam-result.service';
 
 @Component({
   selector: 'app-test-detail',
@@ -125,6 +125,16 @@ export class TestDetailComponent implements OnInit {
     );
   }
 
+  getExamResult(testId: string) {
+    this.examResultService.getExamResult(testId).subscribe(
+      (res: ExamResultResponses) => {
+        console.log(res);
+      }, error => {
+        console.log(error.message);
+      },
+    );
+  }
+
   private getDismissReason(reason: any): string {
     switch (reason) {
       case ModalDismissReasons.ESC:
@@ -134,16 +144,6 @@ export class TestDetailComponent implements OnInit {
       default:
         return `with: ${reason}`;
     }
-  }
-
-  getExamResult(testId: string) {
-    this.examResultService.getExamResult(testId).subscribe(
-      (res: ExamResultResponses) => {
-        console.log(res);
-      }, error => {
-        console.log(error.message);
-      }
-    );
   }
 
 }

@@ -15,7 +15,7 @@
       </div>
       <div>
         <div class="row m-2 d-flex justify-content-around d-flex">
-          <button #btn1 (click)="checkAnswer(shuffledArray[0], btn1, chkbox1)" [class.disabled]="isDisabledBtn[shuffledArray[0]]"
+          <button #btn1 (click)="checkAnswer(shuffledArray[0], btn1, chkbox1, $event)" [class.disabled]="isDisabledBtn[shuffledArray[0]]"
                   [name]="shuffledArray[0]" [value]="question.answers[shuffledArray[0]].value"
                   class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center">
             <div class="form-check">
@@ -25,7 +25,7 @@
             </div>
 
           </button>
-          <button #btn2 (click)="checkAnswer(shuffledArray[1], btn2, chkbox2)" [class.disabled]="isDisabledBtn[shuffledArray[1]]"
+          <button #btn2 (click)="checkAnswer(shuffledArray[1], btn2, chkbox2, $event)" [class.disabled]="isDisabledBtn[shuffledArray[1]]"
                   [name]="shuffledArray[1]" [value]="question.answers[shuffledArray[1]].value"
                   class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center">
             <div class="form-check">
@@ -35,7 +35,7 @@
             </div>
 
           </button>
-          <button #btn3 (click)="checkAnswer(shuffledArray[2], btn3, chkbox3)" [class.disabled]="isDisabledBtn[shuffledArray[2]]"
+          <button #btn3 (click)="checkAnswer(shuffledArray[2], btn3, chkbox3, $event)" [class.disabled]="isDisabledBtn[shuffledArray[2]]"
                   [name]="shuffledArray[2]" [value]="question.answers[shuffledArray[2]].value"
                   class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center">
             <div class="form-check">
@@ -45,7 +45,7 @@
             </div>
 
           </button>
-          <button #btn4 (click)="checkAnswer(shuffledArray[3], btn4, chkbox4)" [class.disabled]="isDisabledBtn[shuffledArray[3]]"
+          <button #btn4 (click)="checkAnswer(shuffledArray[3], btn4, chkbox4, $event)" [class.disabled]="isDisabledBtn[shuffledArray[3]]"
                   [name]="shuffledArray[3]" [value]="question.answers[shuffledArray[3]].value"
                   class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center">
             <div class="form-check">

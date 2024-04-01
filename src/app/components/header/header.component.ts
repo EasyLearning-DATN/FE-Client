@@ -22,19 +22,19 @@ export class HeaderComponent implements OnInit {
   ) {
   }
 
-  @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.ctrlKey && event.key === 'u') {
-      event.preventDefault();
-    }
-    if (event.key === 'F12') {
-      event.preventDefault();
-    }
-  }
+  // @HostListener('document:keydown', ['$event'])
+  // handleKeyboardEvent(event: KeyboardEvent) {
+  //   if (event.ctrlKey && event.key === 'u') {
+  //     event.preventDefault();
+  //   }
+  //   if (event.key === 'F12') {
+  //     event.preventDefault();
+  //   }
+  // }
 
   @HostListener('document:contextmenu', ['$event'])
   onRightClick(event: MouseEvent) {
-    event.preventDefault(); 
+    event.preventDefault();
   }
 
   ngOnInit() {
