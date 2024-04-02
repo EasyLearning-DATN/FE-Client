@@ -78,6 +78,7 @@
                     <input type="password" class="form-control" formControlName="newPass">
                     <div *ngIf="!changePasswordForm.get('newPass')?.valid && changePasswordForm.get('newPass')?.touched" class="text-danger">
                         <small *ngIf="changePasswordForm.get('newPass')?.errors?.['required']">*Mật khẩu mới không được để trống</small>
+                        <small *ngIf="changePasswordForm.get('newPass')?.errors?.['minlength']">*Mật khẩu tối thiểu 6 ký tự</small>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -85,6 +86,7 @@
                     <input type="password" class="form-control" formControlName="confirmNewPass">
                     <div *ngIf="!changePasswordForm.get('confirmNewPass')?.valid && changePasswordForm.get('confirmNewPass')?.touched" class="text-danger">
                         <small *ngIf="changePasswordForm.get('confirmNewPass')?.errors?.['required']">*Xác nhận mật khẩu mới không được để trống</small>
+                        <small *ngIf="changePasswordForm.get('confirmNewPass')?.errors?.['minlength']">*Mật khẩu tối thiểu 6 ký tự</small>
                     </div>
                 </div>
                 <button *ngIf="checkUpdate" class="btn btn-app-reverse w-100 mt-2 py-2" (click)="changePass()"><fa-icon [icon]="['fas', 'edit']"></fa-icon> Đổi mật khẩu</button>

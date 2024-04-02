@@ -20,8 +20,8 @@ export class SettingsComponent implements OnInit {
   userInfoChangeForm !: FormGroup;
   changePasswordForm = new FormGroup({
     oldPass: new FormControl('', [Validators.required]),
-    newPass: new FormControl('', [Validators.required]),
-    confirmNewPass: new FormControl('', [Validators.required]),
+    newPass: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    confirmNewPass: new FormControl('', [Validators.required, Validators.minLength(6)]),
   });
   checkUpdate: boolean = false;
   image: string = '';
