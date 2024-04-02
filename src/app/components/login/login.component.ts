@@ -221,40 +221,51 @@ export class LoginComponent implements OnInit {
         email: <string>this.signupF.get('email')?.value,
         dayOfBirth: <string>this.signupF.get('dayOfBirth')?.value
       };
-      Swal.fire({
-        title: 'Đang đăng ký...',
-        allowOutsideClick: false,
-        didOpen: () => {
-          Swal.showLoading();
-        }
-      });
-      this.userService.signUp(SignupDTO).subscribe(
-        data => {
-          Swal.close();
-          Swal.fire({
-            icon: 'success',
-            title: 'Đăng ký thành công!',
-            text: 'Bạn đã đăng ký thành công tài khoản, hãy đăng nhập để tiếp tục!',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'OK'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              location.assign('/login');
-            }
-          });
-        },
-        error => {
-          console.log(error);
-          Swal.close();
-          Swal.fire({
-            icon: 'error',
-            title: 'Đăng ký thất bại',
-            text: 'Có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại sau.',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'OK'
-          });
-        }
-      );
+      if (SignupDTO.password === this.signupF.get('confirmPassword')?.value) {
+        Swal.fire({
+          title: 'Đang đăng ký...',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          }
+        });
+        this.userService.signUp(SignupDTO).subscribe(
+          data => {
+            Swal.close();
+            Swal.fire({
+              icon: 'success',
+              title: 'Đăng ký thành công!',
+              text: 'Bạn đã đăng ký thành công tài khoản, hãy đăng nhập để tiếp tục!',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                location.assign('/login');
+              }
+            });
+          },
+          error => {
+            console.log(error);
+            Swal.close();
+            Swal.fire({
+              icon: 'error',
+              title: 'Đăng ký thất bại!',
+              text: 'Có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại sau.',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK'
+            });
+          }
+        );
+      }  else {
+        Swal.close();
+        Swal.fire({
+          icon: 'error',
+          title: 'Đăng ký thất bại!',
+          text: 'Xác nhận mật khẩu không trùng khớp!',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        });
+      }
     } else {
       this.signupF.markAllAsTouched();
       console.log('invalid form');
