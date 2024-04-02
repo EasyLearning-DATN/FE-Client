@@ -40,14 +40,15 @@ import {TestComponent} from '../../components/test/test.component';
 import {SharedModule} from '../shared/shared.module';
 
 import {TestRoutingModule} from './test-routing.module';
+import { DemoQuestionModule } from '../demo-question/demo-question.module';
 
 
 @NgModule({
   declarations: [
     AddQuestionTestComponent,
-    DemoScaQuestionComponent,
-    DemoMcaQuestionComponent,
-    DemoFitbQuestionComponent,
+    // DemoScaQuestionComponent,
+    // DemoMcaQuestionComponent,
+    // DemoFitbQuestionComponent,
     AddQuestionSearchItemComponent,
     AddQuestionSearchItemQuestionComponent,
     TestComponent,
@@ -79,6 +80,7 @@ import {TestRoutingModule} from './test-routing.module';
     MatRadioModule,
     MatSelectModule,
     MatCheckboxModule,
+    DemoQuestionModule,
     SharedModule,
   ],
 })

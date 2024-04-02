@@ -1,6 +1,6 @@
 // const BASE_API = 'https://be-cdj2.onrender.com'
-const BASE_API = 'http://localhost:1002';
-// const BASE_API = 'http://localhost:1001';
+// const BASE_API = 'http://localhost:1002';
+const BASE_API = 'http://localhost:1001';
 
 export const environment = {
   production: false,
@@ -24,6 +24,7 @@ export const environment = {
   API_AVATAR: '/avatar',
   API_PASSWORD: '/password',
   API_QUESTION: '/question',
+  API_IMPORT: '/import-question',
   LOCK_USER: '/lock',
   API_CHANGE_STATUS: '/change-status',
   API_GET_TOKEN_FORGOT_PASSWORD: '/get-token-forgot-pass',
