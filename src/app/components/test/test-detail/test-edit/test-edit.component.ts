@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Subscription} from 'rxjs';
 import Swal from 'sweetalert2';
+import {environment} from '../../../../../environments/environments';
 import {TestDTO} from '../../../../DTOS/test/test.dto';
 import {QuestionTypeResponses} from '../../../../responses/question-type/question-type.responses';
 import {QuestionResponses} from '../../../../responses/question/question.responses';
@@ -31,7 +32,10 @@ export class TestEditComponent implements OnInit, OnDestroy {
   questionTypes!: QuestionTypeResponses[];
   questionSub!: Subscription;
   closeResult: string = '';
+  maxDate!: Date;
+  minDate!: Date;
   @ViewChild('fileUpload', {static: true}) fileUpload !: ElementRef;
+  protected readonly environment = environment;
 
   constructor(private sharedService: SharedService,
               private modalService: NgbModal, private testService: TestService, private imageService: UploadImageService, private router: Router) {
@@ -89,6 +93,10 @@ export class TestEditComponent implements OnInit, OnDestroy {
       'time_question': new FormControl(this.test.time_question ?? 0),
       'view_result_type_code': new FormControl(this.test.view_result_type_id.code, [Validators.required]),
       'test_type': new FormControl(this.test.time_total ? 'fullTime': 'eachQuestion', [Validators.required]),
+      'isHasOpenTime': new FormControl(!!this.test.open_time),
+      'isHasCloseTime': new FormControl(!!this.test.close_time),
+      'open_time': new FormControl(this.test.open_time ? this.test.open_time: new Date(), [Validators.required]),
+      'close_time': new FormControl(this.test.open_time ? this.test.open_time: new Date(), [Validators.required]),
     });
   }
 
@@ -132,19 +140,29 @@ export class TestEditComponent implements OnInit, OnDestroy {
           });
           let imgFile = this.fileUpload.nativeElement.files[0];
           this.setQuestionIds();
+          this.editTest = {
+            name: this.editTestForm.get('name')?.value,
+            description: this.editTestForm.get('description')?.value,
+            question_ids: this.questionIDs,
+            time_question: this.editTestForm.get('time_question')?.value===0 ? null: this.editTestForm.get('time_question')?.value,
+            time_total: this.editTestForm.get('time_total')?.value===0 ? null: this.editTestForm.get('time_total')?.value,
+            view_result_type_code: this.editTestForm.get('view_result_type_code')?.value,
+            image_id: '',
+            total_question: <number>this.editTestForm.get('total_question')?.value,
+            open_time: this.editTestForm.get('isHasOpenTime')?.value ? this.editTestForm.get('open_time')?.value: null,
+            close_time: this.editTestForm.get('isHasCloseTime')?.value ? this.editTestForm.get('close_time')?.value: null,
+          };
+          if (this.editTest.close_time && this.editTest.open_time && this.editTest.open_time.getTime() >= this.editTest.close_time.getTime()) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Thời gian mở bài test không được muộn hơn thời gian đóng bài test!',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK',
+            });
+            return;
+          }
           if (this.urlImage===null) {
-            this.editTest = {
-              name: this.editTestForm.get('name')?.value,
-              description: this.editTestForm.get('description')?.value,
-              question_ids: this.questionIDs,
-              time_question: this.editTestForm.get('time_question')?.value===0 ? null: this.editTestForm.get('time_question')?.value,
-              time_total: this.editTestForm.get('time_total')?.value===0 ? null: this.editTestForm.get('time_total')?.value,
-              view_result_type_code: this.editTestForm.get('view_result_type_code')?.value,
-              image_id: this.test.image.public_id,
-              total_question: <number>this.editTestForm.get('total_question')?.value,
-              open_time: null,
-              close_time: null,
-            };
+            this.editTest.image_id = this.test.image.public_id;
             this.testService.updateTest(this.test.id, this.editTest).subscribe(
               (response) => {
                 console.log(response);
@@ -170,18 +188,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
             console.log(result);
           } else {
             this.imageService.uploadImage(imgFile, token).subscribe(result => {
-              this.editTest = {
-                name: this.editTestForm.get('name')?.value,
-                description: this.editTestForm.get('description')?.value,
-                question_ids: this.questionIDs,
-                time_question: this.editTestForm.get('time_question')?.value===0 ? null: this.editTestForm.get('time_question')?.value,
-                time_total: this.editTestForm.get('time_total')?.value===0 ? null: this.editTestForm.get('time_total')?.value,
-                view_result_type_code: this.editTestForm.get('view_result_type_code')?.value,
-                image_id: this.test.image.public_id,
-                total_question: <number>this.editTestForm.get('total_question')?.value,
-                close_time: null,
-                open_time: null,
-              };
+              this.editTest.image_id = result.public_id;
               // console.log(this.editTest);
               this.testService.updateTest(this.test.id, this.editTest).subscribe(
                 (response) => {

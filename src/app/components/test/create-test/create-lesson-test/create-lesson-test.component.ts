@@ -25,7 +25,9 @@ export class CreateLessonTestComponent implements OnInit {
   lesson!: LessonResponses;
   createTestForm!: FormGroup;
   createTest!: TestDTO;
-  closeResult!: string;
+  closeResult: string = '';
+  maxDate!: Date;
+  minDate!: Date;
 
   constructor(private offcanvasService: NgbOffcanvas, private sharedService: SharedService,
               private modalService: NgbModal, private testService: TestService, private router: Router) {
@@ -39,6 +41,11 @@ export class CreateLessonTestComponent implements OnInit {
     this.questions = this.sharedService.lesson.questions;
     this.lesson = this.sharedService.lesson;
     this.initForm();
+    const now = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(now.getDate() - 1);
+    this.maxDate = new Date();
+    this.maxDate.setDate(now.getDate() + 365);
   }
 
   resetSelection(selection: string) {
@@ -159,7 +166,12 @@ export class CreateLessonTestComponent implements OnInit {
         return;
       }
     }
-    this.offcanvasService.open(content, {backdrop: 'static'});
+    this.offcanvasService.open(content,
+      {
+        backdrop: 'static',
+        position: 'end',
+      },
+    );
   }
 
   initForm() {
@@ -172,8 +184,16 @@ export class CreateLessonTestComponent implements OnInit {
       'view_result_type_code': new FormControl(this.resultTypes[0].code, [Validators.required]),
       'total_question': new FormControl(1, [Validators.required]),
       'test_type': new FormControl('fullTime', [Validators.required]),
+      'isHasOpenTime': new FormControl(false),
+      'isHasCloseTime': new FormControl(false),
+      'open_time': new FormControl(new Date(), [Validators.required]),
+      'close_time': new FormControl(new Date(), [Validators.required]),
     });
   }
+
+  // closePicker() {
+  //   this.picker.cancel();
+  // }
 
   private getDismissReason(reason: any): string {
     switch (reason) {

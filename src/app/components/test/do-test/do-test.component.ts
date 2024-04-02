@@ -1,5 +1,5 @@
 import {animate, keyframes, style, transition, trigger} from '@angular/animations';
-import {AfterViewInit, Component, OnDestroy, OnInit, Renderer2} from '@angular/core';
+import {AfterViewInit, Component, HostListener, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CookieService} from 'ngx-cookie-service';
@@ -100,11 +100,32 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private renderer2: Renderer2, private sharedService: SharedService, private route: ActivatedRoute,
               private testReportService: TestReportService, private modalService: NgbModal, private router: Router, private cookieService: CookieService) {
+
   }
 
   get reportItems() {
     return (<TestReportItemDTO[]>this.sharedService.tempTestReport.report_items);
   }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key==='Tab' ||
+      event.key==='F11' ||
+      event.key==='Escape') {
+      event.preventDefault();
+    }
+  }
+
+  // @HostListener('document:mousemove', ['$event'])
+  // handleMouseMovement(event: MouseEvent) {
+  //   console.log(event.screenX);
+  //   if (event.screenY <= 5
+  //     // || event.screenX <= 5
+  //   ) {
+  //     event.preventDefault();
+  //     window.alert('Xin vui lòng không di chuyển chuột khỏi phạm vi bài thi!');
+  //   }
+  // }
 
   ngOnInit() {
     this.getTempTest();
@@ -115,7 +136,6 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
     this.totalSecondsLeft = Math.floor((this.targetTime - this.date.getTime()) / 1000);
     this.clockInterval = window.setInterval(() => {
       this.totalSecondsLeft--;
-      // console.log(totalSeconds);
       this.setTiming(this.totalSecondsLeft);
       if (this.totalSecondsLeft===0) {
         this.stopTimer();
@@ -253,9 +273,9 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
         return res;
       },
     );
-    if (this.sharedService.testOfDoTest.time_total) {
-      this.sharedService.tempTestReport.total_time_finish = this.sharedService.testOfDoTest.time_total - this.totalSecondsLeft;
-    }
+    const startTime = new Date(this.sharedService.doTest.startTime ? this.sharedService.doTest.startTime: 0);
+    this.sharedService.tempTestReport.total_time_finish = (new Date().getTime() - startTime.getTime()) / 1000;
+
     console.log(this.sharedService.tempTestReport);
     const testReport$ = this.testReportService.createTestReport(this.sharedService.tempTestReport);
     Swal.fire({

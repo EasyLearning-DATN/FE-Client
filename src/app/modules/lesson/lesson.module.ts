@@ -1,5 +1,12 @@
-import {NgxMatDatetimePickerModule, NgxMatTimepickerModule} from '@angular-material-components/datetime-picker';
+import {NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule} from '@angular-material-components/datetime-picker';
 import {NgModule} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSelectModule} from '@angular/material/select';
 import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
 import {fab} from '@fortawesome/free-brands-svg-icons';
 import {far} from '@fortawesome/free-regular-svg-icons';
@@ -52,6 +59,14 @@ import {LessonRoutingModule} from './lesson-routing.module';
     LessonRoutingModule,
     NgxMatTimepickerModule,
     NgxMatDatetimePickerModule,
+    NgxMatNativeDateModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatButtonModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatCheckboxModule,
     SharedModule,
   ],
 })

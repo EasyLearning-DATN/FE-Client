@@ -7,7 +7,7 @@
     <img *ngIf="test" [ngSrc]="test.image.url ? test.image.url : 'https://treobangron.com.vn/wp-content/uploads/2022/09/background-hoc-tap-54.jpg'"
          alt="Course image" class="card-img-top w-100 img-item" height="175" width="100"/>
     <div *ngIf="lesson" class="content-container">
-      <h5 class="font-sans-serif fw-bold fs-md-1 fs-lg-3">{{ lesson.name | shortenText : 27 }}</h5>
+      <h5 class="font-sans-serif fw-bold fs-md-1 fs-lg-3">{{ lesson.name | shortenText : 20 }}</h5>
       <small class="text-muted">Ngày tạo: {{ lesson.created_date | date }}</small>
       <br>
       <small class="text-muted">Tổng số câu hỏi: {{ lesson.number_of_question }}</small>
@@ -15,7 +15,7 @@
       <small class="text-muted">Lượt truy cập: {{ lesson.access_times }}</small>
     </div>
     <div *ngIf="test" class="content-container">
-      <h5 class="font-sans-serif fw-bold fs-md-1 fs-lg-3">{{ test.name | shortenText : 27 }}</h5>
+      <h5 class="font-sans-serif fw-bold fs-md-1 fs-lg-3">{{ test.name | shortenText : 20 }}</h5>
       <small class="text-muted">Ngày tạo: {{ test.created_date | date }}</small><br>
       <small class="text-muted">Tổng số câu hỏi: {{ test.question_tests.length }}</small><br>
       <small class="text-muted">Lượt làm: {{ test.doing_time }}</small>

@@ -1,14 +1,14 @@
 import {Component, ElementRef, inject, Input, OnInit, ViewChild} from '@angular/core';
-import {ModalDismissReasons, NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {QuestionResponses} from "../../../../../../responses/question/question.responses";
-import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
-import {QuestionDTO} from "../../../../../../DTOS/question/question.dto";
-import {SharedService} from "../../../../../../services/shared/shared.service";
-import {QuestionService} from "../../../../../../services/question/question.service";
-import Swal from "sweetalert2";
-import {QuestionTypeResponses} from "../../../../../../responses/question-type/question-type.responses";
-import {ConfirmModalComponent} from "../../../../../commons/confirm-modal/confirm-modal.component";
-import {LessonService} from "../../../../../../services/lesson/lesson.service";
+import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ModalDismissReasons, NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
+import {QuestionDTO} from '../../../../../../DTOS/question/question.dto';
+import {QuestionTypeResponses} from '../../../../../../responses/question-type/question-type.responses';
+import {QuestionResponses} from '../../../../../../responses/question/question.responses';
+import {LessonService} from '../../../../../../services/lesson/lesson.service';
+import {QuestionService} from '../../../../../../services/question/question.service';
+import {SharedService} from '../../../../../../services/shared/shared.service';
+import {ConfirmModalComponent} from '../../../../../commons/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-edit-question-item',
@@ -26,7 +26,7 @@ export class EditQuestionItemComponent implements OnInit {
   private closeResult!: string;
 
   constructor(private sharedService: SharedService, private questionService: QuestionService, private modalService: NgbModal,
-    private lessonService: LessonService) {
+              private lessonService: LessonService) {
   }
 
   get answerControls() {
@@ -56,20 +56,20 @@ export class EditQuestionItemComponent implements OnInit {
     }
 
     this.questionTypes.forEach((qType: QuestionTypeResponses) => {
-      if (qType.code === this.editQuestionForm.value.question_type_id) {
+      if (qType.code===this.editQuestionForm.value.question_type_id) {
         this.editQuestionForm.value.question_type_id = qType.id;
       }
     });
 
     const confirmModal = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    confirmModal.componentInstance.body = "Bạn có chắc chắn muốn chỉnh sửa câu hỏi này không?";
+    confirmModal.componentInstance.body = 'Bạn có chắc chắn muốn chỉnh sửa câu hỏi này không?';
     confirmModal
     .result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.closeResult);
-        if (result === 'Confirm') {
+        if (result==='Confirm') {
           this.updatedQuestion = this.editQuestionForm.value;
           this.updatedQuestion.lesson_id = this.lessonId;
           this.updatedQuestion.weighted = Number.parseFloat(String(this.updatedQuestion.weighted));
@@ -124,7 +124,7 @@ export class EditQuestionItemComponent implements OnInit {
     let questionTypeCode = '';
     this.questionTypes.forEach(
       qType => {
-        if (qType.id === this.question.question_type_id) {
+        if (qType.id===this.question.question_type_id) {
           questionTypeCode = qType.code;
         }
       });
@@ -132,7 +132,7 @@ export class EditQuestionItemComponent implements OnInit {
       'title': new FormControl(this.question.title, Validators.required),
       'weighted': new FormControl(this.question.weighted, [
         Validators.required,
-        Validators.pattern(/^[1-9]+[0-9]*$/),
+        Validators.min(1),
         Validators.max(3),
       ]),
       'question_type_id': new FormControl(questionTypeCode),

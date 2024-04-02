@@ -31,6 +31,8 @@ export class CreateTestComponent implements OnInit, OnDestroy {
   questions: QuestionResponses[] = [];
   questionTypes!: QuestionTypeResponses[];
   questionSub!: Subscription;
+  maxDate!: Date;
+  minDate!: Date;
   closeResult: string = '';
   @ViewChild('fileUpload', {static: true}) fileUpload !: ElementRef;
   protected readonly environment = environment;
@@ -47,6 +49,11 @@ export class CreateTestComponent implements OnInit, OnDestroy {
     this.questionTypes = JSON.parse(<string>sessionStorage.getItem('questionTypes'));
     this.setQuestions();
     this.initForm();
+    const now = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(now.getDate() - 1);
+    this.maxDate = new Date();
+    this.maxDate.setDate(now.getDate() + 365);
   }
 
   ngOnDestroy() {
@@ -84,6 +91,10 @@ export class CreateTestComponent implements OnInit, OnDestroy {
       'time_question': new FormControl(0),
       'view_result_type_code': new FormControl(this.resultTypes[0].code, [Validators.required]),
       'test_type': new FormControl('fullTime', [Validators.required]),
+      'isHasOpenTime': new FormControl(false),
+      'isHasCloseTime': new FormControl(false),
+      'open_time': new FormControl(new Date(), [Validators.required]),
+      'close_time': new FormControl(new Date(), [Validators.required]),
     });
   }
 
@@ -139,20 +150,30 @@ export class CreateTestComponent implements OnInit, OnDestroy {
           // console.log(imgFile);
           this.setQuestionIds();
           console.log(this.questionIDs);
+          this.createTest = {
+            name: this.createTestForm.get('name')?.value,
+            description: this.createTestForm.get('description')?.value,
+            question_ids: this.questionIDs,
+            time_question: this.createTestForm.get('time_question')?.value===0 ? null: this.createTestForm.get('time_question')?.value,
+            time_total: this.createTestForm.get('time_total')?.value===0 ? null: this.createTestForm.get('time_total')?.value,
+            view_result_type_code: this.createTestForm.get('view_result_type_code')?.value,
+            image_id: '',
+            total_question: this.questionIDs.length,
+            close_time: this.createTestForm.get('isHasCloseTime')?.value ? this.createTestForm.get('close_time')?.value: null,
+            open_time: this.createTestForm.get('isHasOpenTime')?.value ? this.createTestForm.get('open_time')?.value: null,
+          };
+          console.log(this.createTest);
+          if (this.createTest.close_time && this.createTest.open_time && this.createTest.open_time.getTime() >= this.createTest.close_time.getTime()) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Thời gian mở bài test không được muộn hơn thời gian đóng bài test!',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK',
+            });
+            return;
+          }
           this.imageService.uploadImage(imgFile, token).subscribe(result => {
-            this.createTest = {
-              name: this.createTestForm.get('name')?.value,
-              description: this.createTestForm.get('description')?.value,
-              question_ids: this.questionIDs,
-              time_question: this.createTestForm.get('time_question')?.value===0 ? null: this.createTestForm.get('time_question')?.value,
-              time_total: this.createTestForm.get('time_total')?.value===0 ? null: this.createTestForm.get('time_total')?.value,
-              view_result_type_code: this.createTestForm.get('view_result_type_code')?.value,
-              image_id: result.public_id,
-              total_question: this.questionIDs.length,
-              close_time: null,
-              open_time: null,
-            };
-            console.log(this.createTest);
+            this.createTest.image_id = result.public_id;
             if (this.numberOfTest > 10 && this.role==='user') {
               Swal.fire({
                 icon: 'error',

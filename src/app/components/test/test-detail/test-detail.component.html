@@ -12,11 +12,11 @@
         Làm bài thi này
       </button>
     </div>
-    <div class="ms-3" *ngIf="isCreator">
-      <button class="btn btn-app">
+    <div *ngIf="isCreator" class="ms-3">
+      <a [routerLink]="['/test/exam-result',test.id]" class="btn btn-app">
         <fa-icon [icon]="['far','file-lines']"></fa-icon>
-        <a href="/test/exam-result/{{test.id}}" style="color: black; text-decoration: none;">Xem kết quả thi</a>
-      </button>
+        Xem kết quả thi
+      </a>
     </div>
   </div>
   <div class="row flex-shrink-0 flex-row">

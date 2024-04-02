@@ -1,16 +1,16 @@
-import {TestReportResponse} from "../../responses/test-report/test-report.responses";
-import {TestReportDTO, TestReportItemDTO} from "../../DTOS/test-report/test-report.dto";
-import {TempTest} from "../../DTOS/test/test.dto";
 import {Injectable} from '@angular/core';
-import {LessonResponses} from '../../responses/lesson/lesson.responses';
 import {BehaviorSubject, Subject} from 'rxjs';
+import {ExamResultResponses} from 'src/app/responses/ExamResult/examresult.responses';
+import {TestResponses} from 'src/app/responses/test/test.responses';
+import {TestReportDTO, TestReportItemDTO} from '../../DTOS/test-report/test-report.dto';
+import {TempTest} from '../../DTOS/test/test.dto';
+import {LessonResponses} from '../../responses/lesson/lesson.responses';
 import {QuestionTypeResponses} from '../../responses/question-type/question-type.responses';
 import {QuestionResponses} from '../../responses/question/question.responses';
-import {TestResponses} from 'src/app/responses/test/test.responses';
 import {ResultTypeResponses} from '../../responses/result_type_id/result_type.responses';
 import {SearchLessonResponses} from '../../responses/search-lesson/search-lesson.responses';
+import {TestReportResponse} from '../../responses/test-report/test-report.responses';
 import {UserResponse} from '../../responses/user/user.responses';
-import { ExamResultResponses } from "src/app/responses/ExamResult/examresult.responses";
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +29,7 @@ export class SharedService {
 
   constructor() {
   }
+
 
   private _testReport!: TestReportResponse;
 
@@ -224,7 +225,7 @@ export class SharedService {
   }
 
   onAddQuestionsOfTest(questions: QuestionResponses[]) {
-    if (this._questionsOfCreatingTest === undefined) {
+    if (this._questionsOfCreatingTest===undefined) {
       this.questionsOfCreatingTest = questions;
     } else {
       let filterQuestions = questions.filter(
@@ -253,18 +254,18 @@ export class SharedService {
   }
 
   saveQuestions(tempTestId: string, item?: TestReportItemDTO, indexCurrentQuestion?: number, score?: number) {
-    if (this.tempTestReport.report_items && item !== undefined) {
-      const reportItemIndex = this.tempTestReport.report_items.findIndex(i => i.question_id === item.question_id);
-      if (reportItemIndex !== -1) {
+    if (this.tempTestReport.report_items && item!==undefined) {
+      const reportItemIndex = this.tempTestReport.report_items.findIndex(i => i.question_id===item.question_id);
+      if (reportItemIndex!== -1) {
         this.tempTestReport.report_items[reportItemIndex] = item;
       } else {
         this.tempTestReport.report_items.push(item);
       }
     }
-    if (indexCurrentQuestion !== undefined) {
+    if (indexCurrentQuestion!==undefined) {
       this._doTest.indexCurrentQuestion = indexCurrentQuestion;
     }
-    if (score !== undefined) {
+    if (score!==undefined) {
       this.tempTestReport.total_point += score;
     }
     localStorage.setItem(tempTestId, JSON.stringify(this._doTest));

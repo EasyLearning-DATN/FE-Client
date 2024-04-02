@@ -5,8 +5,9 @@
   <span>{{ totalSeconds >= 10 ? totalSeconds : '0' + totalSeconds }}</span>
 </div>
 <div *ngIf="isEachQuestionTimeTest" class="container text-center fs-6 mb-5"><span #minutes></span> : <span #seconds></span></div>
+<div *ngIf="!isEachQuestionTimeTest && !isTotalTimeTest" class="container text-center fs-6 mb-5">Bài thi không giới hạn thời gian</div>
 <div *ngFor="let question of questionsOfTest; let i = index" class="container">
-  <div *ngIf="currentQuestionIndex === i" [ngSwitch]="question.question_type_id" class=" mb-3 d-flex align-items-center justify-content-center">
+  <div *ngIf="currentQuestionIndex === i" [ngSwitch]="question.question_type_id" class="mb-5 d-flex align-items-center justify-content-center">
     <ng-template [ngSwitchCase]="environment.MCA_ID">
       <app-do-test-mca-item [@item]
                             [index]="i"
