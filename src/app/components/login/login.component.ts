@@ -20,31 +20,21 @@ import {ContinueGoogoleDto} from "../../DTOS/user/continueGoogole.dto";
 export class LoginComponent implements OnInit {
   google: any;
   userResponse?: UserResponse | null;
-  // khai báo các biến tương ứng với các trường dữ liệu trong form đăng nhập và đăng ký
-  @ViewChild('signupForm') signupForm!: NgForm;
-  @ViewChild('loginForm') loginForm!: NgForm;
-  loginUserName: string = '';
-  loginPassword: string = '';
-  username: string = '';
-  password: string = '';
-  fullName: string = '';
   avatar: string = '';
-  email: string = '';
-  dayOfBirth: string = '';
-  role: string = '';
+  isChecked: boolean = false;
   loginF: FormGroup = new FormGroup(
     {
       username: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)])
+      password: new FormControl('', [Validators.required])
     }
   );
   signupF: FormGroup = new FormGroup({
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    re_password: new FormControl(''),
     fullName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
-    dayOfBirth: new FormControl('', [Validators.required])
+    dayOfBirth: new FormControl('', [Validators.required]),
+    confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)])
   });
 
   constructor(
@@ -79,10 +69,10 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if (this.loginForm.valid) {
+    if (this.loginF.valid) {
       const loginDTO: LoginDTO = {
-        username: this.loginUserName,
-        password: this.loginPassword
+        username: <string>this.loginF.get('username')?.value,
+        password: <string>this.loginF.get('password')?.value
       };
       Swal.fire({
         title: 'Đang đăng nhập...',
@@ -147,9 +137,7 @@ export class LoginComponent implements OnInit {
         }
       );
     } else {
-      Object.values(this.loginForm.form.controls).forEach(control => {
-        control.markAsTouched();
-      });
+      this.loginF.markAllAsTouched();
       console.log('invalid form');
     }
   }
@@ -224,54 +212,62 @@ export class LoginComponent implements OnInit {
 
 
   signup() {
-    if (this.signupForm.valid) {
-      const {username, password, fullName, email, dayOfBirth} = this.signupF.value;
+    if (this.signupF.valid) {
       const SignupDTO: SignupDTO = {
-        username: this.username,
-        password: this.password,
-        fullName: this.fullName,
+        username: <string>this.signupF.get('username')?.value,
+        password: <string>this.signupF.get('password')?.value,
+        fullName: <string>this.signupF.get('fullName')?.value,
         avatar: this.avatar,
-        email: this.email,
-        dayOfBirth: this.dayOfBirth
+        email: <string>this.signupF.get('email')?.value,
+        dayOfBirth: <string>this.signupF.get('dayOfBirth')?.value
       };
-      Swal.fire({
-        title: 'Đang đăng ký...',
-        allowOutsideClick: false,
-        didOpen: () => {
-          Swal.showLoading();
-        }
-      });
-      this.userService.signUp(SignupDTO).subscribe(
-        data => {
-          Swal.close();
-          Swal.fire({
-            icon: 'success',
-            title: 'Đăng ký thành công!',
-            text: 'Bạn đã đăng ký thành công tài khoản, hãy đăng nhập để tiếp tục!',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'OK'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              location.assign('/login');
-            }
-          });
-        },
-        error => {
-          console.log(error);
-          Swal.close();
-          Swal.fire({
-            icon: 'error',
-            title: 'Đăng ký thất bại',
-            text: 'Có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại sau.',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'OK'
-          });
-        }
-      );
+      if (SignupDTO.password === this.signupF.get('confirmPassword')?.value) {
+        Swal.fire({
+          title: 'Đang đăng ký...',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          }
+        });
+        this.userService.signUp(SignupDTO).subscribe(
+          data => {
+            Swal.close();
+            Swal.fire({
+              icon: 'success',
+              title: 'Đăng ký thành công!',
+              text: 'Bạn đã đăng ký thành công tài khoản, hãy đăng nhập để tiếp tục!',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                location.assign('/login');
+              }
+            });
+          },
+          error => {
+            console.log(error);
+            Swal.close();
+            Swal.fire({
+              icon: 'error',
+              title: 'Đăng ký thất bại!',
+              text: 'Có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại sau.',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK'
+            });
+          }
+        );
+      }  else {
+        Swal.close();
+        Swal.fire({
+          icon: 'error',
+          title: 'Đăng ký thất bại!',
+          text: 'Xác nhận mật khẩu không trùng khớp!',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        });
+      }
     } else {
-      Object.values(this.signupForm.form.controls).forEach(control => {
-        control.markAsTouched();
-      });
+      this.signupF.markAllAsTouched();
       console.log('invalid form');
     }
   }
@@ -285,16 +281,6 @@ export class LoginComponent implements OnInit {
   loginWithFacebook() {
 
   }
-
-  // check password và re_password có giống nhau không
-  checkPassword() {
-    if (this.signupF.value.password !== this.signupF.value.re_password) {
-      this.signupF.controls["re_password"].setErrors({ notMatch: true });
-    } else {
-      this.signupF.controls["re_password"].setErrors(null);
-    }
-  }
-  
 
 }
 

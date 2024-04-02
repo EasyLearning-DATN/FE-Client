@@ -27,8 +27,16 @@ export class ForgetPasswordComponent {
     if (this.resetPasswordForm.valid) {
       // truyền email từ form vào hàm forgotPassword
       console.log(this.resetPasswordForm.get('email')?.value);
+      Swal.fire({
+        title: 'Đang kiểm tra...',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
       this.userService.forgotPassword(this.resetPasswordForm.get('email')?.value).subscribe(
         (response: any) => {
+          Swal.close();
           Swal.fire({
             title: 'Thành công!',
             text: 'Vui lòng kiểm tra email để lấy liên kết đặt lại mật khẩu!',
@@ -38,6 +46,7 @@ export class ForgetPasswordComponent {
         },
         (error) => {
           // thông báo lỗi 
+          Swal.close();
           Swal.fire({
             title: 'Lỗi!',
             text: error.error.message,
