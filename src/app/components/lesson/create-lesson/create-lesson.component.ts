@@ -4,7 +4,9 @@ import {Router} from '@angular/router';
 import {LessonDTO} from 'src/app/DTOS/lesson/lesson.dto';
 import {ImageResponses} from 'src/app/responses/image/image.responses';
 import {LessonService} from 'src/app/services/lesson/lesson.service';
+import { QuestionService } from 'src/app/services/question/question.service';
 import {UploadImageService} from 'src/app/services/shared/upload/upload-image.service';
+import { environment } from 'src/environments/environments';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,6 +16,8 @@ import Swal from 'sweetalert2';
 })
 export class CreateLessonComponent implements OnInit {
   @ViewChild('lessonForm') lessonForm!: NgForm;
+  protected readonly environment = environment;
+  listQuestionImport: any[] = [];
   numberOfLesson: number = 0;
   userId: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).id: '';
   role: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).role: '';
@@ -30,6 +34,7 @@ export class CreateLessonComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private questionService: QuestionService,
     private lessonService: LessonService,
     private imgUpload: UploadImageService,
     private router: Router) {
@@ -144,6 +149,19 @@ export class CreateLessonComponent implements OnInit {
         },
       );
     }
+  }
+
+  // get question after onFileSelected($event)
+  onFileSelectedQuestion(event: any) {
+    this.questionService.importQuestion(event.target.files[0]).subscribe(
+      (res : any) => {
+        this.listQuestionImport = res.data;
+        console.log(res.data);
+      },
+      err => {
+        console.log(err);
+      },
+    );
   }
 
 }

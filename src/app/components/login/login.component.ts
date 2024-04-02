@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
   signupF: FormGroup = new FormGroup({
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    re_password: new FormControl(''),
     fullName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
     dayOfBirth: new FormControl('', [Validators.required])
@@ -284,6 +285,16 @@ export class LoginComponent implements OnInit {
   loginWithFacebook() {
 
   }
+
+  // check password và re_password có giống nhau không
+  checkPassword() {
+    if (this.signupF.value.password !== this.signupF.value.re_password) {
+      this.signupF.controls["re_password"].setErrors({ notMatch: true });
+    } else {
+      this.signupF.controls["re_password"].setErrors(null);
+    }
+  }
+  
 
 }
 

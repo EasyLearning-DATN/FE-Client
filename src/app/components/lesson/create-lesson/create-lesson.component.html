@@ -18,6 +18,21 @@
       <label class="form_label" for="">Ảnh bìa bài học: </label>
       <input class="form-control" type="file" (change)="onFileSelected($event)" name="image_id" required>
     </div>
+    <!-- import file excel câu hỏi onChange -->
+    <div class="form-group p-2">
+      <label class="form_label" for="">File câu hỏi: </label>
+      <input class="form-control" type="file" (change)="onFileSelectedQuestion($event)" name="file" required>
+    </div>
+    <div class="mb-3 d-flex flex-column align-items-center">
+      <div *ngFor="let question of listQuestionImport; let i = index">
+        <app-demo-fitb-question *ngIf="question.question_type_id === environment.FITB_ID" [index]="i" [question]="question"
+                                [total]="listQuestionImport.length"></app-demo-fitb-question>
+        <app-demo-mca-question *ngIf="question.question_type_id === environment.MCA_ID" [index]="i" [question]="question"
+                               [total]="listQuestionImport.length"></app-demo-mca-question>
+        <app-demo-sca-question *ngIf="question.question_type_id === environment.SCA_ID" [index]="i" [question]="question"
+                               [total]="listQuestionImport.length"></app-demo-sca-question>
+      </div>
+    </div>
     <button type="submit" class="btn btn-success m-3 m-3">Tạo bài học</button>
   </form>
 </div>

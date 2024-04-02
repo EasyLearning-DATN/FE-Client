@@ -33,6 +33,7 @@ import {CreateLessonTestComponent} from '../../components/test/create-test/creat
 import {SharedModule} from '../shared/shared.module';
 
 import {LessonRoutingModule} from './lesson-routing.module';
+import { DemoQuestionModule } from '../demo-question/demo-question.module';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import {LessonRoutingModule} from './lesson-routing.module';
     MatRadioModule,
     MatSelectModule,
     MatCheckboxModule,
+    DemoQuestionModule,
     SharedModule,
   ],
 })

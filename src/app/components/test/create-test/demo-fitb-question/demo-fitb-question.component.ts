@@ -23,6 +23,7 @@ export class DemoFitbQuestionComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('question' + this.question);
     this.setCheckHoverDeleteButton();
     this.getAnswers();
   }

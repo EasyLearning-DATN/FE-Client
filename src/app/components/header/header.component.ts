@@ -32,10 +32,10 @@ export class HeaderComponent implements OnInit {
   //   }
   // }
 
-  @HostListener('document:contextmenu', ['$event'])
-  onRightClick(event: MouseEvent) {
-    event.preventDefault();
-  }
+  // @HostListener('document:contextmenu', ['$event'])
+  // onRightClick(event: MouseEvent) {
+  //   event.preventDefault();
+  // }
 
   ngOnInit() {
     // truyển userResponse từ localStorage

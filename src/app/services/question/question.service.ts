@@ -12,6 +12,7 @@ export class QuestionService {
   private apiCreateListQuestion = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_QUESTION + environment.API_LIST;
   private apiDeleteQuestion = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_QUESTION;
   private apiUpdateQuestion = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_QUESTION;
+  private apiImportQuestion = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_QUESTION + environment.API_IMPORT;
 
   constructor(private sharedService: SharedService, private http: HttpClient) {
   }
@@ -26,5 +27,11 @@ export class QuestionService {
 
   updateQuestion(updateQuestion: QuestionDTO, questionId: string) {
     return this.http.put(this.apiUpdateQuestion + '/' + questionId, updateQuestion);
+  }
+
+  importQuestion(file: File) {
+    const formData = new FormData();
+    formData.append('question_file', file);
+    return this.http.post(this.apiImportQuestion, formData);
   }
 }
