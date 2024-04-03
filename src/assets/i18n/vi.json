@@ -2,24 +2,141 @@
   "header": {
     "home": "trang chủ",
     "list": "danh sách",
-    "test-list": "danh sách bài test",
-    "lesson-list": "danh sách bài học",
-    "my-test-report": "kết quả bài thi",
-    "search": "Tìm kiếm",
+    "test_list": "danh sách bài test",
+    "lesson_list": "danh sách bài học",
+    "my_test_report": "kết quả bài thi",
     "login": "đăng nhập",
     "register": "đăng ký",
-    "create-lesson": "tạo bài học",
-    "create-test": "tạo bài test"
+    "create_lesson": "tạo bài học",
+    "create_test": "tạo bài test",
+    "user_profile": "Hồ sơ",
+    "setting": "Cài đặt",
+    "help": "Giúp đỡ & Phản hồi",
+    "upgrade": "Nâng cấp Premium",
+    "logout": "Đăng xuất"
+  },
+  "footer": {
+    "community": "Cộng đồng",
+    "learners": "Người học",
+    "partners": "Đối tác",
+    "developers": "Nhà phát triển",
+    "beta_testers": "Bên kiểm thử",
+    "translators": "Biên dịch",
+    "information": "Thông tin",
+    "about": "Về chúng tôi",
+    "contact": "Liên hệ",
+    "more": "Thông tin bổ sung",
+    "term": "Quyền",
+    "privacy": "Bảo mật",
+    "help": "Trợ giúp"
+  },
+  "forget_password": {
+    "confirm": {
+      "title": "Quên mật khẩu",
+      "password": {
+        "placeholder": "Nhập mật khẩu mới",
+        "error": {
+          "required": "*Mật khẩu không được để trống"
+        }
+      },
+      "confirm_password": {
+        "placeholder": "Nhập lại mật khẩu mới",
+        "error": {
+          "required": "*Xác nhận mật khẩu không được để trống"
+        }
+      },
+      "reset_password": "Đặt lại mật khẩu"
+    },
+    "title": "Quên mật khẩu",
+    "email": {
+      "placeholder": "Nhập địa chỉ email",
+      "error": {
+        "required": "*Email không được để trống",
+        "email": "*Email không đúng định dạng"
+      }
+    },
+    "reset_password": "Đặt lại mật khẩu"
   },
   "lesson": {
-    "lesson-learn": {
-      "lesson-learn-item": {
+    "lesson_learn": {
+      "lesson_learn_item": {
         "sca": "trắc nghiệm - một đáp án đúng",
         "mca": "trắc nghiệm - nhiều đáp án đúng",
         "fitb": "điền vào chỗ trống",
-        "answer-title": "Đáp án"
+        "answer_title": "Đáp án"
       },
       "title": "Câu hỏi trong bài học"
+    }
+  },
+  "home": {
+    "created_date": "Ngày tạo",
+    "total_questions": "Tổng số câu hỏi",
+    "access_times": "Lượt truy cập",
+    "done_times": "Lượt làm",
+    "detail": "Chi tiết"
+  },
+  "confirm_modal": {
+    "title": "{{ value }}",
+    "body": "{{ value }}",
+    "confirm": "có",
+    "reject": "không",
+    "close": "đóng"
+  },
+  "commons": {
+    "login": "Đăng nhập",
+    "address": "Tòa nhà QTSC9, Công viên phần mềm Quang Trung, Quận 12",
+    "email": "easylearning@codeaz.edu.vn",
+    "brand": "EasyLearning"
+  },
+  "message": {
+    "error": {
+      "form": {
+        "001": "Form không hợp lệ!"
+      },
+      "token": {
+        "001": "Token không hợp lệ!"
+      },
+      "password": {
+        "001": "Đổi mật khẩu thất bại!"
+      },
+      "forget_password": {
+        "confirm": {
+          "001": "Đặt lại mật khẩu thất bại!",
+          "002": "Xác nhận mật khẩu không trùng khớp!"
+        }
+      }
+    },
+    "success": {
+      "password": {
+        "001": "Đổi mật khẩu thành công"
+      },
+      "forget_password": {
+        "001": "Vui lòng kiểm tra email để lấy liên kết đặt lại mật khẩu!",
+        "confirm": {
+          "001": "Đặt lại mật khẩu thành công!"
+        }
+      }
+    },
+    "progress": {
+      "logout": {
+        "001": "Đang đăng xuất..."
+      },
+      "forget_password": {
+        "confirm": {
+          "001": "Đang đặt lại..."
+        },
+        "001": "Đang kiểm tra..."
+      }
+    },
+    "confirm_modal": {
+      "title": "Xác nhận",
+      "body": "Bạn có chắc chắn muốn thay đổi không?"
+    },
+    "swal": {
+      "title": {
+        "success": "Thành công!",
+        "error": "Lỗi!"
+      }
     }
   }
 }

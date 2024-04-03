@@ -1,28 +1,31 @@
-import { Component, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
-import { UserService } from 'src/app/services/user/user-service.service';
-import { environment } from 'src/environments/environments';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import Swal from "sweetalert2";
+import {Component} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
+import {switchMap} from 'rxjs/operators';
+import {UserService} from 'src/app/services/user/user-service.service';
+import Swal from 'sweetalert2';
+import {TRANSLATE} from '../../../../environments/environments';
 
 @Component({
   selector: 'app-confirm',
   templateUrl: './confirm.component.html',
-  styleUrls: ['./confirm.component.css']
+  styleUrls: ['./confirm.component.css'],
 })
 export class ConfirmComponent {
+  resetPasswordForm: FormGroup = new FormGroup({
+      newPassword: new FormControl('', [Validators.required]),
+      confirmPassword: new FormControl('', [Validators.required]),
+    },
+  );
+
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
-    private router: Router
-  ) { }
-
-  resetPasswordForm: FormGroup = new FormGroup({
-    newPassword: new FormControl('', [Validators.required]),
-    confirmPassword: new FormControl('', [Validators.required])
+    private router: Router,
+    private translateService: TranslateService,
+  ) {
   }
-  );
 
   ngOnInit(): void {
   }
@@ -31,9 +34,15 @@ export class ConfirmComponent {
     const newPassword = this.resetPasswordForm.get('newPassword')?.value;
     const confirmPassword = this.resetPasswordForm.get('confirmPassword')?.value;
     if (this.resetPasswordForm.valid) {
-      if (newPassword === confirmPassword) {
+      if (newPassword===confirmPassword) {
+        let progressTitle = '';
+        this.translateService.get(TRANSLATE.MESSAGE.PROGRESS.FORGET_PASSWORD_CONFIRM_001).subscribe(
+          res => {
+            progressTitle = res;
+          },
+        );
         Swal.fire({
-          title: 'Đang đặt lại...',
+          title: progressTitle,
           allowOutsideClick: false,
           didOpen: () => {
             Swal.showLoading();
@@ -44,7 +53,7 @@ export class ConfirmComponent {
             const token = params['token'];
             // Gửi yêu cầu validate đến API
             return this.userService.validateToken(token);
-          })
+          }),
         ).subscribe(
           (response) => {
             const newToken = response.data; // Giả sử API trả về token mới dưới dạng newToken
@@ -54,9 +63,15 @@ export class ConfirmComponent {
               (data) => {
                 console.log(data);
                 Swal.close();
+                let title = '';
+                this.translateService.get(TRANSLATE.MESSAGE.SUCCESS.FORGET_PASSWORD_CONFIRM_001).subscribe(
+                  res => {
+                    title = res;
+                  },
+                );
                 Swal.fire({
                   icon: 'success',
-                  title: 'Đặt lại mật khẩu thành công!',
+                  title: title,
                   confirmButtonColor: '#3085d6',
                   confirmButtonText: 'OK',
                 });
@@ -65,32 +80,49 @@ export class ConfirmComponent {
               (error) => {
                 console.log(error);
                 Swal.close();
+                let title = '';
+                this.translateService.get(TRANSLATE.MESSAGE.ERROR.FORGET_PASSWORD_CONFIRM_001).subscribe(
+                  res => {
+                    title = res;
+                  },
+                );
                 Swal.fire({
                   icon: 'error',
-                  title: 'Đặt lại mật khẩu thất bại!',
+                  title: title,
                   confirmButtonColor: '#3085d6',
                   confirmButtonText: 'OK',
                 });
-              }
+              },
             );
           },
           (error) => {
             console.log(error);
             Swal.close();
+            let title = '';
+            this.translateService.get(TRANSLATE.MESSAGE.ERROR.TOKEN_001).subscribe(
+              res => {
+                title = res;
+              },
+            );
             Swal.fire({
               icon: 'error',
-              title: 'Token không hợp lệ!',
+              title: title,
               confirmButtonColor: '#3085d6',
               confirmButtonText: 'OK',
             });
-          }
+          },
         );
       } else {
         Swal.close();
+        let title = '';
+        this.translateService.get(TRANSLATE.MESSAGE.ERROR.FORGET_PASSWORD_CONFIRM_002).subscribe(
+          res => {
+            title = res;
+          },
+        );
         Swal.fire({
           icon: 'error',
-          title: 'Đặt lại mật khẩu thất bại!',
-          text: 'Xác nhận mật khẩu không trùng khớp!',
+          title: title,
           confirmButtonColor: '#3085d6',
           confirmButtonText: 'OK',
         });

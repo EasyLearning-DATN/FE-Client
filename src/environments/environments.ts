@@ -55,3 +55,32 @@ export const environment = {
   MCA_ID: 'be385949-73e0-4075-9a40-88f2074c3600',
   SCA_ID: '72aef284-dfd8-42fe-a7d3-372398322d23',
 };
+
+export const TRANSLATE = {
+  MESSAGE: {
+    ERROR: {
+      FORM_001: 'message.error.form.001',
+      TOKEN_001: 'message.error.token.001',
+      PASSWORD_001: 'message.error.password.001',
+      FORGET_PASSWORD_CONFIRM_001: 'message.error.forget_password.confirm.001',
+      FORGET_PASSWORD_CONFIRM_002: 'message.error.forget_password.confirm.002',
+    },
+    SUCCESS: {
+      PASSWORD_001: 'message.success.password.001',
+      FORGET_PASSWORD_CONFIRM_001: 'message.success.forget_password.confirm.001',
+      FORGET_PASSWORD_001: 'message.success.forget_password.001',
+    },
+    PROGRESS: {
+      LOGOUT_001: 'message.progress.logout.001',
+      FORGET_PASSWORD_CONFIRM_001: 'message.progress.forget_password.confirm.001',
+      FORGET_PASSWORD_001: 'message.progress.forget_password.001',
+    },
+    CONFIRM_MODAL: {
+      TITLE: 'message.confirm_modal.title',
+      BODY: 'message.confirm_modal.body',
+    },
+    SWAL_TITLE_SUCCESS: 'message.swal.title.success',
+    SWAL_TITLE_ERROR: 'message.swal.title.error',
+
+  },
+};

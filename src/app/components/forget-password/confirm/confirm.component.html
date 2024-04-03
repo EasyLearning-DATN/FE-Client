@@ -5,21 +5,25 @@
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 pt-5">
             <form [formGroup]="resetPasswordForm" (submit)="onConfirm()" action="" method="post">
-                <h2 class="main-text pt-5 mt-5">Quên mật khẩu</h2>
-                <input type="password" formControlName="newPassword" placeholder="Nhập mật khẩu mới" class="form-control main-input mt-5">
+                <h2 class="main-text pt-5 mt-5">{{'forget_password.confirm.title'|translate}}</h2>
+                <input type="password" formControlName="newPassword" placeholder="{{'forget_password.confirm.password.placeholder'|translate}}"
+                       class="form-control main-input mt-5">
                 <div *ngIf="!resetPasswordForm.get('newPassword')?.valid && resetPasswordForm.get('newPassword')?.touched">
-                    <div *ngIf="resetPasswordForm.get('newPassword')?.errors?.['required']" class="text-danger"><small>*Mật khẩu mới không được để trống</small></div>
+                    <div *ngIf="resetPasswordForm.get('newPassword')?.errors?.['required']"
+                         class="text-danger"><small>{{'forget_password.confirm.password.error.required'|translate}}</small></div>
                 </div>
-                <input type="password" formControlName="confirmPassword" placeholder="Nhập lại mật khẩu mới" class="form-control main-input mt-5">
+                <input type="password" formControlName="confirmPassword" placeholder="{{'forget_password.confirm.confirm_password.placeholder'|translate}}"
+                       class="form-control main-input mt-5">
                 <div *ngIf="!resetPasswordForm.get('confirmPassword')?.valid && resetPasswordForm.get('confirmPassword')?.touched">
-                    <div *ngIf="resetPasswordForm.get('confirmPassword')?.errors?.['required']" class="text-danger"><small>*Xác nhận mật khẩu không được để trống</small></div>
+                    <div *ngIf="resetPasswordForm.get('confirmPassword')?.errors?.['required']"
+                         class="text-danger"><small>{{'forget_password.confirm.confirm_password.error.required'|translate}}</small></div>
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        <button class="btn btn-sz-primary mt-5">Đặt lại mật khẩu</button>
+                        <button class="btn btn-sz-primary mt-5">{{'forget_password.confirm.reset_password'|translate}}</button>
                     </div>
                     <div class="col-5 pt-5">
-                        <a [routerLink]="['/login']" class="back-to-login">Đăng nhập</a>
+                        <a [routerLink]="['/login']" class="back-to-login">{{'commons.login'|translate}}</a>
                     </div>
                 </div>
         </form>

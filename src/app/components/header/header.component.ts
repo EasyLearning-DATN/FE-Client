@@ -1,8 +1,9 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 import {UserResponse} from 'src/app/responses/user/user.responses';
 import {UserService} from 'src/app/services/user/user-service.service';
 import Swal from 'sweetalert2';
+import {TRANSLATE} from '../../../environments/environments';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private router: Router,
+    private translateService: TranslateService,
   ) {
   }
 
@@ -45,8 +46,15 @@ export class HeaderComponent implements OnInit {
 
   onLogout() {
     const token = localStorage.getItem('token') || '';
+    let logoutTitle: string = '';
+    this.translateService.get(TRANSLATE.MESSAGE.PROGRESS.LOGOUT_001).subscribe(
+      res => {
+        logoutTitle = res;
+      },
+    );
+
     Swal.fire({
-      title: 'Đang đăng xuất...',
+      title: logoutTitle,
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
