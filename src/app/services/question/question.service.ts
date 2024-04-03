@@ -21,6 +21,11 @@ export class QuestionService {
     return this.http.post(this.apiCreateListQuestion, listQuestion);
   }
 
+  createListQuestionImport(listQuestion: any, lessonId: any) {
+    console.log(listQuestion, lessonId);
+    return this.http.post(this.apiCreateListQuestion, {listQuestion, lesson_id: lessonId});
+  }
+
   deleteQuestion(id: string) {
     return this.http.delete(this.apiDeleteQuestion + '/' + id);
   }
