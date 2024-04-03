@@ -11,6 +11,21 @@ export class AppComponent implements AfterContentInit {
   title = 'FE-Client';
   isDoTest = false;
 
+  // @HostListener('document:keydown', ['$event'])
+  // handleKeyboardEvent(event: KeyboardEvent) {
+  //   if (event.ctrlKey && event.key === 'u') {
+  //     event.preventDefault();
+  //   }
+  //   if (event.key === 'F12') {
+  //     event.preventDefault();
+  //   }
+  // }
+
+  // @HostListener('document:contextmenu', ['$event'])
+  // onRightClick(event: MouseEvent) {
+  //   event.preventDefault();
+  // }
+  
   constructor(private translate: TranslateService, private sharedService: SharedService) {
     translate.setDefaultLang('vi');
     translate.use('vi');
