@@ -1,11 +1,14 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {LessonDTO} from 'src/app/DTOS/lesson/lesson.dto';
-import {ImageResponses} from 'src/app/responses/image/image.responses';
-import {LessonService} from 'src/app/services/lesson/lesson.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { messenger } from 'ngx-bootstrap-icons';
+import { LessonDTO } from 'src/app/DTOS/lesson/lesson.dto';
+import { QuestionDTO } from 'src/app/DTOS/question/question.dto';
+import { ImageResponses } from 'src/app/responses/image/image.responses';
+import { QuestionResponses } from 'src/app/responses/question/question.responses';
+import { LessonService } from 'src/app/services/lesson/lesson.service';
 import { QuestionService } from 'src/app/services/question/question.service';
-import {UploadImageService} from 'src/app/services/shared/upload/upload-image.service';
+import { UploadImageService } from 'src/app/services/shared/upload/upload-image.service';
 import { environment } from 'src/environments/environments';
 import Swal from 'sweetalert2';
 
@@ -18,9 +21,10 @@ export class CreateLessonComponent implements OnInit {
   @ViewChild('lessonForm') lessonForm!: NgForm;
   protected readonly environment = environment;
   listQuestionImport: any[] = [];
+  // listQuestionImport: QuestionDTO[] = [];
   numberOfLesson: number = 0;
-  userId: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).id: '';
-  role: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).role: '';
+  userId: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).id : '';
+  role: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).role : '';
   name: string = '';
   description: string = '';
   image_id: string = '';
@@ -88,6 +92,34 @@ export class CreateLessonComponent implements OnInit {
       });
   }
 
+  // tạo list question mới apiCreateListQuestion questionService gán vào QuestionResponses
+  createListQuestion() {
+    this.questionService.putListQuestion(this.listQuestionImport).subscribe(
+      (response: any) => {
+        console.log(response);
+        Swal.fire({
+          icon: 'success',
+          title: 'Tạo bài học thành công!',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.router.navigate(['/lesson/list-lesson/my-lesson']);
+          }
+        });
+      }, error => {
+        console.log(error);
+        Swal.close();
+        Swal.fire({
+          icon: 'error',
+          title: error.error.message,
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        });
+      },
+    );
+  }
+
   // tạo lesson mới apiCreateLesson lessonService
   createLesson() {
     if (this.lessonForm.valid) {
@@ -96,7 +128,7 @@ export class CreateLessonComponent implements OnInit {
         description: this.description,
         image_id: this.image_id,
       };
-      if (this.numberOfLesson > 10 && this.role==='user') {
+      if (this.numberOfLesson > 10 && this.role === 'user') {
         Swal.fire({
           icon: 'error',
           title: 'Chỉ được tạo tối đa 10 bài học! Vui lòng nâng cấp tài khoản để tạo thêm bài học!',
@@ -104,17 +136,11 @@ export class CreateLessonComponent implements OnInit {
         });
       } else {
         this.lessonService.createLesson(LessonDTO).subscribe(
-          data => {
-            Swal.fire({
-              icon: 'success',
-              title: 'Tạo bài học thành công!',
-              confirmButtonColor: '#3085d6',
-              confirmButtonText: 'OK',
-            }).then((result) => {
-              if (result.isConfirmed) {
-                this.router.navigate(['/lesson/list-lesson/my-lesson']);
-              }
+          (data) => {
+            this.listQuestionImport.forEach((question) => {
+              question.lesson_id = data.data.id;
             });
+            this.createListQuestion();
           },
           error => {
             console.log(error);
@@ -154,7 +180,7 @@ export class CreateLessonComponent implements OnInit {
   // get question after onFileSelected($event)
   onFileSelectedQuestion(event: any) {
     this.questionService.importQuestion(event.target.files[0]).subscribe(
-      (res : any) => {
+      (res: any) => {
         this.listQuestionImport = res.data;
         console.log(res.data);
       },
