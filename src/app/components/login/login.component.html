@@ -70,7 +70,7 @@
               <input class="form-control" formControlName="password" placeholder="Nhập mật khẩu ..." type="password">
               <div *ngIf="!signupF.get('password')?.valid && signupF.get('password')?.touched" class="text-danger">
                 <small *ngIf="signupF.get('password')?.errors?.['required']">*Tên đăng nhập không được để trống</small>
-                <small *ngIf="signupF.get('password')?.errors?.['minlength']">*Mật khẩu tối thiểu 6 ký tự</small>
+                <small *ngIf="signupF.get('password')?.errors?.['pattern']">*Mật khẩu tối thiểu 6 ký tự, phải bao gồm cả chữ cái và số</small>
               </div>
             </div>
             <div class="form_group mb-2">
@@ -80,7 +80,7 @@
               <input class="form-control" formControlName="confirmPassword" placeholder="Nhập mật khẩu ..." type="password">
               <div *ngIf="!signupF.get('confirmPassword')?.valid && signupF.get('confirmPassword')?.touched" class="text-danger">
                 <small *ngIf="signupF.get('confirmPassword')?.errors?.['required']">*Tên đăng nhập không được để trống</small>
-                <small *ngIf="signupF.get('confirmPassword')?.errors?.['minlength']">*Mật khẩu tối thiểu 6 ký tự</small>
+                <small *ngIf="signupF.get('confirmPassword')?.errors?.['pattern']">*Mật khẩu tối thiểu 6 ký tự, phải bao gồm cả chữ cái và số</small>
               </div>
             </div>
             <div class="accept_policy">
