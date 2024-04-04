@@ -14,8 +14,8 @@ import {TRANSLATE} from '../../../../environments/environments';
 })
 export class ConfirmComponent {
   resetPasswordForm: FormGroup = new FormGroup({
-      newPassword: new FormControl('', [Validators.required]),
-      confirmPassword: new FormControl('', [Validators.required]),
+      newPassword: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$')]),
+      confirmPassword: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$')]),
     },
   );
 
