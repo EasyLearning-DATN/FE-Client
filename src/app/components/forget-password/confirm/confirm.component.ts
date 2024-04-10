@@ -27,22 +27,19 @@ export class ConfirmComponent {
   ) {
   }
 
-  ngOnInit(): void {
-  }
-
   onConfirm() {
+    let title = '';
     const newPassword = this.resetPasswordForm.get('newPassword')?.value;
     const confirmPassword = this.resetPasswordForm.get('confirmPassword')?.value;
     if (this.resetPasswordForm.valid) {
       if (newPassword===confirmPassword) {
-        let progressTitle = '';
         this.translateService.get(TRANSLATE.MESSAGE.PROGRESS.FORGET_PASSWORD_CONFIRM_001).subscribe(
           res => {
-            progressTitle = res;
+            title = res;
           },
         );
         Swal.fire({
-          title: progressTitle,
+          title: title,
           allowOutsideClick: false,
           didOpen: () => {
             Swal.showLoading();
@@ -63,7 +60,6 @@ export class ConfirmComponent {
               (data) => {
                 console.log(data);
                 Swal.close();
-                let title = '';
                 this.translateService.get(TRANSLATE.MESSAGE.SUCCESS.FORGET_PASSWORD_CONFIRM_001).subscribe(
                   res => {
                     title = res;
@@ -98,7 +94,6 @@ export class ConfirmComponent {
           (error) => {
             console.log(error);
             Swal.close();
-            let title = '';
             this.translateService.get(TRANSLATE.MESSAGE.ERROR.TOKEN_001).subscribe(
               res => {
                 title = res;
@@ -114,7 +109,6 @@ export class ConfirmComponent {
         );
       } else {
         Swal.close();
-        let title = '';
         this.translateService.get(TRANSLATE.MESSAGE.ERROR.FORGET_PASSWORD_CONFIRM_002).subscribe(
           res => {
             title = res;

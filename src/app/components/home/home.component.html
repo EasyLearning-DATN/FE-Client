@@ -7,9 +7,9 @@
                                                                       width="470"
       /></div>
       <div class="col-md-7 col-lg-6 text-md-start text-center py-6">
-        <h3 class="fs-xl-6 fs-sm-5 mb-5">Ghi nhớ các bài trắc nghiệm online với EasyLearning</h3>
-        <a *ngIf="!isLogin" [routerLink]="['/login']" class="btn btn-app me-2 fs-2" role="button">Đăng kí miễn phí</a>
-        <a *ngIf="isLogin" [routerLink]="['/list-lesson']" class="btn btn-app me-2 fs-2" role="button">Xem danh sách bài học thôi!</a>
+        <h3 class="fs-xl-6 fs-sm-5 mb-5">{{ 'home.title'|translate }}</h3>
+        <a *ngIf="!isLogin" [routerLink]="['/login']" class="btn btn-app me-2 fs-2" role="button">{{ 'home.login'|translate }}</a>
+        <a *ngIf="isLogin" [routerLink]="['/list-lesson']" class="btn btn-app me-2 fs-2" role="button">{{ 'home.list_lesson'|translate }}</a>
       </div>
     </div>
   </div>
@@ -28,7 +28,8 @@
             <div class="col-lg-4 col-xl-2 text-center text-xl-start"><img
               alt="..." src="assets/img/gallery/funfacts.png" width="170"/></div>
             <div class="col-lg-8 col-xl-5">
-              <h1 class="text-light fs-lg-5 fs-xl-5">Đăng kí trải nghiệm <a [routerLink]="['/premium']" class="">EasyLearning Premium</a>
+              <h1 class="text-light fs-lg-5 fs-xl-5">{{ 'home.register_premium'|translate }} <a [routerLink]="['/premium']"
+                                                                                                class="">{{ 'home.premium'|translate }}</a>
               </h1>
             </div>
             <div class="col-lg-12 col-xl-5">
@@ -53,8 +54,8 @@
 
   <div class="container">
     <div class="">
-      <h1 class="text-center mb-5 text-capitalize">bài học nổi bật</h1>
-      <p *ngIf="lessons.length < 1 && !isLessonFetching" class="fs-2 fw-semi-bold">No posts available!</p>
+      <h1 class="text-center mb-5 text-capitalize">{{ 'home.top_lessons'|translate }}</h1>
+      <p *ngIf="lessons.length < 1 && !isLessonFetching" class="fs-2 fw-semi-bold">{{ 'home.no_lessons'|translate }}</p>
       <div *ngIf="isLessonFetching" class="d-flex align-content-center justify-content-center">
         <div class="spinner-border text-primary" role="status">
           <span class="visually-hidden">Loading...</span>
@@ -71,8 +72,8 @@
 
   <div class="container mt-4">
     <div class="">
-      <h1 class="text-center mb-5 text-capitalize">bài test nổi bật</h1>
-      <p *ngIf="tests.length < 1 && !isTestFetching" class="fs-2 fw-semi-bold">No posts available!</p>
+      <h1 class="text-center mb-5 text-capitalize">{{ 'home.top_tests'|translate }}</h1>
+      <p *ngIf="tests.length < 1 && !isTestFetching" class="fs-2 fw-semi-bold">{{ 'home.no_tests'|translate }}</p>
       <div *ngIf="isTestFetching" class="d-flex align-content-center justify-content-center">
         <div class="spinner-border text-primary" role="status">
           <span class="visually-hidden">Loading...</span>
@@ -151,22 +152,22 @@
       <div class="col-sm-6 col-lg-3 text-center mb-5"><img alt="..." height="100"
                                                            src="assets/img/gallery/published.png"/>
         <h1 class="my-2">768</h1>
-        <p class="text-info fw-bold">COURSES PUBLISHED</p>
+        <p class="text-info fw-bold">{{ 'home.courses_published'|translate }}</p>
       </div>
       <div class="col-sm-6 col-lg-3 text-center mb-5"><img alt="..." height="100"
                                                            src="assets/img/gallery/instructors.png"/>
         <h1 class="my-2">120</h1>
-        <p class="text-info fw-bold">EXPERT INSTRUCTORS</p>
+        <p class="text-info fw-bold">{{ 'home.class_published'|translate }}</p>
       </div>
       <div class="col-sm-6 col-lg-3 text-center mb-5"><img alt="..." height="100"
                                                            src="assets/img/gallery/learners.png"/>
         <h1 class="my-2">8300</h1>
-        <p class="text-info fw-bold">HAPPY LEARNERS</p>
+        <p class="text-info fw-bold">{{ 'home.happy_learners'|translate }}</p>
       </div>
       <div class="col-sm-6 col-lg-3 text-center mb-5"><img alt="..." height="100"
                                                            src="assets/img/gallery/awards.png"/>
         <h1 class="my-2">32</h1>
-        <p class="text-info fw-bold">AWARDS ACHIEVED</p>
+        <p class="text-info fw-bold">{{ 'home.classes_passed'|translate }}</p>
       </div>
     </div>
   </div>

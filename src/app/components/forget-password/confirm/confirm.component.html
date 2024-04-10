@@ -11,14 +11,16 @@
                     class="form-control main-input mt-5">
                 <div *ngIf="!resetPasswordForm.get('newPassword')?.valid && resetPasswordForm.get('newPassword')?.touched" class="text-danger">
                     <small *ngIf="resetPasswordForm.get('newPassword')?.errors?.['required']">{{'forget_password.confirm.password.error.required'|translate}}</small>
-                    <small *ngIf="resetPasswordForm.get('newPassword')?.errors?.['pattern']">*Mật khẩu tối thiểu 6 ký tự, phải bao gồm cả chữ cái và số</small>
+                    <small
+                      *ngIf="resetPasswordForm.get('newPassword')?.errors?.['pattern']">{{'forget_password.confirm.password.error.pattern'|translate}}</small>
                 </div>
                 <input type="password" formControlName="confirmPassword"
                     placeholder="{{'forget_password.confirm.confirm_password.placeholder'|translate}}"
                     class="form-control main-input mt-5">
                 <div *ngIf="!resetPasswordForm.get('confirmPassword')?.valid && resetPasswordForm.get('confirmPassword')?.touched" class="text-danger">
                     <small *ngIf="resetPasswordForm.get('confirmPassword')?.errors?.['required']">{{'forget_password.confirm.confirm_password.error.required'|translate}}</small>
-                    <small *ngIf="resetPasswordForm.get('confirmPassword')?.errors?.['pattern']">*Mật khẩu tối thiểu 6 ký tự, phải bao gồm cả chữ cái và số</small>
+                    <small
+                      *ngIf="resetPasswordForm.get('confirmPassword')?.errors?.['pattern']">{{'forget_password.confirm.password.error.pattern'|translate}}</small>
                 </div>
                 <div class="row">
                     <div class="col-4">

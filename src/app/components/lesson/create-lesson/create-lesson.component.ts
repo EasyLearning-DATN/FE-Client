@@ -1,15 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { messenger } from 'ngx-bootstrap-icons';
-import { LessonDTO } from 'src/app/DTOS/lesson/lesson.dto';
-import { QuestionDTO } from 'src/app/DTOS/question/question.dto';
-import { ImageResponses } from 'src/app/responses/image/image.responses';
-import { QuestionResponses } from 'src/app/responses/question/question.responses';
-import { LessonService } from 'src/app/services/lesson/lesson.service';
-import { QuestionService } from 'src/app/services/question/question.service';
-import { UploadImageService } from 'src/app/services/shared/upload/upload-image.service';
-import { environment } from 'src/environments/environments';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
+import {LessonDTO} from 'src/app/DTOS/lesson/lesson.dto';
+import {ImageResponses} from 'src/app/responses/image/image.responses';
+import {LessonService} from 'src/app/services/lesson/lesson.service';
+import {QuestionService} from 'src/app/services/question/question.service';
+import {UploadImageService} from 'src/app/services/shared/upload/upload-image.service';
+import {environment, TRANSLATE} from 'src/environments/environments';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,12 +17,11 @@ import Swal from 'sweetalert2';
 })
 export class CreateLessonComponent implements OnInit {
   @ViewChild('lessonForm') lessonForm!: NgForm;
-  protected readonly environment = environment;
   listQuestionImport: any[] = [];
   // listQuestionImport: QuestionDTO[] = [];
   numberOfLesson: number = 0;
-  userId: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).id : '';
-  role: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).role : '';
+  userId: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).id: '';
+  role: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).role: '';
   name: string = '';
   description: string = '';
   image_id: string = '';
@@ -35,13 +32,15 @@ export class CreateLessonComponent implements OnInit {
     image_id: new FormControl(''),
     is_public: new FormControl(''),
   });
+  protected readonly environment = environment;
 
   constructor(
     private fb: FormBuilder,
     private questionService: QuestionService,
     private lessonService: LessonService,
     private imgUpload: UploadImageService,
-    private router: Router) {
+    private router: Router,
+    private translateService: TranslateService) {
     this.createLessonF = this.fb.group({
       title: [''],
       description: [''],
@@ -75,8 +74,14 @@ export class CreateLessonComponent implements OnInit {
   }
 
   onCreateLesson() {
+    let title = '';
+    this.translateService.get(TRANSLATE.MESSAGE.PROGRESS.CREATE_LESSON_001).subscribe(
+      res => {
+        title = res;
+      },
+    );
     Swal.fire({
-      title: 'Đang tạo bài học...',
+      title: title,
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
@@ -97,9 +102,15 @@ export class CreateLessonComponent implements OnInit {
     this.questionService.putListQuestion(this.listQuestionImport).subscribe(
       (response: any) => {
         console.log(response);
+        let title = '';
+        this.translateService.get(TRANSLATE.MESSAGE.SUCCESS.CREATE_LESSON_001).subscribe(
+          res => {
+            title = res;
+          },
+        );
         Swal.fire({
           icon: 'success',
-          title: 'Tạo bài học thành công!',
+          title: title,
           confirmButtonColor: '#3085d6',
           confirmButtonText: 'OK',
         }).then((result) => {
@@ -128,10 +139,16 @@ export class CreateLessonComponent implements OnInit {
         description: this.description,
         image_id: this.image_id,
       };
-      if (this.numberOfLesson > 10 && this.role === 'user') {
+      if (this.numberOfLesson > 10 && this.role==='user') {
+        let title = '';
+        this.translateService.get(TRANSLATE.MESSAGE.ERROR.CREATE_LESSON_001).subscribe(
+          res => {
+            title = res;
+          },
+        );
         Swal.fire({
           icon: 'error',
-          title: 'Chỉ được tạo tối đa 10 bài học! Vui lòng nâng cấp tài khoản để tạo thêm bài học!',
+          title: title,
           showConfirmButton: true,
         });
       } else {
@@ -144,9 +161,15 @@ export class CreateLessonComponent implements OnInit {
           },
           error => {
             console.log(error);
+            let title = '';
+            this.translateService.get(TRANSLATE.MESSAGE.ERROR.CREATE_LESSON_002).subscribe(
+              res => {
+                title = res;
+              },
+            );
             Swal.fire({
               icon: 'error',
-              title: 'Tạo bài học thất bại',
+              title: title,
               text: error.error.message,
               confirmButtonColor: '#3085d6',
               confirmButtonText: 'OK',

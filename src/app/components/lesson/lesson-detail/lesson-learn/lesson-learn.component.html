@@ -1,13 +1,13 @@
 <div class="container">
   <div class="title mt-4">
-    <p class="fw-semi-bold fs-3 "> {{ "lesson.lesson-learn.title" | translate }} ({{ questions.length }})</p>
+    <p class="fw-semi-bold fs-3 "> {{ "lesson.lesson_detail.lesson_learn.title" | translate }} ({{ questions.length }})</p>
   </div>
   <div *ngIf="questions.length !==0" class="questions row">
     <app-lesson-learn-item *ngFor="let question of questions" [question]="question" class="col-12 col-lg-6 mt-3">
     </app-lesson-learn-item>
   </div>
   <div *ngIf="questions.length ===0" class="text-center fs-2 fw-semi-bold mt-3 mb-3">
-    <span>Bài học này không có câu hỏi!</span>
+    <span>{{ "lesson.lesson_detail.lesson_learn.no_questions" | translate }}</span>
   </div>
 </div>
 

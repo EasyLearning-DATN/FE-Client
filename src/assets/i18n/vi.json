@@ -36,7 +36,8 @@
       "password": {
         "placeholder": "Nhập mật khẩu mới",
         "error": {
-          "required": "*Mật khẩu không được để trống"
+          "required": "*Mật khẩu không được để trống",
+          "pattern": "*Mật khẩu tối thiểu 6 ký tự, phải bao gồm cả chữ cái và số"
         }
       },
       "confirm_password": {
@@ -58,14 +59,67 @@
     "reset_password": "Đặt lại mật khẩu"
   },
   "lesson": {
-    "lesson_learn": {
-      "lesson_learn_item": {
-        "sca": "trắc nghiệm - một đáp án đúng",
-        "mca": "trắc nghiệm - nhiều đáp án đúng",
-        "fitb": "điền vào chỗ trống",
-        "answer_title": "Đáp án"
+    "create_lesson": {
+      "name": {
+        "label": "Tên bài học",
+        "placeholder": "Tên bài học",
+        "error": {
+          "required": "*Tên bài học không được để trống!"
+        }
       },
-      "title": "Câu hỏi trong bài học"
+      "description": {
+        "label": "Mô tả",
+        "placeholder": "Nhập mô tả"
+      },
+      "picture": "Ảnh bìa bài học",
+      "questions_file": "File câu hỏi",
+      "create_lesson": "Tạo bài học"
+    },
+    "lesson_detail": {
+      "lesson_learn": {
+        "lesson_learn_item": {
+          "sca": "trắc nghiệm - một đáp án đúng",
+          "mca": "trắc nghiệm - nhiều đáp án đúng",
+          "fitb": "điền vào chỗ trống",
+          "answer_title": "Đáp án"
+        },
+        "title": "Câu hỏi trong bài học",
+        "no_questions": "Bài học này không có câu hỏi!"
+      },
+      "flashcard": {
+        "flashcard_item": {
+          "title": "Đáp án"
+        },
+        "no_questions": "Bài học này không có câu hỏi!"
+      },
+      "edit_lesson": {
+        "add_questions": {
+        },
+        "edit_questions": {
+        },
+        "title": "Chỉnh sửa bài học",
+        "name": {
+          "label": "Tên bài học",
+          "error": {
+            "required": "Vui lòng nhập tên bài học!"
+          }
+        },
+        "picture": {
+          "label": "Ảnh",
+          "info": "Ảnh đã chọn"
+        },
+        "description": {
+          "label": "Mô tả",
+          "error": {
+            "required": "Vui lòng nhập mô tả!"
+          }
+        },
+        "save": "Lưu",
+        "delete": "Xóa",
+        "close": "Đóng"
+      },
+      "questions": "Câu hỏi",
+      "created_by": "Người tạo"
     }
   },
   "home": {
@@ -73,7 +127,20 @@
     "total_questions": "Tổng số câu hỏi",
     "access_times": "Lượt truy cập",
     "done_times": "Lượt làm",
-    "detail": "Chi tiết"
+    "detail": "Chi tiết",
+    "login": "Đăng kí miễn phí",
+    "list_lesson": "Xem danh sách bài học thôi!",
+    "title": "Ghi nhớ các bài trắc nghiệm online với EasyLearning",
+    "register_premium": "Đăng kí trải nghiệm",
+    "premium": "EasyLearning Premium",
+    "top_lessons": "bài học nổi bật",
+    "no_lessons": "Không có bài học nổi bật!",
+    "top_tests": "bài kiểm tra nổi bật",
+    "no_tests": "Không có bài kiểm tra nổi bật!",
+    "courses_published": "BÀI HỌC ĐÃ TẠO",
+    "class_published": "LỚP HỌC ĐÃ TẠO",
+    "happy_learners": "NGƯỜI DÙNG THAM GIA",
+    "classes_passed": "LƯỢT HOÀN THÀNH LỚP HỌC"
   },
   "confirm_modal": {
     "title": "{{ value }}",
@@ -104,6 +171,17 @@
           "001": "Đặt lại mật khẩu thất bại!",
           "002": "Xác nhận mật khẩu không trùng khớp!"
         }
+      },
+      "create_lesson": {
+        "001": "Chỉ được tạo tối đa 10 bài học! Vui lòng nâng cấp tài khoản để tạo thêm bài học!",
+        "002": "Tạo bài học thất bại!"
+      },
+      "lesson_detail": {
+        "edit_lesson": {
+          "001": "Vui lòng điền đầy đủ thông tin bài học!",
+          "002": "Không thể cập nhật hình ảnh!",
+          "003": "Sửa bài học thất bại!"
+        }
       }
     },
     "success": {
@@ -114,6 +192,14 @@
         "001": "Vui lòng kiểm tra email để lấy liên kết đặt lại mật khẩu!",
         "confirm": {
           "001": "Đặt lại mật khẩu thành công!"
+        }
+      },
+      "create_lesson": {
+        "001": "Tạo bài học thành công!"
+      },
+      "lesson_detail": {
+        "edit_lesson": {
+          "001": "Cập nhật bài học thành công!"
         }
       }
     },
@@ -126,6 +212,14 @@
           "001": "Đang đặt lại..."
         },
         "001": "Đang kiểm tra..."
+      },
+      "create_lesson": {
+        "001": "Đang tạo bài học..."
+      },
+      "lesson_detail": {
+        "edit_lesson": {
+          "001": "Đang cập nhật bài học..."
+        }
       }
     },
     "confirm_modal": {
