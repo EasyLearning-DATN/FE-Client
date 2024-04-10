@@ -1,14 +1,16 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
-import {ModalDismissReasons, NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ConfirmModalComponent} from "../../../commons/confirm-modal/confirm-modal.component";
-import {SharedService} from "../../../../services/shared/shared.service";
-import {LessonService} from "../../../../services/lesson/lesson.service";
-import {LessonResponses} from "../../../../responses/lesson/lesson.responses";
-import {ActivatedRoute, Router} from "@angular/router";
-import Swal from "sweetalert2";
-import {UploadImageService} from "../../../../services/shared/upload/upload-image.service";
-import {LessonDTO} from "../../../../DTOS/lesson/lesson.dto";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ModalDismissReasons, NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
+import {TranslateService} from '@ngx-translate/core';
+import Swal from 'sweetalert2';
+import {TRANSLATE} from '../../../../../environments/environments';
+import {LessonDTO} from '../../../../DTOS/lesson/lesson.dto';
+import {LessonResponses} from '../../../../responses/lesson/lesson.responses';
+import {LessonService} from '../../../../services/lesson/lesson.service';
+import {SharedService} from '../../../../services/shared/shared.service';
+import {UploadImageService} from '../../../../services/shared/upload/upload-image.service';
+import {ConfirmModalComponent} from '../../../commons/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-edit-lesson',
@@ -25,8 +27,15 @@ export class EditLessonComponent implements OnInit {
   image: string = '';
   private closeResult = '';
 
-  constructor(private modalService: NgbModal, private config: NgbModalConfig, private sharedService: SharedService,
-    private lessonService: LessonService, private router: Router, private imageService: UploadImageService, private route: ActivatedRoute) {
+  constructor(private modalService: NgbModal,
+              private config: NgbModalConfig,
+              private sharedService: SharedService,
+              private lessonService: LessonService,
+              private router: Router,
+              private imageService: UploadImageService,
+              private route: ActivatedRoute,
+              private translateService: TranslateService,
+  ) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
@@ -37,35 +46,50 @@ export class EditLessonComponent implements OnInit {
 
 
   onUpdate() {
+    let title = '';
     if (!this.updateLessonForm.valid) {
+      this.translateService.get(TRANSLATE.MESSAGE.ERROR.EDIT_LESSON_001).subscribe(
+        res => {
+          title = res;
+        },
+      );
       Swal.fire({
         icon: 'error',
-        title: 'Không thể sửa!',
-        text: 'Vui lòng điền đầy đủ thông tin bài học!',
+        title: title,
         confirmButtonColor: '#3085d6',
         confirmButtonText: 'OK',
       });
       return;
     }
     // console.log(this.image);
+    this.translateService.get(TRANSLATE.MESSAGE.PROGRESS.EDIT_LESSON_001).subscribe(
+      res => {
+        title = res;
+      },
+    );
     Swal.fire({
-      title: 'Đang cập nhật bài học...',
+      title: title,
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
       },
     });
-    if (this.image !== '') {
-      const token = localStorage.getItem("token");
+    if (this.image!=='') {
+      const token = localStorage.getItem('token');
       this.imageService.uploadImage(this.image, token).subscribe(
         (response) => {
           const image_id = response.public_id;
           this.updateLesson(image_id);
         }, error => {
           Swal.close();
+          this.translateService.get(TRANSLATE.MESSAGE.ERROR.EDIT_LESSON_002).subscribe(
+            res => {
+              title = res;
+            },
+          );
           Swal.fire({
             icon: 'error',
-            title: 'Không thể cập nhật hình ảnh!',
+            title: title,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'OK',
           });
@@ -85,15 +109,20 @@ export class EditLessonComponent implements OnInit {
       description: <string>this.updateLessonForm.get('description')?.value,
       image_id: imageId,
     };
+    let title = '';
     this.lessonService.updateLesson(this.lesson.id, lessondto)
     .subscribe(
       (response) => {
         console.log(response);
         Swal.close();
+        this.translateService.get(TRANSLATE.MESSAGE.SUCCESS.EDIT_LESSON_001).subscribe(
+          res => {
+            title = res;
+          },
+        );
         Swal.fire({
           icon: 'success',
-          title: 'Sửa bài học thành công!',
-          text: 'Bạn đã cập nhật bài học thành công!',
+          title: title,
           confirmButtonColor: '#3085d6',
           confirmButtonText: 'OK',
         });
@@ -106,10 +135,15 @@ export class EditLessonComponent implements OnInit {
         this.modalService.dismissAll('Update success!');
       }, error => {
         Swal.close();
+        this.translateService.get(TRANSLATE.MESSAGE.ERROR.EDIT_LESSON_003).subscribe(
+          res => {
+            title = res;
+          },
+        );
         Swal.fire({
           icon: 'error',
-          title: 'Sửa bài học thất bại!',
-          text: 'Không thể sửa bài học này!',
+          title: title,
+          // text: error.message,
           confirmButtonColor: '#3085d6',
           confirmButtonText: 'OK',
         });
@@ -120,13 +154,13 @@ export class EditLessonComponent implements OnInit {
   openConfirmDelete() {
     const modalConfirm = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    modalConfirm.componentInstance.body = "Bạn có chắc chắn muốn xóa bài học này không?";
+    modalConfirm.componentInstance.body = 'Bạn có chắc chắn muốn xóa bài học này không?';
     modalConfirm
     .result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.closeResult);
-        if (result === 'Confirm') {
+        if (result==='Confirm') {
           Swal.fire({
             title: 'Đang xóa bài học...',
             allowOutsideClick: false,
@@ -192,13 +226,13 @@ export class EditLessonComponent implements OnInit {
   openConfirmSave() {
     const modalConfirm = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    modalConfirm.componentInstance.body = "Bạn có chắc chắn muốn lưu thay đổi không?";
+    modalConfirm.componentInstance.body = 'Bạn có chắc chắn muốn lưu thay đổi không?';
     modalConfirm
     .result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.closeResult);
-        if (result === 'Confirm') {
+        if (result==='Confirm') {
           this.onUpdate();
           console.log(result);
         }

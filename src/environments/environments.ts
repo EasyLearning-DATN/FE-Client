@@ -1,6 +1,6 @@
 // const BASE_API = 'https://be-cdj2.onrender.com'
-// const BASE_API = 'http://localhost:1002';
-const BASE_API = 'http://localhost:1001';
+const BASE_API = 'http://localhost:1002';
+// const BASE_API = 'http://localhost:1001';
 
 export const environment = {
   production: false,
@@ -64,16 +64,25 @@ export const TRANSLATE = {
       PASSWORD_001: 'message.error.password.001',
       FORGET_PASSWORD_CONFIRM_001: 'message.error.forget_password.confirm.001',
       FORGET_PASSWORD_CONFIRM_002: 'message.error.forget_password.confirm.002',
+      CREATE_LESSON_001: 'message.error.create_lesson.001',
+      CREATE_LESSON_002: 'message.error.create_lesson.002',
+      EDIT_LESSON_001: 'message.error.lesson_detail.edit_lesson.001',
+      EDIT_LESSON_002: 'message.error.lesson_detail.edit_lesson.002',
+      EDIT_LESSON_003: 'message.error.lesson_detail.edit_lesson.003',
     },
     SUCCESS: {
       PASSWORD_001: 'message.success.password.001',
       FORGET_PASSWORD_CONFIRM_001: 'message.success.forget_password.confirm.001',
       FORGET_PASSWORD_001: 'message.success.forget_password.001',
+      CREATE_LESSON_001: 'message.success.create_lesson.001',
+      EDIT_LESSON_001: 'message.success.lesson_detail.edit_lesson.001',
     },
     PROGRESS: {
       LOGOUT_001: 'message.progress.logout.001',
       FORGET_PASSWORD_CONFIRM_001: 'message.progress.forget_password.confirm.001',
       FORGET_PASSWORD_001: 'message.progress.forget_password.001',
+      CREATE_LESSON_001: 'message.progress.create_lesson.001',
+      EDIT_LESSON_001: 'message.progress.lesson_detail.edit_lesson.001',
     },
     CONFIRM_MODAL: {
       TITLE: 'message.confirm_modal.title',
