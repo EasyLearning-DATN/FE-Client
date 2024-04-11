@@ -1,235 +1,238 @@
 {
-  "header": {
-    "home": "trang chủ",
-    "list": "danh sách",
-    "test_list": "danh sách bài test",
-    "lesson_list": "danh sách bài học",
-    "my_test_report": "kết quả bài thi",
-    "login": "đăng nhập",
-    "register": "đăng ký",
-    "create_lesson": "tạo bài học",
-    "create_test": "tạo bài test",
-    "user_profile": "Hồ sơ",
-    "setting": "Cài đặt",
-    "help": "Giúp đỡ & Phản hồi",
-    "upgrade": "Nâng cấp Premium",
-    "logout": "Đăng xuất"
+  "HEADER": {
+    "HOME": "trang chủ",
+    "LIST": "danh sách",
+    "TEST_LIST": "danh sách bài test",
+    "LESSON_LIST": "danh sách bài học",
+    "MY_TEST_REPORT": "kết quả bài thi",
+    "LOGIN": "đăng nhập",
+    "REGISTER": "đăng ký",
+    "CREATE_LESSON": "tạo bài học",
+    "CREATE_TEST": "tạo bài test",
+    "USER_PROFILE": "Hồ sơ",
+    "SETTING": "Cài đặt",
+    "HELP": "Giúp đỡ & Phản hồi",
+    "UPGRADE": "Nâng cấp Premium",
+    "LOGOUT": "Đăng xuất"
   },
-  "footer": {
-    "community": "Cộng đồng",
-    "learners": "Người học",
-    "partners": "Đối tác",
-    "developers": "Nhà phát triển",
-    "beta_testers": "Bên kiểm thử",
-    "translators": "Biên dịch",
-    "information": "Thông tin",
-    "about": "Về chúng tôi",
-    "contact": "Liên hệ",
-    "more": "Thông tin bổ sung",
-    "term": "Quyền",
-    "privacy": "Bảo mật",
-    "help": "Trợ giúp"
+  "FOOTER": {
+    "COMMUNITY": "Cộng đồng",
+    "LEARNERS": "Người học",
+    "PARTNERS": "Đối tác",
+    "DEVELOPERS": "Nhà phát triển",
+    "BETA_TESTERS": "Bên kiểm thử",
+    "TRANSLATORS": "Biên dịch",
+    "INFORMATION": "Thông tin",
+    "ABOUT": "Về chúng tôi",
+    "CONTACT": "Liên hệ",
+    "MORE": "Thông tin bổ sung",
+    "TERM": "Quyền",
+    "PRIVACY": "Bảo mật",
+    "HELP": "Trợ giúp"
   },
-  "forget_password": {
-    "confirm": {
-      "title": "Quên mật khẩu",
-      "password": {
-        "placeholder": "Nhập mật khẩu mới",
-        "error": {
-          "required": "*Mật khẩu không được để trống",
-          "pattern": "*Mật khẩu tối thiểu 6 ký tự, phải bao gồm cả chữ cái và số"
+  "FORGET_PASSWORD": {
+    "CONFIRM": {
+      "TITLE": "Quên mật khẩu",
+      "PASSWORD": {
+        "PLACEHOLDER": "Nhập mật khẩu mới",
+        "ERROR": {
+          "REQUIRED": "*Mật khẩu không được để trống",
+          "PATTERN": "*Mật khẩu tối thiểu 6 ký tự, phải bao gồm cả chữ cái và số"
         }
       },
-      "confirm_password": {
-        "placeholder": "Nhập lại mật khẩu mới",
-        "error": {
-          "required": "*Xác nhận mật khẩu không được để trống"
+      "CONFIRM_PASSWORD": {
+        "PLACEHOLDER": "Nhập lại mật khẩu mới",
+        "ERROR": {
+          "REQUIRED": "*Xác nhận mật khẩu không được để trống"
         }
       },
-      "reset_password": "Đặt lại mật khẩu"
+      "RESET_PASSWORD": "Đặt lại mật khẩu"
     },
-    "title": "Quên mật khẩu",
-    "email": {
-      "placeholder": "Nhập địa chỉ email",
-      "error": {
-        "required": "*Email không được để trống",
-        "email": "*Email không đúng định dạng"
+    "TITLE": "Quên mật khẩu",
+    "EMAIL": {
+      "PLACEHOLDER": "Nhập địa chỉ email",
+      "ERROR": {
+        "REQUIRED": "*Email không được để trống",
+        "PATTERN": "*Email không đúng định dạng",
+        "EMAIL": "*Email không đúng định dạng"
       }
     },
     "reset_password": "Đặt lại mật khẩu"
   },
-  "lesson": {
-    "create_lesson": {
-      "name": {
-        "label": "Tên bài học",
-        "placeholder": "Tên bài học",
-        "error": {
-          "required": "*Tên bài học không được để trống!"
+  "LESSON": {
+    "CREATE_LESSON": {
+      "NAME": {
+        "LABEL": "Tên bài học",
+        "PLACEHOLDER": "Tên bài học",
+        "ERROR": {
+          "REQUIRED": "*Tên bài học không được để trống!"
         }
       },
-      "description": {
-        "label": "Mô tả",
-        "placeholder": "Nhập mô tả"
+      "DESCRIPTION": {
+        "LABEL": "Mô tả",
+        "PLACEHOLDER": "Nhập mô tả"
       },
-      "picture": "Ảnh bìa bài học",
-      "questions_file": "File câu hỏi",
-      "create_lesson": "Tạo bài học"
+      "PICTURE": "Ảnh bìa bài học",
+      "QUESTIONS_FILE": "File câu hỏi",
+      "CREATE_LESSON": "Tạo bài học"
     },
-    "lesson_detail": {
-      "lesson_learn": {
-        "lesson_learn_item": {
-          "sca": "trắc nghiệm - một đáp án đúng",
-          "mca": "trắc nghiệm - nhiều đáp án đúng",
-          "fitb": "điền vào chỗ trống",
-          "answer_title": "Đáp án"
+    "LESSON_DETAIL": {
+      "LESSON_LEARN": {
+        "LESSON_LEARN_ITEM": {
+          "SCA": "trắc nghiệm - một đáp án đúng",
+          "MCA": "trắc nghiệm - nhiều đáp án đúng",
+          "FITB": "điền vào chỗ trống",
+          "ANSWER_TITLE": "Đáp án"
         },
-        "title": "Câu hỏi trong bài học",
-        "no_questions": "Bài học này không có câu hỏi!"
+        "TITLE": "Câu hỏi trong bài học",
+        "NO_QUESTIONS": "Bài học này không có câu hỏi!"
       },
-      "flashcard": {
-        "flashcard_item": {
-          "title": "Đáp án"
+      "FLASHCARD": {
+        "FLASHCARD_ITEM": {
+          "TITLE": "Đáp án"
         },
-        "no_questions": "Bài học này không có câu hỏi!"
+        "NO_QUESTIONS": "Bài học này không có câu hỏi!"
       },
-      "edit_lesson": {
-        "add_questions": {
+      "EDIT_LESSON": {
+        "ADD_QUESTIONS": {
         },
-        "edit_questions": {
+        "EDIT_QUESTIONS": {
         },
-        "title": "Chỉnh sửa bài học",
-        "name": {
-          "label": "Tên bài học",
-          "error": {
-            "required": "Vui lòng nhập tên bài học!"
+        "TITLE": "Chỉnh sửa bài học",
+        "NAME": {
+          "LABEL": "Tên bài học",
+          "ERROR": {
+            "REQUIRED": "Vui lòng nhập tên bài học!"
           }
         },
-        "picture": {
-          "label": "Ảnh",
-          "info": "Ảnh đã chọn"
+        "PICTURE": {
+          "LABEL": "Ảnh",
+          "INFO": "Ảnh đã chọn"
         },
-        "description": {
-          "label": "Mô tả",
-          "error": {
-            "required": "Vui lòng nhập mô tả!"
+        "DESCRIPTION": {
+          "LABEL": "Mô tả",
+          "ERROR": {
+            "REQUIRED": "Vui lòng nhập mô tả!"
           }
         },
-        "save": "Lưu",
-        "delete": "Xóa",
-        "close": "Đóng"
+        "SAVE": "Lưu",
+        "DELETE": "Xóa",
+        "CLOSE": "Đóng"
       },
-      "questions": "Câu hỏi",
-      "created_by": "Người tạo"
+      "QUESTIONS": "Câu hỏi",
+      "CREATE_BY": "Người tạo"
     }
   },
-  "home": {
-    "created_date": "Ngày tạo",
-    "total_questions": "Tổng số câu hỏi",
-    "access_times": "Lượt truy cập",
-    "done_times": "Lượt làm",
-    "detail": "Chi tiết",
-    "login": "Đăng kí miễn phí",
-    "list_lesson": "Xem danh sách bài học thôi!",
-    "title": "Ghi nhớ các bài trắc nghiệm online với EasyLearning",
-    "register_premium": "Đăng kí trải nghiệm",
-    "premium": "EasyLearning Premium",
-    "top_lessons": "bài học nổi bật",
-    "no_lessons": "Không có bài học nổi bật!",
-    "top_tests": "bài kiểm tra nổi bật",
-    "no_tests": "Không có bài kiểm tra nổi bật!",
-    "courses_published": "BÀI HỌC ĐÃ TẠO",
-    "class_published": "LỚP HỌC ĐÃ TẠO",
-    "happy_learners": "NGƯỜI DÙNG THAM GIA",
-    "classes_passed": "LƯỢT HOÀN THÀNH LỚP HỌC"
+  "HOME": {
+    "HOME_ITEM": {
+      "CREATED_DATE": "Ngày tạo",
+      "TOTAL_QUESTIONS": "Tổng số câu hỏi",
+      "ACCESS_TIMES": "Lượt truy cập",
+      "DONE_TIMES": "Lượt làm",
+      "DETAIL": "Chi tiết"
+    },
+    "LOGIN": "Đăng kí miễn phí",
+    "LIST_LESSON": "Xem danh sách bài học thôi!",
+    "TITLE": "Ghi nhớ các bài trắc nghiệm online với EasyLearning",
+    "REGISTER_PREMIUM": "Đăng kí trải nghiệm",
+    "PREMIUM": "EasyLearning Premium",
+    "TOP_LESSONS": "bài học nổi bật",
+    "NO_LESSONS": "Không có bài học nổi bật!",
+    "TOP_TESTS": "bài kiểm tra nổi bật",
+    "NO_TESTS": "Không có bài kiểm tra nổi bật!",
+    "COURSES_PUBLISHED": "BÀI HỌC ĐÃ TẠO",
+    "CLASS_PUBLISHED": "LỚP HỌC ĐÃ TẠO",
+    "HAPPY_LEARNERS": "NGƯỜI DÙNG THAM GIA",
+    "CLASSES_PASSED": "LƯỢT HOÀN THÀNH LỚP HỌC"
   },
-  "confirm_modal": {
-    "title": "{{ value }}",
-    "body": "{{ value }}",
-    "confirm": "có",
-    "reject": "không",
-    "close": "đóng"
+  "CONFIRM_MODAL": {
+    "TITLE": "{{ value }}",
+    "BODY": "{{ value }}",
+    "CONFIRM": "có",
+    "REJECT": "không",
+    "CLOSE": "đóng"
   },
-  "commons": {
-    "login": "Đăng nhập",
-    "address": "Tòa nhà QTSC9, Công viên phần mềm Quang Trung, Quận 12",
-    "email": "easylearning@codeaz.edu.vn",
-    "brand": "EasyLearning"
+  "COMMONS": {
+    "LOGIN": "Đăng nhập",
+    "ADDRESS": "Tòa nhà QTSC9, Công viên phần mềm Quang Trung, Quận 12",
+    "EMAIL": "easylearning@codeaz.edu.vn",
+    "BRAND": "EasyLearning"
   },
-  "message": {
-    "error": {
-      "form": {
+  "MESSAGE": {
+    "ERROR": {
+      "FORM": {
         "001": "Form không hợp lệ!"
       },
-      "token": {
+      "TOKEN": {
         "001": "Token không hợp lệ!"
       },
-      "password": {
+      "PASSWORD": {
         "001": "Đổi mật khẩu thất bại!"
       },
-      "forget_password": {
-        "confirm": {
+      "FORGET_PASSWORD": {
+        "CONFIRM": {
           "001": "Đặt lại mật khẩu thất bại!",
           "002": "Xác nhận mật khẩu không trùng khớp!"
         }
       },
-      "create_lesson": {
+      "CREATE_LESSON": {
         "001": "Chỉ được tạo tối đa 10 bài học! Vui lòng nâng cấp tài khoản để tạo thêm bài học!",
         "002": "Tạo bài học thất bại!"
       },
-      "lesson_detail": {
-        "edit_lesson": {
+      "LESSON_DETAIL": {
+        "EDIT_LESSON": {
           "001": "Vui lòng điền đầy đủ thông tin bài học!",
           "002": "Không thể cập nhật hình ảnh!",
           "003": "Sửa bài học thất bại!"
         }
       }
     },
-    "success": {
-      "password": {
+    "SUCCESS": {
+      "PASSWORD": {
         "001": "Đổi mật khẩu thành công"
       },
-      "forget_password": {
+      "FORGET_PASSWORD": {
         "001": "Vui lòng kiểm tra email để lấy liên kết đặt lại mật khẩu!",
-        "confirm": {
+        "CONFIRM": {
           "001": "Đặt lại mật khẩu thành công!"
         }
       },
-      "create_lesson": {
+      "CREATE_LESSON": {
         "001": "Tạo bài học thành công!"
       },
-      "lesson_detail": {
-        "edit_lesson": {
+      "LESSON_DETAIL": {
+        "EDIT_LESSON": {
           "001": "Cập nhật bài học thành công!"
         }
       }
     },
-    "progress": {
-      "logout": {
+    "PROGRESS": {
+      "LOGOUT": {
         "001": "Đang đăng xuất..."
       },
-      "forget_password": {
-        "confirm": {
+      "FORGET_PASSWORD": {
+        "CONFIRM": {
           "001": "Đang đặt lại..."
         },
         "001": "Đang kiểm tra..."
       },
-      "create_lesson": {
+      "CREATE_LESSON": {
         "001": "Đang tạo bài học..."
       },
-      "lesson_detail": {
-        "edit_lesson": {
+      "LESSON_DETAIL": {
+        "EDIT_LESSON": {
           "001": "Đang cập nhật bài học..."
         }
       }
     },
-    "confirm_modal": {
-      "title": "Xác nhận",
-      "body": "Bạn có chắc chắn muốn thay đổi không?"
+    "CONFIRM_MODAL": {
+      "TITLE": "Xác nhận",
+      "BODY": "Bạn có chắc chắn muốn thay đổi không?"
     },
-    "swal": {
-      "title": {
-        "success": "Thành công!",
-        "error": "Lỗi!"
+    "SWAL": {
+      "TILE": {
+        "SUCCESS": "Thành công!",
+        "ERROR": "Lỗi!"
       }
     }
   }

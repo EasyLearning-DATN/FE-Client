@@ -19,6 +19,7 @@ import {HomeItemComponent} from './components/home/home-item/home-item.component
 import {HomeComponent} from './components/home/home.component';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {AuthInterceptor} from './interceptors/auth.interceptor';
+import {LangInterceptor} from './interceptors/lang.interceptor';
 import {SharedModule} from './modules/shared/shared.module';
 
 // const MY_NGX_DATE_FORMATS: NgxMatDateFormats = {
@@ -54,6 +55,7 @@ import {SharedModule} from './modules/shared/shared.module';
         useFactory: HttpLoaderFactory,
         deps: [HttpClient],
       },
+      defaultLanguage: 'vi',
     }),
 
   ],
@@ -65,6 +67,11 @@ import {SharedModule} from './modules/shared/shared.module';
       provide: HTTP_INTERCEPTORS,
       multi: true,
       useClass: AuthInterceptor,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: LangInterceptor,
     },
     // {
     //   provide: IMAGE_LOADER,

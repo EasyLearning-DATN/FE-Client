@@ -48,7 +48,7 @@ export class EditLessonComponent implements OnInit {
   onUpdate() {
     let title = '';
     if (!this.updateLessonForm.valid) {
-      this.translateService.get(TRANSLATE.MESSAGE.ERROR.EDIT_LESSON_001).subscribe(
+      this.translateService.stream(TRANSLATE.MESSAGE.ERROR.EDIT_LESSON_001).subscribe(
         res => {
           title = res;
         },
@@ -62,7 +62,7 @@ export class EditLessonComponent implements OnInit {
       return;
     }
     // console.log(this.image);
-    this.translateService.get(TRANSLATE.MESSAGE.PROGRESS.EDIT_LESSON_001).subscribe(
+    this.translateService.stream(TRANSLATE.MESSAGE.PROGRESS.EDIT_LESSON_001).subscribe(
       res => {
         title = res;
       },
@@ -82,7 +82,7 @@ export class EditLessonComponent implements OnInit {
           this.updateLesson(image_id);
         }, error => {
           Swal.close();
-          this.translateService.get(TRANSLATE.MESSAGE.ERROR.EDIT_LESSON_002).subscribe(
+          this.translateService.stream(TRANSLATE.MESSAGE.ERROR.EDIT_LESSON_002).subscribe(
             res => {
               title = res;
             },
@@ -115,7 +115,7 @@ export class EditLessonComponent implements OnInit {
       (response) => {
         console.log(response);
         Swal.close();
-        this.translateService.get(TRANSLATE.MESSAGE.SUCCESS.EDIT_LESSON_001).subscribe(
+        this.translateService.stream(TRANSLATE.MESSAGE.SUCCESS.EDIT_LESSON_001).subscribe(
           res => {
             title = res;
           },
@@ -135,7 +135,7 @@ export class EditLessonComponent implements OnInit {
         this.modalService.dismissAll('Update success!');
       }, error => {
         Swal.close();
-        this.translateService.get(TRANSLATE.MESSAGE.ERROR.EDIT_LESSON_003).subscribe(
+        this.translateService.stream(TRANSLATE.MESSAGE.ERROR.EDIT_LESSON_003).subscribe(
           res => {
             title = res;
           },

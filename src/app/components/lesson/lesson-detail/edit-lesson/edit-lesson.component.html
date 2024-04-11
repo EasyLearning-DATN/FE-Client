@@ -4,35 +4,39 @@
 
 <ng-template #modal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">{{ 'lesson.lesson_detail.edit_lesson.title'|translate }}</h4>
+    <h4 class="modal-title">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.TITLE'|translate }}</h4>
     <button (click)="d('Cross click')" aria-label="Close" class="btn-close" type="button"></button>
   </div>
   <div class="modal-body">
     <form [formGroup]="updateLessonForm">
       <div class="form-floating mb-3">
         <input class="form-control" formControlName="name" id="floatingName" placeholder="" type="text"> <label
-        for="floatingName">{{ 'lesson.lesson_detail.edit_lesson.name.label'|translate }}</label>
+        for="floatingName">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.NAME.LABEL'|translate }}</label>
         <span *ngIf="!updateLessonForm.get('name')?.valid && updateLessonForm.get('name')?.touched"
               class="text-danger">
                      <span
-                       *ngIf="updateLessonForm.get('name')?.errors?.['required']">{{ 'lesson.lesson_detail.edit_lesson.name.error.required'|translate }}</span>
+                       *ngIf="updateLessonForm.get('name')?.errors?.['required']">{{
+                         'LESSON.LESSON_DETAIL.EDIT_LESSON.NAME.ERROR.REQUIRED'|translate
+                       }}</span>
         </span>
       </div>
       <div class="mb-3">
-        <label class="form-label" for="inputImage">{{ 'lesson.lesson_detail.edit_lesson.picture.label'|translate }}</label>
+        <label class="form-label" for="inputImage">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.PICTURE.LABEL'|translate }}</label>
         <input (change)="onFileSelected($event)" accept="image/*" class="form-control mb-2" id="inputImage"
                placeholder="Ảnh"
                type="file">
-        <span>{{ 'lesson.lesson_detail.edit_lesson.picture.info'|translate }}: {{ this.image ? this.image : lesson.image.url }}</span>
+        <span>{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.PICTURE.INFO'|translate }}: {{ this.image ? this.image : lesson.image.url }}</span>
       </div>
       <div class="form-floating mb-3">
 				<textarea class="form-control" formControlName="description" id="floatingDescription" placeholder="" rows="30"
                   type="text"></textarea> <label
-        for="floatingDescription">{{ 'lesson.lesson_detail.edit_lesson.description.label'|translate }}</label>
+        for="floatingDescription">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.DESCRIPTION.LABEL'|translate }}</label>
         <span *ngIf="!updateLessonForm.get('description')?.valid && updateLessonForm.get('description')?.touched"
               class="text-danger">
                      <span
-                       *ngIf="updateLessonForm.get('description')?.errors?.['required']">{{ 'lesson.lesson_detail.edit_lesson.description.error.required'|translate }}</span>
+                       *ngIf="updateLessonForm.get('description')?.errors?.['required']">{{
+                         'LESSON.LESSON_DETAIL.EDIT_LESSON.DESCRIPTION.ERROR.REQUIRED'|translate
+                       }}</span>
                   </span>
       </div>
     </form>
@@ -40,9 +44,9 @@
     <app-edit-questions [lessonId]="lesson.id"></app-edit-questions>
   </div>
   <div class="modal-footer">
-    <button (click)="openConfirmSave()" class="btn btn-app">{{ 'lesson.lesson_detail.edit_lesson.save'|translate }}</button>
-    <button (click)="openConfirmDelete()" class="btn btn-app-warning">{{ 'lesson.lesson_detail.edit_lesson.delete'|translate }}</button>
-    <button (click)="d('Close click')" class="btn btn-app" type="button">{{ 'lesson.lesson_detail.edit_lesson.close'|translate }}</button>
+    <button (click)="openConfirmSave()" class="btn btn-app">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.SAVE'|translate }}</button>
+    <button (click)="openConfirmDelete()" class="btn btn-app-warning">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.DELETE'|translate }}</button>
+    <button (click)="d('Close click')" class="btn btn-app" type="button">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.CLOSE'|translate }}</button>
   </div>
 </ng-template>
 

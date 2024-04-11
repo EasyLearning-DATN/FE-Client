@@ -1,4 +1,4 @@
-import {AfterContentInit, Component} from '@angular/core';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {SharedService} from './services/shared/shared.service';
 
@@ -7,9 +7,10 @@ import {SharedService} from './services/shared/shared.service';
   templateUrl: './app/app.component.html',
   styleUrls: ['./app/app.component.css'],
 })
-export class AppComponent implements AfterContentInit {
+export class AppComponent implements AfterContentInit, OnInit {
   title = 'FE-Client';
   isDoTest = false;
+  lang!: string;
 
   // @HostListener('document:keydown', ['$event'])
   // handleKeyboardEvent(event: KeyboardEvent) {
@@ -25,10 +26,14 @@ export class AppComponent implements AfterContentInit {
   // onRightClick(event: MouseEvent) {
   //   event.preventDefault();
   // }
-  
+
   constructor(private translate: TranslateService, private sharedService: SharedService) {
     translate.setDefaultLang('vi');
-    translate.use('vi');
+    translate.use(localStorage.getItem('lang') || 'vi');
+  }
+
+  ngOnInit() {
+    // this.lang = localStorage.getItem('lang') || 'vi';
   }
 
   ngAfterContentInit() {

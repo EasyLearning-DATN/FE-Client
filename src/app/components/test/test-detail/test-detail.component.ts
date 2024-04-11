@@ -40,7 +40,7 @@ export class TestDetailComponent implements OnInit {
       closeTime: new Date(),
     };
     if (this.test.open_time) {
-      data.openTime = this.convertToGMT7(this.test.open_time);
+      data.openTime = this.convertToGMT7(this.test.open_time, 7);
       if (new Date().getTime() >= new Date(data.openTime).getTime()) {
         data.isOpened = true;
       }
@@ -48,7 +48,7 @@ export class TestDetailComponent implements OnInit {
       data.isOpened = true;
     }
     if (this.test.close_time) {
-      data.closeTime = this.convertToGMT7(this.test.close_time);
+      data.closeTime = this.convertToGMT7(this.test.close_time, 7);
       if (new Date().getTime() >= new Date(data.closeTime).getTime()) {
         data.isClosed = true;
       } else {
@@ -233,12 +233,12 @@ export class TestDetailComponent implements OnInit {
     );
   }
 
-  private convertToGMT7(date: Date): Date {
+  private convertToGMT7(date: Date, time: number): Date {
     // Create a new Date object with the same time in UTC
     let thisDate = new Date(date);
 
     // Adjust the time for GMT+7 timezone (add 7 hours)
-    thisDate.setHours(thisDate.getHours() + 7);
+    thisDate.setHours(thisDate.getHours() + time);
 
     return thisDate;
   }

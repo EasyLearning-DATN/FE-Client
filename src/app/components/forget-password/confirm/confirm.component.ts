@@ -33,7 +33,7 @@ export class ConfirmComponent {
     const confirmPassword = this.resetPasswordForm.get('confirmPassword')?.value;
     if (this.resetPasswordForm.valid) {
       if (newPassword===confirmPassword) {
-        this.translateService.get(TRANSLATE.MESSAGE.PROGRESS.FORGET_PASSWORD_CONFIRM_001).subscribe(
+        this.translateService.stream(TRANSLATE.MESSAGE.PROGRESS.FORGET_PASSWORD_CONFIRM_001).subscribe(
           res => {
             title = res;
           },
@@ -60,7 +60,7 @@ export class ConfirmComponent {
               (data) => {
                 console.log(data);
                 Swal.close();
-                this.translateService.get(TRANSLATE.MESSAGE.SUCCESS.FORGET_PASSWORD_CONFIRM_001).subscribe(
+                this.translateService.stream(TRANSLATE.MESSAGE.SUCCESS.FORGET_PASSWORD_CONFIRM_001).subscribe(
                   res => {
                     title = res;
                   },
@@ -77,7 +77,7 @@ export class ConfirmComponent {
                 console.log(error);
                 Swal.close();
                 let title = '';
-                this.translateService.get(TRANSLATE.MESSAGE.ERROR.FORGET_PASSWORD_CONFIRM_001).subscribe(
+                this.translateService.stream(TRANSLATE.MESSAGE.ERROR.FORGET_PASSWORD_CONFIRM_001).subscribe(
                   res => {
                     title = res;
                   },
@@ -94,7 +94,7 @@ export class ConfirmComponent {
           (error) => {
             console.log(error);
             Swal.close();
-            this.translateService.get(TRANSLATE.MESSAGE.ERROR.TOKEN_001).subscribe(
+            this.translateService.stream(TRANSLATE.MESSAGE.ERROR.TOKEN_001).subscribe(
               res => {
                 title = res;
               },
@@ -109,7 +109,7 @@ export class ConfirmComponent {
         );
       } else {
         Swal.close();
-        this.translateService.get(TRANSLATE.MESSAGE.ERROR.FORGET_PASSWORD_CONFIRM_002).subscribe(
+        this.translateService.stream(TRANSLATE.MESSAGE.ERROR.FORGET_PASSWORD_CONFIRM_002).subscribe(
           res => {
             title = res;
           },

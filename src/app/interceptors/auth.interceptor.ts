@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let token = localStorage.getItem('token');
-    if (token != undefined) {
+    if (token!=undefined) {
       const isPublicUrl = request.url.includes('public');
       if (isPublicUrl) {
         return next.handle(request);
@@ -26,4 +26,5 @@ export class AuthInterceptor implements HttpInterceptor {
       return next.handle(request);
     }
   }
+  
 }
