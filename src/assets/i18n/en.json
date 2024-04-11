@@ -47,159 +47,159 @@
           "PATTERN": "*Confirm password must be at least 6 characters, including letter and number"
         }
       },
-      "RESET_PASSWORD": "Đặt lại mật khẩu"
+      "RESET_PASSWORD": "Reset password"
     },
-    "TITLE": "Quên mật khẩu",
+    "TITLE": "Forget password",
     "EMAIL": {
-      "PLACEHOLDER": "Nhập địa chỉ email",
+      "PLACEHOLDER": "Input email address",
       "ERROR": {
-        "REQUIRED": "*Email không được để trống",
-        "PATTERN": "*Email không đúng định dạng",
-        "EMAIL": "*Email không đúng định dạng"
+        "REQUIRED": "*Email can not be empty",
+        "PATTERN": "*Email is in incorrect format",
+        "EMAIL": "*Email is in incorrect format"
       }
     },
-    "reset_password": "Đặt lại mật khẩu"
+    "reset_password": "Reset password"
   },
   "LESSON": {
     "CREATE_LESSON": {
       "NAME": {
-        "LABEL": "Tên bài học",
-        "PLACEHOLDER": "Tên bài học",
+        "LABEL": "Lesson's name",
+        "PLACEHOLDER": "Lesson's name",
         "ERROR": {
-          "REQUIRED": "*Tên bài học không được để trống!"
+          "REQUIRED": "*Lesson's name can not be empty!"
         }
       },
       "DESCRIPTION": {
-        "LABEL": "Mô tả",
-        "PLACEHOLDER": "Nhập mô tả"
+        "LABEL": "Description",
+        "PLACEHOLDER": "Input description"
       },
-      "PICTURE": "Ảnh bìa bài học",
-      "QUESTIONS_FILE": "File câu hỏi",
-      "CREATE_LESSON": "Tạo bài học"
+      "PICTURE": "Lesson's picture",
+      "QUESTIONS_FILE": "Questions file",
+      "CREATE_LESSON": "Create lesson"
     },
     "LESSON_DETAIL": {
       "LESSON_LEARN": {
         "LESSON_LEARN_ITEM": {
-          "SCA": "trắc nghiệm - một đáp án đúng",
-          "MCA": "trắc nghiệm - nhiều đáp án đúng",
-          "FITB": "điền vào chỗ trống",
-          "ANSWER_TITLE": "Đáp án"
+          "SCA": "multiple choice - one correct answer",
+          "MCA": "multiple choice - multiple correct answer",
+          "FITB": "fill in the blank",
+          "ANSWER_TITLE": "Answer"
         },
-        "TITLE": "Câu hỏi trong bài học",
-        "NO_QUESTIONS": "Bài học này không có câu hỏi!"
+        "TITLE": "Lesson's questions",
+        "NO_QUESTIONS": "This lesson does not have questions!"
       },
       "FLASHCARD": {
         "FLASHCARD_ITEM": {
-          "TITLE": "Đáp án"
+          "TITLE": "Answers"
         },
-        "NO_QUESTIONS": "Bài học này không có câu hỏi!"
+        "NO_QUESTIONS": "This lesson does not have questions!"
       },
       "EDIT_LESSON": {
         "ADD_QUESTIONS": {
         },
         "EDIT_QUESTIONS": {
         },
-        "TITLE": "Chỉnh sửa bài học",
+        "TITLE": "Edit lesson",
         "NAME": {
-          "LABEL": "Tên bài học",
+          "LABEL": "Lesson's name",
           "ERROR": {
-            "REQUIRED": "Vui lòng nhập tên bài học!"
+            "REQUIRED": "Please input lesson's name!"
           }
         },
         "PICTURE": {
-          "LABEL": "Ảnh",
-          "INFO": "Ảnh đã chọn"
+          "LABEL": "Picture",
+          "INFO": "Chosen picture"
         },
         "DESCRIPTION": {
-          "LABEL": "Mô tả",
+          "LABEL": "Description",
           "ERROR": {
-            "REQUIRED": "Vui lòng nhập mô tả!"
+            "REQUIRED": "Please input description!"
           }
         },
-        "SAVE": "Lưu",
-        "DELETE": "Xóa",
-        "CLOSE": "Đóng"
+        "SAVE": "Save",
+        "DELETE": "Delete",
+        "CLOSE": "Close"
       },
-      "QUESTIONS": "Câu hỏi",
-      "CREATE_BY": "Người tạo"
+      "QUESTIONS": "Questions",
+      "CREATE_BY": "Created by"
     }
   },
   "HOME": {
     "HOME_ITEM": {
-      "CREATED_DATE": "Ngày tạo",
-      "TOTAL_QUESTIONS": "Tổng số câu hỏi",
-      "ACCESS_TIMES": "Lượt truy cập",
-      "DONE_TIMES": "Lượt làm",
-      "DETAIL": "Chi tiết"
+      "CREATED_DATE": "Created date",
+      "TOTAL_QUESTIONS": "Total questions",
+      "ACCESS_TIMES": "Access times",
+      "DONE_TIMES": "Done times",
+      "DETAIL": "Detail"
     },
-    "LOGIN": "Đăng kí miễn phí",
-    "LIST_LESSON": "Xem danh sách bài học thôi!",
-    "TITLE": "Ghi nhớ các bài trắc nghiệm online với EasyLearning",
-    "REGISTER_PREMIUM": "Đăng kí trải nghiệm",
+    "LOGIN": "Register for free",
+    "LIST_LESSON": "Lets see lesson list!",
+    "TITLE": "Study online lessons at no cost with EasyLearning",
+    "REGISTER_PREMIUM": "Try upgrade premium",
     "PREMIUM": "EasyLearning Premium",
-    "TOP_LESSONS": "bài học nổi bật",
-    "NO_LESSONS": "Không có bài học nổi bật!",
-    "TOP_TESTS": "bài kiểm tra nổi bật",
-    "NO_TESTS": "Không có bài kiểm tra nổi bật!",
-    "COURSES_PUBLISHED": "BÀI HỌC ĐÃ TẠO",
-    "CLASS_PUBLISHED": "LỚP HỌC ĐÃ TẠO",
-    "HAPPY_LEARNERS": "NGƯỜI DÙNG THAM GIA",
-    "CLASSES_PASSED": "LƯỢT HOÀN THÀNH LỚP HỌC"
+    "TOP_LESSONS": "top lessons",
+    "NO_LESSONS": "There is no lesson!",
+    "TOP_TESTS": "top tests",
+    "NO_TESTS": "There is no test!",
+    "COURSES_PUBLISHED": "CREATED LESSONS",
+    "CLASS_PUBLISHED": "CLASSES PUBLISHED",
+    "HAPPY_LEARNERS": "HAPPY LEARNER",
+    "CLASSES_PASSED": "CLASSED PASSED"
   },
   "CONFIRM_MODAL": {
     "TITLE": "{{ value }}",
     "BODY": "{{ value }}",
-    "CONFIRM": "có",
-    "REJECT": "không",
-    "CLOSE": "đóng"
+    "CONFIRM": "yes",
+    "REJECT": "no",
+    "CLOSE": "close"
   },
   "COMMONS": {
-    "LOGIN": "Đăng nhập",
-    "ADDRESS": "Tòa nhà QTSC9, Công viên phần mềm Quang Trung, Quận 12",
+    "LOGIN": "Login",
+    "ADDRESS": "QTSC9, Quang Trung Software City, District 12",
     "EMAIL": "easylearning@codeaz.edu.vn",
     "BRAND": "EasyLearning"
   },
   "MESSAGE": {
     "ERROR": {
       "FORM": {
-        "001": "Form không hợp lệ!"
+        "001": "Invalid form!"
       },
       "TOKEN": {
-        "001": "Token không hợp lệ!"
+        "001": "Invalid token!"
       },
       "PASSWORD": {
-        "001": "Đổi mật khẩu thất bại!"
+        "001": "Change password failed!"
       },
       "FORGET_PASSWORD": {
         "CONFIRM": {
-          "001": "Đặt lại mật khẩu thất bại!",
-          "002": "Xác nhận mật khẩu không trùng khớp!"
+          "001": "Reset password failed!",
+          "002": "Confirm password s not match!"
         }
       },
       "CREATE_LESSON": {
-        "001": "Chỉ được tạo tối đa 10 bài học! Vui lòng nâng cấp tài khoản để tạo thêm bài học!",
-        "002": "Tạo bài học thất bại!"
+        "001": "Can create only 10 lessons! Please upgrade your account to create more!",
+        "002": "Create lesson failed!"
       },
       "LESSON_DETAIL": {
         "EDIT_LESSON": {
-          "001": "Vui lòng điền đầy đủ thông tin bài học!",
-          "002": "Không thể cập nhật hình ảnh!",
-          "003": "Sửa bài học thất bại!"
+          "001": "Please input required fields!",
+          "002": "Updated lesson's picture failed!",
+          "003": "Failed to update lesson!"
         }
       }
     },
     "SUCCESS": {
       "PASSWORD": {
-        "001": "Đổi mật khẩu thành công"
+        "001": "Change password successfully!"
       },
       "FORGET_PASSWORD": {
-        "001": "Vui lòng kiểm tra email để lấy liên kết đặt lại mật khẩu!",
+        "001": "Please check your email for a reset password link!",
         "CONFIRM": {
-          "001": "Đặt lại mật khẩu thành công!"
+          "001": "Reset password successfully!"
         }
       },
       "CREATE_LESSON": {
-        "001": "Tạo bài học thành công!"
+        "001": "Create lesson successfully!"
       },
       "LESSON_DETAIL": {
         "EDIT_LESSON": {
