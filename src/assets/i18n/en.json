@@ -1,4 +1,240 @@
 {
-	"header.home": "home",
-	"header.list": "list"
+  "HEADER": {
+    "HOME": "home",
+    "LIST": "list",
+    "TEST_LIST": "tests list",
+    "LESSON_LIST": "lessons list",
+    "MY_TEST_REPORT": "my test reports",
+    "LOGIN": "login",
+    "REGISTER": "register",
+    "CREATE_LESSON": "create lesson",
+    "CREATE_TEST": "create test",
+    "USER_PROFILE": "User profile",
+    "SETTING": "Setting",
+    "HELP": "Help",
+    "UPGRADE": "Upgrade Premium",
+    "LOGOUT": "Logout"
+  },
+  "FOOTER": {
+    "COMMUNITY": "Cộng đồng",
+    "LEARNERS": "Người học",
+    "PARTNERS": "Đối tác",
+    "DEVELOPERS": "Nhà phát triển",
+    "BETA_TESTERS": "Bên kiểm thử",
+    "TRANSLATORS": "Biên dịch",
+    "INFORMATION": "Thông tin",
+    "ABOUT": "Về chúng tôi",
+    "CONTACT": "Liên hệ",
+    "MORE": "Thông tin bổ sung",
+    "TERM": "Quyền",
+    "PRIVACY": "Bảo mật",
+    "HELP": "Trợ giúp"
+  },
+  "FORGET_PASSWORD": {
+    "CONFIRM": {
+      "TITLE": "Quên mật khẩu",
+      "PASSWORD": {
+        "PLACEHOLDER": "Nhập mật khẩu mới",
+        "ERROR": {
+          "REQUIRED": "*Mật khẩu không được để trống",
+          "PATTERN": "*Mật khẩu tối thiểu 6 ký tự, phải bao gồm cả chữ cái và số"
+        }
+      },
+      "CONFIRM_PASSWORD": {
+        "PLACEHOLDER": "Nhập lại mật khẩu mới",
+        "ERROR": {
+          "REQUIRED": "*Xác nhận mật khẩu không được để trống"
+        }
+      },
+      "RESET_PASSWORD": "Đặt lại mật khẩu"
+    },
+    "TITLE": "Quên mật khẩu",
+    "EMAIL": {
+      "PLACEHOLDER": "Nhập địa chỉ email",
+      "ERROR": {
+        "REQUIRED": "*Email không được để trống",
+        "PATTERN": "*Email không đúng định dạng",
+        "EMAIL": "*Email không đúng định dạng"
+      }
+    },
+    "reset_password": "Đặt lại mật khẩu"
+  },
+  "LESSON": {
+    "CREATE_LESSON": {
+      "NAME": {
+        "LABEL": "Tên bài học",
+        "PLACEHOLDER": "Tên bài học",
+        "ERROR": {
+          "REQUIRED": "*Tên bài học không được để trống!"
+        }
+      },
+      "DESCRIPTION": {
+        "LABEL": "Mô tả",
+        "PLACEHOLDER": "Nhập mô tả"
+      },
+      "PICTURE": "Ảnh bìa bài học",
+      "QUESTIONS_FILE": "File câu hỏi",
+      "CREATE_LESSON": "Tạo bài học"
+    },
+    "LESSON_DETAIL": {
+      "LESSON_LEARN": {
+        "LESSON_LEARN_ITEM": {
+          "SCA": "trắc nghiệm - một đáp án đúng",
+          "MCA": "trắc nghiệm - nhiều đáp án đúng",
+          "FITB": "điền vào chỗ trống",
+          "ANSWER_TITLE": "Đáp án"
+        },
+        "TITLE": "Câu hỏi trong bài học",
+        "NO_QUESTIONS": "Bài học này không có câu hỏi!"
+      },
+      "FLASHCARD": {
+        "FLASHCARD_ITEM": {
+          "TITLE": "Đáp án"
+        },
+        "NO_QUESTIONS": "Bài học này không có câu hỏi!"
+      },
+      "EDIT_LESSON": {
+        "ADD_QUESTIONS": {
+        },
+        "EDIT_QUESTIONS": {
+        },
+        "TITLE": "Chỉnh sửa bài học",
+        "NAME": {
+          "LABEL": "Tên bài học",
+          "ERROR": {
+            "REQUIRED": "Vui lòng nhập tên bài học!"
+          }
+        },
+        "PICTURE": {
+          "LABEL": "Ảnh",
+          "INFO": "Ảnh đã chọn"
+        },
+        "DESCRIPTION": {
+          "LABEL": "Mô tả",
+          "ERROR": {
+            "REQUIRED": "Vui lòng nhập mô tả!"
+          }
+        },
+        "SAVE": "Lưu",
+        "DELETE": "Xóa",
+        "CLOSE": "Đóng"
+      },
+      "QUESTIONS": "Câu hỏi",
+      "CREATE_BY": "Người tạo"
+    }
+  },
+  "HOME": {
+    "HOME_ITEM": {
+      "CREATED_DATE": "Ngày tạo",
+      "TOTAL_QUESTIONS": "Tổng số câu hỏi",
+      "ACCESS_TIMES": "Lượt truy cập",
+      "DONE_TIMES": "Lượt làm",
+      "DETAIL": "Chi tiết"
+    },
+    "LOGIN": "Đăng kí miễn phí",
+    "LIST_LESSON": "Xem danh sách bài học thôi!",
+    "TITLE": "Ghi nhớ các bài trắc nghiệm online với EasyLearning",
+    "REGISTER_PREMIUM": "Đăng kí trải nghiệm",
+    "PREMIUM": "EasyLearning Premium",
+    "TOP_LESSONS": "bài học nổi bật",
+    "NO_LESSONS": "Không có bài học nổi bật!",
+    "TOP_TESTS": "bài kiểm tra nổi bật",
+    "NO_TESTS": "Không có bài kiểm tra nổi bật!",
+    "COURSES_PUBLISHED": "BÀI HỌC ĐÃ TẠO",
+    "CLASS_PUBLISHED": "LỚP HỌC ĐÃ TẠO",
+    "HAPPY_LEARNERS": "NGƯỜI DÙNG THAM GIA",
+    "CLASSES_PASSED": "LƯỢT HOÀN THÀNH LỚP HỌC"
+  },
+  "CONFIRM_MODAL": {
+    "TITLE": "{{ value }}",
+    "BODY": "{{ value }}",
+    "CONFIRM": "có",
+    "REJECT": "không",
+    "CLOSE": "đóng"
+  },
+  "COMMONS": {
+    "LOGIN": "Đăng nhập",
+    "ADDRESS": "Tòa nhà QTSC9, Công viên phần mềm Quang Trung, Quận 12",
+    "EMAIL": "easylearning@codeaz.edu.vn",
+    "BRAND": "EasyLearning"
+  },
+  "MESSAGE": {
+    "ERROR": {
+      "FORM": {
+        "001": "Form không hợp lệ!"
+      },
+      "TOKEN": {
+        "001": "Token không hợp lệ!"
+      },
+      "PASSWORD": {
+        "001": "Đổi mật khẩu thất bại!"
+      },
+      "FORGET_PASSWORD": {
+        "CONFIRM": {
+          "001": "Đặt lại mật khẩu thất bại!",
+          "002": "Xác nhận mật khẩu không trùng khớp!"
+        }
+      },
+      "CREATE_LESSON": {
+        "001": "Chỉ được tạo tối đa 10 bài học! Vui lòng nâng cấp tài khoản để tạo thêm bài học!",
+        "002": "Tạo bài học thất bại!"
+      },
+      "LESSON_DETAIL": {
+        "EDIT_LESSON": {
+          "001": "Vui lòng điền đầy đủ thông tin bài học!",
+          "002": "Không thể cập nhật hình ảnh!",
+          "003": "Sửa bài học thất bại!"
+        }
+      }
+    },
+    "SUCCESS": {
+      "PASSWORD": {
+        "001": "Đổi mật khẩu thành công"
+      },
+      "FORGET_PASSWORD": {
+        "001": "Vui lòng kiểm tra email để lấy liên kết đặt lại mật khẩu!",
+        "CONFIRM": {
+          "001": "Đặt lại mật khẩu thành công!"
+        }
+      },
+      "CREATE_LESSON": {
+        "001": "Tạo bài học thành công!"
+      },
+      "LESSON_DETAIL": {
+        "EDIT_LESSON": {
+          "001": "Cập nhật bài học thành công!"
+        }
+      }
+    },
+    "PROGRESS": {
+      "LOGOUT": {
+        "001": "Đang đăng xuất..."
+      },
+      "FORGET_PASSWORD": {
+        "CONFIRM": {
+          "001": "Đang đặt lại..."
+        },
+        "001": "Đang kiểm tra..."
+      },
+      "CREATE_LESSON": {
+        "001": "Đang tạo bài học..."
+      },
+      "LESSON_DETAIL": {
+        "EDIT_LESSON": {
+          "001": "Đang cập nhật bài học..."
+        }
+      }
+    },
+    "CONFIRM_MODAL": {
+      "TITLE": "Xác nhận",
+      "BODY": "Bạn có chắc chắn muốn thay đổi không?"
+    },
+    "SWAL": {
+      "TILE": {
+        "SUCCESS": "Thành công!",
+        "ERROR": "Lỗi!"
+      }
+    }
+  }
 }
+
