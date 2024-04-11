@@ -20,7 +20,7 @@
                 <div *ngIf="!resetPasswordForm.get('confirmPassword')?.valid && resetPasswordForm.get('confirmPassword')?.touched" class="text-danger">
                     <small *ngIf="resetPasswordForm.get('confirmPassword')?.errors?.['required']">{{'FORGET_PASSWORD.CONFIRM.CONFIRM_PASSWORD.ERROR.REQUIRED'|translate}}</small>
                     <small
-                      *ngIf="resetPasswordForm.get('confirmPassword')?.errors?.['pattern']">{{'FORGET_PASSWORD.CONFIRM.PASSWORD.ERROR.PATTERN'|translate}}</small>
+                      *ngIf="resetPasswordForm.get('confirmPassword')?.errors?.['pattern']">{{'FORGET_PASSWORD.CONFIRM.CONFIRM_PASSWORD.ERROR.PATTERN'|translate}}</small>
                 </div>
                 <div class="row">
                     <div class="col-4">

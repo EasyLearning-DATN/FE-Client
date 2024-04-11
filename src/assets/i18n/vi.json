@@ -43,7 +43,8 @@
       "CONFIRM_PASSWORD": {
         "PLACEHOLDER": "Nhập lại mật khẩu mới",
         "ERROR": {
-          "REQUIRED": "*Xác nhận mật khẩu không được để trống"
+          "REQUIRED": "*Xác nhận mật khẩu không được để trống",
+          "PATTERN": "*Mật khẩu tối thiểu 6 ký tự, phải bao gồm cả chữ cái và số"
         }
       },
       "RESET_PASSWORD": "Đặt lại mật khẩu"
@@ -202,7 +203,8 @@
       },
       "LESSON_DETAIL": {
         "EDIT_LESSON": {
-          "001": "Cập nhật bài học thành công!"
+          "001": "Cập nhật bài học thành công!",
+          "002": "Xóa bài học thành công!"
         }
       }
     },

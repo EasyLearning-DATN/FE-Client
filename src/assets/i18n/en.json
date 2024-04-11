@@ -16,34 +16,35 @@
     "LOGOUT": "Logout"
   },
   "FOOTER": {
-    "COMMUNITY": "Cộng đồng",
-    "LEARNERS": "Người học",
-    "PARTNERS": "Đối tác",
-    "DEVELOPERS": "Nhà phát triển",
-    "BETA_TESTERS": "Bên kiểm thử",
-    "TRANSLATORS": "Biên dịch",
-    "INFORMATION": "Thông tin",
-    "ABOUT": "Về chúng tôi",
-    "CONTACT": "Liên hệ",
-    "MORE": "Thông tin bổ sung",
-    "TERM": "Quyền",
-    "PRIVACY": "Bảo mật",
-    "HELP": "Trợ giúp"
+    "COMMUNITY": "Community",
+    "LEARNERS": "Learners",
+    "PARTNERS": "Partners",
+    "DEVELOPERS": "Developers",
+    "BETA_TESTERS": "Beta Testers",
+    "TRANSLATORS": "Translators",
+    "INFORMATION": "Information",
+    "ABOUT": "About Us",
+    "CONTACT": "Contact",
+    "MORE": "More Information",
+    "TERM": "Term",
+    "PRIVACY": "Privacy",
+    "HELP": "Help"
   },
   "FORGET_PASSWORD": {
     "CONFIRM": {
-      "TITLE": "Quên mật khẩu",
+      "TITLE": "Forget password",
       "PASSWORD": {
-        "PLACEHOLDER": "Nhập mật khẩu mới",
+        "PLACEHOLDER": "Input new password",
         "ERROR": {
-          "REQUIRED": "*Mật khẩu không được để trống",
-          "PATTERN": "*Mật khẩu tối thiểu 6 ký tự, phải bao gồm cả chữ cái và số"
+          "REQUIRED": "*Password can not be empty",
+          "PATTERN": "*Password must be at least 6 characters, including letter and number"
         }
       },
       "CONFIRM_PASSWORD": {
-        "PLACEHOLDER": "Nhập lại mật khẩu mới",
+        "PLACEHOLDER": "Confirm new password",
         "ERROR": {
-          "REQUIRED": "*Xác nhận mật khẩu không được để trống"
+          "REQUIRED": "*Confirm password can not be empty",
+          "PATTERN": "*Confirm password must be at least 6 characters, including letter and number"
         }
       },
       "RESET_PASSWORD": "Đặt lại mật khẩu"
@@ -202,22 +203,23 @@
       },
       "LESSON_DETAIL": {
         "EDIT_LESSON": {
-          "001": "Cập nhật bài học thành công!"
+          "001": "Update this lesson successfully!",
+          "002": "Delete thí lesson successfully!"
         }
       }
     },
     "PROGRESS": {
       "LOGOUT": {
-        "001": "Đang đăng xuất..."
+        "001": "Logging out..."
       },
       "FORGET_PASSWORD": {
         "CONFIRM": {
-          "001": "Đang đặt lại..."
+          "001": "Reset password..."
         },
-        "001": "Đang kiểm tra..."
+        "001": "Checking..."
       },
       "CREATE_LESSON": {
-        "001": "Đang tạo bài học..."
+        "001": "Creating lesson..."
       },
       "LESSON_DETAIL": {
         "EDIT_LESSON": {

@@ -167,8 +167,14 @@ export class EditLessonComponent implements OnInit {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.closeResult);
         if (result==='Confirm') {
+          let title = '';
+          this.translateService.stream(TRANSLATE.MESSAGE.PROGRESS.EDIT_LESSON_002).subscribe(
+            res => {
+              title = res;
+            },
+          );
           Swal.fire({
-            title: 'Đang xóa bài học...',
+            title: title,
             allowOutsideClick: false,
             didOpen: () => {
               Swal.showLoading();
@@ -184,6 +190,11 @@ export class EditLessonComponent implements OnInit {
           this.lessonService.deleteLesson(this.sharedService.lesson.id).subscribe(
             (response) => {
               Swal.close();
+              this.translateService.stream(TRANSLATE.MESSAGE.PROGRESS.EDIT_LESSON_002).subscribe(
+                res => {
+                  title = res;
+                },
+              );
               Swal.fire({
                 icon: 'success',
                 title: 'Xóa bài học thành công!',
