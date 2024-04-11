@@ -221,18 +221,26 @@
       },
       "LESSON_DETAIL": {
         "EDIT_LESSON": {
-          "001": "Đang cập nhật bài học..."
+          "001": "Updating this lesson...",
+          "002": "Deleting this lesson..."
         }
       }
     },
     "CONFIRM_MODAL": {
-      "TITLE": "Xác nhận",
-      "BODY": "Bạn có chắc chắn muốn thay đổi không?"
+      "TITLE": "Confirm",
+      "BODY": "Do you want to change?",
+      "LESSON": {
+        "LESSON_DETAIL": {
+          "EDIT_LESSON": {
+            "DELETE": "Do you want to delete this lesson?"
+          }
+        }
+      }
     },
     "SWAL": {
       "TILE": {
-        "SUCCESS": "Thành công!",
-        "ERROR": "Lỗi!"
+        "SUCCESS": "Success!",
+        "ERROR": "Error!"
       }
     }
   }

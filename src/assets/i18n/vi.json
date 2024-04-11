@@ -221,13 +221,21 @@
       },
       "LESSON_DETAIL": {
         "EDIT_LESSON": {
-          "001": "Đang cập nhật bài học..."
+          "001": "Đang cập nhật bài học...",
+          "002": "Đang xóa bài học..."
         }
       }
     },
     "CONFIRM_MODAL": {
       "TITLE": "Xác nhận",
-      "BODY": "Bạn có chắc chắn muốn thay đổi không?"
+      "BODY": "Bạn có chắc chắn muốn thay đổi không?",
+      "LESSON": {
+        "LESSON_DETAIL": {
+          "EDIT_LESSON": {
+            "DELETE": "Bạn có chắc chắn muốn xóa bài học này không?"
+          }
+        }
+      }
     },
     "SWAL": {
       "TILE": {
