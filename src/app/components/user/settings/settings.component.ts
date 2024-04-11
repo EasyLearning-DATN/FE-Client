@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {TranslateService} from '@ngx-translate/core';
 import {ChangePassDTO} from 'src/app/DTOS/user/changePass.dto';
 import {UserResponse} from 'src/app/responses/user/user.responses';
 import {UserService} from 'src/app/services/user/user-service.service';
@@ -35,6 +36,7 @@ export class SettingsComponent implements OnInit {
   constructor(
     private userService: UserService, private sharedService: SharedService, private imageService:
       UploadImageService, private modalService: NgbModal,
+    private translateService: TranslateService,
   ) {
   }
 
@@ -304,7 +306,7 @@ export class SettingsComponent implements OnInit {
 
   onChangeLang() {
     localStorage.setItem('lang', this.langForm.get('lang')?.value || 'vi');
-    window.location.reload();
+    this.translateService.use(localStorage.getItem('lang') || 'vi');
   }
 
   private getDismissReason(reason: any): string {
