@@ -184,7 +184,8 @@
         "EDIT_LESSON": {
           "001": "Vui lòng điền đầy đủ thông tin bài học!",
           "002": "Không thể cập nhật hình ảnh!",
-          "003": "Sửa bài học thất bại!"
+          "003": "Sửa bài học thất bại!",
+          "004": "Xóa bài học thất bại!"
         }
       }
     },
@@ -234,7 +235,8 @@
       "LESSON": {
         "LESSON_DETAIL": {
           "EDIT_LESSON": {
-            "DELETE": "Bạn có chắc chắn muốn xóa bài học này không?"
+            "DELETE": "Bạn có chắc chắn muốn xóa bài học này không?",
+            "SAVE": "Bạn có chắc chắn muốn lưu thay đổi không?"
           }
         }
       }

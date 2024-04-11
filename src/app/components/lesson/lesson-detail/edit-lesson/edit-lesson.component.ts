@@ -190,14 +190,14 @@ export class EditLessonComponent implements OnInit {
           this.lessonService.deleteLesson(this.sharedService.lesson.id).subscribe(
             (response) => {
               Swal.close();
-              this.translateService.stream(TRANSLATE.MESSAGE.PROGRESS.EDIT_LESSON_002).subscribe(
+              this.translateService.stream(TRANSLATE.MESSAGE.SUCCESS.EDIT_LESSON_002).subscribe(
                 res => {
                   title = res;
                 },
               );
               Swal.fire({
                 icon: 'success',
-                title: 'Xóa bài học thành công!',
+                title: title,
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK',
               }).then(
@@ -208,9 +208,14 @@ export class EditLessonComponent implements OnInit {
               );
             }, error => {
               Swal.close();
+              this.translateService.stream(TRANSLATE.MESSAGE.ERROR.EDIT_LESSON_004).subscribe(
+                res => {
+                  title = res;
+                },
+              );
               Swal.fire({
                 icon: 'error',
-                title: 'Xóa bài học thất bại!',
+                title: title,
                 text: error.error.message,
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK',
@@ -245,6 +250,12 @@ export class EditLessonComponent implements OnInit {
   openConfirmSave() {
     const modalConfirm = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
+    let body = '';
+    this.translateService.stream(TRANSLATE.MESSAGE.CONFIRM_MODAL.EDIT_LESSON_SAVE).subscribe(
+      res => {
+        body = res;
+      },
+    );
     modalConfirm.componentInstance.body = {value: 'Bạn có chắc chắn muốn lưu thay đổi không?'};
     modalConfirm
     .result.then(
