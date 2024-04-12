@@ -1,15 +1,26 @@
-.right_nav {
+.right_nav {}
 
+.teaching_subsystem {
+  color: #000000;
+  font-weight: bold;
+  text-shadow: 0 0 3px #ee0f0f, 0 0 7px #f4f1f1;
+  /* background: url(https://i.imgur.com/YOLxdGL.gif) repeat scroll 0 0%, url(https://i.imgur.com/ooP3n74.gif) repeat scroll 0 0; */
 }
 
 .premium-effect {
   /* Add your special effect styles here */
-  border: 2px solid #ff69b4; /* Pink border */
-  border-radius: 10px; /* Rounded corners */
-  padding: 5px 10px; /* Padding around the text */
-  background-color: #fff5eb; /* Light orange background */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
-  display: inline-block; /* Display as inline block */
+  border: 2px solid #ff69b4;
+  /* Pink border */
+  border-radius: 10px;
+  /* Rounded corners */
+  padding: 5px 10px;
+  /* Padding around the text */
+  background-color: #fff5eb;
+  /* Light orange background */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* Shadow effect */
+  display: inline-block;
+  /* Display as inline block */
 }
 
 
@@ -112,13 +123,11 @@
   content: initial;
 }
 
-.btn-app{
+.btn-app {
   border-radius: 5px !important;
 }
 
-.link-item:focus{
+.link-item:focus {
   background-color: #1565FF;
   color: white !important;
 }
-
-
