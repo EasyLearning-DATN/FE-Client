@@ -21,6 +21,7 @@ import {PageNotFoundComponent} from './components/page-not-found/page-not-found.
 import {AuthInterceptor} from './interceptors/auth.interceptor';
 import {LangInterceptor} from './interceptors/lang.interceptor';
 import {SharedModule} from './modules/shared/shared.module';
+import { FunnyWheelsComponent } from './components/minigame/FunnyWheels/funny-wheels/funny-wheels.component';
 
 // const MY_NGX_DATE_FORMATS: NgxMatDateFormats = {
 //   parse: {
@@ -42,6 +43,7 @@ import {SharedModule} from './modules/shared/shared.module';
     HomeComponent,
     HomeItemComponent,
     PageNotFoundComponent,
+    FunnyWheelsComponent,
   ],
   imports: [
     BrowserModule,
