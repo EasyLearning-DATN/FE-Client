@@ -1,6 +1,6 @@
 <div class="container">
   <div class="header mb-3">
-    <span class="fs-4">Tạo Bài Test</span>
+    <span class="fs-4">{{ 'CLASSROOM.CREATE_CLASS.HEADER'|translate }}</span>
   </div>
   <form [formGroup]="createClassForm">
     <div class="picture text-center mb-3">
@@ -12,124 +12,40 @@
     </div>
     <div class="d-flex justify-content-center">
       <div class="w-lg-75 w-100">
-        <div class="test-name mb-3 form-floating">
+        <div class="classroom-name mb-3 form-floating">
           <input class="form-control" formControlName="name" id="floatingName" placeholder="">
-          <label for="floatingName">Tên của lớp học</label>
-          <div *ngIf="!createTestForm.get('name')?.valid && createTestForm.get('name')?.touched" class="mt-1">
-              <span *ngIf="createTestForm.get('name')?.errors?.['required']" style="color: red;">Tên bài test
-                                                                                                  không được để trống!</span>
+          <label for="floatingName">{{ 'CLASSROOM.CREATE_CLASS.NAME.LABEL'|translate }}</label>
+          <div *ngIf="!createClassForm.get('name')?.valid && createClassForm.get('name')?.touched" class="mt-1">
+            <span *ngIf="createClassForm.get('name')?.errors?.['required']"
+                  style="color: red;">{{ 'CLASSROOM.CREATE_CLASS.NAME.ERROR.REQUIRED'|translate }}</span>
           </div>
         </div>
-        <div class="test-description mb-3 form-floating">
+        <div class="classroom-description mb-3 form-floating">
           <textarea class="form-control" formControlName="description" id="floatingDescription" placeholder="" rows="2"></textarea>
-          <label for="floatingDescription">Mô tả</label>
-          <div *ngIf="!createTestForm.get('description')?.valid && createTestForm.get('description')?.touched" class="mt-1">
-              <span *ngIf="createTestForm.get('description')?.errors?.['required']" style="color: red;">Mô tả
-                                                                                                         không được để trống!</span>
+          <label for="floatingDescription">{{ 'CLASSROOM.CREATE_CLASS.DESCRIPTION.LABEL'|translate }}</label>
+          <div *ngIf="!createClassForm.get('description')?.valid && createClassForm.get('description')?.touched" class="mt-1">
+              <span *ngIf="createClassForm.get('description')?.errors?.['required']" style="color: red;">{{
+                  'CLASSROOM.CREATE_CLASS.DESCRIPTION.ERROR.REQUIRED'|translate
+                }}</span>
           </div>
-        </div>
-        <div class="test-result-type mb-3">
-          <select class="form-select mb-3" formControlName="view_result_type_code" id="type">
-            <option *ngFor="let rType of resultTypes" [ngValue]="rType.code">{{ rType.name }}</option>
-          </select>
-        </div>
-        <div class=" mt-3  form-check">
-          <input class="form-check-input" formControlName="isHasOpenTime" id="checkHasOpenDate" type="checkbox" value="true">
-          <label class="form-check-label" for="checkHasOpenDate">
-            Thời điểm mở bài thi
-          </label>
-        </div>
-        <div *ngIf="createTestForm.get('isHasOpenTime')?.value" class=" mt-3 g-1  d-flex justify-content-between">
-          <mat-form-field>
-            <input [max]="maxDate" [min]="minDate" [ngxMatDatetimePicker]="picker"
-                   formControlName="open_time" matInput placeholder="Hãy chọn ngày bắt đầu">
-            <ngx-mat-datepicker-toggle [for]="$any(picker)" matSuffix></ngx-mat-datepicker-toggle>
-            <ngx-mat-datetime-picker #picker [showSpinners]="true">
-            </ngx-mat-datetime-picker>
-          </mat-form-field>
-        </div>
-
-        <div class="mt-3 form-check">
-          <input class="form-check-input" formControlName="isHasCloseTime" id="checkHasCloseDate" type="checkbox" value="true">
-          <label class="form-check-label" for="checkHasCloseDate">
-            Thời điểm đóng bài thi
-          </label>
-        </div>
-        <div *ngIf="createTestForm.get('isHasCloseTime')?.value" class=" mt-3 g-1 d-flex justify-content-between">
-          <mat-form-field>
-            <input [max]="maxDate" [min]="minDate" [ngxMatDatetimePicker]="picker"
-                   formControlName="close_time" matInput placeholder="Hãy chọn ngày bắt đầu">
-            <mat-datepicker-toggle [for]="$any(picker)" matSuffix></mat-datepicker-toggle>
-            <ngx-mat-datetime-picker #picker [showSpinners]="true">
-            </ngx-mat-datetime-picker>
-          </mat-form-field>
         </div>
         <div class="row mb-3 g-1 d-flex justify-content-between align-items-center">
           <div class="form-check">
-            <input (click)="resetSelection('fullTime')" class="form-check-input" formControlName="test_type" id="flexRadioDefault1" type="radio"
-                   value="fullTime">
+            <input class="form-check-input" formControlName="isPublic" id="flexRadioDefault1" type="radio"
+                   value="true">
             <label class="form-check-label" for="flexRadioDefault1">
-              Bài thi có thời gian tổng
+              {{ 'CLASSROOM.CREATE_CLASS.IS_PUBLIC.TRUE'|translate }}
             </label>
-          </div>
-          <div *ngIf="createTestForm.get('test_type')?.value === 'fullTime'" class="form-group col-sm-8">
-            <label for="timeTotal">Thời gian bài kiểm tra (phút)</label>
-          </div>
-          <div *ngIf="createTestForm.get('test_type')?.value === 'fullTime'" class="col-sm-3 me-2">
-            <select aria-label="Default select example" class="form-select" formControlName="time_total" id="timeTotal">
-              <option disabled>Chọn</option>
-              <option value="0">Không giới hạn thời gian</option>
-              <option value="{{15*60}}">15p</option>
-              <option value="{{30*60}}">30p</option>
-              <option value="{{60*60}}">60p</option>
-              <option value="{{90*60}}">90p</option>
-              <option value="{{120*60}}">120p</option>
-            </select>
-          </div>
-          <div *ngIf="!createTestForm.get('time_total')?.valid && createTestForm.get('time_total')?.touched">
-            <small *ngIf="createTestForm.get('time_total')?.errors?.['required']" style="color: red;">Vui lòng chọn thời gian của bài kiểm tra</small>
           </div>
           <div class="form-check">
-            <input (click)="resetSelection('eachQuestion')" class="form-check-input"
-                   formControlName="test_type"
-                   id="flexRadioDefault2"
-                   type="radio"
-                   value="eachQuestion">
+            <input class="form-check-input" formControlName="isPublic" id="flexRadioDefault2" type="radio"
+                   value="false">
             <label class="form-check-label" for="flexRadioDefault2">
-              Bài thi có thời gian mỗi câu hỏi
+              {{ 'CLASSROOM.CREATE_CLASS.IS_PUBLIC.FALSE'|translate }}
             </label>
           </div>
-          <div *ngIf="createTestForm.get('test_type')?.value === 'eachQuestion'" class="form-group col-sm-8">
-            <label for="timeQuestion">Thời gian mỗi câu hỏi (giây)</label>
-          </div>
-          <div *ngIf="createTestForm.get('test_type')?.value === 'eachQuestion'" class="col-sm-3 me-2">
-            <select aria-label="Default select example" class="form-select" formControlName="time_question" id="timeQuestion">
-              <option disabled>Chọn</option>
-              <option value="0">Không giới hạn thời gian</option>
-              <!--               <option value="15">15s</option> -->
-              <!--               <option value="30">30s</option> -->
-              <!--               <option value="45">45s</option> -->
-              <!--               <option value="60">60s</option> -->
-            </select>
-          </div>
-          <div *ngIf="!createTestForm.get('time_question')?.valid && createTestForm.get('time_question')?.touched">
-            <small *ngIf="createTestForm.get('time_question')?.errors?.['required']" style="color: red;">Vui lòng chọn thời gian giữa mỗi câu
-                                                                                                         hỏi</small>
-          </div>
-          <div class="add-question d-flex align-items-center justify-content-between mb-3 mt-3">
-            <app-add-question-test></app-add-question-test>
-            <button (click)="onCreateTest()" class="btn btn-app"><span>Tạo bài test</span></button>
-          </div>
-          <div class="mb-3 d-flex flex-column align-items-center">
-            <div *ngFor="let question of questions; let i = index">
-              <app-demo-fitb-question *ngIf="question.question_type_id === environment.FITB_ID" [index]="i" [question]="question"
-                                      [total]="questions.length"></app-demo-fitb-question>
-              <app-demo-mca-question *ngIf="question.question_type_id === environment.MCA_ID" [index]="i" [question]="question"
-                                     [total]="questions.length"></app-demo-mca-question>
-              <app-demo-sca-question *ngIf="question.question_type_id === environment.SCA_ID" [index]="i" [question]="question"
-                                     [total]="questions.length"></app-demo-sca-question>
-            </div>
-
+          <div class="create-class d-flex align-items-center justify-content-between mb-3 mt-3">
+            <button (click)="onCreateClass()" class="btn btn-app"><span>{{ 'CLASSROOM.CREATE_CLASS.CREATE_CLASSROOM'|translate }}</span></button>
           </div>
         </div>
       </div>

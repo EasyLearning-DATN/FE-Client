@@ -149,6 +149,26 @@
     "CLASSES_PASSED": "CLASSED PASSED"
   },
   "CLASSROOM": {
+    "CREATE_CLASS": {
+      "HEADER": "Create classroom",
+      "NAME": {
+        "LABEL": "Classroom's name",
+        "ERROR": {
+          "REQUIRED": "Name can not be empty!"
+        }
+      },
+      "DESCRIPTION": {
+        "LABEL": "Description",
+        "ERROR": {
+          "REQUIRED": "Description can not be empty!"
+        }
+      },
+      "IS_PUBLIC": {
+        "TRUE": "This classroom is public",
+        "FALSE": "This classroom is private"
+      },
+      "CREATE_CLASSROOM": "Create classroom"
+    }
   },
   "CONFIRM_MODAL": {
     "TITLE": "{{ value }}",
@@ -191,6 +211,11 @@
           "003": "Failed to update this lesson!",
           "004": "Failed to delete this lesson!"
         }
+      },
+      "CLASSROOM": {
+        "CREATE_CLASS": {
+          "001": "Please input all information!"
+        }
       }
     },
     "SUCCESS": {
@@ -231,6 +256,11 @@
           "001": "Updating this lesson...",
           "002": "Deleting this lesson..."
         }
+      },
+      "CLASSROOM": {
+        "CREATE_CLASS": {
+          "001": "Creating classroom..."
+        }
       }
     },
     "CONFIRM_MODAL": {
@@ -242,6 +272,11 @@
             "DELETE": "Do you want to delete this lesson?",
             "SAVE": "Do you want to save changed to this lesson?"
           }
+        }
+      },
+      "CLASSROOM": {
+        "CREATE_CLASS": {
+          "CREATE": "Do you want to create classroom?"
         }
       }
     },
