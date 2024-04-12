@@ -2,27 +2,27 @@
   <h2>Tạo bài học mới</h2>
   <form #lessonForm="ngForm" (ngSubmit)="onCreateLesson()">
     <div class="form-group">
-      <label for="courseName">{{ 'lesson.create_lesson.name.label'|translate }}:</label>
+      <label for="courseName">{{ 'LESSON.CREATE_LESSON.NAME.LABEL'|translate }}:</label>
       <div *ngIf="nameControl.invalid && nameControl.touched" class="text-danger">
-        <small>{{ 'lesson.create_lesson.name.error.required'|translate }}</small>
+        <small>{{ 'LESSON.CREATE_LESSON.NAME.ERROR.REQUIRED'|translate }}</small>
       </div>
       <input #nameControl="ngModel" [(ngModel)]="name" class="form-control" id="courseName" name="name"
-             placeholder="{{'lesson.create_lesson.name.placeholder'|translate}}"
+             placeholder="{{'LESSON.CREATE_LESSON.NAME.PLACEHOLDER'|translate}}"
              type="text">
     </div>
     <div class="form-group">
-      <label for="description">{{ 'lesson.create_lesson.description.label'|translate }}:</label>
+      <label for="description">{{ 'LESSON.CREATE_LESSON.DESCRIPTION.LABEL'|translate }}:</label>
       <textarea [(ngModel)]="description" class="form-control" id="description" name="description"
-                placeholder="{{'lesson.create_lesson.description.placeholder'|translate}}"
+                placeholder="{{'LESSON.CREATE_LESSON.DESCRIPTION.PLACEHOLDER'|translate}}"
                 rows="3"></textarea>
     </div>
     <div class="form-group p-2">
-      <label class="form_label" for="">{{ 'lesson.create_lesson.picture'|translate }}: </label>
+      <label class="form_label" for="">{{ 'LESSON.CREATE_LESSON.PICTURE'|translate }}: </label>
       <input (change)="onFileSelected($event)" class="form-control" name="image_id" required type="file">
     </div>
     <!-- import file excel câu hỏi onChange -->
     <div class="form-group p-2">
-      <label class="form_label" for="">{{ 'lesson.create_lesson.questions_file'|translate }}: </label>
+      <label class="form_label" for="">{{ 'LESSON.CREATE_LESSON.QUESTIONS_FILE'|translate }}: </label>
       <input (change)="onFileSelectedQuestion($event)" class="form-control" name="file" required type="file">
     </div>
     <div class="mb-3 d-flex flex-column align-items-center">
@@ -35,6 +35,6 @@
                                [total]="listQuestionImport.length"></app-demo-sca-question>
       </div>
     </div>
-    <button class="btn btn-success m-3 m-3" type="submit">{{ 'lesson.create_lesson.create_lesson'|translate }}</button>
+    <button class="btn btn-success m-3 m-3" type="submit">{{ 'LESSON.CREATE_LESSON.CREATE_LESSON'|translate }}</button>
   </form>
 </div>

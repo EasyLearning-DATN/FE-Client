@@ -87,6 +87,7 @@ export class CreateLessonTestComponent implements OnInit {
             total_question: <number>this.createTestForm.get('total_question')?.value,
             close_time: null,
             open_time: null,
+            classRoomId: null,
           };
           console.log(this.createTest);
           if (this.numberOfTest > 10 && this.role==='user') {

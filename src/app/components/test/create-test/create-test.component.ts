@@ -161,6 +161,7 @@ export class CreateTestComponent implements OnInit, OnDestroy {
             total_question: this.questionIDs.length,
             close_time: this.createTestForm.get('isHasCloseTime')?.value ? this.createTestForm.get('close_time')?.value: null,
             open_time: this.createTestForm.get('isHasOpenTime')?.value ? this.createTestForm.get('open_time')?.value: null,
+            classRoomId: null,
           };
           // console.log(this.createTest);
           if (this.createTest.close_time && this.createTest.open_time && this.createTest.open_time.getTime() >= this.createTest.close_time.getTime()) {

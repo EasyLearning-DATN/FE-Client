@@ -1,6 +1,6 @@
 // const BASE_API = 'https://be-cdj2.onrender.com'
-const BASE_API = 'http://localhost:1002';
-// const BASE_API = 'http://localhost:1001';
+// const BASE_API = 'http://localhost:1002';
+const BASE_API = 'http://localhost:1001';
 
 export const environment = {
   production: false,
@@ -80,7 +80,7 @@ export const TRANSLATE = {
       EDIT_LESSON_002: 'MESSAGE.SUCCESS.LESSON_DETAIL.EDIT_LESSON.002',
     },
     PROGRESS: {
-      LOGOUT_001: 'MESSAGE.PROGRESS.logout.001',
+      LOGOUT_001: 'MESSAGE.PROGRESS.LOGOUT.001',
       FORGET_PASSWORD_CONFIRM_001: 'MESSAGE.PROGRESS.FORGET_PASSWORD.CONFIRM.001',
       FORGET_PASSWORD_001: 'MESSAGE.PROGRESS.FORGET_PASSWORD.001',
       CREATE_LESSON_001: 'MESSAGE.PROGRESS.CREATE_LESSON.001',

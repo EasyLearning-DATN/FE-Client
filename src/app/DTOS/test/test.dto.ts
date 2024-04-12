@@ -21,6 +21,7 @@ export class TestDTO {
   total_question: number | null = null;
   open_time: Date | null = null;
   close_time: Date | null = null;
+  classRoomId: string | null = null;
 }
 
 export class TempTest {
