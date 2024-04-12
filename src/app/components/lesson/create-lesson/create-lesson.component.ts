@@ -138,6 +138,7 @@ export class CreateLessonComponent implements OnInit {
         name: this.name,
         description: this.description,
         image_id: this.image_id,
+        classRoomId: null,
       };
       if (this.numberOfLesson > 10 && this.role==='user') {
         let title = '';

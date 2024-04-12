@@ -13,7 +13,8 @@
     "SETTING": "Setting",
     "HELP": "Help",
     "UPGRADE": "Upgrade Premium",
-    "LOGOUT": "Logout"
+    "LOGOUT": "Logout",
+    "TEACHING_SUBSYSTEM": "Teaching subsystem"
   },
   "FOOTER": {
     "COMMUNITY": "Community",

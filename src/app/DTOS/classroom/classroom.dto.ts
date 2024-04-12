@@ -1,6 +1,6 @@
 import {IsNotEmpty, IsString} from 'class-validator';
 
-export class LessonDTO {
+export class ClassroomDTO {
   @IsString()
   @IsNotEmpty()
   name: string | undefined;
@@ -11,5 +11,10 @@ export class LessonDTO {
   @IsString()
   image_id: string | undefined;
 
-  classRoomId: string | null = null;
+  isPublic: boolean | undefined;
+}
+
+export class ClassroomInviteDTO {
+  classRoomId: string | undefined;
+  emails: string[] | undefined;
 }

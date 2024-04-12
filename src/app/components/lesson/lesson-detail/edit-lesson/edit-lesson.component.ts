@@ -108,6 +108,7 @@ export class EditLessonComponent implements OnInit {
       name: <string>this.updateLessonForm.get('name')?.value,
       description: <string>this.updateLessonForm.get('description')?.value,
       image_id: imageId,
+      classRoomId: null,
     };
     let title = '';
     this.lessonService.updateLesson(this.lesson.id, lessondto)

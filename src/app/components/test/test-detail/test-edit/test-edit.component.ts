@@ -151,6 +151,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
             total_question: <number>this.editTestForm.get('total_question')?.value,
             open_time: this.editTestForm.get('isHasOpenTime')?.value ? this.editTestForm.get('open_time')?.value: null,
             close_time: this.editTestForm.get('isHasCloseTime')?.value ? this.editTestForm.get('close_time')?.value: null,
+            classRoomId: null,
           };
           if (this.editTest.close_time && this.editTest.open_time && this.editTest.open_time.getTime() >= this.editTest.close_time.getTime()) {
             Swal.fire({

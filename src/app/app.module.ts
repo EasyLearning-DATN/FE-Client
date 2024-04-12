@@ -10,18 +10,17 @@ import {fas} from '@fortawesome/free-solid-svg-icons';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {CookieService} from 'ngx-cookie-service';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {HeaderComponent} from './components/header/header.component';
 import {HomeItemComponent} from './components/home/home-item/home-item.component';
 import {HomeComponent} from './components/home/home.component';
+import {FunnyWheelsComponent} from './components/minigame/FunnyWheels/funny-wheels/funny-wheels.component';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {AuthInterceptor} from './interceptors/auth.interceptor';
 import {LangInterceptor} from './interceptors/lang.interceptor';
 import {SharedModule} from './modules/shared/shared.module';
-import { FunnyWheelsComponent } from './components/minigame/FunnyWheels/funny-wheels/funny-wheels.component';
 
 // const MY_NGX_DATE_FORMATS: NgxMatDateFormats = {
 //   parse: {
