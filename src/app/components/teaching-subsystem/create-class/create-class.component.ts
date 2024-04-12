@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-create-class',
   templateUrl: './create-class.component.html',
-  styleUrls: ['./create-class.component.css']
+  styleUrls: ['./create-class.component.css'],
 })
 export class CreateClassComponent {
 
