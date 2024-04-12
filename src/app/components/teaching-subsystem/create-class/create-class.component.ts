@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {environment} from '../../../../environments/environments';
 
 @Component({
   selector: 'app-create-class',
@@ -7,4 +8,5 @@ import {Component} from '@angular/core';
 })
 export class CreateClassComponent {
 
+  protected readonly environment = environment;
 }

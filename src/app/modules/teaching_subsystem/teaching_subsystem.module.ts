@@ -11,6 +11,7 @@ import {LearningLessonModule} from '../learning-lesson/learning-lesson.module';
 import {LearningTestModule} from '../learning-test/learning-test.module';
 import {SharedModule} from '../shared/shared.module';
 import {TeachingSubsystemRoutingModule} from './teaching_subsystem-routing.module';
+import {ClassEditComponent} from "../../components/teaching-subsystem/class-edit/class-edit.component";
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import {TeachingSubsystemRoutingModule} from './teaching_subsystem-routing.modul
     ClassListComponent,
     ClassDetailComponent,
     CreateClassComponent,
+    ClassEditComponent
   ],
   imports: [
     TeachingSubsystemRoutingModule,

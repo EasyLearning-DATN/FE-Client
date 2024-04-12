@@ -5,15 +5,18 @@ import {ClassListComponent} from '../../components/teaching-subsystem/class-list
 import {CreateClassComponent} from '../../components/teaching-subsystem/create-class/create-class.component';
 import {TeachingSubsystemComponent} from '../../components/teaching-subsystem/teaching-subsystem.component';
 import {authCanActivateChildGuard} from '../../guards/auth.can-activate-child.guard';
+import {ClassEditComponent} from "../../components/teaching-subsystem/class-edit/class-edit.component";
 
 const routes: Routes = [
   {
     path: '', component: TeachingSubsystemComponent, canActivateChild: [authCanActivateChildGuard], children: [
       {path: 'teaching-subsystem', component: ClassListComponent},
       {path: 'create-classroom', component: CreateClassComponent},
-      {path: ':id', component: ClassDetailComponent, children:[
-          {path: 'edit', component: }
-        ]},
+      {
+        path: ':id', component: ClassDetailComponent, children: [
+          {path: 'edit', component: ClassEditComponent}
+        ]
+      },
     ],
   },
 ];

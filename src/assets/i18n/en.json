@@ -148,6 +148,8 @@
     "HAPPY_LEARNERS": "HAPPY LEARNER",
     "CLASSES_PASSED": "CLASSED PASSED"
   },
+  "CLASSROOM": {
+  },
   "CONFIRM_MODAL": {
     "TITLE": "{{ value }}",
     "BODY": "{{ value }}",
