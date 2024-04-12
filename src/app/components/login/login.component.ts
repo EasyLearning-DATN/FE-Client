@@ -1,15 +1,15 @@
-import {environment} from "../../../environments/environments";
+import { environment } from "../../../environments/environments";
 
 declare var google: any;
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormControl, FormGroup, Validators, FormBuilder, NgForm} from '@angular/forms'
-import {UserService} from 'src/app/services/user/user-service.service';
-import {Router} from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators, FormBuilder, NgForm } from '@angular/forms'
+import { UserService } from 'src/app/services/user/user-service.service';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import {UserResponse} from "../../responses/user/user.responses";
-import {LoginDTO} from "../../DTOS/user/login.dto";
-import {SignupDTO} from "../../DTOS/user/signup.dto";
-import {ContinueGoogoleDto} from "../../DTOS/user/continueGoogole.dto";
+import { UserResponse } from "../../responses/user/user.responses";
+import { LoginDTO } from "../../DTOS/user/login.dto";
+import { SignupDTO } from "../../DTOS/user/signup.dto";
+import { ContinueGoogoleDto } from "../../DTOS/user/continueGoogole.dto";
 
 
 @Component({
@@ -46,12 +46,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     google.accounts.id.initialize
-    ({
-      client_id: "12657364022-uhc8klb6t57fkeqvvcb0fjfoscsjf2c3.apps.googleusercontent.com",
-      callback: (resp: any) => {
-        this.continueGoole(resp.credential);
-      }
-    })
+      ({
+        client_id: "12657364022-uhc8klb6t57fkeqvvcb0fjfoscsjf2c3.apps.googleusercontent.com",
+        callback: (resp: any) => {
+          this.continueGoole(resp.credential);
+        }
+      })
 
     google.accounts.id.renderButton(document.getElementById("google-btn-login"), {
       theme: 'filled_blue',
@@ -142,7 +142,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  continueGoole(tokenGoogle:string) {
+  continueGoole(tokenGoogle: string) {
     const continueGoogoleDto: ContinueGoogoleDto = {
       token: tokenGoogle,
     };
@@ -235,12 +235,39 @@ export class LoginComponent implements OnInit {
             Swal.fire({
               icon: 'success',
               title: 'Đăng ký thành công!',
-              text: 'Bạn đã đăng ký thành công tài khoản, hãy đăng nhập để tiếp tục!',
+              text: 'Bạn đã đăng ký thành công tài khoản!',
               confirmButtonColor: '#3085d6',
               confirmButtonText: 'OK'
             }).then((result) => {
               if (result.isConfirmed) {
-                location.assign('/login');
+                Swal.fire({
+                  title: 'Loading...',
+                  allowOutsideClick: false,
+                  didOpen: () => {
+                    Swal.showLoading();
+                  }
+                });
+                this.userService.login({ username: SignupDTO.username, password: SignupDTO.password }).subscribe(
+                  data => {
+                    localStorage.setItem('token', data.data.token),
+                      this.userService.getUserInfo(data.data.token).subscribe(
+                        (userData: any) => {
+                          this.userService.getRoleUser(userData.data.id).subscribe(
+                            role => {
+                              this.userResponse = userData.data;
+                              if (this.userResponse) {
+                                this.userResponse.role = role.data[0].role;
+                              }
+                              localStorage.setItem('userInfo', JSON.stringify(this.userResponse));
+                              Swal.close();
+                              location.assign('/');
+                            },
+                            error => console.log(error)
+                          );
+                        },
+                        error => console.log(error)
+                      );
+                  });
               }
             });
           },
@@ -256,7 +283,7 @@ export class LoginComponent implements OnInit {
             });
           }
         );
-      }  else {
+      } else {
         Swal.close();
         Swal.fire({
           icon: 'error',
