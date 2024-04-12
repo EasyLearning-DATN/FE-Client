@@ -19,6 +19,7 @@ import {HomeItemComponent} from './components/home/home-item/home-item.component
 import {HomeComponent} from './components/home/home.component';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {AuthInterceptor} from './interceptors/auth.interceptor';
+import {LangInterceptor} from './interceptors/lang.interceptor';
 import {SharedModule} from './modules/shared/shared.module';
 import { FunnyWheelsComponent } from './components/minigame/FunnyWheels/funny-wheels/funny-wheels.component';
 
@@ -56,6 +57,7 @@ import { FunnyWheelsComponent } from './components/minigame/FunnyWheels/funny-wh
         useFactory: HttpLoaderFactory,
         deps: [HttpClient],
       },
+      defaultLanguage: 'vi',
     }),
 
   ],
@@ -67,6 +69,11 @@ import { FunnyWheelsComponent } from './components/minigame/FunnyWheels/funny-wh
       provide: HTTP_INTERCEPTORS,
       multi: true,
       useClass: AuthInterceptor,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: LangInterceptor,
     },
     // {
     //   provide: IMAGE_LOADER,

@@ -16,7 +16,7 @@
     <div class="col-auto">
       <a [routerLink]="['learn']" class="btn btn-app mt-2">
         <fa-icon [icon]="['fas','book-open']"></fa-icon>
-        {{ 'lesson.lesson_detail.questions'|translate }}</a>
+        {{ 'LESSON.LESSON_DETAIL.QUESTIONS'|translate }}</a>
     </div>
     <div class="col-auto">
       <app-create-lesson-test></app-create-lesson-test>
@@ -34,7 +34,7 @@
          height="57"
          width="57">
     <div class="ms-3">
-      <p class="m-0 mt-3">{{ 'lesson.lesson_detail.created_by'|translate }}</p>
+      <p class="m-0 mt-3">{{ 'LESSON.LESSON_DETAIL.CREATE_BY'|translate }}</p>
       <p class="fs-2">{{ lesson.user_info.fullName | titlecase }}</p>
     </div>
   </div>

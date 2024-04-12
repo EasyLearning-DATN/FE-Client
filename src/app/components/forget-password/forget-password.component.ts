@@ -32,7 +32,7 @@ export class ForgetPasswordComponent {
       // truyền email từ form vào hàm forgotPassword
       console.log(this.resetPasswordForm.get('email')?.value);
       let title = '';
-      this.translateService.get(TRANSLATE.MESSAGE.PROGRESS.FORGET_PASSWORD_001).subscribe(
+      this.translateService.stream(TRANSLATE.MESSAGE.PROGRESS.FORGET_PASSWORD_001).subscribe(
         res => {
           title = res;
         },
@@ -48,13 +48,13 @@ export class ForgetPasswordComponent {
         (response: any) => {
           Swal.close();
           let title = '';
-          this.translateService.get(TRANSLATE.MESSAGE.SWAL_TITLE_SUCCESS).subscribe(
+          this.translateService.stream(TRANSLATE.MESSAGE.SWAL_TITLE_SUCCESS).subscribe(
             res => {
               title = res;
             },
           );
           let text = '';
-          this.translateService.get(TRANSLATE.MESSAGE.PROGRESS.FORGET_PASSWORD_001).subscribe(
+          this.translateService.stream(TRANSLATE.MESSAGE.PROGRESS.FORGET_PASSWORD_001).subscribe(
             res => {
               text = res;
             },
@@ -70,7 +70,7 @@ export class ForgetPasswordComponent {
           // thông báo lỗi
           Swal.close();
           let title = '';
-          this.translateService.get(TRANSLATE.MESSAGE.SWAL_TITLE_ERROR).subscribe(
+          this.translateService.stream(TRANSLATE.MESSAGE.SWAL_TITLE_ERROR).subscribe(
             res => {
               title = res;
             },

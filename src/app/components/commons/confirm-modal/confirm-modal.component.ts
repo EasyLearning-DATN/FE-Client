@@ -15,12 +15,12 @@ export class ConfirmModalComponent {
   @Input() body = {value: ''};
 
   constructor(private translate: TranslateService) {
-    translate.get(TRANSLATE.MESSAGE.CONFIRM_MODAL.TITLE).subscribe(
+    translate.stream(TRANSLATE.MESSAGE.CONFIRM_MODAL.TITLE).subscribe(
       (response: string) => {
         this.title.value = response;
       },
     );
-    translate.get(TRANSLATE.MESSAGE.CONFIRM_MODAL.BODY).subscribe(
+    translate.stream(TRANSLATE.MESSAGE.CONFIRM_MODAL.BODY).subscribe(
       (response: string) => {
         this.body.value = response;
       },

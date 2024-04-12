@@ -149,7 +149,7 @@ export class CreateTestComponent implements OnInit, OnDestroy {
           // }
           // console.log(imgFile);
           this.setQuestionIds();
-          console.log(this.questionIDs);
+          // console.log(this.questionIDs);
           this.createTest = {
             name: this.createTestForm.get('name')?.value,
             description: this.createTestForm.get('description')?.value,
@@ -162,7 +162,7 @@ export class CreateTestComponent implements OnInit, OnDestroy {
             close_time: this.createTestForm.get('isHasCloseTime')?.value ? this.createTestForm.get('close_time')?.value: null,
             open_time: this.createTestForm.get('isHasOpenTime')?.value ? this.createTestForm.get('open_time')?.value: null,
           };
-          console.log(this.createTest);
+          // console.log(this.createTest);
           if (this.createTest.close_time && this.createTest.open_time && this.createTest.open_time.getTime() >= this.createTest.close_time.getTime()) {
             Swal.fire({
               icon: 'error',
@@ -172,20 +172,20 @@ export class CreateTestComponent implements OnInit, OnDestroy {
             });
             return;
           }
-          this.imageService.uploadImage(imgFile, token).subscribe(result => {
-            this.createTest.image_id = result.public_id;
-            if (this.numberOfTest > 10 && this.role==='user') {
-              Swal.fire({
-                icon: 'error',
-                title: 'Số lượng bài test tối đa là 10! Vui lòng nâng cấp tài khoản để tạo thêm bài test!',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'OK',
-              });
-              return;
-            } else {
+          if (this.numberOfTest > 10 && this.role==='user') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Số lượng bài test tối đa là 10! Vui lòng nâng cấp tài khoản để tạo thêm bài test!',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK',
+            });
+            return;
+          } else {
+            this.imageService.uploadImage(imgFile, token).subscribe(result => {
+              this.createTest.image_id = result.public_id;
               this.testService.createTest(this.createTest).subscribe(
                 (response: any) => {
-                  console.log(response);
+                  // console.log(response);
                   Swal.close();
                   Swal.fire({
                     icon: 'success',
@@ -194,9 +194,8 @@ export class CreateTestComponent implements OnInit, OnDestroy {
                     confirmButtonText: 'OK',
                   });
                   this.router.navigate(['test', response.data.id]);
-
                 }, error => {
-                  console.log(error);
+                  // console.log(error);
                   Swal.close();
                   Swal.fire({
                     icon: 'error',
@@ -206,17 +205,18 @@ export class CreateTestComponent implements OnInit, OnDestroy {
                   });
                 },
               );
-            }
-            console.log(result);
-          }, error => {
-            Swal.close();
-            Swal.fire({
-              icon: 'error',
-              title: 'Vui lòng chọn hình ảnh!',
-              confirmButtonColor: '#3085d6',
-              confirmButtonText: 'OK',
+              // console.log(result);
+            }, error => {
+              Swal.close();
+              Swal.fire({
+                icon: 'error',
+                title: 'Vui lòng chọn hình ảnh!',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK',
+              });
             });
-          });
+          }
+
         }
       },
       (reason) => {

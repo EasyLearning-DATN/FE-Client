@@ -75,7 +75,7 @@ export class CreateLessonComponent implements OnInit {
 
   onCreateLesson() {
     let title = '';
-    this.translateService.get(TRANSLATE.MESSAGE.PROGRESS.CREATE_LESSON_001).subscribe(
+    this.translateService.stream(TRANSLATE.MESSAGE.PROGRESS.CREATE_LESSON_001).subscribe(
       res => {
         title = res;
       },
@@ -103,7 +103,7 @@ export class CreateLessonComponent implements OnInit {
       (response: any) => {
         console.log(response);
         let title = '';
-        this.translateService.get(TRANSLATE.MESSAGE.SUCCESS.CREATE_LESSON_001).subscribe(
+        this.translateService.stream(TRANSLATE.MESSAGE.SUCCESS.CREATE_LESSON_001).subscribe(
           res => {
             title = res;
           },
@@ -141,7 +141,7 @@ export class CreateLessonComponent implements OnInit {
       };
       if (this.numberOfLesson > 10 && this.role==='user') {
         let title = '';
-        this.translateService.get(TRANSLATE.MESSAGE.ERROR.CREATE_LESSON_001).subscribe(
+        this.translateService.stream(TRANSLATE.MESSAGE.ERROR.CREATE_LESSON_001).subscribe(
           res => {
             title = res;
           },
@@ -162,7 +162,7 @@ export class CreateLessonComponent implements OnInit {
           error => {
             console.log(error);
             let title = '';
-            this.translateService.get(TRANSLATE.MESSAGE.ERROR.CREATE_LESSON_002).subscribe(
+            this.translateService.stream(TRANSLATE.MESSAGE.ERROR.CREATE_LESSON_002).subscribe(
               res => {
                 title = res;
               },

@@ -5,30 +5,30 @@
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 pt-5">
             <form [formGroup]="resetPasswordForm" (submit)="onConfirm()" action="" method="post">
-                <h2 class="main-text pt-5 mt-5">{{'forget_password.confirm.title'|translate}}</h2>
+                <h2 class="main-text pt-5 mt-5">{{'FORGET_PASSWORD.CONFIRM.TITLE'|translate}}</h2>
                 <input type="password" formControlName="newPassword"
-                    placeholder="{{'forget_password.confirm.password.placeholder'|translate}}"
+                    placeholder="{{'FORGET_PASSWORD.CONFIRM.PASSWORD.PLACEHOLDER'|translate}}"
                     class="form-control main-input mt-5">
                 <div *ngIf="!resetPasswordForm.get('newPassword')?.valid && resetPasswordForm.get('newPassword')?.touched" class="text-danger">
-                    <small *ngIf="resetPasswordForm.get('newPassword')?.errors?.['required']">{{'forget_password.confirm.password.error.required'|translate}}</small>
+                    <small *ngIf="resetPasswordForm.get('newPassword')?.errors?.['required']">{{'FORGET_PASSWORD.CONFIRM.PASSWORD.ERROR.REQUIRED'|translate}}</small>
                     <small
-                      *ngIf="resetPasswordForm.get('newPassword')?.errors?.['pattern']">{{'forget_password.confirm.password.error.pattern'|translate}}</small>
+                      *ngIf="resetPasswordForm.get('newPassword')?.errors?.['pattern']">{{'FORGET_PASSWORD.CONFIRM.PASSWORD.ERROR.PATTERN'|translate}}</small>
                 </div>
                 <input type="password" formControlName="confirmPassword"
-                    placeholder="{{'forget_password.confirm.confirm_password.placeholder'|translate}}"
+                    placeholder="{{'FORGET_PASSWORD.CONFIRM.CONFIRM_PASSWORD.PLACEHOLDER'|translate}}"
                     class="form-control main-input mt-5">
                 <div *ngIf="!resetPasswordForm.get('confirmPassword')?.valid && resetPasswordForm.get('confirmPassword')?.touched" class="text-danger">
-                    <small *ngIf="resetPasswordForm.get('confirmPassword')?.errors?.['required']">{{'forget_password.confirm.confirm_password.error.required'|translate}}</small>
+                    <small *ngIf="resetPasswordForm.get('confirmPassword')?.errors?.['required']">{{'FORGET_PASSWORD.CONFIRM.CONFIRM_PASSWORD.ERROR.REQUIRED'|translate}}</small>
                     <small
-                      *ngIf="resetPasswordForm.get('confirmPassword')?.errors?.['pattern']">{{'forget_password.confirm.password.error.pattern'|translate}}</small>
+                      *ngIf="resetPasswordForm.get('confirmPassword')?.errors?.['pattern']">{{'FORGET_PASSWORD.CONFIRM.CONFIRM_PASSWORD.ERROR.PATTERN'|translate}}</small>
                 </div>
                 <div class="row">
                     <div class="col-4">
                         <button
-                            class="btn btn-sz-primary mt-5">{{'forget_password.confirm.reset_password'|translate}}</button>
+                            class="btn btn-sz-primary mt-5">{{'FORGET_PASSWORD.CONFIRM.RESET_PASSWORD'|translate}}</button>
                     </div>
                     <div class="col-5 pt-5">
-                        <a [routerLink]="['/login']" class="back-to-login">{{'commons.login'|translate}}</a>
+                        <a [routerLink]="['/login']" class="back-to-login">{{'COMMONS.LOGIN'|translate}}</a>
                     </div>
                 </div>
             </form>

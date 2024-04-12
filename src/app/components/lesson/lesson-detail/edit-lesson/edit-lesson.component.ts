@@ -48,7 +48,7 @@ export class EditLessonComponent implements OnInit {
   onUpdate() {
     let title = '';
     if (!this.updateLessonForm.valid) {
-      this.translateService.get(TRANSLATE.MESSAGE.ERROR.EDIT_LESSON_001).subscribe(
+      this.translateService.stream(TRANSLATE.MESSAGE.ERROR.EDIT_LESSON_001).subscribe(
         res => {
           title = res;
         },
@@ -62,7 +62,7 @@ export class EditLessonComponent implements OnInit {
       return;
     }
     // console.log(this.image);
-    this.translateService.get(TRANSLATE.MESSAGE.PROGRESS.EDIT_LESSON_001).subscribe(
+    this.translateService.stream(TRANSLATE.MESSAGE.PROGRESS.EDIT_LESSON_001).subscribe(
       res => {
         title = res;
       },
@@ -82,7 +82,7 @@ export class EditLessonComponent implements OnInit {
           this.updateLesson(image_id);
         }, error => {
           Swal.close();
-          this.translateService.get(TRANSLATE.MESSAGE.ERROR.EDIT_LESSON_002).subscribe(
+          this.translateService.stream(TRANSLATE.MESSAGE.ERROR.EDIT_LESSON_002).subscribe(
             res => {
               title = res;
             },
@@ -115,7 +115,7 @@ export class EditLessonComponent implements OnInit {
       (response) => {
         console.log(response);
         Swal.close();
-        this.translateService.get(TRANSLATE.MESSAGE.SUCCESS.EDIT_LESSON_001).subscribe(
+        this.translateService.stream(TRANSLATE.MESSAGE.SUCCESS.EDIT_LESSON_001).subscribe(
           res => {
             title = res;
           },
@@ -135,7 +135,7 @@ export class EditLessonComponent implements OnInit {
         this.modalService.dismissAll('Update success!');
       }, error => {
         Swal.close();
-        this.translateService.get(TRANSLATE.MESSAGE.ERROR.EDIT_LESSON_003).subscribe(
+        this.translateService.stream(TRANSLATE.MESSAGE.ERROR.EDIT_LESSON_003).subscribe(
           res => {
             title = res;
           },
@@ -143,7 +143,7 @@ export class EditLessonComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           title: title,
-          // text: error.message,
+          text: error.error.message,
           confirmButtonColor: '#3085d6',
           confirmButtonText: 'OK',
         });
@@ -154,15 +154,27 @@ export class EditLessonComponent implements OnInit {
   openConfirmDelete() {
     const modalConfirm = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    modalConfirm.componentInstance.body = 'Bạn có chắc chắn muốn xóa bài học này không?';
+    let body = '';
+    this.translateService.stream(TRANSLATE.MESSAGE.CONFIRM_MODAL.EDIT_LESSON_DELETE).subscribe(
+      res => {
+        body = res;
+      },
+    );
+    modalConfirm.componentInstance.body = {value: body};
     modalConfirm
     .result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.closeResult);
         if (result==='Confirm') {
+          let title = '';
+          this.translateService.stream(TRANSLATE.MESSAGE.PROGRESS.EDIT_LESSON_002).subscribe(
+            res => {
+              title = res;
+            },
+          );
           Swal.fire({
-            title: 'Đang xóa bài học...',
+            title: title,
             allowOutsideClick: false,
             didOpen: () => {
               Swal.showLoading();
@@ -178,21 +190,33 @@ export class EditLessonComponent implements OnInit {
           this.lessonService.deleteLesson(this.sharedService.lesson.id).subscribe(
             (response) => {
               Swal.close();
+              this.translateService.stream(TRANSLATE.MESSAGE.SUCCESS.EDIT_LESSON_002).subscribe(
+                res => {
+                  title = res;
+                },
+              );
               Swal.fire({
                 icon: 'success',
-                title: 'Xóa bài học thành công!',
-                text: 'Bạn đã xóa bài học này, bạn sẽ được đưa về trang danh sách bài học!',
+                title: title,
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK',
-              });
-              this.modalService.dismissAll('Delete lesson success!');
-              this.router.navigate(['/']);
+              }).then(
+                value => {
+                  this.modalService.dismissAll('Delete lesson success!');
+                  this.router.navigate(['/']);
+                },
+              );
             }, error => {
               Swal.close();
+              this.translateService.stream(TRANSLATE.MESSAGE.ERROR.EDIT_LESSON_004).subscribe(
+                res => {
+                  title = res;
+                },
+              );
               Swal.fire({
                 icon: 'error',
-                title: 'Xóa bài học thất bại!',
-                text: 'Bài học không thể xóa!',
+                title: title,
+                text: error.error.message,
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK',
               });
@@ -226,7 +250,13 @@ export class EditLessonComponent implements OnInit {
   openConfirmSave() {
     const modalConfirm = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    modalConfirm.componentInstance.body = 'Bạn có chắc chắn muốn lưu thay đổi không?';
+    let body = '';
+    this.translateService.stream(TRANSLATE.MESSAGE.CONFIRM_MODAL.EDIT_LESSON_SAVE).subscribe(
+      res => {
+        body = res;
+      },
+    );
+    modalConfirm.componentInstance.body = {value: 'Bạn có chắc chắn muốn lưu thay đổi không?'};
     modalConfirm
     .result.then(
       (result) => {
