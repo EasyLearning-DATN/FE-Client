@@ -9,7 +9,7 @@ export class ClassroomDTO {
   description: string | undefined;
 
   @IsString()
-  image_id: string | undefined;
+  imageId: string | undefined;
 
   isPublic: boolean | undefined;
 }

@@ -101,14 +101,16 @@ export class CreateClassComponent implements OnInit {
             name: this.createClassForm.get('name')?.value,
             description: this.createClassForm.get('description')?.value,
             isPublic: this.createClassForm.get('isPublic')?.value,
-            image_id: '',
+            imageId: '',
           };
           // console.log(this.createTest);
           this.imageService.uploadImage(imgFile, token).subscribe(result => {
-            this.createClassDTO.image_id = result.public_id;
+            this.createClassDTO.imageId = result.public_id;
+            console.log(result.public_id);
             this.classroomService.createClassroom(this.createClassDTO).subscribe(
               (response: any) => {
                 // console.log(response);
+                console.log( this.createClassDTO.imageId);
                 Swal.close();
                 Swal.fire({
                   icon: 'success',
