@@ -112,17 +112,17 @@ export class CreateClassComponent implements OnInit {
                 Swal.close();
                 Swal.fire({
                   icon: 'success',
-                  title: 'Tạo bài test mới thành công!',
+                  title: 'Tạo lớp học mới thành công!',
                   confirmButtonColor: '#3085d6',
                   confirmButtonText: 'OK',
                 });
-                this.router.navigate(['test', response.data.id]);
+                this.router.navigate(['teaching/classroom', response.data.id]);
               }, error => {
                 // console.log(error);
                 Swal.close();
                 Swal.fire({
                   icon: 'error',
-                  title: 'Tạo bài test mới thất bại!',
+                  title: 'Tạo lớp học mới thất bại!',
                   confirmButtonColor: '#3085d6',
                   confirmButtonText: 'OK',
                 });
