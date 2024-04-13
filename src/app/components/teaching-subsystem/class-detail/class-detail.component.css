@@ -1,0 +1,84 @@
+/* style.css */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f0f0;
+}
+
+.container {
+    background-color: #fff;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.classroom-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.image {
+    width: 200px;
+    height: 200px;
+    flex: 0 0 200px;
+    margin-right: 10px; /* Bỏ comment nếu sử dụng flexbox layout */
+}
+
+.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.details {
+    flex: 1;
+    padding: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f5f5f5;
+}
+
+.students tr:hover {
+    background-color: #f5f5f5;
+}
+
+@media (max-width: 768px) {
+    .classroom-info {
+        gap: 5px;
+    }
+
+    .image {
+        width: 150px;
+    }
+}
