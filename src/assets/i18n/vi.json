@@ -14,7 +14,8 @@
     "HELP": "Giúp đỡ & Phản hồi",
     "UPGRADE": "Nâng cấp Premium",
     "LOGOUT": "Đăng xuất",
-    "TEACHING_SUBSYSTEM": "Hệ thống giảng dạy"
+    "TEACHING_SUBSYSTEM": "Hệ thống giảng dạy",
+    "CREATE_CLASSROOM": "Tạo lớp học"
   },
   "FOOTER": {
     "COMMUNITY": "Cộng đồng",
@@ -147,6 +148,28 @@
     "HAPPY_LEARNERS": "NGƯỜI DÙNG THAM GIA",
     "CLASSES_PASSED": "LƯỢT HOÀN THÀNH LỚP HỌC"
   },
+  "CLASSROOM": {
+    "CREATE_CLASS": {
+      "HEADER": "Tạo lớp học",
+      "NAME": {
+        "LABEL": "Tên của lớp học",
+        "ERROR": {
+          "REQUIRED": "Tên không được để trống!"
+        }
+      },
+      "DESCRIPTION": {
+        "LABEL": "Mô tả",
+        "ERROR": {
+          "REQUIRED": "Mô tả không được để trống!"
+        }
+      },
+      "IS_PUBLIC": {
+        "TRUE": "Bài học công khai",
+        "FALSE": "Bài học hạn chế"
+      },
+      "CREATE_CLASSROOM": "Tạo lớp học"
+    }
+  },
   "CONFIRM_MODAL": {
     "TITLE": "{{ value }}",
     "BODY": "{{ value }}",
@@ -188,6 +211,11 @@
           "003": "Sửa bài học thất bại!",
           "004": "Xóa bài học thất bại!"
         }
+      },
+      "CLASSROOM": {
+        "CREATE_CLASS": {
+          "001": "Vui lòng nhập đủ thông tin!"
+        }
       }
     },
     "SUCCESS": {
@@ -228,6 +256,11 @@
           "001": "Đang cập nhật bài học...",
           "002": "Đang xóa bài học..."
         }
+      },
+      "CLASSROOM": {
+        "CREATE_CLASS": {
+          "001": "Đang tạo lớp học..."
+        }
       }
     },
     "CONFIRM_MODAL": {
@@ -239,6 +272,11 @@
             "DELETE": "Bạn có chắc chắn muốn xóa bài học này không?",
             "SAVE": "Bạn có chắc chắn muốn lưu thay đổi không?"
           }
+        }
+      },
+      "CLASSROOM": {
+        "CREATE_CLASS": {
+          "CREATE": "Bạn có chắc chăn muốn tạo lớp học không?"
         }
       }
     },

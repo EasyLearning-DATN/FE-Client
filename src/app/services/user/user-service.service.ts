@@ -1,13 +1,13 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { UpdateInfoDTO } from 'src/app/DTOS/user/updateInfo.dto';
-import { LoginDTO } from 'src/app/DTOS/user/login.dto';
-import { SignupDTO } from 'src/app/DTOS/user/signup.dto';
-import { UserResponse } from 'src/app/responses/user/user.responses';
-import { environment } from 'src/environments/environments';
-import { ChangePassDTO } from 'src/app/DTOS/user/changePass.dto';
-import {ContinueGoogoleDto} from "../../DTOS/user/continueGoogole.dto";
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {ChangePassDTO} from 'src/app/DTOS/user/changePass.dto';
+import {LoginDTO} from 'src/app/DTOS/user/login.dto';
+import {SignupDTO} from 'src/app/DTOS/user/signup.dto';
+import {UpdateInfoDTO} from 'src/app/DTOS/user/updateInfo.dto';
+import {UserResponse} from 'src/app/responses/user/user.responses';
+import {environment} from 'src/environments/environments';
+import {ContinueGoogoleDto} from '../../DTOS/user/continueGoogole.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -21,12 +21,13 @@ export class UserService {
   private apiVaildToken = `${environment.apiExternal}/user/valid-token?token=`;
   private apiLogout = `${environment.apiMember}/user/logout`;
   private apiUpdateInfo = `${environment.apiMember}/user/info`;
-  private apiGetRole = environment.API_URL + environment.API_ADMIN + environment.VERSION_1 + environment.API_ROLE;
+  private apiGetRole = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_USER + environment.API_ROLE;
   private apiLockAccount = `${environment.apiMember}/user/lock`;
   private apiChangePassword = `${environment.apiMember}/user/password`;
   private apiContinueGoogle = `${environment.apiExternal}/user/continue-google`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   login(loginDTO: LoginDTO): Observable<any> {
     return this.http.post(this.apiLogin, loginDTO);
@@ -48,8 +49,8 @@ export class UserService {
   }
 
 
-  forgotPassword(email: string){
-    return this.http.get(this.apiForgotPassword + email)
+  forgotPassword(email: string) {
+    return this.http.get(this.apiForgotPassword + email);
   }
 
   logout(token: string): Observable<any> {
@@ -64,8 +65,8 @@ export class UserService {
   // hàm confirm password có sử dụng bearer token và body là newPassword
   // lấy ?token trên url và gán vào biến token http://localhost:4200/confirm-password?token=eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJmY2VjYTU5Yi00N2Q0LTQyZTAtOGQ3NS00OTJlYTMzOTY0YzMiLCJzdWIiOiJhbmhkdDA3IiwiaWF0IjoxNzA5NDcyNzY3LCJleHAiOjE3MTEyNzI3Njd9.ti5LCGHG4239VNa_JmxlXVynnnbnSsbq0fQVxFVVFRQ
   updatePassword(password: string, token: string): Observable<any> {
-    return this.http.patch(this.apiUpdatePassword, { password_update: password}, {
-      headers: { 'Authorization': `Bearer ${token}` }
+    return this.http.patch(this.apiUpdatePassword, {password_update: password}, {
+      headers: {'Authorization': `Bearer ${token}`},
     });
   }
 
@@ -75,11 +76,11 @@ export class UserService {
   }
 
   // hàm update info user có sử dụng bearer token và body là fullName, email, dayOfBirth
-  updateInfo(updateInfoDTO: UpdateInfoDTO): Observable<any>  {
+  updateInfo(updateInfoDTO: UpdateInfoDTO): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.patch(this.apiUpdateInfo, updateInfoDTO, {
       headers: {
-        "Authorization": `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     });
   }
@@ -89,7 +90,7 @@ export class UserService {
     const token = localStorage.getItem('token');
     return this.http.patch(this.apiChangePassword, changePassDTO, {
       headers: {
-        "Authorization": `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     });
   }
@@ -99,7 +100,7 @@ export class UserService {
     const token = localStorage.getItem('token');
     return this.http.patch(this.apiLockAccount, {
       headers: {
-        "Authorization": `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     });
   }
@@ -122,7 +123,7 @@ export class UserService {
   updateRoleUser(userID: any): Observable<any> {
     return this.http.put(this.apiGetRole, {
       userID,
-      roleIds: ["1ea38000-e236-4291-8f2e-8023ca323479"],
+      roleIds: ['1ea38000-e236-4291-8f2e-8023ca323479'],
     });
   }
 }
