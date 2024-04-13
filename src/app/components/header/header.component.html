@@ -90,7 +90,7 @@
             </li>
           </ul>
         </li>
-        <li class=" link-item p-0" ngbNavItem><a (click)="isMenuCollapsed = true" [routerLink]="['/teaching-subsystem']"
+        <li class=" link-item p-0" ngbNavItem><a (click)="isMenuCollapsed = true" [routerLink]="['/classroom/list-classroom']"
                                                  aria-current="page"
                                                  class="text-capitalize link-item px-2 teaching_subsystem"
                                                  ngbNavLink>{{ 'HEADER.TEACHING_SUBSYSTEM'|translate }}</a></li>
@@ -144,7 +144,7 @@
                 'HEADER.CREATE_TEST'|translate
               }}</a>
             </li>
-            <li><a [routerLink]="['/teaching/create-classroom']" class="link-item text-capitalize" ngbDropdownItem>{{
+            <li><a [routerLink]="['/classroom/create-classroom']" class="link-item text-capitalize" ngbDropdownItem>{{
                 'HEADER.CREATE_CLASSROOM'|translate
               }}</a>
             </li>

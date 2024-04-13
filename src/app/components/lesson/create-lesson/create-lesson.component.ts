@@ -1,13 +1,13 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
-import {LessonDTO} from 'src/app/DTOS/lesson/lesson.dto';
-import {ImageResponses} from 'src/app/responses/image/image.responses';
-import {LessonService} from 'src/app/services/lesson/lesson.service';
-import {QuestionService} from 'src/app/services/question/question.service';
-import {UploadImageService} from 'src/app/services/shared/upload/upload-image.service';
-import {environment, TRANSLATE} from 'src/environments/environments';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { LessonDTO } from 'src/app/DTOS/lesson/lesson.dto';
+import { ImageResponses } from 'src/app/responses/image/image.responses';
+import { LessonService } from 'src/app/services/lesson/lesson.service';
+import { QuestionService } from 'src/app/services/question/question.service';
+import { UploadImageService } from 'src/app/services/shared/upload/upload-image.service';
+import { environment, TRANSLATE } from 'src/environments/environments';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,8 +20,8 @@ export class CreateLessonComponent implements OnInit {
   listQuestionImport: any[] = [];
   // listQuestionImport: QuestionDTO[] = [];
   numberOfLesson: number = 0;
-  userId: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).id: '';
-  role: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).role: '';
+  userId: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).id : '';
+  role: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).role : '';
   name: string = '';
   description: string = '';
   image_id: string = '';
@@ -140,7 +140,7 @@ export class CreateLessonComponent implements OnInit {
         image_id: this.image_id,
         classRoomId: null,
       };
-      if (this.numberOfLesson > 10 && this.role==='user') {
+      if (this.numberOfLesson > 10 && this.role === 'user') {
         let title = '';
         this.translateService.stream(TRANSLATE.MESSAGE.ERROR.CREATE_LESSON_001).subscribe(
           res => {

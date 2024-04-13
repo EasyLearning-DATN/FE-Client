@@ -15,7 +15,7 @@ const routes: Routes = [
     loadChildren: () => import('./modules/test/test.module').then(mod => mod.TestModule),
   },
   {
-    path: 'teaching',
+    path: 'classroom',
     loadChildren: () => import('./modules/teaching_subsystem/teaching_subsystem.module').then(mod => mod.TeachingSubsystemModule),
   },
   {

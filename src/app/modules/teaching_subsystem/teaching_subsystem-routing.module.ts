@@ -10,7 +10,8 @@ import {ClassEditComponent} from "../../components/teaching-subsystem/class-edit
 const routes: Routes = [
   {
     path: '', component: TeachingSubsystemComponent, canActivateChild: [authCanActivateChildGuard], children: [
-      {path: 'teaching-subsystem', component: ClassListComponent},
+      {path: 'list-classroom', component: ClassListComponent},
+      {path: 'invite', component: ClassListComponent},
       {path: 'create-classroom', component: CreateClassComponent},
       {
         path: ':id', component: ClassDetailComponent, children: [

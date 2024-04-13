@@ -1,1 +1,73 @@
-<p>class-detail works!</p>
+<div class="container">
+    <header>
+        <h1>Lớp học: {{ classroom.name }}</h1>
+        <p>Mô tả: {{ classroom.description }}</p>
+    </header>
+    <div class="row">
+        <div class="col-md-12">
+            <section class="classroom-info">
+                <div class="image">
+                    <img src="{{ classroom.image.url }}" alt="Ảnh lớp học">
+                </div>
+                <div class="details">
+                    <p>Mã lớp: {{ classroom.code }}</p>
+                    <p>Người tạo: {{ classroom.creator }}</p>
+                    <p>Ngày tạo: {{ classroom.createdDate | date:'dd/MM/yyyy' }}</p>
+                    <p>Trạng thái: {{ classroom.is_public ? 'Công khai' : 'Riêng tư' }}</p>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-6">
+            <section class="students">
+                <h2>Danh sách học viên</h2>
+                <button class="btn btn-primary" (click)="openModal()">Thêm học viên</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Họ và tên</th>
+                            <th>Điểm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let student of classroom.students">
+                            <td>{{ student.user.user_info.fullName }}</td>
+                            <td>{{ student.point }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <section class="lessons">
+                <h2>Bài Học</h2>
+            </section>
+        </div>
+        <div class="col-md-6">
+            <section class="tests">
+                <h2>Bài Kiểm tra</h2>
+            </section>
+        </div>
+    </div>
+</div>
+
+<ng-template #modal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Thêm học viên</h4>
+        <button (click)="d('Cross click')" aria-label="Close" class="btn-close" type="button"></button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group mb-2 row">
+            <label class="col-sm-6 col-form-label">Mail học viên: </label>
+            <div class="">
+                <textarea rows="5" class="form-control" [(ngModel)]="studentEmail"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button (click)="d('Close click')" class="btn btn-secondary" type="button">Đóng</button>
+        <button (click)="inviteStudents()" class="btn btn-primary" type="button">Mời</button>
+    </div>
+</ng-template>
+
