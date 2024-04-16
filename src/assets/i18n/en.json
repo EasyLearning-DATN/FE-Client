@@ -214,8 +214,13 @@
       },
       "CLASSROOM": {
         "CREATE_CLASS": {
-          "001": "Please input all information!"
+          "001": "Please input all information!",
+          "002": "Classroom created unsuccessfully!",
+          "003": "Please choose cover!"
         }
+      },
+      "ACCESS_TEACHING": {
+        "001": "Please upgrade your account to edu!"
       }
     },
     "SUCCESS": {
@@ -235,6 +240,11 @@
         "EDIT_LESSON": {
           "001": "Update this lesson successfully!",
           "002": "Delete this lesson successfully!"
+        }
+      },
+      "CLASSROOM": {
+        "CREATE_CLASS": {
+          "001": "Classroom created successfully!"
         }
       }
     },

@@ -40,7 +40,7 @@ export class TestDetailComponent implements OnInit {
       closeTime: new Date(),
     };
     if (this.test.open_time) {
-      data.openTime = this.convertToGMT7(this.test.open_time, 7);
+      data.openTime = new Date(this.test.open_time);
       if (new Date().getTime() >= new Date(data.openTime).getTime()) {
         data.isOpened = true;
       }
@@ -48,7 +48,7 @@ export class TestDetailComponent implements OnInit {
       data.isOpened = true;
     }
     if (this.test.close_time) {
-      data.closeTime = this.convertToGMT7(this.test.close_time, 7);
+      data.closeTime = new Date(this.test.close_time);
       if (new Date().getTime() >= new Date(data.closeTime).getTime()) {
         data.isClosed = true;
       } else {

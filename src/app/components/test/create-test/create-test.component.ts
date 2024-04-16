@@ -83,21 +83,6 @@ export class CreateTestComponent implements OnInit, OnDestroy {
     }
   }
 
-  initForm() {
-    this.createTestForm = new FormGroup({
-      'name': new FormControl('', [Validators.required]),
-      'description': new FormControl('', [Validators.required]),
-      'time_total': new FormControl(0),
-      'time_question': new FormControl(0),
-      'view_result_type_code': new FormControl(this.resultTypes[0].code, [Validators.required]),
-      'test_type': new FormControl('fullTime', [Validators.required]),
-      'isHasOpenTime': new FormControl(false),
-      'isHasCloseTime': new FormControl(false),
-      'open_time': new FormControl(new Date(), [Validators.required]),
-      'close_time': new FormControl(new Date(), [Validators.required]),
-    });
-  }
-
   onCreateTest() {
     if (!this.createTestForm.valid) {
       Swal.fire({
@@ -130,13 +115,7 @@ export class CreateTestComponent implements OnInit, OnDestroy {
         if (result==='Confirm') {
 
           const token = localStorage.getItem('token');
-          Swal.fire({
-            title: 'Đang tạo bài test...',
-            allowOutsideClick: false,
-            didOpen: () => {
-              Swal.showLoading();
-            },
-          });
+
 
           let imgFile = this.fileUpload.nativeElement.files[0];
           // console.log(imgFile);
@@ -164,6 +143,8 @@ export class CreateTestComponent implements OnInit, OnDestroy {
             classRoomId: null,
           };
           // console.log(this.createTest);
+          this.removeSeconds();
+          this.changeTime();
           if (this.createTest.close_time && this.createTest.open_time && this.createTest.open_time.getTime() >= this.createTest.close_time.getTime()) {
             Swal.fire({
               icon: 'error',
@@ -182,6 +163,13 @@ export class CreateTestComponent implements OnInit, OnDestroy {
             });
             return;
           } else {
+            Swal.fire({
+              title: 'Đang tạo bài test...',
+              allowOutsideClick: false,
+              didOpen: () => {
+                Swal.showLoading();
+              },
+            });
             this.imageService.uploadImage(imgFile, token).subscribe(result => {
               this.createTest.image_id = result.public_id;
               this.testService.createTest(this.createTest).subscribe(
@@ -227,6 +215,21 @@ export class CreateTestComponent implements OnInit, OnDestroy {
     );
   }
 
+  private initForm() {
+    this.createTestForm = new FormGroup({
+      'name': new FormControl('', [Validators.required]),
+      'description': new FormControl('', [Validators.required]),
+      'time_total': new FormControl(0),
+      'time_question': new FormControl(0),
+      'view_result_type_code': new FormControl(this.resultTypes[0].code, [Validators.required]),
+      'test_type': new FormControl('fullTime', [Validators.required]),
+      'isHasOpenTime': new FormControl(false),
+      'isHasCloseTime': new FormControl(false),
+      'open_time': new FormControl(new Date(new Date().setSeconds(0)), [Validators.required]),
+      'close_time': new FormControl(new Date(new Date(new Date().getTime() + 120 * 60 * 1000).setSeconds(0)), [Validators.required]),
+    });
+  }
+
   private setQuestionIds() {
     this.questionIDs = [];
     this.questionIDs.push(...this.questions.map(q => {
@@ -262,5 +265,25 @@ export class CreateTestComponent implements OnInit, OnDestroy {
         console.log(error);
       },
     );
+  }
+
+  private removeSeconds() {
+
+    if (this.createTest.open_time) {
+      this.createTest.open_time = new Date(new Date(this.createTest.open_time).setSeconds(0));
+    }
+    if (this.createTest.close_time) {
+      this.createTest.close_time = new Date(new Date(this.createTest.close_time).setSeconds(0));
+    }
+
+  }
+
+  private changeTime() {
+    if (this.createTest.open_time) {
+      this.createTest.open_time = new Date(this.createTest.open_time.getTime() + 7 * 60 * 60 * 1000);
+    }
+    if (this.createTest.close_time) {
+      this.createTest.close_time = new Date(this.createTest.close_time.getTime() + 7 * 60 * 60 * 1000);
+    }
   }
 }

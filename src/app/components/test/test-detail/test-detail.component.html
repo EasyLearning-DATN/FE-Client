@@ -30,10 +30,10 @@
           test.time_question === null ? 'Không giới hạn' : test.time_question + ' Giây'
         }}</span>
       <span><fa-icon [icon]="['fas','hourglass-start']" class="me-2"></fa-icon> Thời gian mở bài thi: {{
-          test.time_total === null ? 'Không có ' : test.open_time | date : 'dd/MM/yyyy hh:mm'
+          test.open_time === null ? 'Không có ' : test.open_time | date : 'dd/MM/yyyy HH:mm'
         }}</span>
       <span><fa-icon [icon]="['fas','hourglass-end']" class="me-2"></fa-icon> Thời gian đóng bài thi: {{
-          test.time_question === null ? 'Không có' : test.close_time  | date: 'dd/MM/yyyy hh:mm'
+          test.close_time === null ? 'Không có' : test.close_time  | date: 'dd/MM/yyyy HH:mm'
         }}</span>
     </div>
     <div class="picture mb-3 col-auto d-flex justify-content-end col-lg-4">

@@ -1,11 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {ClassDetailComponent} from '../../components/teaching-subsystem/class-detail/class-detail.component';
+import {ClassEditComponent} from '../../components/teaching-subsystem/class-edit/class-edit.component';
 import {ClassListComponent} from '../../components/teaching-subsystem/class-list/class-list.component';
 import {CreateClassComponent} from '../../components/teaching-subsystem/create-class/create-class.component';
 import {TeachingSubsystemComponent} from '../../components/teaching-subsystem/teaching-subsystem.component';
 import {authCanActivateChildGuard} from '../../guards/auth.can-activate-child.guard';
-import {ClassEditComponent} from "../../components/teaching-subsystem/class-edit/class-edit.component";
+import {teacherRoleCanActivateGuard} from '../../guards/teacher-role.can-activate.guard';
 
 const routes: Routes = [
   {
@@ -15,8 +16,8 @@ const routes: Routes = [
       {path: 'create-classroom', component: CreateClassComponent},
       {
         path: ':id', component: ClassDetailComponent, children: [
-          {path: 'edit', component: ClassEditComponent}
-        ]
+          {path: 'edit', component: ClassEditComponent, canActivate: [teacherRoleCanActivateGuard]},
+        ],
       },
     ],
   },

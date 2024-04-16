@@ -77,9 +77,13 @@ export class CreateClassComponent implements OnInit {
         console.log(this.closeResult);
         if (result==='Confirm') {
           const token = localStorage.getItem('token');
-
+          this.translate.stream(TRANSLATE.MESSAGE.PROGRESS.CREATE_CLASSROOM_001).subscribe(
+            res => {
+              title = res;
+            },
+          );
           Swal.fire({
-            title: 'Đang tạo bài test...',
+            title: title,
             allowOutsideClick: false,
             didOpen: () => {
               Swal.showLoading();
@@ -110,21 +114,31 @@ export class CreateClassComponent implements OnInit {
             this.classroomService.createClassroom(this.createClassDTO).subscribe(
               (response: any) => {
                 // console.log(response);
-                console.log( this.createClassDTO.imageId);
+                console.log(this.createClassDTO.imageId);
                 Swal.close();
+                this.translate.stream(TRANSLATE.MESSAGE.SUCCESS.CREATE_CLASSROOM_001).subscribe(
+                  res => {
+                    title = res;
+                  },
+                );
                 Swal.fire({
                   icon: 'success',
-                  title: 'Tạo lớp học mới thành công!',
+                  title: title,
                   confirmButtonColor: '#3085d6',
                   confirmButtonText: 'OK',
                 });
-                this.router.navigate(['teaching/classroom', response.data.id]);
+                this.router.navigate(['/classroom', response.data.id]);
               }, error => {
                 // console.log(error);
                 Swal.close();
+                this.translate.stream(TRANSLATE.MESSAGE.ERROR.CREATE_CLASSROOM_002).subscribe(
+                  res => {
+                    title = res;
+                  },
+                );
                 Swal.fire({
                   icon: 'error',
-                  title: 'Tạo lớp học mới thất bại!',
+                  title: title,
                   confirmButtonColor: '#3085d6',
                   confirmButtonText: 'OK',
                 });
@@ -133,9 +147,14 @@ export class CreateClassComponent implements OnInit {
             // console.log(result);
           }, error => {
             Swal.close();
+            this.translate.stream(TRANSLATE.MESSAGE.ERROR.CREATE_CLASSROOM_003).subscribe(
+              res => {
+                title = res;
+              },
+            );
             Swal.fire({
               icon: 'error',
-              title: 'Vui lòng chọn hình ảnh!',
+              title: title,
               confirmButtonColor: '#3085d6',
               confirmButtonText: 'OK',
             });

@@ -119,12 +119,12 @@ export class AddQuestionTestComponent implements OnInit, OnDestroy {
 
   onAddAllQuestions() {
     const questions = [...this.lesson.questions];
-    this.sharedService.onAddQuestionsOfTest(questions);
-    this.isAddingQuestions = true;
     setTimeout(() => {
       this.isAddingQuestions = false;
-    }, 3000);
+      this.sharedService.onAddQuestionsOfTest(questions);
+    }, 1500);
 
+    this.isAddingQuestions = true;
   }
 
   private initForm() {
