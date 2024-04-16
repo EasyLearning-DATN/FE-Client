@@ -214,8 +214,13 @@
       },
       "CLASSROOM": {
         "CREATE_CLASS": {
-          "001": "Vui lòng nhập đủ thông tin!"
+          "001": "Vui lòng nhập đủ thông tin!",
+          "002": "Tạo lớp học mới thất bại!",
+          "003": "Vui lòng chọn hình ảnh!"
         }
+      },
+      "ACCESS_TEACHING": {
+        "001": "Vui lòng nâng cấp tài khoản của bạn lên edu!"
       }
     },
     "SUCCESS": {
@@ -235,6 +240,11 @@
         "EDIT_LESSON": {
           "001": "Cập nhật bài học thành công!",
           "002": "Xóa bài học thành công!"
+        }
+      },
+      "CLASSROOM": {
+        "CREATE_CLASS": {
+          "001": "Tạo lớp học thành công!"
         }
       }
     },

@@ -85,21 +85,6 @@ export class TestEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  initForm() {
-    this.editTestForm = new FormGroup({
-      'name': new FormControl(this.test.name, [Validators.required]),
-      'description': new FormControl(this.test.description, [Validators.required]),
-      'time_total': new FormControl(this.test.time_total ?? 0),
-      'time_question': new FormControl(this.test.time_question ?? 0),
-      'view_result_type_code': new FormControl(this.test.view_result_type_id.code, [Validators.required]),
-      'test_type': new FormControl(this.test.time_total ? 'fullTime': 'eachQuestion', [Validators.required]),
-      'isHasOpenTime': new FormControl(!!this.test.open_time),
-      'isHasCloseTime': new FormControl(!!this.test.close_time),
-      'open_time': new FormControl(this.test.open_time ? this.test.open_time: new Date(), [Validators.required]),
-      'close_time': new FormControl(this.test.open_time ? this.test.open_time: new Date(), [Validators.required]),
-    });
-  }
-
   onEditTest() {
     if (!this.editTestForm.valid) {
       Swal.fire({
@@ -131,13 +116,6 @@ export class TestEditComponent implements OnInit, OnDestroy {
         console.log(this.closeResult);
         if (result==='Confirm') {
           const token = localStorage.getItem('token');
-          Swal.fire({
-            title: 'Đang chỉnh sửa bài test...',
-            allowOutsideClick: false,
-            didOpen: () => {
-              Swal.showLoading();
-            },
-          });
           let imgFile = this.fileUpload.nativeElement.files[0];
           this.setQuestionIds();
           this.editTest = {
@@ -153,6 +131,8 @@ export class TestEditComponent implements OnInit, OnDestroy {
             close_time: this.editTestForm.get('isHasCloseTime')?.value ? this.editTestForm.get('close_time')?.value: null,
             classRoomId: null,
           };
+          this.removeSeconds();
+          this.changeTime();
           if (this.editTest.close_time && this.editTest.open_time && this.editTest.open_time.getTime() >= this.editTest.close_time.getTime()) {
             Swal.fire({
               icon: 'error',
@@ -162,6 +142,13 @@ export class TestEditComponent implements OnInit, OnDestroy {
             });
             return;
           }
+          Swal.fire({
+            title: 'Đang chỉnh sửa bài test...',
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            },
+          });
           if (this.urlImage===null) {
             this.editTest.image_id = this.test.image.public_id;
             this.testService.updateTest(this.test.id, this.editTest).subscribe(
@@ -288,6 +275,21 @@ export class TestEditComponent implements OnInit, OnDestroy {
     );
   }
 
+  private initForm() {
+    this.editTestForm = new FormGroup({
+      'name': new FormControl(this.test.name, [Validators.required]),
+      'description': new FormControl(this.test.description, [Validators.required]),
+      'time_total': new FormControl(this.test.time_total ?? 0),
+      'time_question': new FormControl(this.test.time_question ?? 0),
+      'view_result_type_code': new FormControl(this.test.view_result_type_id.code, [Validators.required]),
+      'test_type': new FormControl(this.test.time_total ? 'fullTime': 'eachQuestion', [Validators.required]),
+      'isHasOpenTime': new FormControl(!!this.test.open_time),
+      'isHasCloseTime': new FormControl(!!this.test.close_time),
+      'open_time': new FormControl(this.test.open_time ? this.test.open_time: new Date(), [Validators.required]),
+      'close_time': new FormControl(this.test.close_time ? this.test.close_time: (this.test.open_time ? new Date(this.test.open_time.getTime() + 120 * 60 * 1000): new Date(new Date().getTime() + 120 * 60 * 1000)), [Validators.required]),
+    });
+  }
+
   private setQuestionIds() {
     this.questionIDs.push(...this.questions.map(q => {
       return q.id;
@@ -312,6 +314,24 @@ export class TestEditComponent implements OnInit, OnDestroy {
         return 'by clicking on a backdrop';
       default:
         return `with: ${reason}`;
+    }
+  }
+
+  private removeSeconds() {
+    if (this.editTest.open_time) {
+      this.editTest.open_time = new Date(new Date(this.editTest.open_time).setSeconds(0));
+    }
+    if (this.editTest.close_time) {
+      this.editTest.close_time = new Date(new Date(this.editTest.close_time).setSeconds(0));
+    }
+  }
+
+  private changeTime() {
+    if (this.editTest.open_time) {
+      this.editTest.open_time = new Date(this.editTest.open_time.getTime() + 7 * 60 * 60 * 1000);
+    }
+    if (this.editTest.close_time) {
+      this.editTest.close_time = new Date(this.editTest.close_time.getTime() + 7 * 60 * 60 * 1000);
     }
   }
 }
