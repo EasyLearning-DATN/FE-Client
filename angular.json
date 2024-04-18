@@ -25,10 +25,10 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/css/theme.css",
               "node_modules/sweetalert2/src/sweetalert2.scss",
-              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/assets/scss/date-time-picker.scss",
               "src/styles.css"
             ],
@@ -96,7 +96,7 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []

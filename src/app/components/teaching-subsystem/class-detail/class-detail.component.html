@@ -1,57 +1,80 @@
 <div class="container">
-    <header>
-        <h1>Lớp học: {{ classroom.name }}</h1>
-        <p>Mô tả: {{ classroom.description }}</p>
-    </header>
-    <div class="row">
-        <div class="col-md-12">
-            <section class="classroom-info">
-                <div class="image">
-                    <img src="{{ classroom.image.url }}" alt="Ảnh lớp học">
-                </div>
-                <div class="details">
-                    <p>Mã lớp: {{ classroom.code }}</p>
-                    <p>Người tạo: {{ classroom.creator }}</p>
-                    <p>Ngày tạo: {{ classroom.createdDate | date:'dd/MM/yyyy' }}</p>
-                    <p>Trạng thái: {{ classroom.is_public ? 'Công khai' : 'Riêng tư' }}</p>
-                </div>
-            </section>
-        </div>
-        <div class="col-md-6">
-            <section class="students">
-                <h2>Danh sách học viên</h2>
-                <button class="btn btn-primary" (click)="openModal()">Thêm học viên</button>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Họ và tên</th>
-                            <th>Điểm</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let student of classroom.students">
-                            <td>{{ student.user.user_info.fullName }}</td>
-                            <td>{{ student.point }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <section class="lessons">
-                <h2>Bài Học</h2>
-            </section>
-        </div>
-        <div class="col-md-6">
-            <section class="tests">
-                <h2>Bài Kiểm tra</h2>
-            </section>
-        </div>
-    </div>
-</div>
+    <section class="content">
+        <div class="container-fluid">
+            <h1 class="text-center">Chi tiết lớp học</h1>
+            <p>Lớp học: {{ classroom.name }}</p>
+            <p>Giáo viên: {{ classroom.creator.fullName }}</p>
+            <p>Ngày tạo: {{ classroom.createdDate | date:'dd/MM/Y' }}</p>
+            <p>Mô tả: {{ classroom.description }}</p>
+            <hr>
 
+            <div class="card card-primary card-tabs">
+                <div class="card-header p-0 pt-1">
+                    <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="ex1-tab-1" data-bs-toggle="tab" href="#ex1-tabs-1" role="tab"
+                                aria-controls="ex1-tabs-1" aria-selected="true">Bài học</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="ex1-tab-2" data-bs-toggle="tab" href="#ex1-tabs-2" role="tab"
+                                aria-controls="ex1-tabs-2" aria-selected="false">Bài test</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="ex1-tab-3" data-bs-toggle="tab" href="#ex1-tabs-3" role="tab"
+                                aria-controls="ex1-tabs-3" aria-selected="false">Học viên</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="ex1-content">
+                        <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"
+                            aria-labelledby="ex1-tab-1">
+                            <h5 *ngFor="let lesson of classroom.lessons; let i = index ">
+                                <a data-toggle="lesson" role="button"
+                                    aria-expanded="false" aria-controls="baigiang-2662-content">
+                                    <span class="badge text-danger"> {{ i +1 }}.</span>
+                                    <a class="text-info" id="name" href="/lesson/{{ lesson.id }}">{{ lesson.name }}</a>
+                                </a>
+                            </h5>
+                        </div>
+                        <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+                            <h5 *ngFor="let test of classroom.tests; let i = index ">
+                                <a data-toggle="lesson" role="button"
+                                    aria-expanded="false" aria-controls="baigiang-2662-content">
+                                    <span class="badge text-danger"> {{ i +1 }}.</span>
+                                    <a class="text-info" id="name" href="/test/{{ test.id }}">{{ test.name }}</a>
+                                </a>
+                            </h5>
+                        </div>
+                        <div class="tab-pane fade hocvien" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+                            <button class="btn btn-primary float-end" (click)="openModal()">Thêm học viên</button> <br>
+                            <!-- table list học viên -->
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Tên học viên</th>
+                                        <th>Điểm</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let student of classroom.students; let i = index">
+                                        <td>{{ i + 1 }}</td>
+                                        <td>{{ student.user.user_info.fullName }}</td>
+                                        <td>{{ student.point }}</td>
+                                        <td>
+                                            <button class="btn btn-danger">Xóa</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 <ng-template #modal let-c="close" let-d="dismiss">
     <div class="modal-header">
         <h4 class="modal-title">Thêm học viên</h4>
@@ -70,4 +93,3 @@
         <button (click)="inviteStudents()" class="btn btn-primary" type="button">Mời</button>
     </div>
 </ng-template>
-

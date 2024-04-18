@@ -21,6 +21,7 @@ import {PageNotFoundComponent} from './components/page-not-found/page-not-found.
 import {AuthInterceptor} from './interceptors/auth.interceptor';
 import {LangInterceptor} from './interceptors/lang.interceptor';
 import {SharedModule} from './modules/shared/shared.module';
+import { MatTabsModule } from '@angular/material/tabs';
 
 // const MY_NGX_DATE_FORMATS: NgxMatDateFormats = {
 //   parse: {
@@ -42,9 +43,9 @@ import {SharedModule} from './modules/shared/shared.module';
     HomeComponent,
     HomeItemComponent,
     PageNotFoundComponent,
-    FunnyWheelsComponent,
   ],
   imports: [
+    MatTabsModule,
     BrowserModule,
     AppRoutingModule,
     SharedModule,
