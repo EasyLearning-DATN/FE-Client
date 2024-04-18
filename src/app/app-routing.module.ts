@@ -30,6 +30,10 @@ const routes: Routes = [
     path: 'upgrade',
     loadChildren: () => import('./modules/upgrade/upgrade.module').then(mod => mod.UpgradeModule),
   },
+  {
+    path: 'minigame',
+    loadChildren: () => import('./modules/minigame/minigame.module').then(mod => mod.MiniGameModule),
+  },
   {path: '404', component: PageNotFoundComponent},
   {path: '**', redirectTo: '/404'},
   // add this one if your path is '' when you want to redirect - pathMatch: 'full'

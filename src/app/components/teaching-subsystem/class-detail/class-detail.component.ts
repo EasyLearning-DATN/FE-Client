@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClassroomService } from 'src/app/services/classroom/classroom.service';
 import { SharedService } from 'src/app/services/shared/shared.service';
+import {MatTabsModule} from '@angular/material/tabs';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -29,6 +30,7 @@ export class ClassDetailComponent {
     const id = this.route.snapshot.paramMap.get('id') as string;
     this.classroomService.getOneClassroom(id).subscribe((data: any) => {
       this.classroom = data.data;
+      console.log(this.classroom.lessons);
     });
   }
 
@@ -57,7 +59,7 @@ export class ClassDetailComponent {
   }
 
   openModal() {
-      this.modalService.open(this.modal);
-  }
+    this.modalService.open(this.modal);
+}
 
 }

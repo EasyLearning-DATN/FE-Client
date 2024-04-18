@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VietEduSoft Funny Wheels</title>
+  <link rel="icon" type = "image/png" sizes="16x16" name="gameIcon"/>
+
+  <!-- Common Asset -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="../common/bootstrap.min.css"/>
+
+    <link rel="stylesheet" href="./allcss.css">
+</head>
+
+<body oncontextmenu="return false;" style="position: relative;">
+  <div id="resultNotice" class="d-none">
+    <div class="panel with panel-info" style="font-size: x-large; width: 40%; margin-left: 40%; margin-top: 10%">
+      <div class="panel-heading" style="height: 100px;">Kết quả lượt quay</div>
+      <div class="panel-body" style="height: 300px; background-color: white;"><p id="resultNoticeElement"></p></div>
+      <div style="text-align: center;"><button onclick="closeResultDialog();" type="button" id="closeResultDiaglog" class="btn btn-primary" style="background-color: #007bff; padding: 15px; margin-bottom: 20px; font-size: 38px;">Tiếp tục quay</button></div>
+    </div>
+  </div>
+
+  <div class="main_container container-fluid p-0">
+    <!-- Create page -->
+    <div id="createPage" class="page" style="font-size: larger; font-weight: bold;">
+      <div class="main_view row position-relative">
+        <!-- Game font/size config Panel-->
+        <div id ="leftPanel" class="active">
+          <div id="horizontal" style="height: 50px; color: white; padding-left: 25px; padding-bottom: 10px;">
+            Funny Wheels - Bánh xe vui nhộn
+          </div>
+
+          <div id="horizontalExtra">
+          </div>
+
+          <!-- tab pane -->
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist" style="padding-left:15px">
+              <a class="nav-item nav-link active" id="nav-entries-tab" data-toggle="tab" href="#nav-entries" role="tab" aria-controls="nav-entries" aria-selected="true">Danh sách<span id="amountEntries" style="font-size:large" class="badge badge-pill badge-primary ml-1">0</span></a>
+              <a class="nav-item nav-link" id="nav-results-tab" data-toggle="tab" href="#nav-results" role="tab" aria-controls="nav-results" aria-selected="false">Đã loại ra<span id="amountResults" style="font-size:large" class="badge badge-pill badge-primary ml-1">0</span></a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent" >
+            <!-- entries -->
+            <div class="tab-pane fade show active" id="nav-entries" role="tabpanel" aria-labelledby="nav-entries-tab">
+              <div id="entriesHead" class="tab-head">
+                <!-- remove after spin -->
+                <div id="groupCheckBox" class="d-flex align-items-center" style="padding-left: 5px">
+                  <div>
+                    <input class="form-check-input" type="checkbox" value="" id="removeEntry" style="width:30px; height: 30px;">
+                    <label class="form-check-label" for="removeEntry" style="margin-left: 15px; padding-top:5px">
+                      Loại bỏ phần tử sau khi được quay.
+                    </label>
+                  </div>
+                </div>
+              </div>
+              
+              <div id="entriesBody" class="row tab-body">
+                <textarea id="entrydataList" style="width: 100%; font-weight: bolder; padding-left: 15px;">Việt Nam&#13;&#10;Singapore&#13;&#10;Australia&#13;&#10;Japan&#13;&#10;Korea</textarea >
+              </div>
+            </div>
+            <!-- entries -->
+
+            <!-- result -->
+            <div class="tab-pane fade" id="nav-results" role="tabpanel" aria-labelledby="nav-results-tab">
+              <div id="resultsBody" class="tab-body">
+                <div id="resultsData" class="tab-data"><div>Data 1</div></div>
+              </div>
+            </div>
+            <!-- result -->
+          </div>
+          <!-- tab pane -->
+
+        </div>
+
+        <!-- QuestionList open/close Button -->
+        <div class="hideQuestionList btn active">
+          <i><svg style="width:30px; height:30px;" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+          </svg>
+          </i>
+        </div>
+
+        <!-- Main Game display-->
+        <div class="slideList col">
+          <video id="backgroundSlideVideo" name="backgroundSlideVideo" class="p-0" autoplay="autoplay" muted="muted" loop></video>
+          <div id="mainGamePlayPanel" class="">
+            <!-- Start question chart -->
+            <div id="questionChartSpin" class="questionChartSpin">
+            </div>
+            <!-- Start question chart -->
+          </div>
+
+          <div id="StartAgainButton" class="StartAgainBar transparentBar">
+            <p>Chơi lại</p>
+          </div>
+
+        </div>
+        <nav id="setupPanel" class="shadow">
+          <div id="setupBtn" class="btn">
+            <span><svg style="height: 30px; width: 30px; color:white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            </span>
+          </div>
+          <div class="item border basic setupPanel">
+            <div class="setupPanel_section">
+              <span class="pe-2 col">Nhạc nền</span>
+              <audio id="audio_background" style="width:100%" name="audio_background" src="" autoplay controls loop></audio>
+            </div>
+            <div class="setupPanel_section">
+              <span class="pe-2 col">Chọn nền ảnh, video</span>
+              <input type="file" class="background" accept="image/*, video/*" style="display:none"  id="inputBackgroundMedia" >
+              <div class="widget">
+                <label for="inputBackgroundMedia" id="labelInputFile" class="smallbutton labelInputFile">Chọn file</label>
+                <label class="smallbutton" id="destroyBackgroundMedia" class="destroyBackgroundMedia d-none"> Hủy </label>
+              </div>
+            </div>
+            <div class="setupPanel_section">
+              <label class="d-flex">
+                <span id="fullscreenbtn" class="smallbutton" style="line-height: 30px; width:100%">Bật/Tắt full màn hình</span>
+              </label>
+            </div>
+            <div class="setupPanel_section setupPanel_credit">
+              <a  style="color:white" href="https://www.vietedusoft.vn/" target="_blank">Nền tảng phát triển trò chơi giáo dục<br>Vietedusoft.vn</a>
+            </div>
+          </div>
+        </nav>
+      </nav>
+    </div>
+    <!-- Create page -->
+
+    <!-- All Game Custom Sound-->
+    <div id="backgroundSound" style="display:none">
+      <audio id="audio_startGame" name="audio_startGame" src=""></audio>
+      <audio id="audio_runTime" name="audio_runTime" loop src=""></audio>
+      <audio id="audio_right" name="audio_right"  src=""></audio>
+      <audio id="audio_wrong" name="audio_wrong" src=""></audio>
+      <audio id="audio_spin_chart" name="audio_spin_chart" src=""></audio>
+    </div>
+    <!-- All Game Custom Sound-->
+    <!-- Loader -->
+    <div id="loading" style="background: rgba(0, 0, 0, 0.2)"
+      class="d-none w-100 h-100 align-items-center justify-content-center position-absolute fixed-top">
+      <h2 style="color:white">Đang xử lý dữ liệu tải về</h2>
+      <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script src="../common/bootstrap.min.js" charset="utf-8"></script>
+<script src="./d3.min.js" charset="utf-8"></script>
+<script src="./alljs.js"></script>
+<script src="./GameCustomAsset.js"></script>
+
+
+</html>
