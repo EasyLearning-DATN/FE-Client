@@ -34,54 +34,55 @@ const routes: Routes = [
       {path: 'invite', component: ClassListComponent},
       {path: 'create-classroom', component: CreateClassComponent},
       {
-        path: ':id', component: ClassDetailComponent, resolve: [classroomResolver], children: [
+        path: ':classId/lesson', component: LessonComponent, canActivateChild: [
+          // teacherRoleCanActivateChildGuard
+        ], children: [
+          {
+            path: ':id', component: LessonDetailComponent, resolve: [lessonResolver, questionTypeResolver, resultTypeResolver], children: [
+              {path: '', component: FlashcardComponent},
+              {path: 'flashcard', component: FlashcardComponent},
+              {path: 'learn', component: LessonLearnComponent},
+            ],
+          }],
+      },
+      {
+        path: ':classId/test', component: TestComponent, children: [
+          {
+            path: 'test-report/:id', component: TestReportDetailComponent, resolve: [testReportResolver],
+          },
+          {
+            path: 'my-test-report', component: ListTestReportComponent,
+          },
+          {
+            path: 'create-test',
+            component: CreateTestComponent,
+            resolve: [resultTypeResolver, questionTypeResolver, resultTypeResolver],
+          },
+          {
+            path: ':id/edit',
+            component: TestEditComponent,
+            resolve: [testResolver, questionTypeResolver, resultTypeResolver],
+          },
+          {
+            path: ':id/do-test/:doTestId',
+            component: DoTestComponent,
+            canDeactivate: [testCanDeactivateGuard],
+            resolve: [doTestResolver, questionTypeResolver, resultTypeResolver],
+          },
+          {
+            path: 'exam-result/:id', component: ExamResultComponent,
+          },
+        ],
+      },
+      {path: ':classId/test/:id', component: TestDetailComponent, resolve: [testResolver]},
+      {
+        path: ':classId', component: ClassDetailComponent, resolve: [classroomResolver], children: [
           {
             path: 'edit', component: ClassEditComponent, canActivate: [
               // teacherRoleCanActivateGuard
             ],
           },
-          {
-            path: 'lesson', component: LessonComponent, canActivateChild: [
-              // teacherRoleCanActivateChildGuard
-            ], children: [
-              {
-                path: ':id', component: LessonDetailComponent, resolve: [lessonResolver, questionTypeResolver, resultTypeResolver], children: [
-                  {path: '', component: FlashcardComponent},
-                  {path: 'flashcard', component: FlashcardComponent},
-                  {path: 'learn', component: LessonLearnComponent},
-                ],
-              }],
-          },
-          {
-            path: 'test', component: TestComponent, children: [
-              {
-                path: 'test-report/:id', component: TestReportDetailComponent, resolve: [testReportResolver],
-              },
-              {
-                path: 'my-test-report', component: ListTestReportComponent,
-              },
-              {
-                path: 'create-test',
-                component: CreateTestComponent,
-                resolve: [resultTypeResolver, questionTypeResolver, resultTypeResolver],
-              },
-              {
-                path: ':id/edit',
-                component: TestEditComponent,
-                resolve: [testResolver, questionTypeResolver, resultTypeResolver],
-              },
-              {
-                path: ':id/do-test/:doTestId',
-                component: DoTestComponent,
-                canDeactivate: [testCanDeactivateGuard],
-                resolve: [doTestResolver, questionTypeResolver, resultTypeResolver],
-              },
-              {
-                path: 'exam-result/:id', component: ExamResultComponent,
-              },
-            ],
-          },
-          {path: 'test/:id', component: TestDetailComponent, resolve: [testResolver]},
+
         ],
       },
     ],

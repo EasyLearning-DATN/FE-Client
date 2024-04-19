@@ -286,7 +286,6 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
       },
     });
     await lastValueFrom(testReport$).then(res => {
-
       Swal.close();
       clearInterval(this.clockInterval);
       Swal.fire({

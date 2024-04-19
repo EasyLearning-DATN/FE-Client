@@ -8,8 +8,8 @@ export const classroomResolver: ResolveFn<ClassroomResponses> = (route, state) =
   const classroomService = inject(ClassroomService);
   const sharedService = inject(SharedService);
   const classroom = sharedService.classroom;
-  if (classroom===undefined || classroom.id!==<string>route.params['id']) {
-    return classroomService.getOneClassroom(route.params['id']);
+  if (classroom===undefined || classroom.id!==<string>route.params['classId']) {
+    return classroomService.getOneClassroom(route.params['classId']);
   } else {
     return classroom;
   }

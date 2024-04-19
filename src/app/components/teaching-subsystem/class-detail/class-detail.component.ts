@@ -29,7 +29,7 @@ export class ClassDetailComponent implements OnInit {
   }
 
   getClassroom() {
-    const id = this.route.snapshot.paramMap.get('id') as string;
+    const id = this.route.snapshot.paramMap.get('classId') as string;
     this.classroom = this.sharedService.classroom;
     this.sharedService.classroomChanged.subscribe(
       res => {
