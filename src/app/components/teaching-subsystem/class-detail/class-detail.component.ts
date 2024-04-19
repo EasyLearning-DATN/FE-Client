@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ClassroomService} from 'src/app/services/classroom/classroom.service';
 import Swal from 'sweetalert2';
+import {ClassroomResponses} from '../../../responses/classroom/classroom.responses';
 
 @Component({
   selector: 'app-class-detail',
@@ -10,7 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./class-detail.component.css'],
 })
 export class ClassDetailComponent implements OnInit {
-  classroom: any;
+  classroom!: ClassroomResponses;
   studentEmail: string = '';
   @ViewChild('modal') modal: any;
 
