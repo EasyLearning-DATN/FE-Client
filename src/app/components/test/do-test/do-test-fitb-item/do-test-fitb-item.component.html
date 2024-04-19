@@ -15,7 +15,7 @@
       </div>
       <div class="row ">
         <div class="col-12 col-sm-8">
-          <input #input [(ngModel)]="answer" [class.disabled]="isDisabled" [readonly]="isDisabled" class="form-control">
+          <input #input [(ngModel)]="answer" [class.disabled]="isDisabled" [readonly]="isDisabled" class="form-control" maxlength="255">
         </div>
 
         <button (click)="submitAnswer()" [class.disabled]="isDisabled" class="btn btn-app col-sm-3 col-12">Nộp câu trả lời</button>

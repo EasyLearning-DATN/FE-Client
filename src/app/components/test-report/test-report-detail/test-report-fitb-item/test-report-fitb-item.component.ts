@@ -27,21 +27,18 @@ export class TestReportFitbItemComponent implements OnInit, AfterViewInit {
 
   checkAnswer() {
     console.log('hello');
-    this.resultItem.answers.forEach(
-      (answer, index) => {
-        if (this.resultItem.answer_of_user.length > 0) {
-          if (answer.value.trim().toLowerCase()===this.resultItem.answer_of_user[0].trim().toLowerCase()) {
-            this.inputField.nativeElement.classList.add('correct');
-            return;
-          }
-        } else {
-          this.message = 'Người dùng chưa chọn câu trả lời';
-          this.inputField.nativeElement.classList.add('incorrect');
+    for (let answer of this.resultItem.answers) {
+      if (this.resultItem.answer_of_user.length > 0) {
+        if (answer.value.trim().toLowerCase()===this.resultItem.answer_of_user[0].trim().toLowerCase()) {
+          this.inputField.nativeElement.classList.add('correct');
           return;
         }
-
-      },
-    );
+      } else {
+        this.message = 'Người dùng chưa chọn câu trả lời';
+        this.inputField.nativeElement.classList.add('incorrect');
+        return;
+      }
+    }
     this.isAnswerCorrect = (<HTMLInputElement>this.inputField.nativeElement).classList.contains('correct');
     if (!this.isAnswerCorrect) {
       this.inputField.nativeElement.classList.add('incorrect');

@@ -12,6 +12,8 @@ export class ClassroomDTO {
   imageId: string | undefined;
 
   isPublic: boolean | undefined;
+
+  standardPoint: number | undefined;
 }
 
 export class ClassroomInviteDTO {

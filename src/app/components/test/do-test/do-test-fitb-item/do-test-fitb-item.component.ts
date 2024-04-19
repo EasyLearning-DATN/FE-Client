@@ -51,6 +51,7 @@ export class DoTestFitbItemComponent implements OnInit, AfterContentInit {
   submitAnswer() {
     if (!this.userAnswers) {
       this.userAnswers = [this.answer.toLowerCase().trim()];
+      console.log(this.userAnswers);
       this.checkResultAnswer(this.userAnswers[0]);
       const testReportItem: TestReportItemDTO = {
         answers: this.userAnswers,
@@ -85,7 +86,9 @@ export class DoTestFitbItemComponent implements OnInit, AfterContentInit {
     }
 
     if (this.showRealAnswer) {
-      this.question.answers.forEach(answer => {
+      for (let answer of this.question.answers) {
+        console.log(answer.value.trim().toLowerCase());
+        console.log(ans);
         if (answer.value.trim().toLowerCase()===ans) {
           this.isCorrect = true;
           (<HTMLInputElement>this.inputElement.nativeElement).classList.remove('correct', 'incorrect', 'answer_selected');
@@ -95,15 +98,15 @@ export class DoTestFitbItemComponent implements OnInit, AfterContentInit {
           (<HTMLInputElement>this.inputElement.nativeElement).classList.remove('correct', 'incorrect', 'answer_selected');
           this.inputElement.nativeElement.classList.add('incorrect');
         }
-      });
+      }
     } else {
       this.inputElement.nativeElement.classList.add('answer_selected');
-      this.question.answers.forEach(answer => {
+      for (let answer of this.question.answers) {
         if (answer.value.trim().toLowerCase()===ans) {
           this.isCorrect = true;
           return;
         }
-      });
+      }
     }
   }
 

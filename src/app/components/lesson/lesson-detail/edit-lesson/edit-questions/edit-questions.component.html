@@ -4,7 +4,7 @@
 </button>
 <ng-template #modal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">Danh sách câu hỏi</h4>
+    <h4 class="modal-title">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.EDIT_QUESTIONS.TITLE'|translate }}</h4>
     <button (click)="d('Cross click')" aria-label="Close" class="btn-close" type="button"></button>
   </div>
 
@@ -15,11 +15,11 @@
       <div>
         <button (click)="openEditModal( question)" class="btn btn-app me-3" type="button">
           <fa-icon [icon]="['far','pen-to-square']"></fa-icon>
-          Chỉnh sửa
+          {{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.EDIT_QUESTIONS.EDIT'|translate }}
         </button>
         <button (click)="openConfirmDelete(question.id)" class="btn btn-app-warning" type="button">
           <fa-icon [icon]="['far','trash-can']"></fa-icon>
-          Xóa
+          {{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.EDIT_QUESTIONS.DELETE'|translate }}
         </button>
       </div>
     </div>
@@ -29,7 +29,7 @@
   <div class="modal-footer">
     <!--       <button (click)="openConfirmAdd()" class="btn btn-app" type="submit">Save</button> -->
     <!--       <button (click)="d('Cancel click'); initForm()" class="btn btn-app-warning" type="button">Cancel</button> -->
-    <button (click)="d('Close click')" class="btn btn-app" type="button">Close</button>
+    <button (click)="d('Close click')" class="btn btn-app" type="button">{{ 'CONFIRM_MODAL.CLOSE'|translate }}</button>
   </div>
 
 </ng-template>

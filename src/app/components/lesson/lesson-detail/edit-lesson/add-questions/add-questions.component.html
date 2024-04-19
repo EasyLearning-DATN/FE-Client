@@ -1,11 +1,11 @@
 <button (click)="openAddQuestions(modal)" class="btn btn-app ms-3">
   <fa-icon [icon]="['far','square-plus']"></fa-icon>
-  Thêm câu hỏi
+  {{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.TITLE'|translate }}
 </button>
 
 <ng-template #modal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">Thêm câu hỏi</h4>
+    <h4 class="modal-title">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.TITLE'|translate }}</h4>
     <button (click)="d('Cross click')" aria-label="Close" class="btn-close" type="button"></button>
   </div>
 
@@ -14,37 +14,42 @@
       <div formArrayName="questions">
         <div *ngFor="let question of questionControls; let idx = index" [formGroupName]="idx">
           <div class="form-group mb-3">
-            <label for="type">Question Type</label>
+            <label for="type">Loại Câu Hỏi</label>
             <select (change)="changeType($event, idx)" class="form-select mb-3" formControlName="question_type_id" id="type">
               <option *ngFor="let qType of questionTypes" [ngValue]="qType.code">{{ qType.name }}</option>
             </select>
             <div [ngSwitch]="question.get('question_type_id')?.value">
               <div *ngSwitchCase="'fitb'">
                 <div class="form-group mb-3">
-                  <label class="form-label">Câu hỏi:</label>
+                  <label class="form-label">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.FITB.TITLE.LABEL'|translate }}</label>
                   <input class="form-control mb-2" formControlName="title" type="text">
                   <span *ngIf="!question.get('title')?.valid && question.get('title')?.touched"
                         class="text-danger">
-                     <span *ngIf="question.get('title')?.errors?.['required']">Vui lòng nhập câu hỏi!</span>
+                     <span
+                       *ngIf="question.get('title')?.errors?.['required']">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.FITB.TITLE.ERROR.REQUIRED'|translate }}</span>
                   </span>
                 </div>
                 <div class="form-group mb-3">
-                  <label class="form-label">Trọng số:</label>
+                  <label class="form-label">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.FITB.WEIGHT.LABEL'|translate }}</label>
                   <input class="form-control mb-2" formControlName="weighted" max="3" min="1" type="number">
                   <span *ngIf="!question.get('weighted')?.valid && question.get('weighted')?.touched"
                         class="text-danger">
-                     <span *ngIf="question.get('weighted')?.errors?.['required']">Vui lòng nhập trọng số điểm!</span>
-                     <span *ngIf="question.get('weighted')?.errors?.['min']">Trọng số phải >= 1 và <= 3!</span>
-                     <span *ngIf="question.get('weighted')?.errors?.['max']">Trọng số phải >= 1 và <= 3!</span>
+                     <span
+                       *ngIf="question.get('weighted')?.errors?.['required']">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.FITB.WEIGHT.ERROR.REQUIRED'|translate }}</span>
+                     <span
+                       *ngIf="question.get('weighted')?.errors?.['min']">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.FITB.WEIGHT.ERROR.MIN'|translate }}</span>
+                     <span
+                       *ngIf="question.get('weighted')?.errors?.['max']">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.FITB.WEIGHT.ERROR.MAX'|translate }}</span>
                   </span>
                 </div>
                 <div class="form-group mb-3" formArrayName="answers">
-                  <label class="form-label">Đáp án:</label>
+                  <label class="form-label">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.FITB.ANSWER.LABEL'|translate }}</label>
                   <div *ngFor="let answer of getAnswerControls(idx); let i = index" [formGroupName]="i">
                     <input class="form-control mb-2" formControlName="value" type="text">
                     <span *ngIf="!answer.get('value')?.valid && answer.get('value')?.touched"
                           class="text-danger">
-                     <span *ngIf="answer.get('value')?.errors?.['required']">Vui lòng nhập câu trả lời đúng!</span>
+                     <span
+                       *ngIf="answer.get('value')?.errors?.['required']">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.FITB.ANSWER.ERROR.REQUIRED'|translate }}</span>
                   </span>
                   </div>
                 </div>
@@ -53,106 +58,130 @@
                         name="plus-square-dotted"
                         width="20">
                   </i-bs>
-                  Thêm đáp án
+                  {{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.FITB.ANSWER.ADD_ANSWER'|translate }}
                 </button>
               </div>
               <div *ngSwitchCase="'mca'">
                 <div class="form-group mb-3">
-                  <label class="form-label">Câu hỏi:</label>
+                  <label class="form-label">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.MCA.TITLE.LABEL'|translate }}</label>
                   <input class="form-control mb-2" formControlName="title" type="text">
                   <span *ngIf="!question.get('title')?.valid && question.get('title')?.touched"
                         class="text-danger">
-                     <span *ngIf="question.get('title')?.errors?.['required']">Vui lòng nhập câu hỏi!</span>
+                     <span *ngIf="question.get('title')?.errors?.['required']">{{
+                         'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.MCA.TITLE.ERROR.REQUIRED'|translate
+                       }}</span>
                   </span>
                 </div>
                 <div class="form-group mb-3">
-                  <label class="form-label">Trọng số:</label>
+                  <label class="form-label">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.MCA.WEIGHT.LABEL'|translate }}</label>
                   <input class="form-control mb-2" formControlName="weighted" max="3" min="1" type="number">
                   <span *ngIf="!question.get('weighted')?.valid && question.get('weighted')?.touched"
                         class="text-danger">
-                     <span *ngIf="question.get('weighted')?.errors?.['required']">Vui lòng nhập trọng số điểm!</span>
-                     <span *ngIf="question.get('weighted')?.errors?.['min']">Trọng số phải >= 1 và <= 3!</span>
-                     <span *ngIf="question.get('weighted')?.errors?.['max']">Trọng số phải >= 1 và <= 3!</span>
+                     <span
+                       *ngIf="question.get('weighted')?.errors?.['required']">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.MCA.WEIGHT.ERROR.REQUIRED'|translate }}</span>
+                     <span
+                       *ngIf="question.get('weighted')?.errors?.['min']">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.MCA.WEIGHT.ERROR.MIN'|translate }}</span>
+                     <span
+                       *ngIf="question.get('weighted')?.errors?.['max']">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.MCA.WEIGHT.ERROR.MAX'|translate }}</span>
                   </span>
                 </div>
                 <div class="form-group mb-3" formArrayName="answers">
-                  <label class="form-label">Đáp án:</label>
+                  <label class="form-label">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.MCA.ANSWER.LABEL'|translate }}</label>
                   <div *ngFor="let answer of getAnswerControls(idx); let i = index" [formGroupName]="i" class="form-check">
                     <input class="form-check-input" formControlName="is_correct" id="answer{{i}}" type="checkbox" value="true">
                     <input class="form-control mb-2" formControlName="value" type="text">
                     <span
                       *ngIf="!answer.get('value')?.valid && answer.get('value')?.touched"
                       class="text-danger">
-                     <span *ngIf="answer.get('value')?.errors?.['required']">Vui lòng nhập câu trả lời!</span>
+                     <span
+                       *ngIf="answer.get('value')?.errors?.['required']">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.MCA.ANSWER.ERROR.REQUIRED'|translate }}</span>
                   </span>
                   </div>
                 </div>
               </div>
               <div *ngSwitchDefault>
                 <div class="form-group mb-3">
-                  <label class="form-label">Câu hỏi:</label>
+                  <label class="form-label">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.SCA.TITLE.LABEL'|translate }}</label>
                   <input class="form-control mb-2" formControlName="title" type="text">
                   <span *ngIf="!question.get('title')?.valid && question.get('title')?.touched"
                         class="text-danger">
-                     <span *ngIf="question.get('title')?.errors?.['required']">Vui lòng nhập câu hỏi!</span>
+                     <span
+                       *ngIf="question.get('title')?.errors?.['required']">{{
+                         'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.SCA.TITLE.ERROR.REQUIRED'|translate
+                       }}</span>
                   </span>
                 </div>
                 <div class="form-group mb-3">
-                  <label class="form-label">Trọng số:</label>
+                  <label class="form-label">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.SCA.WEIGHT.LABEL'|translate }}</label>
                   <input class="form-control mb-2" formControlName="weighted" max="3" min="1" type="number">
                   <span *ngIf="!question.get('weighted')?.valid && question.get('weighted')?.touched"
                         class="text-danger">
-                     <span *ngIf="question.get('weighted')?.errors?.['required']">Vui lòng nhập trọng số điểm!</span>
-                     <span *ngIf="question.get('weighted')?.errors?.['min']">Trọng số phải >= 1 và <= 3!</span>
-                     <span *ngIf="question.get('weighted')?.errors?.['max']">Trọng số phải >= 1 và <= 3!</span>
+                     <span
+                       *ngIf="question.get('weighted')?.errors?.['required']">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.SCA.WEIGHT.ERROR.REQUIRED'|translate }}</span>
+                     <span
+                       *ngIf="question.get('weighted')?.errors?.['min']">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.SCA.WEIGHT.ERROR.MIN'|translate }}</span>
+                     <span
+                       *ngIf="question.get('weighted')?.errors?.['max']">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.SCA.WEIGHT.ERROR.MAX'|translate }}</span>
                   </span>
                 </div>
                 <div class="form-group mb-3" formArrayName="answers">
-                  <label class="form-label">Đáp án:</label>
+                  <label class="form-label">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.SCA.ANSWER.LABEL'|translate }}</label>
                   <div class="mb-3" formGroupName="0">
-                    <label class="form-label">Đáp án sai:</label>
+                    <label class="form-label">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.SCA.ANSWER.WRONG_ANSWER.LABEL'|translate }}</label>
                     <input class="form-control mb-2" formControlName="value" type="text">
                     <!--                     Nó bị gạch chân thì kệ nó nha, đừng sửa -->
                     <span
                       *ngIf="!question.get('answers')?.get([0, 'value'])?.valid && question.get('answers')?.get([0, 'value'])?.touched"
                       class="text-danger">
-                    <span *ngIf="question.get('answers')?.get([0, 'value'])?.errors?.['required']">Vui lòng nhập câu trả lời!</span>
+                    <span
+                      *ngIf="question.get('answers')?.get([0, 'value'])?.errors?.['required']">{{
+                        'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.SCA.ANSWER.WRONG_ANSWER.ERROR.REQUIRED'|translate
+                      }}</span>
                                       </span>
                   </div>
                   <div class="mb-3" formGroupName="1">
-                    <label class="form-label">Đáp án sai:</label>
+                    <label class="form-label">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.SCA.ANSWER.WRONG_ANSWER.LABEL'|translate }}</label>
                     <input class="form-control mb-2" formControlName="value" type="text">
                     <!--                     Nó bị gạch chân thì kệ nó nha, đừng sửa -->
                     <span
                       *ngIf="!question.get('answers')?.get([1, 'value'])?.valid && question.get('answers')?.get([1, 'value'])?.touched"
                       class="text-danger">
-                    <span *ngIf="question.get('answers')?.get([1, 'value'])?.errors?.['required']">Vui lòng nhập câu trả lời!</span>
+                    <span *ngIf="question.get('answers')?.get([1, 'value'])?.errors?.['required']">{{
+                        'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.SCA.ANSWER.WRONG_ANSWER.ERROR.REQUIRED'|translate
+                      }}</span>
                                       </span>
                   </div>
                   <div class="mb-3" formGroupName="2">
-                    <label class="form-label">Đáp án sai:</label>
+                    <label class="form-label">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.SCA.ANSWER.WRONG_ANSWER.LABEL'|translate }}</label>
                     <input class="form-control mb-2" formControlName="value" type="text">
                     <!--                     Nó bị gạch chân thì kệ nó nha, đừng sửa -->
                     <span
                       *ngIf="!question.get('answers')?.get([2, 'value'])?.valid && question.get('answers')?.get([2, 'value'])?.touched"
                       class="text-danger">
-                    <span *ngIf="question.get('answers')?.get([2, 'value'])?.errors?.['required']">Vui lòng nhập câu trả lời!</span>
+                    <span *ngIf="question.get('answers')?.get([2, 'value'])?.errors?.['required']">{{
+                        'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.SCA.ANSWER.WRONG_ANSWER.ERROR.REQUIRED'|translate
+                      }}</span>
                                       </span>
                   </div>
                   <div class="mb-3" formGroupName="3">
-                    <label class="form-label">Đáp án đúng:</label>
+                    <label class="form-label">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.SCA.ANSWER.CORRECT_ANSWER.LABEL'|translate }}</label>
                     <input class="form-control mb-2" formControlName="value" type="text">
                     <!--                     Nó bị gạch chân thì kệ nó nha, đừng sửa -->
                     <span
                       *ngIf="!question.get('answers')?.get([3, 'value'])?.valid && question.get('answers')?.get([3, 'value'])?.touched"
                       class="text-danger">
-                    <span *ngIf="question.get('answers')?.get([3, 'value'])?.errors?.['required']">Vui lòng nhập câu trả lời!</span>
+                    <span *ngIf="question.get('answers')?.get([3, 'value'])?.errors?.['required']">{{
+                        'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.SCA.ANSWER.CORRECT_ANSWER.ERROR.REQUIRED'|translate
+                      }}</span>
                                       </span>
                   </div>
                 </div>
 
               </div>
-              <button (click)="onDeleteQuestion(idx)" class="btn-app-warning btn mb-3">Xóa câu hỏi</button>
+              <button (click)="onDeleteQuestion(idx)" class="btn-app-warning btn mb-3">{{
+                  'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.DELETE_QUESTION'|translate
+                }}
+              </button>
             </div>
 
           </div>
@@ -162,15 +191,20 @@
           <i-bs height="20"
                 name="plus-circle"
                 width="20"></i-bs>
-          Thêm câu hỏi
+          {{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.TITLE'|translate }}
         </button>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button (click)="openConfirmAdd()" class="btn btn-app" type="submit">Save</button>
-    <button (click)="d('Cancel click'); initForm()" class="btn btn-app-warning" type="button">Cancel</button>
-    <button (click)="d('Close click')" class="btn btn-app" type="button">Close</button>
+    <button (click)="openConfirmAdd()" class="btn btn-app" type="submit">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.SAVE'|translate }}
+    </button>
+    <button (click)="d('Cancel click'); initForm()" class="btn btn-app-warning" type="button">{{
+        'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.CANCEL'|translate
+      }}
+    </button>
+    <button (click)="d('Close click')" class="btn btn-app" type="button">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.ADD_QUESTIONS.CLOSE'|translate }}
+    </button>
   </div>
 
 </ng-template>

@@ -29,6 +29,21 @@
                 }}</span>
           </div>
         </div>
+        <div class="classroom-description mb-3 form-floating">
+          <input class="form-control" formControlName="standardPoint" id="floatingPoint" max="200" min="10" placeholder="">
+          <label for="floatingPoint">{{ 'CLASSROOM.CREATE_CLASS.STANDARD_POINT.LABEL'|translate }}</label>
+          <div *ngIf="!createClassForm.get('standardPoint')?.valid && createClassForm.get('standardPoint')?.touched" class="mt-1">
+              <span *ngIf="createClassForm.get('standardPoint')?.errors?.['required']" style="color: red;">{{
+                  'CLASSROOM.CREATE_CLASS.STANDARD_POINT.ERROR.REQUIRED'|translate
+                }}</span>
+            <span *ngIf="createClassForm.get('standardPoint')?.errors?.['min']" style="color: red;">{{
+                'CLASSROOM.CREATE_CLASS.STANDARD_POINT.ERROR.MIN'|translate
+              }}</span>
+            <span *ngIf="createClassForm.get('standardPoint')?.errors?.['max']" style="color: red;">{{
+                'CLASSROOM.CREATE_CLASS.STANDARD_POINT.ERROR.MAX'|translate
+              }}</span>
+          </div>
+        </div>
         <div class="row mb-3 g-1 d-flex justify-content-between align-items-center">
           <div class="form-check">
             <input class="form-check-input" formControlName="isPublic" id="flexRadioDefault1" type="radio"

@@ -257,7 +257,7 @@ export class EditLessonComponent implements OnInit {
         body = res;
       },
     );
-    modalConfirm.componentInstance.body = {value: 'Bạn có chắc chắn muốn lưu thay đổi không?'};
+    modalConfirm.componentInstance.body = {value: body};
     modalConfirm
     .result.then(
       (result) => {

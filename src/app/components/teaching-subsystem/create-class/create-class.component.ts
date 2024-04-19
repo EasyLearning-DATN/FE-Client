@@ -105,6 +105,7 @@ export class CreateClassComponent implements OnInit {
             name: this.createClassForm.get('name')?.value,
             description: this.createClassForm.get('description')?.value,
             isPublic: this.createClassForm.get('isPublic')?.value,
+            standardPoint: this.createClassForm.get('standardPoint')?.value,
             imageId: '',
           };
           // console.log(this.createTest);
@@ -173,6 +174,7 @@ export class CreateClassComponent implements OnInit {
       'name': new FormControl('', [Validators.required]),
       'description': new FormControl('', [Validators.required]),
       'isPublic': new FormControl('true', [Validators.required]),
+      'standardPoint': new FormControl(10, [Validators.required, Validators.min(10), Validators.max(200)]),
     });
   }
 
