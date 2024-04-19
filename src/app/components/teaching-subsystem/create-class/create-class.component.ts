@@ -35,7 +35,7 @@ export class CreateClassComponent implements OnInit {
 
   uploadImage(event: any) {
     if (event.target.files.length > 0) {
-      var reader = new FileReader();
+      let reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.onloadend = (e) => {
         this.urlImage = reader.result;

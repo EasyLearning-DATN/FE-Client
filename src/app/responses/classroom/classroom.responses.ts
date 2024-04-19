@@ -169,27 +169,40 @@
 //         ]
 //     }
 // }
-export interface ClassroomResponses { 
-    id: string;
-    name: string;
-    description: string;
-    creator: string;
-    image: {
-        url: string;
-        public_id: string;
-    };
-    tests: any[];
-    lessons: any[];
-    students: {
-        point: number;
-        user: {
-        user_info: {
-            id: number;
-            fullName: string;
-            avatar: any;
-        }
-        }
-    }[];
-    createdDate: string;
-    is_public: boolean;
+
+import {LessonResponses} from '../lesson/lesson.responses';
+import {TestResponses} from '../test/test.responses';
+import {UserInfoResponse} from '../user/user.responses';
+
+export interface ClassroomResponses {
+  id: string;
+  name: string;
+  description: string;
+  creator: UserInfoResponse;
+  image: {
+    url: string;
+    public_id: string;
+  };
+  tests: TestResponses[];
+  lessons: LessonResponses[];
+  students: {
+    point: number;
+    user: {
+      user_info: {
+        id: number;
+        fullName: string;
+        avatar: any;
+      }
+    }
+  }[];
+  createdDate: string;
+  is_public: boolean;
+  nameCreator: String;
+}
+
+export interface RoomMemberResponse {
+  point: number;
+  user: {
+    user_info: UserInfoResponse;
+  };
 }

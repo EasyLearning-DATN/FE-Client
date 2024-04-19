@@ -1,17 +1,15 @@
-import { Component, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ClassroomService } from 'src/app/services/classroom/classroom.service';
-import { SharedService } from 'src/app/services/shared/shared.service';
-import {MatTabsModule} from '@angular/material/tabs';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ClassroomService} from 'src/app/services/classroom/classroom.service';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-class-detail',
   templateUrl: './class-detail.component.html',
-  styleUrls: ['./class-detail.component.css']
+  styleUrls: ['./class-detail.component.css'],
 })
-export class ClassDetailComponent {
+export class ClassDetailComponent implements OnInit {
   classroom: any;
   studentEmail: string = '';
   @ViewChild('modal') modal: any;
@@ -19,8 +17,9 @@ export class ClassDetailComponent {
   constructor(
     private classroomService: ClassroomService,
     private route: ActivatedRoute,
-    private modalService: NgbModal
-  ) { }
+    private modalService: NgbModal,
+  ) {
+  }
 
   ngOnInit(): void {
     this.getClassroom();
@@ -29,7 +28,7 @@ export class ClassDetailComponent {
   getClassroom() {
     const id = this.route.snapshot.paramMap.get('id') as string;
     this.classroomService.getOneClassroom(id).subscribe((data: any) => {
-      this.classroom = data.data;
+      this.classroom = data;
       console.log(this.classroom.lessons);
     });
   }
@@ -46,7 +45,7 @@ export class ClassDetailComponent {
       },
       willClose: () => {
         Swal.hideLoading();
-      }
+      },
     });
     console.log(this.classroom.id);
     this.classroomService.inviteStudentToClassroom(this.classroom.id, emailStudent).subscribe((data: any) => {
@@ -60,6 +59,6 @@ export class ClassDetailComponent {
 
   openModal() {
     this.modalService.open(this.modal);
-}
+  }
 
 }

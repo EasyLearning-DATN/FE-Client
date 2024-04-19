@@ -11,6 +11,7 @@
 //         "locked": false
 //     }
 // }
+
 export interface UserResponse {
   username: string;
   fullName: string;
@@ -21,4 +22,14 @@ export interface UserResponse {
   id?: string;
   role: string;
   userInfoId?: number;
+}
+
+export interface UserInfoResponse {
+  id: number;
+  fullName: string;
+  avatar: {
+    url: string;
+    publicId: string;
+  };
+  username: string;
 }

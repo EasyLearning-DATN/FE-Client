@@ -7,6 +7,7 @@ import {CreateClassComponent} from '../../components/teaching-subsystem/create-c
 import {TeachingSubsystemComponent} from '../../components/teaching-subsystem/teaching-subsystem.component';
 import {authCanActivateChildGuard} from '../../guards/auth.can-activate-child.guard';
 import {teacherRoleCanActivateGuard} from '../../guards/teacher-role.can-activate.guard';
+import {classroomResolver} from '../../resolver/classroom.resolver';
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
       {path: 'invite', component: ClassListComponent},
       {path: 'create-classroom', component: CreateClassComponent},
       {
-        path: ':id', component: ClassDetailComponent, children: [
+        path: ':id', component: ClassDetailComponent, resolve: [classroomResolver], children: [
           {path: 'edit', component: ClassEditComponent, canActivate: [teacherRoleCanActivateGuard]},
         ],
       },

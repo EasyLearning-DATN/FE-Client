@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
+import * as console from 'node:console';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {ExamResultResponses} from 'src/app/responses/ExamResult/examresult.responses';
 import {TestResponses} from 'src/app/responses/test/test.responses';
 import {TestReportDTO, TestReportItemDTO} from '../../DTOS/test-report/test-report.dto';
 import {TempTest} from '../../DTOS/test/test.dto';
+import {ClassroomResponses} from '../../responses/classroom/classroom.responses';
 import {LessonResponses} from '../../responses/lesson/lesson.responses';
 import {QuestionTypeResponses} from '../../responses/question-type/question-type.responses';
 import {QuestionResponses} from '../../responses/question/question.responses';
@@ -24,12 +26,22 @@ export class SharedService {
   isFetching: Subject<boolean> = new Subject<boolean>();
   userInfoChanged = new Subject<UserResponse>();
   commentReplyChanged = new BehaviorSubject<any[]>([]);
+  classroomChanged = new Subject<ClassroomResponses>();
   nextQuestion: Subject<any> = new Subject<any>();
   isDoTest: Subject<boolean> = new Subject<boolean>();
 
   constructor() {
   }
 
+  private _classroom!: ClassroomResponses;
+
+  get classroom(): ClassroomResponses {
+    return this._classroom;
+  }
+
+  set classroom(value: ClassroomResponses) {
+    this._classroom = value;
+  }
 
   private _testReport!: TestReportResponse;
 
