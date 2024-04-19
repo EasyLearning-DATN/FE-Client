@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TeachingSubsystemComponent } from './TeachingSubsystemComponent';
+import {TeachingSubsystemComponent} from './teaching-subsystem.component';
 
 describe('TeachingSubsystemComponent', () => {
   let component: TeachingSubsystemComponent;
@@ -8,7 +8,7 @@ describe('TeachingSubsystemComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TeachingSubsystemComponent]
+      declarations: [TeachingSubsystemComponent],
     });
     fixture = TestBed.createComponent(TeachingSubsystemComponent);
     component = fixture.componentInstance;

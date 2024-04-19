@@ -1,22 +1,10 @@
-import { SharedService } from './../../../../../services/shared/shared.service';
-import { CommentService } from './../../../../../services/comment/comment.service';
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { CommentDTO } from 'src/app/DTOS/comment/comment.dto';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {TranslateService} from '@ngx-translate/core';
+import {CommentDTO} from 'src/app/DTOS/comment/comment.dto';
 import Swal from 'sweetalert2';
+import {TRANSLATE} from '../../../../../../environments/environments';
+import {CommentService} from '../../../../../services/comment/comment.service';
 
 @Component({
   selector: 'app-comment-item',
@@ -47,12 +35,14 @@ export class CommentItemComponent implements OnInit {
     contentReply: new FormControl(['']),
   });
 
-  @ViewChild('inputReplyRef', { static: false }) inputReplyRef!: ElementRef;
+  @ViewChild('inputReplyRef', {static: false}) inputReplyRef!: ElementRef;
 
   constructor(
     private fb: FormBuilder,
-    private commentService: CommentService
-  ) {}
+    private commentService: CommentService,
+    private translateService: TranslateService,
+  ) {
+  }
 
   ngOnInit() {
     this.timeDuration = this.getTimeDuration(this.comment.dateCreate);
@@ -67,21 +57,42 @@ export class CommentItemComponent implements OnInit {
     const dateComment = new Date(dateCreate);
     const currentDate = new Date();
     const duration = Math.floor(
-      (currentDate.getTime() - dateComment.getTime()) / 1000
+      (currentDate.getTime() - dateComment.getTime()) / 1000,
     );
+    let message = '';
     if (duration < 60) {
       // second
-      return `${duration} giây trước`;
+      this.translateService.stream(TRANSLATE.MESSAGE.TEXT.COMMENT_ITEM_001).subscribe(
+        res => {
+          message = res;
+        },
+      );
+      return `${duration} ${message}`;
     }
     if (duration < 60 * 60) {
       // minute
-      return `${Math.floor(duration / 60)} phút trước`;
+      this.translateService.stream(TRANSLATE.MESSAGE.TEXT.COMMENT_ITEM_002).subscribe(
+        res => {
+          message = res;
+        },
+      );
+      return `${Math.floor(duration / 60)}${message}`;
     }
     if (duration < 60 * 60 * 24) {
       // hour
-      return `${Math.floor(duration / 3600)} giờ trước`;
+      this.translateService.stream(TRANSLATE.MESSAGE.TEXT.COMMENT_ITEM_003).subscribe(
+        res => {
+          message = res;
+        },
+      );
+      return `${Math.floor(duration / 3600)} ${message}`;
     }
-    return `${Math.floor(duration / 86400)} ngày trước`;
+    this.translateService.stream(TRANSLATE.MESSAGE.TEXT.COMMENT_ITEM_004).subscribe(
+      res => {
+        message = res;
+      },
+    );
+    return `${Math.floor(duration / 86400)} ${message}`;
   }
 
   showFormReplyComment(id: string) {
@@ -117,7 +128,7 @@ export class CommentItemComponent implements OnInit {
         },
         (error) => {
           console.error(error);
-        }
+        },
       );
     } else if (!this.isLoadedListReply && this.listCommentReply.length > 0) {
       this.isLoadedListReply = true;
@@ -130,8 +141,14 @@ export class CommentItemComponent implements OnInit {
   }
 
   onReplyComment() {
+    let title = '';
+    this.translateService.stream(TRANSLATE.MESSAGE.PROGRESS.COMMENT_ITEM_001).subscribe(
+      res => {
+        title = res;
+      },
+    );
     Swal.fire({
-      title: 'Đang phản hồi bình luận ...',
+      title: title,
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
@@ -150,13 +167,14 @@ export class CommentItemComponent implements OnInit {
       };
       this.commentService.create(commentDTO).subscribe(
         (response: any) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Phản hồi bình luận thành công!',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'OK',
-          });
-          this.replyCommentF.setValue({ contentReply: '' });
+          // Swal.fire({
+          //   icon: 'success',
+          //   title: 'Phản hồi bình luận thành công!',
+          //   confirmButtonColor: '#3085d6',
+          //   confirmButtonText: 'OK',
+          // });
+          Swal.close();
+          this.replyCommentF.setValue({contentReply: ''});
           if (!this.isLoadedListReply) {
             this.listCommentReplyLocal.unshift(response.data);
           } else {
@@ -166,14 +184,21 @@ export class CommentItemComponent implements OnInit {
           this.isShowReplyForm = false;
         },
         (error) => {
+          Swal.close();
+          let title = '';
+          this.translateService.stream(TRANSLATE.MESSAGE.ERROR.COMMENT_ITEM_001).subscribe(
+            res => {
+              title = res;
+            },
+          );
           Swal.fire({
             icon: 'error',
-            title: 'Phản hồi bình luận thất bại!',
+            title: title,
             text: error.error.message,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'OK',
           });
-        }
+        },
       );
     }
   }

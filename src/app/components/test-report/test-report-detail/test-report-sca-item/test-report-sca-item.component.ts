@@ -46,7 +46,6 @@ export class TestReportScaItemComponent implements OnInit, AfterViewInit {
           this.setChosenElements(this.correctAnswerIndex, true);
           return;
         }
-
       },
     );
   }

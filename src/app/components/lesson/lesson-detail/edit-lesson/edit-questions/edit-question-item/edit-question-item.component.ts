@@ -1,7 +1,9 @@
 import {Component, ElementRef, inject, Input, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ModalDismissReasons, NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {TranslateService} from '@ngx-translate/core';
 import Swal from 'sweetalert2';
+import {TRANSLATE} from '../../../../../../../environments/environments';
 import {QuestionDTO} from '../../../../../../DTOS/question/question.dto';
 import {QuestionTypeResponses} from '../../../../../../responses/question-type/question-type.responses';
 import {QuestionResponses} from '../../../../../../responses/question/question.responses';
@@ -26,7 +28,7 @@ export class EditQuestionItemComponent implements OnInit {
   private closeResult!: string;
 
   constructor(private sharedService: SharedService, private questionService: QuestionService, private modalService: NgbModal,
-              private lessonService: LessonService) {
+              private lessonService: LessonService, private translateService: TranslateService) {
   }
 
   get answerControls() {
@@ -45,10 +47,16 @@ export class EditQuestionItemComponent implements OnInit {
   }
 
   openConfirmEdit() {
+    let title = '';
     if (!this.editQuestionForm.valid) {
+      this.translateService.stream(TRANSLATE.MESSAGE.ERROR.EDIT_QUESTION_ITEM_001).subscribe(
+        res => {
+          title = res;
+        },
+      );
       Swal.fire({
         icon: 'warning',
-        title: 'Vui lòng nhập đủ thông tin!',
+        title: title,
         confirmButtonColor: '#3085d6',
         confirmButtonText: 'OK',
       });
@@ -63,7 +71,7 @@ export class EditQuestionItemComponent implements OnInit {
 
     const confirmModal = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    confirmModal.componentInstance.body = 'Bạn có chắc chắn muốn chỉnh sửa câu hỏi này không?';
+    confirmModal.componentInstance.body = {value: TRANSLATE.MESSAGE.CONFIRM_MODAL.EDIT_QUESTION_ITEM_UPDATE};
     confirmModal
     .result.then(
       (result) => {
@@ -74,8 +82,13 @@ export class EditQuestionItemComponent implements OnInit {
           this.updatedQuestion.lesson_id = this.lessonId;
           this.updatedQuestion.weighted = Number.parseFloat(String(this.updatedQuestion.weighted));
           // console.log(this.updatedQuestion);
+          this.translateService.stream(TRANSLATE.MESSAGE.PROGRESS.EDIT_QUESTION_ITEM_001).subscribe(
+            res => {
+              title = res;
+            },
+          );
           Swal.fire({
-            title: 'Đang cập nhật câu hỏi...',
+            title: title,
             allowOutsideClick: false,
             didOpen: () => {
               Swal.showLoading();
@@ -85,9 +98,14 @@ export class EditQuestionItemComponent implements OnInit {
             (response) => {
               console.log(response);
               Swal.close();
+              this.translateService.stream(TRANSLATE.MESSAGE.SUCCESS.EDIT_QUESTION_ITEM_001).subscribe(
+                res => {
+                  title = res;
+                },
+              );
               Swal.fire({
                 icon: 'success',
-                title: 'Cập nhật câu hỏi thành công!',
+                title: title,
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK',
               });
@@ -101,9 +119,14 @@ export class EditQuestionItemComponent implements OnInit {
             }, error => {
               console.log(error);
               Swal.close();
+              this.translateService.stream(TRANSLATE.MESSAGE.ERROR.EDIT_QUESTION_ITEM_002).subscribe(
+                res => {
+                  title = res;
+                },
+              );
               Swal.fire({
                 icon: 'error',
-                title: 'Cập nhật câu hỏi thất bại!',
+                title: title,
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK',
               });

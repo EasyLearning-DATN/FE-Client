@@ -1,13 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { CommentDTO } from 'src/app/DTOS/comment/comment.dto';
-import { CommentService } from 'src/app/services/comment/comment.service';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {TranslateService} from '@ngx-translate/core';
+import {CommentDTO} from 'src/app/DTOS/comment/comment.dto';
+import {CommentService} from 'src/app/services/comment/comment.service';
 import Swal from 'sweetalert2';
+import {TRANSLATE} from '../../../../../environments/environments';
 
 @Component({
   selector: 'app-comment',
@@ -28,8 +25,10 @@ export class CommentComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private commentService: CommentService
-  ) {}
+    private commentService: CommentService,
+    private translateService: TranslateService,
+  ) {
+  }
 
   ngOnInit() {
     this.createCommentF = this.fb.group({
@@ -49,13 +48,19 @@ export class CommentComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-      }
+      },
     );
   }
 
   onCreateComment() {
+    let title = '';
+    this.translateService.stream(TRANSLATE.MESSAGE.PROGRESS.COMMENT_001).subscribe(
+      res => {
+        title = res;
+      },
+    );
     Swal.fire({
-      title: 'Đang tạo bình luận ...',
+      title: title,
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
@@ -68,29 +73,37 @@ export class CommentComponent implements OnInit {
     if (this.createCommentF.valid) {
       const commentDTO = new CommentDTO(
         this.createCommentF.value.comment,
-        this.lessonId
+        this.lessonId,
       );
+      let title = '';
       this.commentService.create(commentDTO).subscribe(
         (response: any) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Tạo bình luận thành công!',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'OK',
-          });
-          this.createCommentF.setValue({ comment: '' });
+          // Swal.fire({
+          //   icon: 'success',
+          //   title: 'Tạo bình luận thành công!',
+          //   confirmButtonColor: '#3085d6',
+          //   confirmButtonText: 'OK',
+          // });
+          Swal.close();
+          this.createCommentF.setValue({comment: ''});
           this.listComment.unshift(response.data);
           this.updateTotalCMT.emit();
         },
         (error) => {
+          this.translateService.stream(TRANSLATE.MESSAGE.ERROR.COMMENT_001).subscribe(
+            res => {
+              title = res;
+            },
+          );
+          Swal.close();
           Swal.fire({
             icon: 'error',
-            title: 'Tạo bình luận thất bại!',
+            title: title,
             text: error.error.message,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'OK',
           });
-        }
+        },
       );
     }
   }

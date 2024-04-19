@@ -1,13 +1,15 @@
 import {Component, Input, OnDestroy, OnInit, TemplateRef} from '@angular/core';
-import {SharedService} from "../../../../../services/shared/shared.service";
-import {ModalDismissReasons, NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
-import {QuestionTypeResponses} from "../../../../../responses/question-type/question-type.responses";
-import Swal from "sweetalert2";
-import {QuestionResponses} from "../../../../../responses/question/question.responses";
-import {ConfirmModalComponent} from "../../../../commons/confirm-modal/confirm-modal.component";
-import {QuestionService} from "../../../../../services/question/question.service";
-import {EditQuestionItemComponent} from "./edit-question-item/edit-question-item.component";
-import {LessonService} from "../../../../../services/lesson/lesson.service";
+import {ModalDismissReasons, NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
+import {TranslateService} from '@ngx-translate/core';
+import Swal from 'sweetalert2';
+import {TRANSLATE} from '../../../../../../environments/environments';
+import {QuestionTypeResponses} from '../../../../../responses/question-type/question-type.responses';
+import {QuestionResponses} from '../../../../../responses/question/question.responses';
+import {LessonService} from '../../../../../services/lesson/lesson.service';
+import {QuestionService} from '../../../../../services/question/question.service';
+import {SharedService} from '../../../../../services/shared/shared.service';
+import {ConfirmModalComponent} from '../../../../commons/confirm-modal/confirm-modal.component';
+import {EditQuestionItemComponent} from './edit-question-item/edit-question-item.component';
 
 @Component({
   selector: 'app-edit-questions',
@@ -25,13 +27,13 @@ export class EditQuestionsComponent implements OnInit, OnDestroy {
   private closeResult!: string;
 
   constructor(private sharedService: SharedService, private modalService: NgbModal, private config: NgbModalConfig,
-    private questionService: QuestionService, private lessonService: LessonService) {
+              private questionService: QuestionService, private lessonService: LessonService, private translateService: TranslateService) {
   }
 
 
   ngOnInit() {
     // this.questionTypes = this.sharedService.questionTypeResponses;
-    this.questionTypes = JSON.parse(<string>sessionStorage.getItem("questionTypes"));
+    this.questionTypes = JSON.parse(<string>sessionStorage.getItem('questionTypes'));
     this.questions = this.sharedService.lesson.questions;
     this.sharedService.lessonChanged.subscribe(
       (lesson) => {
@@ -77,18 +79,29 @@ export class EditQuestionsComponent implements OnInit, OnDestroy {
   }
 
   onDeleteQuestion(id: string) {
-    if (this.questions.length === 1) {
+    let title = '';
+
+    if (this.questions.length===1) {
+      this.translateService.stream(TRANSLATE.MESSAGE.ERROR.EDIT_QUESTIONS_001).subscribe(
+        res => {
+          title = res;
+        },
+      );
       Swal.fire({
         icon: 'error',
-        title: 'Không thể xóa câu hỏi!',
-        text: 'Bài học phải có ít nhất 1 câu hỏi!',
+        title: title,
+        text: '',
         confirmButtonColor: '#3085d6',
         confirmButtonText: 'OK',
       });
     } else {
-
+      this.translateService.stream(TRANSLATE.MESSAGE.PROGRESS.EDIT_QUESTIONS_001).subscribe(
+        res => {
+          title = res;
+        },
+      );
       Swal.fire({
-        title: 'Đang xóa câu hỏi...',
+        title: title,
         allowOutsideClick: false,
         didOpen: () => {
           Swal.showLoading();
@@ -97,10 +110,14 @@ export class EditQuestionsComponent implements OnInit, OnDestroy {
       this.questionService.deleteQuestion(id).subscribe(
         (response) => {
           Swal.close();
+          this.translateService.stream(TRANSLATE.MESSAGE.SUCCESS.EDIT_QUESTIONS_001).subscribe(
+            res => {
+              title = res;
+            },
+          );
           Swal.fire({
             icon: 'success',
-            title: 'Xóa câu hỏi thành công!',
-            text: 'Bạn đã thành công xóa câu hỏi này!',
+            title: title,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'OK',
           });
@@ -113,9 +130,15 @@ export class EditQuestionsComponent implements OnInit, OnDestroy {
         }, error => {
           console.log(error);
           Swal.close();
+          this.translateService.stream(TRANSLATE.MESSAGE.ERROR.EDIT_QUESTIONS_002).subscribe(
+            res => {
+              title = res;
+            },
+          );
           Swal.fire({
             icon: 'error',
-            title: 'Xóa câu hỏi thất bại!',
+            title: title,
+            text: error.error.message,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'OK',
           });
@@ -128,13 +151,13 @@ export class EditQuestionsComponent implements OnInit, OnDestroy {
 
   openConfirmDelete(id: string) {
     const confirmModal = this.modalService.open(ConfirmModalComponent);
-    confirmModal.componentInstance.body = "Bạn có chắc chắn muốn xóa câu hỏi khỏi bài học này không?";
+    confirmModal.componentInstance.body = TRANSLATE.MESSAGE.CONFIRM_MODAL.EDIT_QUESTIONS_DELETE;
     confirmModal
     .result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.closeResult);
-        if (result === 'Confirm') {
+        if (result==='Confirm') {
           this.onDeleteQuestion(id);
           console.log(result);
         }
