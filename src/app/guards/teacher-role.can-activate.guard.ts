@@ -1,14 +1,13 @@
 import {inject} from '@angular/core';
 import {CanActivateFn, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {lastValueFrom} from 'rxjs';
 import Swal from 'sweetalert2';
 import {TRANSLATE} from '../../environments/environments';
 import {RoleResponse} from '../responses/role/role.response';
 import {UserResponse} from '../responses/user/user.responses';
 import {UserService} from '../services/user/user-service.service';
 
-export const teacherRoleCanActivateGuard: CanActivateFn = async (route, state) => {
+export const teacherRoleCanActivateGuard: CanActivateFn = (route, state) => {
   const user: string | null = localStorage.getItem('userInfo');
   const router = inject(Router);
   const userService = inject(UserService);
@@ -18,8 +17,7 @@ export const teacherRoleCanActivateGuard: CanActivateFn = async (route, state) =
   } else {
     const userInfo: UserResponse = JSON.parse(user);
     let roles: RoleResponse[];
-    let roles$ = userService.getRoleUser(userInfo.id);
-    await lastValueFrom(roles$).then(
+    userService.getRoleUser(userInfo.id).subscribe(
       res => {
         let isEduAcc = false;
         roles = res.data;
@@ -51,9 +49,8 @@ export const teacherRoleCanActivateGuard: CanActivateFn = async (route, state) =
         } else {
           return router.createUrlTree(['/upgrade']);
         }
-      }).catch(
-      reason => {
-        console.log(reason);
+      }, error => {
+        console.log(error);
         return router.createUrlTree(['/upgrade']);
       },
     );

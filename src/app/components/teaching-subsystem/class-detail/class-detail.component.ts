@@ -4,6 +4,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ClassroomService} from 'src/app/services/classroom/classroom.service';
 import Swal from 'sweetalert2';
 import {ClassroomResponses} from '../../../responses/classroom/classroom.responses';
+import {SharedService} from '../../../services/shared/shared.service';
 
 @Component({
   selector: 'app-class-detail',
@@ -19,6 +20,7 @@ export class ClassDetailComponent implements OnInit {
     private classroomService: ClassroomService,
     private route: ActivatedRoute,
     private modalService: NgbModal,
+    private sharedService: SharedService,
   ) {
   }
 
@@ -28,10 +30,16 @@ export class ClassDetailComponent implements OnInit {
 
   getClassroom() {
     const id = this.route.snapshot.paramMap.get('id') as string;
-    this.classroomService.getOneClassroom(id).subscribe((data: any) => {
-      this.classroom = data;
-      console.log(this.classroom.lessons);
-    });
+    this.classroom = this.sharedService.classroom;
+    this.sharedService.classroomChanged.subscribe(
+      res => {
+        this.classroom = res;
+      },
+    );
+    // this.classroomService.getOneClassroom(id).subscribe((data: any) => {
+    //   this.classroom = data;
+    //   console.log(this.classroom.lessons);
+    // });
   }
 
   // invite students to join the class
