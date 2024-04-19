@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import * as console from 'node:console';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {ExamResultResponses} from 'src/app/responses/ExamResult/examresult.responses';
 import {TestResponses} from 'src/app/responses/test/test.responses';
