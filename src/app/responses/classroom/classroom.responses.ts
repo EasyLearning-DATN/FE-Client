@@ -185,18 +185,10 @@ export interface ClassroomResponses {
   };
   tests: TestResponses[];
   lessons: LessonResponses[];
-  students: {
-    point: number;
-    user: {
-      user_info: {
-        id: number;
-        fullName: string;
-        avatar: any;
-      }
-    }
-  }[];
+  students: RoomMemberResponse[];
   createdDate: string;
   is_public: boolean;
+  standardPoint: number;
   nameCreator: String;
 }
 
