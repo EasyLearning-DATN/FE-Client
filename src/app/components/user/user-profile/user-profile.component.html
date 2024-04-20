@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="container">
+        <div class="user-profile mb-5">
+            <div class="row">
+                <div class="col-md-auto">
+                    <img [ngSrc]="user.avatar.url || '...\src\assets\img\commons\default_user.jpeg'" alt="img-user"
+                        class="avatar" height="100" width="100">
+                </div>
+                <div class="col-md-8 d-flex align-items-md-center">
+                    <div>
+                        <div class="title-name">
+                            <span class="username">{{ user.username }}</span>
+                            <span *ngIf="role == 'teacher'" class="role">{{ role }}</span>
+                        </div>
+                        <span class="fullname">{{ user.fullName }}</span><br>
+                    </div>
+                </div>
+                <div class="col-md-auto d-flex align-items-md-center">
+                    <div class="dropdown" ngbDropdown>
+                        <button class="btn-dropdown" type="button" data-bs-toggle="dropdown">
+                            <fa-icon [icon]="['fas', 'ellipsis-h']"></fa-icon>
+                        </button>
+                        <ul ngbDropdownMenu>
+                            <li><a ngbDropdownItem class="cursos">
+                                <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon><span class="mx-3">Báo cáo</span>
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <ul ngbNav #nav="ngbNav" class="nav-underline">
+                <li ngbNavItem>
+                    <button ngbNavLink>Danh sách bài học</button>
+                    <ng-template ngbNavContent><app-lessons></app-lessons></ng-template>
+                </li>
+                <li ngbNavItem>
+                    <button ngbNavLink>Danh sách bài thi</button>
+                    <ng-template ngbNavContent><app-tests></app-tests></ng-template>
+                </li>
+                <li ngbNavItem *ngIf="userResponse?.username === user.username">
+                    <button ngbNavLink>Danh sách lớp</button>
+                    <ng-template ngbNavContent><app-classes></app-classes></ng-template>
+                </li>
+            </ul>
+            <div [ngbNavOutlet]="nav"></div>
+        </div>
+    </div>
+</div>

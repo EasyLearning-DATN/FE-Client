@@ -19,6 +19,7 @@ export class ClassroomService {
   private apiGetOneClassroom = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_CLASSROOM;
   private apiInviteStudent = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_CLASSROOM + environment.API_INVITE_STUDENT;
   private apiJoinClassroom = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_CLASSROOM + environment.API_JOIN_CLASSROOM;
+  private apiGetClasses = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_CLASSROOM;
 
   constructor(private http: HttpClient, private sharedService: SharedService, private router: Router) {
   }
@@ -29,6 +30,19 @@ export class ClassroomService {
 
   getAllClassroom() {
     return this.http.get(this.apiGetAllClassroom);
+  }
+
+  getClasses(key: string, page: number, username: string) {
+    return this.http.get(this.apiGetClasses, {
+      params: {
+        key: key,
+        sort: "des",
+        page: page,
+        limit: 9,
+        sortBy: "createdDate",
+        username: username,
+      },
+    });
   }
 
   getOneClassroom(id: string) {

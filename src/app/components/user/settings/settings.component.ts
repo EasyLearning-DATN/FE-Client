@@ -29,7 +29,7 @@ export class SettingsComponent implements OnInit {
   });
   checkUpdate: boolean = false;
   image: string = '';
-  role: any = '';
+  // role: any = '';
   lang!: string;
   private closeResult = '';
 
@@ -42,7 +42,6 @@ export class SettingsComponent implements OnInit {
 
 
   ngOnInit() {
-
     this.lang = localStorage.getItem('lang') || 'vi';
     this.langForm.get('lang')?.setValue(this.lang);
 
@@ -53,12 +52,12 @@ export class SettingsComponent implements OnInit {
     );
     // truyển userResponse từ localStorage
     this.user = JSON.parse(localStorage.getItem('userInfo') || '');
-    this.userService.getRoleUser(this.user.id)
-    .subscribe(
-      (response: any) => {
-        this.role = response.data[0].role;
-      },
-    );
+    // this.userService.getRoleUser(this.user.id)
+    // .subscribe(
+    //   (response: any) => {
+    //     this.role = response.data[0].role;
+    //   },
+    // );
     this.userInfoChangeForm = new FormGroup({
       fullName: new FormControl(this.user.fullName, [Validators.required]),
       email: new FormControl(this.user.email, [Validators.required, Validators.email]),

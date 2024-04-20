@@ -11,7 +11,7 @@ import {QuestionResponses} from '../../responses/question/question.responses';
 import {ResultTypeResponses} from '../../responses/result_type_id/result_type.responses';
 import {SearchLessonResponses} from '../../responses/search-lesson/search-lesson.responses';
 import {TestReportResponse} from '../../responses/test-report/test-report.responses';
-import {UserResponse} from '../../responses/user/user.responses';
+import {UserInfoResponse, UserResponse} from '../../responses/user/user.responses';
 
 @Injectable({
   providedIn: 'root',
@@ -219,6 +219,16 @@ export class SharedService {
 
   set testsHome(value: TestResponses[]) {
     this._testsHome = value;
+  }
+
+  private _user!: UserInfoResponse;
+
+  get user(): UserInfoResponse {
+    return this._user;
+  }
+
+  set user(value: UserInfoResponse) {
+    this._user = value;
   }
 
   checkLogin() {

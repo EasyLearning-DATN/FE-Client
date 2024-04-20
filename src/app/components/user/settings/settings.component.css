@@ -4,7 +4,7 @@
 }
 
 .title {
-    font-size: 26px;
+    font-size: 2rem;
     font-weight: bold;
     text-decoration: underline #D0D0D0;
     text-align: left;
@@ -22,7 +22,7 @@
 }
 
 .name-user {
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: bold;
 }
 
