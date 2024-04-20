@@ -109,7 +109,7 @@
             }}</span>
         </button>
         <ul ngbDropdownMenu>
-          <li><a [routerLink]="['/']" ngbDropdownItem>{{ 'HEADER.USER_PROFILE'|translate }}</a></li>
+          <li><a [href]="'/user/' + userResponse?.username"  ngbDropdownItem>{{ 'HEADER.USER_PROFILE'|translate }}</a></li>
           <li>
             <a [routerLink]="['/user/settings']" ngbDropdownItem>{{ 'HEADER.SETTING'|translate }}</a>
           </li>

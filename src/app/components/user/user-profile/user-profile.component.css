@@ -1,0 +1,68 @@
+.title {
+    font-size: 26px;
+    font-weight: bold;
+    text-decoration: underline #D0D0D0;
+    text-align: left;
+    margin: 0 0 10px 0;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    margin: 5px 0 0 0;
+    display: block;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.title-name {
+    display: flex;
+    align-items: center;
+}
+
+.username {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.role {
+    display: inline-flex;
+    gap: 0.25rem;
+    width: fit-content;
+    height: 1.25rem;
+    padding: 0.5rem;
+    font-weight: 600;
+    font-size: 0.75rem;
+    background-color: #d9dde8;
+    color: #2e3856;
+    align-items: center;
+    border-radius: 12.5rem;
+    margin-left: 0.25rem;
+}
+
+.fullname {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #939bb4;
+}
+
+.btn-dropdown {
+    align-items: center;
+    border: 0.125rem solid;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    font: inherit;
+    justify-content: center;
+    position: relative;
+    width: fit-content;
+    color: #586380;
+    border-color: #d9dde8;
+    padding: 0.4rem 0.8rem;
+}
+
+.cursos {
+    cursor: pointer;
+}

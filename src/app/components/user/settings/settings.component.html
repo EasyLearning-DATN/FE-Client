@@ -4,7 +4,7 @@
     <div class="user-profile mb-5">
       <div class="row">
         <div class="col-md-auto">
-          <img [ngSrc]="user.avatar ?user.avatar :'assets/img/commons/default_user.jpeg'" alt="" class="avatar" height="150" width="150">
+          <img [ngSrc]="user.avatar ? user.avatar : '...\src\assets\img\commons\default_user.jpeg'" alt="" class="avatar" height="150" width="150">
         </div>
         <div class="col-sm-6 d-flex align-items-md-center">
           <div>
@@ -16,7 +16,7 @@
                 <fa-icon [icon]="['fas', 'trophy']"></fa-icon>
               </div>
               <div class="col-auto p-0">
-                <span>{{ role }}</span><br>
+                <span>{{ user.role }}</span><br>
                 <!-- <span>100k Theo dõi</span> -->
               </div>
             </div>

@@ -5,9 +5,12 @@ import {ChangePassDTO} from 'src/app/DTOS/user/changePass.dto';
 import {LoginDTO} from 'src/app/DTOS/user/login.dto';
 import {SignupDTO} from 'src/app/DTOS/user/signup.dto';
 import {UpdateInfoDTO} from 'src/app/DTOS/user/updateInfo.dto';
-import {UserResponse} from 'src/app/responses/user/user.responses';
+import {UserInfoResponse, UserResponse} from 'src/app/responses/user/user.responses';
 import {environment} from 'src/environments/environments';
 import {ContinueGoogoleDto} from '../../DTOS/user/continueGoogole.dto';
+import { map, tap } from 'rxjs';
+import { SharedService } from '../shared/shared.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -25,8 +28,9 @@ export class UserService {
   private apiLockAccount = `${environment.apiMember}/user/lock`;
   private apiChangePassword = `${environment.apiMember}/user/password`;
   private apiContinueGoogle = `${environment.apiExternal}/user/continue-google`;
+  private apiGetOneUser = environment.apiExternal + environment.API_USER;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private sharedService: SharedService, private router: Router) {
   }
 
   login(loginDTO: LoginDTO): Observable<any> {
@@ -125,6 +129,21 @@ export class UserService {
       userID,
       roleIds: ['1ea38000-e236-4291-8f2e-8023ca323479'],
     });
+  }
+
+  getOneUser(username: string): Observable<any> {
+    return this.http.get<any>(this.apiGetOneUser + '/' + username).pipe(
+      map((response) => {
+        let user: UserInfoResponse = response;
+        return {...user};
+      }),
+      tap((user: UserInfoResponse) => {
+          this.sharedService.user = user;
+        }, error => {
+          console.log(error.message);
+          this.router.navigate(['404']);
+        },
+      ));
   }
 }
 

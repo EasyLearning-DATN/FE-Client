@@ -67,6 +67,29 @@ export class LessonService {
       }));
   }
 
+  getListLessonByUsername(key: string, page: number, username: string) {
+    return this.http.get<any>(this.apiGetListLessonByUser, {
+      params: {
+        key: key,
+        sort: "des",
+        page: page,
+        limit: 9,
+        sortBy: "createdDate",
+        username: username,
+      },
+    })
+    .pipe(
+      map((response) => {
+        let lessons: LessonsResponses = response.data;
+        lessons.data = lessons.data.map(lesson => {
+          return {...lesson, questions: lesson.questions ? lesson.questions : []};
+        });
+        return lessons;
+      }),
+      tap((lessons: LessonsResponses) => {
+      }));
+  }
+
   searchLesson(key: string) {
     let searchParams = new HttpParams().set('key', key);
     return this.http.get<any>(this.apiSearchLesson, {

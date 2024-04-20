@@ -18,6 +18,7 @@ export class TestService {
   private apiGetTest = environment.API_URL + environment.API_PUBLIC + environment.VERSION_1 + environment.API_TEST;
   private apiUpdateTest = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_TEST;
   private apiDeleteTest = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_TEST;
+  private apiGetListTestByUser = environment.API_URL + environment.API_PUBLIC + environment.VERSION_1 + environment.API_TEST;
 
   constructor(private http: HttpClient, private sharedService: SharedService, private router: Router, private cookieService: CookieService) {
   }
@@ -59,6 +60,29 @@ export class TestService {
       }),
       tap((tests: TestListResponses) => {
         this.sharedService.testsHome = tests.data;
+      }));
+  }
+
+  getListTestByUsername(key: string, page: number, username: string) {
+    return this.http.get<any>(this.apiGetListTestByUser, {
+      params: {
+        key: key,
+        sort: "des",
+        page: page,
+        limit: 9,
+        sortBy: "createdDate",
+        username: username,
+      },
+    })
+    .pipe(
+      map((response) => {
+        let tests: TestListResponses = response.data;
+        tests.data = tests.data.map(test => {
+          return {...test, questions: test.question_tests ? test.question_tests : []};
+        });
+        return tests;
+      }),
+      tap((tests: TestListResponses) => {
       }));
   }
 
