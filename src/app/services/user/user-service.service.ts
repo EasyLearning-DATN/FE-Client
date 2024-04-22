@@ -124,10 +124,10 @@ export class UserService {
   }
 
 
-  updateRoleUser(userID: any): Observable<any> {
+  updateRoleUser(userID: any, roleIds: any): Observable<any> {
     return this.http.put(this.apiGetRole, {
       userID,
-      roleIds: ['1ea38000-e236-4291-8f2e-8023ca323479'],
+      roleIds: [roleIds]
     });
   }
 

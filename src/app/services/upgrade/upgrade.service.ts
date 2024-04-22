@@ -23,8 +23,8 @@ export class UpgradeService {
     return this.http.post(`localhost/pay`, formData, {headers, responseType: 'text'});
   }
 
-  MoMo(amount: any) {
-    return this.http.post(this.apiPaymentMoMo + `/create-order?amount=${amount}`, null);
+  MoMo(amount: any, packageId: any) {
+    return this.http.post(this.apiPaymentMoMo + `/create-order?amount=${amount}&packageId=${packageId}`, null);
   }
 
   getAllPackage() {

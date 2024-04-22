@@ -21,17 +21,18 @@ export class PaymentSuccessComponent implements OnInit {
   total: string = '';
   order_id: string = '';
   user_info_id: string = '';
-  package_upgrade_id : string = '';
+  package_upgrade_id: string = '';
   method_payment: string = '';
   status: string = '';
 
   constructor(
     private userService: UserService,
-    private paymentService: PaymentSuccessService) { } // Inject HttpClient
+    private paymentService: PaymentSuccessService,
+    private route: ActivatedRoute) { } // Inject HttpClient
 
-    getUserInfoId() {
-      
-    }
+  getUserInfoId() {
+
+  }
 
   ngOnInit() {
     this.userResponse = JSON.parse(localStorage.getItem('userInfo') || '');
@@ -41,16 +42,27 @@ export class PaymentSuccessComponent implements OnInit {
     this.total = queryParams.get('amount') || '';
     this.order_id = queryParams.get('orderId') || '';
     this.user_info_id = this.userResponse?.id || '';
-    this.package_upgrade_id = 'dab71654-efb3-42d4-848b-79e70df55851';
     this.method_payment = 'momo';
-    if (queryParams.get('message') === 'Success')
-    {
+    if (queryParams.get('message') === 'Success') {
       this.status = 'paid';
       console.log(queryParams.get('message'));
-    } else { 
+    } else {
       this.status = 'unpaid';
     }
     console.log(this.user_info_id);
+
+    // Trích xuất giá trị của id từ URL
+    this.route.queryParams.subscribe(params => {
+      const idParam = params['orderInfo'];
+      if (idParam) {
+        const match = idParam.match(/id=([^&]+)/);
+        if (match && match[1]) {
+          this.package_upgrade_id = match[1];
+          console.log("package: " + this.package_upgrade_id)
+        }
+      }
+    });
+
     this.fetchCreateInvoice();
   }
 
@@ -62,7 +74,7 @@ export class PaymentSuccessComponent implements OnInit {
       order_id: this.order_id,
       user_info_id: this.user_info_id,
       package_upgrade_id: this.package_upgrade_id,
-      method_payment : this.method_payment,
+      method_payment: this.method_payment,
       status: this.status
     }).subscribe(
       (response) => {
@@ -70,7 +82,7 @@ export class PaymentSuccessComponent implements OnInit {
         console.log(this.trans_id, this.status)
       },
       (error) => {
-        
+
       }
     );
   }
@@ -80,7 +92,7 @@ export class PaymentSuccessComponent implements OnInit {
     this.paymentService.checkStatus(this.order_id, this.requestId).subscribe(
       (response: any) => {
         if (response.message === "Success") {
-          this.userService.updateRoleUser(this.user_info_id).subscribe(
+          this.userService.updateRoleUser(this.user_info_id, this.package_upgrade_id).subscribe(
             (response) => {
               console.log('Update role user:', response);
             },

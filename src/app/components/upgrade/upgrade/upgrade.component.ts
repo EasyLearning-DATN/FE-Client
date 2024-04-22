@@ -12,6 +12,7 @@ export class UpgradeComponent implements OnInit{
   isLogin: any
   packages: any;
   amount: any;
+  packageId: any;
   role = localStorage.getItem('userInfo.role');
   @ViewChild('paymentModal') paymentModal: any;
 
@@ -26,8 +27,9 @@ export class UpgradeComponent implements OnInit{
     console.log(this.isLogin);
   }
 
-  openPaymentModal(price: number) {
+  openPaymentModal(price: number, id: any) {
     this.amount = price;
+    this.packageId = id;
     this.paymentModal.nativeElement.style.display = 'block';
   }
 
@@ -63,7 +65,7 @@ export class UpgradeComponent implements OnInit{
     }
     const id = JSON.parse(userString).id;
     // gọi service
-    this.upgradeSrv.MoMo(this.amount).subscribe((res: any) => {
+    this.upgradeSrv.MoMo(this.amount, this.packageId).subscribe((res: any) => {
       console.log(res.payUrl);
       window.open(res.payUrl, '_blank');
     }, err => {
