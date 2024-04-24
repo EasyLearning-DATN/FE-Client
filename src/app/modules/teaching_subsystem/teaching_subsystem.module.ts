@@ -12,6 +12,7 @@ import {LearningTestModule} from '../learning-test/learning-test.module';
 import {SharedModule} from '../shared/shared.module';
 import {TeachingSubsystemRoutingModule} from './teaching_subsystem-routing.module';
 import {ClassEditComponent} from "../../components/teaching-subsystem/class-edit/class-edit.component";
+import { CreateLessonComponent } from 'src/app/components/teaching-subsystem/create-lesson/create-lesson.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {ClassEditComponent} from "../../components/teaching-subsystem/class-edit
     ClassListComponent,
     ClassDetailComponent,
     CreateClassComponent,
+    CreateLessonComponent,
     ClassEditComponent
   ],
   imports: [

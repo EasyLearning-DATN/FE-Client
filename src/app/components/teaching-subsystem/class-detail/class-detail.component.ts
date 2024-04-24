@@ -5,6 +5,7 @@ import {ClassroomService} from 'src/app/services/classroom/classroom.service';
 import Swal from 'sweetalert2';
 import {ClassroomResponses} from '../../../responses/classroom/classroom.responses';
 import {SharedService} from '../../../services/shared/shared.service';
+import { LessonService } from 'src/app/services/lesson/lesson.service';
 
 @Component({
   selector: 'app-class-detail',
@@ -18,6 +19,7 @@ export class ClassDetailComponent implements OnInit {
 
   constructor(
     private classroomService: ClassroomService,
+    private lessonService: LessonService,
     private route: ActivatedRoute,
     private modalService: NgbModal,
     private sharedService: SharedService,
@@ -68,6 +70,27 @@ export class ClassDetailComponent implements OnInit {
 
   openModal() {
     this.modalService.open(this.modal);
+  }
+
+  onDeleteLesson(lessonId: any) {
+    Swal.fire({
+      title: 'Bạn có chắc chắn muốn xóa bài học này không?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Xác nhận',
+      cancelButtonText: 'Hủy',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.lessonService.deleteLesson(lessonId).subscribe((data: any) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Thành công',
+            text: data.data,
+          });
+          this.getClassroom();
+        });
+      }
+    });
   }
 
 }
