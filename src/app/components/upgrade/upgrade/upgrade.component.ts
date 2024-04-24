@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
   templateUrl: './upgrade.component.html',
   styleUrls: ['./upgrade.component.css']
 })
-export class UpgradeComponent implements OnInit{
+export class UpgradeComponent implements OnInit {
   isLogin: any
   packages: any;
   amount: any;
@@ -65,13 +65,12 @@ export class UpgradeComponent implements OnInit{
     }
     const id = JSON.parse(userString).id;
     // gọi service
-    this.upgradeSrv.MoMo(this.amount, this.packageId).subscribe((res: any) => {
-      console.log(res.payUrl);
-      window.open(res.payUrl, '_blank');
-    }, err => {
-      console.log(err);
-    });
-
+      this.upgradeSrv.MoMo(this.amount, this.packageId).subscribe((res: any) => {
+        console.log(res.payUrl);
+        window.open(res.payUrl, '_blank');
+      }, err => {
+        console.log(err);
+      });
   }
 
   getAllPackage() {

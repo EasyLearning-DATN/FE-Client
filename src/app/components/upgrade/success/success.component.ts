@@ -94,7 +94,12 @@ export class PaymentSuccessComponent implements OnInit {
         if (response.message === "Success") {
           this.userService.updateRoleUser(this.user_info_id, this.package_upgrade_id).subscribe(
             (response) => {
-              console.log('Update role user:', response);
+              this.userService.getRoleUser(this.user_info_id).subscribe((response: any) => {
+                var userInfo = JSON.parse(localStorage.getItem('userInfo') || '');
+                userInfo.role = response.data[0].role;
+                localStorage.setItem('userInfo', JSON.stringify(userInfo));
+              });
+
             },
             (error) => {
               console.error('Error updating role user:', error);

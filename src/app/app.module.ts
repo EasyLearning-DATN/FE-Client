@@ -42,7 +42,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     FooterComponent,
     HomeComponent,
     HomeItemComponent,
-    PageNotFoundComponent,
+    PageNotFoundComponent
   ],
   imports: [
     MatTabsModule,
