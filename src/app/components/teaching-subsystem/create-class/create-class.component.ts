@@ -61,6 +61,7 @@ export class CreateClassComponent implements OnInit {
       });
       return;
     }
+
     const confirmModal = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
     let body = '';

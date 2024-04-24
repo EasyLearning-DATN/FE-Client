@@ -356,6 +356,36 @@
         "FALSE": "Lớp học hạn chế"
       },
       "CREATE_CLASSROOM": "Tạo lớp học"
+    },
+    "CLASS_EDIT": {
+      "HEADER": "Tạo lớp học",
+      "NAME": {
+        "LABEL": "Tên của lớp học",
+        "ERROR": {
+          "REQUIRED": "Tên không được để trống!"
+        }
+      },
+      "DESCRIPTION": {
+        "LABEL": "Mô tả",
+        "ERROR": {
+          "REQUIRED": "Mô tả không được để trống!"
+        }
+      },
+      "STANDARD_POINT": {
+        "LABEL": "Điểm sàn",
+        "ERROR": {
+          "REQUIRED": "Điểm sàn không được để trống!",
+          "MIN": "Điểm sàn nhỏ nhất là 10!",
+          "MAX": "Điểm sàn lớn nhất là 200!"
+        }
+      },
+      "IS_PUBLIC": {
+        "TRUE": "Lớp học công khai",
+        "FALSE": "Lớp học hạn chế"
+      },
+      "EDIT_CLASSROOM": "Chỉnh sửa lớp học"
+    },
+    "DELETE_CLASS": {
     }
   },
   "CONFIRM_MODAL": {
@@ -419,6 +449,11 @@
           "001": "Vui lòng nhập đủ thông tin!",
           "002": "Tạo lớp học mới thất bại!",
           "003": "Vui lòng chọn hình ảnh!"
+        },
+        "EDIT_CLASS": {
+          "001": "Vui lòng nhập đủ thông tin!",
+          "002": "Chỉnh sửa lớp học thất bại!",
+          "003": "Vui lòng chọn hình ảnh!"
         }
       },
       "ACCESS_TEACHING": {
@@ -453,6 +488,9 @@
       "CLASSROOM": {
         "CREATE_CLASS": {
           "001": "Tạo lớp học thành công!"
+        },
+        "EDIT_CLASS": {
+          "001": "Cập nhật thông tin lớp học thành công!"
         }
       }
     },
@@ -490,6 +528,9 @@
       "CLASSROOM": {
         "CREATE_CLASS": {
           "001": "Đang tạo lớp học..."
+        },
+        "EDIT_CLASS": {
+          "001": "Đang cập nhật lớp học..."
         }
       }
     },
@@ -513,6 +554,9 @@
       "CLASSROOM": {
         "CREATE_CLASS": {
           "CREATE": "Bạn có chắc chăn muốn tạo lớp học không?"
+        },
+        "EDIT_CLASS": {
+          "EDIT": "Bạn có chắc chăn muốn cập nhật lớp học không?"
         }
       }
     },

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="header mb-3">
-    <span class="fs-4">{{ 'CLASSROOM.CREATE_CLASS.HEADER'|translate }}</span>
+    <span class="fs-4">{{ 'CLASSROOM.CLASS_EDIT.HEADER'|translate }}</span>
   </div>
   <form [formGroup]="updateClassForm">
     <div class="picture text-center mb-3">
@@ -14,33 +14,33 @@
       <div class="w-lg-75 w-100">
         <div class="classroom-name mb-3 form-floating">
           <input class="form-control" formControlName="name" id="floatingName" placeholder="">
-          <label for="floatingName">{{ 'CLASSROOM.CREATE_CLASS.NAME.LABEL'|translate }}</label>
+          <label for="floatingName">{{ 'CLASSROOM.CLASS_EDIT.NAME.LABEL'|translate }}</label>
           <div *ngIf="!updateClassForm.get('name')?.valid && updateClassForm.get('name')?.touched" class="mt-1">
             <span *ngIf="updateClassForm.get('name')?.errors?.['required']"
-                  style="color: red;">{{ 'CLASSROOM.CREATE_CLASS.NAME.ERROR.REQUIRED'|translate }}</span>
+                  style="color: red;">{{ 'CLASSROOM.CLASS_EDIT.NAME.ERROR.REQUIRED'|translate }}</span>
           </div>
         </div>
         <div class="classroom-description mb-3 form-floating">
           <textarea class="form-control" formControlName="description" id="floatingDescription" placeholder="" rows="2"></textarea>
-          <label for="floatingDescription">{{ 'CLASSROOM.CREATE_CLASS.DESCRIPTION.LABEL'|translate }}</label>
+          <label for="floatingDescription">{{ 'CLASSROOM.CLASS_EDIT.DESCRIPTION.LABEL'|translate }}</label>
           <div *ngIf="!updateClassForm.get('description')?.valid && updateClassForm.get('description')?.touched" class="mt-1">
               <span *ngIf="updateClassForm.get('description')?.errors?.['required']" style="color: red;">{{
-                  'CLASSROOM.CREATE_CLASS.DESCRIPTION.ERROR.REQUIRED'|translate
+                  'CLASSROOM.CLASS_EDIT.DESCRIPTION.ERROR.REQUIRED'|translate
                 }}</span>
           </div>
         </div>
         <div class="classroom-description mb-3 form-floating">
           <input class="form-control" formControlName="standardPoint" id="floatingPoint" max="200" min="10" placeholder="">
-          <label for="floatingPoint">{{ 'CLASSROOM.CREATE_CLASS.STANDARD_POINT.LABEL'|translate }}</label>
+          <label for="floatingPoint">{{ 'CLASSROOM.CLASS_EDIT.STANDARD_POINT.LABEL'|translate }}</label>
           <div *ngIf="!updateClassForm.get('standardPoint')?.valid && updateClassForm.get('standardPoint')?.touched" class="mt-1">
               <span *ngIf="updateClassForm.get('standardPoint')?.errors?.['required']" style="color: red;">{{
-                  'CLASSROOM.CREATE_CLASS.STANDARD_POINT.ERROR.REQUIRED'|translate
+                  'CLASSROOM.CLASS_EDIT.STANDARD_POINT.ERROR.REQUIRED'|translate
                 }}</span>
             <span *ngIf="updateClassForm.get('standardPoint')?.errors?.['min']" style="color: red;">{{
-                'CLASSROOM.CREATE_CLASS.STANDARD_POINT.ERROR.MIN'|translate
+                'CLASSROOM.CLASS_EDIT.STANDARD_POINT.ERROR.MIN'|translate
               }}</span>
             <span *ngIf="updateClassForm.get('standardPoint')?.errors?.['max']" style="color: red;">{{
-                'CLASSROOM.CREATE_CLASS.STANDARD_POINT.ERROR.MAX'|translate
+                'CLASSROOM.CLASS_EDIT.STANDARD_POINT.ERROR.MAX'|translate
               }}</span>
           </div>
         </div>
@@ -49,18 +49,18 @@
             <input class="form-check-input" formControlName="isPublic" id="flexRadioDefault1" type="radio"
                    value="true">
             <label class="form-check-label" for="flexRadioDefault1">
-              {{ 'CLASSROOM.CREATE_CLASS.IS_PUBLIC.TRUE'|translate }}
+              {{ 'CLASSROOM.CLASS_EDIT.IS_PUBLIC.TRUE'|translate }}
             </label>
           </div>
           <div class="form-check">
             <input class="form-check-input" formControlName="isPublic" id="flexRadioDefault2" type="radio"
                    value="false">
             <label class="form-check-label" for="flexRadioDefault2">
-              {{ 'CLASSROOM.CREATE_CLASS.IS_PUBLIC.FALSE'|translate }}
+              {{ 'CLASSROOM.CLASS_EDIT.IS_PUBLIC.FALSE'|translate }}
             </label>
           </div>
           <div class="create-class d-flex align-items-center justify-content-between mb-3 mt-3">
-            <button (click)="onUpdateClass()" class="btn btn-app"><span>{{ 'CLASSROOM.CREATE_CLASS.CREATE_CLASSROOM'|translate }}</span></button>
+            <button (click)="onUpdateClass()" class="btn btn-app"><span>{{ 'CLASSROOM.CLASS_EDIT.EDIT_CLASSROOM'|translate }}</span></button>
           </div>
         </div>
       </div>

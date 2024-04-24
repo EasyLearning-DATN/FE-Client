@@ -179,6 +179,8 @@ export interface ClassroomResponses {
   name: string;
   description: string;
   creator: UserInfoResponse;
+  standardPoint: number;
+  is_public: boolean;
   image: {
     url: string;
     public_id: string;
@@ -187,9 +189,6 @@ export interface ClassroomResponses {
   lessons: LessonResponses[];
   students: RoomMemberResponse[];
   createdDate: string;
-  is_public: boolean;
-  standardPoint: number;
-  nameCreator: String;
 }
 
 export interface RoomMemberResponse {
@@ -197,4 +196,12 @@ export interface RoomMemberResponse {
   user: {
     user_info: UserInfoResponse;
   };
+  testReportMemberResponses: TestReportMemberResponse;
+}
+
+export interface TestReportMemberResponse {
+  testId: string;
+  testName: string;
+  maxTestPoint: number;
+  point: number;
 }
