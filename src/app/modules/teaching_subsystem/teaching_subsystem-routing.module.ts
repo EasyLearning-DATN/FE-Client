@@ -26,6 +26,7 @@ import {questionTypeResolver} from '../../resolver/question.type.resolver';
 import {resultTypeResolver} from '../../resolver/result-type.resolver';
 import {testReportResolver} from '../../resolver/test-report.resolver';
 import {testResolver} from '../../resolver/test.resolver';
+import { CreateLessonComponent } from 'src/app/components/teaching-subsystem/create-lesson/create-lesson.component';
 
 const routes: Routes = [
   {
@@ -38,12 +39,16 @@ const routes: Routes = [
           // teacherRoleCanActivateChildGuard
         ], children: [
           {
+            path: 'create-lesson', component: CreateLessonComponent
+          },
+          {
             path: ':id', component: LessonDetailComponent, resolve: [lessonResolver, questionTypeResolver, resultTypeResolver], children: [
               {path: '', component: FlashcardComponent},
               {path: 'flashcard', component: FlashcardComponent},
-              {path: 'learn', component: LessonLearnComponent},
+              {path: 'learn', component: LessonLearnComponent}
             ],
-          }],
+          },
+        ],
       },
       {
         path: ':classId/test', component: TestComponent, children: [
@@ -81,8 +86,7 @@ const routes: Routes = [
             path: 'edit', component: ClassEditComponent, canActivate: [
               // teacherRoleCanActivateGuard
             ],
-          },
-
+          }
         ],
       },
     ],
