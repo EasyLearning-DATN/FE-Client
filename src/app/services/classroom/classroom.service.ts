@@ -20,6 +20,7 @@ export class ClassroomService {
   private apiInviteStudent = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_CLASSROOM + environment.API_INVITE_STUDENT;
   private apiJoinClassroom = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_CLASSROOM + environment.API_JOIN_CLASSROOM;
   private apiGetClasses = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_CLASSROOM;
+  private apiUpdatePointMember = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_ROOM_MEMBER;
 
   constructor(private http: HttpClient, private sharedService: SharedService, private router: Router) {
   }
@@ -80,6 +81,18 @@ export class ClassroomService {
 
   joinClassroom(token: string) {
     return this.http.get(this.apiJoinClassroom + '?token=' + token);
+  }
+
+  updatePointMember(id: string, point: number) {
+    const body = {
+      id,
+      point,
+    };
+    return this.http.put(this.apiUpdatePointMember + '/update', body);
+  }
+
+  deleteMember(id: any) {
+    return this.http.delete(this.apiUpdatePointMember + '/' + id);
   }
 
 }

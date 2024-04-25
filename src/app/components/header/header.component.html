@@ -13,20 +13,21 @@
       <div class="col-auto ms-md-auto order-md-2 d-none d-sm-block">
         <ul class="list-unstyled list-inline my-2">
           <li class="list-inline-item"><a [routerLink]="['/']" class="text-decoration-none">
-            <fa-icon [icon]="['fab', 'facebook-f']" class="text-900 text-white"></fa-icon>
-          </a></li>
+              <fa-icon [icon]="['fab', 'facebook-f']" class="text-900 text-white"></fa-icon>
+            </a></li>
           <li class="list-inline-item"><a [routerLink]="['/']" class="text-decoration-none">
-            <fa-icon [icon]="['fab', 'twitter']" class="text-900 text-white"></fa-icon>
-          </a></li>
+              <fa-icon [icon]="['fab', 'twitter']" class="text-900 text-white"></fa-icon>
+            </a></li>
           <li class="list-inline-item"><a [routerLink]="['/']" class="text-decoration-none">
-            <fa-icon [icon]="['fab', 'instagram']" class="text-900 text-white"></fa-icon>
-          </a></li>
+              <fa-icon [icon]="['fab', 'instagram']" class="text-900 text-white"></fa-icon>
+            </a></li>
         </ul>
       </div>
       <div class="col-auto">
         <p class="my-2 fs--1">
           <fa-icon [icon]="['fas','envelope']" class="me-3"></fa-icon>
-          <a class="text-900 email text-white" href="mailto:{{ 'COMMONS.EMAIL'|translate }}">{{ 'COMMONS.EMAIL'|translate }}</a>
+          <a class="text-900 email text-white" href="mailto:{{ 'COMMONS.EMAIL'|translate }}">{{
+            'COMMONS.EMAIL'|translate }}</a>
 
         </p>
       </div>
@@ -41,59 +42,69 @@
 <!-- ============================================-->
 <!-- <nav> begin ================================-->
 <nav class="navbar backdrop navbar-expand-lg navbar-light sticky-top py-3 d-block"
-     data-navbar-on-scroll="data-navbar-on-scroll">
+  data-navbar-on-scroll="data-navbar-on-scroll">
   <!-- start of .container   -->
   <div class="container">
     <!-- Branding name and logo -->
-    <a [routerLink]="['/']" class="navbar-brand"> <img alt="logo" height="52" ngSrc="assets/img/gallery/logo-n1.png" priority width="71"/> <span
-      class="logo_name">{{ 'COMMONS.BRAND'|translate }}</span> </a>
+    <a [routerLink]="['/']" class="navbar-brand"> <img alt="logo" height="52" ngSrc="assets/img/gallery/logo-n1.png"
+        priority width="71" /> <span class="logo_name">{{ 'COMMONS.BRAND'|translate }}</span> </a>
 
     <!-- End of the name and logo -->
 
     <!-- Collapse button when minimize the screen -->
     <button (click)="isMenuCollapsed = !isMenuCollapsed" [attr.aria-expanded]="!isMenuCollapsed"
-            aria-controls="collapseExample" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
-            data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button"><span
-      class="navbar-toggler-icon"> </span></button>
+      aria-controls="collapseExample" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+      data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button"><span
+        class="navbar-toggler-icon"> </span></button>
     <!-- End of the collapse button -->
 
     <!-- The content inside of the collapsed navbar button -->
     <div [(ngbCollapse)]="isMenuCollapsed"
-         class="collapse navbar-collapse border-lg-0 mt-4 mt-lg-0 justify-content-between" id="navbarSupportedContent">
+      class="collapse navbar-collapse border-lg-0 mt-4 mt-lg-0 justify-content-between" id="navbarSupportedContent">
       <ul class="navbar-nav pt-1 pt-lg-0 font-base" ngbNav>
-        <li class=" px-2" ngbNavItem><a (click)="isMenuCollapsed = true" [routerLink]="['/']" aria-current="page" class="active text-capitalize "
-                                        ngbNavLink>{{ 'HEADER.HOME' | translate }}</a></li>
+        <li class=" px-2" ngbNavItem><a (click)="isMenuCollapsed = true" [routerLink]="['/']" aria-current="page"
+            class="active text-capitalize " ngbNavLink>{{ 'HEADER.HOME' | translate }}</a></li>
         <li class=" px-2" ngbDropdown ngbNavItem>
           <a aria-current="page" class="nav-link text-capitalize" id="dropdownList" ngbDropdownToggle ngbNavLink> {{
-              'HEADER.LIST'|translate
+            'HEADER.LIST'|translate
             }} </a>
           <ul aria-labelledby="dropdownList" class="my-dropdown" ngbDropdownMenu>
             <li class="link-item p-0" ngbDropdownItem ngbNavItem><a (click)="isMenuCollapsed = true"
-                                                                    [routerLink]="['/lesson/list-lesson']" aria-current="page"
-                                                                    class="text-capitalize link-item px-2" ngbNavLink>{{
+                [routerLink]="['/lesson/list-lesson']" aria-current="page" class="text-capitalize link-item px-2"
+                ngbNavLink>{{
                 'HEADER.LESSON_LIST'|translate
-              }}</a>
+                }}</a>
 
             </li>
             <li class="link-item p-0" ngbDropdownItem ngbNavItem><a (click)="isMenuCollapsed = true"
-                                                                    [routerLink]="['/test/list-test']" aria-current="page"
-                                                                    class="text-capitalize link-item px-2" ngbNavLink>{{
+                [routerLink]="['/test/list-test']" aria-current="page" class="text-capitalize link-item px-2"
+                ngbNavLink>{{
                 'HEADER.TEST_LIST'|translate
-              }}</a>
+                }}</a>
             </li>
-            <li class="link-item p-0" ngbDropdownItem ngbNavItem><a (click)="isMenuCollapsed = true" *ngIf="userResponse"
-                                                                    [routerLink]="['/test/my-test-report']" aria-current="page"
-                                                                    class="text-capitalize link-item px-2" ngbNavLink>{{
+            <li class="link-item p-0" ngbDropdownItem ngbNavItem><a (click)="isMenuCollapsed = true"
+                *ngIf="userResponse" [routerLink]="['/test/my-test-report']" aria-current="page"
+                class="text-capitalize link-item px-2" ngbNavLink>{{
                 'HEADER.MY_TEST_REPORT'|translate
-              }}</a>
+                }}</a>
+            </li>
+          </ul>
+        </li>
+        <li class=" px-2" ngbDropdown ngbNavItem>
+          <a aria-current="page" class="nav-link text-capitalize" id="dropdownList" ngbDropdownToggle ngbNavLink> MiniGame </a>
+          <ul aria-labelledby="dropdownList" class="my-dropdown" ngbDropdownMenu>
+            <li class="link-item p-0" ngbDropdownItem ngbNavItem><a (click)="isMenuCollapsed = true"
+                [routerLink]="['/minigame/FunnyWheels']" aria-current="page" class="text-capitalize link-item px-2"
+                ngbNavLink>Vòng quay may mắn</a>
 
             </li>
           </ul>
         </li>
-        <li class=" link-item p-0" ngbNavItem><a (click)="isMenuCollapsed = true" [routerLink]="['/classroom/list-classroom']"
-                                                 aria-current="page"
-                                                 class="text-capitalize link-item px-2 teaching_subsystem"
-                                                 ngbNavLink>{{ 'HEADER.TEACHING_SUBSYSTEM'|translate }}</a></li>
+        <li class=" link-item p-0" *ngIf="userResponse && userResponse.role == 'edu'" ngbNavItem>
+          <a (click)="isMenuCollapsed = true" [routerLink]="['/classroom/list-classroom']" aria-current="page"
+            class="text-capitalize link-item px-2 teaching_subsystem" ngbNavLink>{{
+            'HEADER.TEACHING_SUBSYSTEM'|translate }}</a>
+        </li>
       </ul>
     </div>
     <!-- End of the collapsed button content -->
@@ -104,12 +115,13 @@
         <button *ngIf="userResponse" class="user_setting" data-bs-toggle="dropdown" ngbDropdownToggle type="button">
           <img *ngIf="avatar != null" alt="img" class="me-2" src="{{avatar}}">
           <img *ngIf="avatar == null" alt="img" class="me-2" src="/assets/img/commons/default_user.jpeg">
-          <span [ngClass]="{ 'premium-effect': userResponse.role === 'premium' }" class="user_name">{{
-              userResponse.username
+          <span [ngClass]="{ 'premium-effect': userResponse.role === 'premium' || 'edu'}" class="user_name">{{
+            userResponse.username
             }}</span>
         </button>
         <ul ngbDropdownMenu>
-          <li><a [href]="'/user/' + userResponse?.username"  ngbDropdownItem>{{ 'HEADER.USER_PROFILE'|translate }}</a></li>
+          <li><a [href]="'/user/' + userResponse?.username" ngbDropdownItem>{{ 'HEADER.USER_PROFILE'|translate }}</a>
+          </li>
           <li>
             <a [routerLink]="['/user/settings']" ngbDropdownItem>{{ 'HEADER.SETTING'|translate }}</a>
           </li>
@@ -117,11 +129,12 @@
             <a [routerLink]="['/']" aria-current="page" ngbDropdownItem>{{ 'HEADER.HELP'|translate }}</a>
           </li>
           <li>
-          <li *ngIf="userResponse && userResponse.role !== 'premium'">
+          <li>
             <a [routerLink]="['/upgrade']" aria-current="page" ngbDropdownItem>{{ 'HEADER.UPGRADE'|translate }}</a>
           </li>
           <li>
-            <button (click)="onLogout()" *ngIf="userResponse" aria-current="page" ngbDropdownItem>{{ 'HEADER.LOGOUT'|translate }}</button>
+            <button (click)="onLogout()" *ngIf="userResponse" aria-current="page" ngbDropdownItem>{{
+              'HEADER.LOGOUT'|translate }}</button>
 
           </li>
         </ul>
@@ -138,24 +151,24 @@
           <ul aria-labelledby="dropdownBasic1" class="my-dropdown" ngbDropdownMenu>
             <li><a [routerLink]="['/lesson/create-lesson']" class="link-item text-capitalize" ngbDropdownItem>{{
                 'HEADER.CREATE_LESSON'|translate
-              }}</a>
+                }}</a>
             </li>
             <li><a [routerLink]="['/test/create-test']" class="link-item text-capitalize" ngbDropdownItem>{{
                 'HEADER.CREATE_TEST'|translate
-              }}</a>
+                }}</a>
             </li>
             <li><a [routerLink]="['/classroom/create-classroom']" class="link-item text-capitalize" ngbDropdownItem>{{
                 'HEADER.CREATE_CLASSROOM'|translate
-              }}</a>
+                }}</a>
             </li>
           </ul>
           <!-- End of content of dropdown button of creating new data -->
         </div>
         <div class="d-flex align-items-center">
           <a *ngIf="!userResponse" [routerLink]="['/login']" class="btn btn-app order-1 order-lg-0 text-capitalize">{{
-              'HEADER.LOGIN'|translate
+            'HEADER.LOGIN'|translate
             }}</a> <a *ngIf="!userResponse" [routerLink]="['/login']"
-                      class="btn btn-app order-1 order-lg-0 ms-2 text-capitalize">{{ 'HEADER.REGISTER'|translate }}</a>
+            class="btn btn-app order-1 order-lg-0 ms-2 text-capitalize">{{ 'HEADER.REGISTER'|translate }}</a>
 
         </div>
       </div>

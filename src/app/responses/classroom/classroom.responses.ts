@@ -193,6 +193,7 @@ export interface ClassroomResponses {
 }
 
 export interface RoomMemberResponse {
+  id: any;
   point: number;
   user: {
     user_info: UserInfoResponse;
