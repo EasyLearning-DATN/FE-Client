@@ -14,7 +14,10 @@ import { LessonService } from 'src/app/services/lesson/lesson.service';
 })
 export class ClassDetailComponent implements OnInit {
   classroom!: ClassroomResponses;
+  classRoomId: any;
+  updatedPoint: number = 0;
   studentEmail: string = '';
+  isCreator: boolean = false;
   @ViewChild('modal') modal: any;
 
   constructor(
@@ -27,7 +30,21 @@ export class ClassDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.classRoomId = this.route.snapshot.paramMap.get('classId') as string;
+    console.log(this.classRoomId);
     this.getClassroom();
+    const userInfoString = localStorage.getItem('userInfo') || '';
+    if (userInfoString === '') {
+      this.isCreator = false;
+    } else {
+      const userInfo = JSON.parse(localStorage.getItem('userInfo') || '');
+      const username = userInfo ? userInfo.username : '';
+      if (username === this.classroom.creator.username) {
+        this.isCreator = true;
+      } else {
+        this.isCreator = false;
+      }
+    }
   }
 
   getClassroom() {
@@ -90,6 +107,58 @@ export class ClassDetailComponent implements OnInit {
           this.getClassroom();
         });
       }
+    });
+  }
+
+  updatePoint(id: any, point: number) {
+    if (point < 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Lỗi',
+        text: 'Điểm không thể nhỏ hơn 0',
+      });
+      return;
+    }
+    // loading
+    Swal.fire({
+      title: 'Loading',
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      willClose: () => {
+        Swal.hideLoading();
+      },
+    });
+    this.classroomService.updatePointMember(id, point).subscribe((data: any) => {
+      Swal.close();
+      Swal.fire({
+        icon: 'success',
+        title: 'Thành công',
+        text: data.data,
+      });
+    });
+  }
+
+  deleteMember(id: any) {
+    // loading
+    Swal.fire({
+      title: 'Loading',
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      willClose: () => {
+        Swal.hideLoading();
+      },
+    });
+    this.classroomService.deleteMember(id).subscribe((data: any) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Thành công',
+        text: data.data,
+      });
+      this.getClassroom();
     });
   }
 
