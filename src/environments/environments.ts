@@ -1,6 +1,6 @@
-// const BASE_API = 'https://be-cdj2.onrender.com'
+const BASE_API = 'http://20.2.217.227:1001'
 // const BASE_API = 'http://localhost:1002';
-const BASE_API = 'http://localhost:1001';
+// const BASE_API = 'http://localhost:1001';
 
 export const environment = {
   production: false,
@@ -52,6 +52,7 @@ export const environment = {
   API_COMMENT: '/comment',
   API_REACTION: '/reaction',
   API_CLASSROOM: '/classroom',
+  API_ROOM_MEMBER: '/room-member',
   API_INVITE_STUDENT: '/invite',
   API_JOIN_CLASSROOM: '/join',
   FITB_ID: '1c0d9a97-1fb3-40f0-83c5-50d7c7abde4a',
