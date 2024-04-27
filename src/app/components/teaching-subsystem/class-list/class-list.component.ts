@@ -41,7 +41,7 @@ export class ClassListComponent implements OnInit {
     this.classRoomService.getAllClassroom().subscribe(
       (classrooms: any) => {
         this.isFetching = false;
-        this.totalPages = classrooms.data.totalPage; // Tổng số trang
+        this.totalPages = classrooms.totalPage; // Tổng số trang
         this.calculateTotalPageArray();
         this.originalClassRoom = classrooms.data.data; // Lưu danh sách gốc
         this.classrooms = this.originalClassRoom; // Gán danh sách gốc cho danh sách hiển thị ban đầu
@@ -59,7 +59,6 @@ export class ClassListComponent implements OnInit {
     for (let i = 0; i <= this.totalPages; i++) {
       this.totalPageArray.push(i);
     }
-    this.totalPageArray.pop();
   }
 
   onPageChange(pageNumber: number) {

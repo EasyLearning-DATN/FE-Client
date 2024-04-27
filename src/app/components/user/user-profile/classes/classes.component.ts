@@ -21,6 +21,7 @@ export class ClassesComponent implements OnInit {
 
   token: string = '';
   currentPage = 0;
+  classRoomPerPage = 10;
   totalPages = 0;
   totalPageArray: number[] = [];
   originalClassRoom: ClassroomResponses[] = [];
@@ -40,6 +41,7 @@ export class ClassesComponent implements OnInit {
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('userInfo') || '');
     this.fetchClasses(this.searchKey);
+    this.inviteStudent();
   }
 
   // get all classes
@@ -51,10 +53,11 @@ export class ClassesComponent implements OnInit {
     this.classRoomService.getClasses(this.searchKey, this.currentPage, userId).subscribe(
       (classrooms: any) => {
         this.isFetching = false;
-        this.totalPages = classrooms.data.totalPage; // Tổng số trang
+        this.totalPages = classrooms.totalPage; // Tổng số trang
         this.calculateTotalPageArray();
         this.originalClassRoom = classrooms.data.data; // Lưu danh sách gốc
         this.classrooms = this.originalClassRoom; // Gán danh sách gốc cho danh sách hiển thị ban đầu
+        console.log(classrooms.data.totalPage);
       },
       error => {
         this.isFetching = false;
@@ -68,7 +71,6 @@ export class ClassesComponent implements OnInit {
     for (let i = 0; i <= this.totalPages; i++) {
       this.totalPageArray.push(i);
     }
-    this.totalPageArray.pop();
   }
 
   onPageChange(pageNumber: number) {
@@ -76,4 +78,27 @@ export class ClassesComponent implements OnInit {
     this.fetchClasses(this.searchKey);
   }
 
+  // lấy token từ url http://localhost:4200/classroom/invite?token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJudWxsIiwiaWF0IjoxNzEyOTc5NTkwLCJleHAiOjE3MTQ3Nzk1OTB9.6v_WZo55jz9A4BGzeU7djm0-uUfSuNQImoVKyvVDUg0
+  // nếu có token thì hàm mới chạy
+  inviteStudent() {
+    this.routeSub = this.route.queryParams.subscribe(params => {
+      this.token = params['token'];
+      console.log(this.token);
+      if (this.token) {
+        this.classRoomService.joinClassroom(this.token).subscribe(
+          (data: any) => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Thành công',
+              text: data.data,
+            });
+          },
+          error => {
+            this.isFetching = false;
+            this.error = error.message;
+          },
+        );
+      }
+    });
+  }
 }

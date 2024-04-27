@@ -59,7 +59,6 @@ export class LessonsComponent implements OnInit {
     for (let i = 0; i <= this.totalPages;i++) {
       this.totalPageArray.push(i);
     }
-    this.totalPageArray.pop();
   }
 
   onPageChange(pageNumber: number) {

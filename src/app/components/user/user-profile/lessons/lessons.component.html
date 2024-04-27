@@ -39,9 +39,9 @@
             <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 0"
                 class="btn btn-page">Trước</button>
             <button (click)="onPageChange(page)" *ngFor="let page of totalPageArray"
-                [class.active]="currentPage === page" class="btn btn-page">{{ page + 1 }}
+                [class.active]="currentPage === page" class="btn btn-page">{{ page }}
             </button>
-            <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages - 1 "
+            <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages"
                 class="btn btn-page">Sau
             </button>
         </div>
