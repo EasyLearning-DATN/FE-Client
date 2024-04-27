@@ -37,9 +37,12 @@ const routes: Routes = [
         path: 'create-classroom',
         component: CreateClassComponent,
         // canActivate: [teacherRoleCanActivateGuard],
+        // resolve: [checkUserEduRoleResolver],
       },
       {
-        path: ':classId/lesson', component: LessonComponent, canActivateChild: [
+        path: ':classId/lesson', component: LessonComponent,
+        // resolve: [checkIsClassOwnerResolver],
+        canActivateChild: [
           // teacherRoleCanActivateChildGuard
         ], children: [
           {
@@ -55,37 +58,68 @@ const routes: Routes = [
         ],
       },
       {
-        path: ':classId/test', component: TestComponent, children: [
+        path: ':classId/test', component: TestComponent,
+        // resolve: [checkIsInClassroomResolver],
+        children: [
           {
-            path: 'test-report/:id', component: TestReportDetailComponent, resolve: [testReportResolver],
+            path: 'test-report/:id', component: TestReportDetailComponent, resolve: [
+              // checkIsInClassroomResolver,
+              testReportResolver,
+            ],
           },
           {
             path: 'my-test-report', component: ListTestReportComponent,
+            // resolve: [ checkIsInClassroomResolver]
           },
           {
             path: 'create-test',
             component: CreateTestComponent,
-            resolve: [resultTypeResolver, questionTypeResolver, resultTypeResolver],
+            resolve: [
+              // checkIsClassOwnerResolver,
+              resultTypeResolver, questionTypeResolver, resultTypeResolver],
           },
           {
             path: ':id/edit',
             component: TestEditComponent,
-            resolve: [testResolver, questionTypeResolver, resultTypeResolver],
+            resolve: [
+              // checkIsClassOwnerResolver,
+              testResolver, questionTypeResolver, resultTypeResolver],
+          },
+          {
+            path: ':id/test-report', component: TestReportDetailComponent,
+            // resolve: [
+            // checkIsInClassroomResolver
+            // ],
           },
           {
             path: ':id/do-test/:doTestId',
             component: DoTestComponent,
             canDeactivate: [testCanDeactivateGuard],
-            resolve: [doTestResolver, questionTypeResolver, resultTypeResolver],
+            resolve: [
+              // checkIsInClassroomResolver,
+              doTestResolver, questionTypeResolver, resultTypeResolver],
           },
           {
             path: 'exam-result/:id', component: ExamResultComponent,
+            // resolve: [checkIsClassOwnerResolver],
           },
         ],
       },
-      {path: ':classId/test/:id', component: TestDetailComponent, resolve: [testResolver]},
-      {path: ':classId/edit', component: ClassEditComponent, resolve: [classroomResolver]},
-      {path: ':classId', component: ClassDetailComponent, resolve: [classroomResolver]},
+      {
+        path: ':classId/test/:id', component: TestDetailComponent, resolve: [
+          // checkIsInClassroomResolver,
+          testResolver],
+      },
+      {
+        path: ':classId/edit', component: ClassEditComponent, resolve: [
+          // checkIsClassOwnerResolver,
+          classroomResolver],
+      },
+      {
+        path: ':classId', component: ClassDetailComponent, resolve: [
+          // checkIsInClassroomResolver,
+          classroomResolver],
+      },
     ],
   },
 ];

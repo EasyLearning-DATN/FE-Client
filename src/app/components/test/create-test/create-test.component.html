@@ -1,4 +1,9 @@
 <div class="container">
+  <div *ngIf="classRoomId" class="navigation">
+    <a [routerLink]="['/classroom/list-classroom']" class="class-navigation">Danh sách lớp học</a> /
+    <a [routerLink]="['/classroom',classRoomId]" class="class-navigation">Lớp học</a> /
+    <span class="class-current-page">{{ "Tạo bài kiểm tra" }}</span>
+  </div>
   <div class="header mb-3">
     <span class="fs-4">Tạo Bài Test</span>
   </div>

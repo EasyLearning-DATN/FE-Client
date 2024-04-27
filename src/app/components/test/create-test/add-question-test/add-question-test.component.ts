@@ -119,6 +119,7 @@ export class AddQuestionTestComponent implements OnInit, OnDestroy {
     // Tạm thời viết như vậy
     await lastValueFrom(result$).then(result => {
       this.isFetchingLesson = false;
+      console.log(result);
       return result;
     });
     this.lessons = this.sharedService.lessonsSearch;
