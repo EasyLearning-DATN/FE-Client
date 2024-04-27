@@ -19,6 +19,7 @@ export class TestDTO {
   image_id: string = '';
   @IsNumber()
   total_question: number | null = null;
+  max_point: number | null = null;
   open_time: Date | null = null;
   close_time: Date | null = null;
   classRoomId: string | null = null;

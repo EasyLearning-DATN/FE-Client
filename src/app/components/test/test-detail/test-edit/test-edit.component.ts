@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs';
 import Swal from 'sweetalert2';
 import {environment} from '../../../../../environments/environments';
 import {TestDTO} from '../../../../DTOS/test/test.dto';
+import {ClassroomResponses} from '../../../../responses/classroom/classroom.responses';
 import {QuestionTypeResponses} from '../../../../responses/question-type/question-type.responses';
 import {QuestionResponses} from '../../../../responses/question/question.responses';
 import {ResultTypeResponses} from '../../../../responses/result_type_id/result_type.responses';
@@ -34,6 +35,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
   questionTypes!: QuestionTypeResponses[];
   questionSub!: Subscription;
   closeResult: string = '';
+  classroom!: ClassroomResponses;
   isCreator: boolean = false;
   classRoomId: null | string = null;
   maxDate!: Date;
@@ -48,6 +50,10 @@ export class TestEditComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.classRoomId = this.route.snapshot.paramMap.get('classId');
+
+    if (this.classRoomId) {
+      this.getClassroom();
+    }
 
     this.sharedService.testChanged.subscribe(
       res => {
@@ -150,6 +156,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
             total_question: <number>this.editTestForm.get('total_question')?.value,
             open_time: this.editTestForm.get('isHasOpenTime')?.value ? this.editTestForm.get('open_time')?.value: null,
             close_time: this.editTestForm.get('isHasCloseTime')?.value ? this.editTestForm.get('close_time')?.value: null,
+            max_point: this.classRoomId ? this.editTestForm.get('max_point')?.value: null,
             classRoomId: this.classRoomId,
           };
           this.removeSeconds();
@@ -295,18 +302,34 @@ export class TestEditComponent implements OnInit, OnDestroy {
   }
 
   private initForm() {
-    this.editTestForm = new FormGroup({
-      'name': new FormControl(this.test.name, [Validators.required]),
-      'description': new FormControl(this.test.description, [Validators.required]),
-      'time_total': new FormControl(this.test.time_total ?? 0),
-      'time_question': new FormControl(this.test.time_question ?? 0),
-      'view_result_type_code': new FormControl(this.test.view_result_type_id.code, [Validators.required]),
-      'test_type': new FormControl(this.test.time_total ? 'fullTime': 'eachQuestion', [Validators.required]),
-      'isHasOpenTime': new FormControl(!!this.test.open_time),
-      'isHasCloseTime': new FormControl(!!this.test.close_time),
-      'open_time': new FormControl(this.test.open_time ? this.test.open_time: new Date(), [Validators.required]),
-      'close_time': new FormControl(this.test.close_time ? this.test.close_time: (this.test.open_time ? new Date(this.test.open_time.getTime() + 120 * 60 * 1000): new Date(new Date().getTime() + 120 * 60 * 1000)), [Validators.required]),
-    });
+    if (this.classRoomId) {
+      this.editTestForm = new FormGroup({
+        'name': new FormControl(this.test.name, [Validators.required]),
+        'description': new FormControl(this.test.description, [Validators.required]),
+        'time_total': new FormControl(this.test.time_total ?? 0),
+        'time_question': new FormControl(this.test.time_question ?? 0),
+        'view_result_type_code': new FormControl(this.test.view_result_type_id.code, [Validators.required]),
+        'test_type': new FormControl(this.test.time_total ? 'fullTime': 'eachQuestion', [Validators.required]),
+        'isHasOpenTime': new FormControl(!!this.test.open_time),
+        'isHasCloseTime': new FormControl(!!this.test.close_time),
+        'max_point': new FormControl(this.classRoomId ? this.classroom.standardPoint: 1, [Validators.required, Validators.max(this.classroom.standardPoint), Validators.min(1)]),
+        'open_time': new FormControl(this.test.open_time ? this.test.open_time: new Date(), [Validators.required]),
+        'close_time': new FormControl(this.test.close_time ? this.test.close_time: (this.test.open_time ? new Date(this.test.open_time.getTime() + 120 * 60 * 1000): new Date(new Date().getTime() + 120 * 60 * 1000)), [Validators.required]),
+      });
+    } else {
+      this.editTestForm = new FormGroup({
+        'name': new FormControl(this.test.name, [Validators.required]),
+        'description': new FormControl(this.test.description, [Validators.required]),
+        'time_total': new FormControl(this.test.time_total ?? 0),
+        'time_question': new FormControl(this.test.time_question ?? 0),
+        'view_result_type_code': new FormControl(this.test.view_result_type_id.code, [Validators.required]),
+        'test_type': new FormControl(this.test.time_total ? 'fullTime': 'eachQuestion', [Validators.required]),
+        'isHasOpenTime': new FormControl(!!this.test.open_time),
+        'isHasCloseTime': new FormControl(!!this.test.close_time),
+        'open_time': new FormControl(this.test.open_time ? this.test.open_time: new Date(), [Validators.required]),
+        'close_time': new FormControl(this.test.close_time ? this.test.close_time: (this.test.open_time ? new Date(this.test.open_time.getTime() + 120 * 60 * 1000): new Date(new Date().getTime() + 120 * 60 * 1000)), [Validators.required]),
+      });
+    }
   }
 
   private setQuestionIds() {
@@ -352,5 +375,15 @@ export class TestEditComponent implements OnInit, OnDestroy {
     if (this.editTest.close_time) {
       this.editTest.close_time = new Date(this.editTest.close_time.getTime() + 7 * 60 * 60 * 1000);
     }
+  }
+
+  private getClassroom() {
+    this.classroom = this.sharedService.classroom;
+    this.sharedService.classroomChanged.subscribe(
+      res => {
+        this.sharedService.classroom = res;
+        this.classroom = this.sharedService.classroom;
+      },
+    );
   }
 }

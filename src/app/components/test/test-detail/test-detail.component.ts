@@ -67,6 +67,7 @@ export class TestDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.classRoomId = this.route.snapshot.paramMap.get('classId');
     this.test = this.sharedService.test;
     this.sharedService.testChanged.subscribe(
@@ -75,7 +76,6 @@ export class TestDetailComponent implements OnInit {
         this.test = this.sharedService.test;
       },
     );
-
     this.testReport = this.sharedService.testReport;
 
     // truyển userInfo từ localStorage và lấy id

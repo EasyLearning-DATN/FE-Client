@@ -36,6 +36,7 @@
     <div class="mb-3 fs-1 d-flex flex-column flex-shrink-0 align-items-start justify-content-around col-auto col-lg-8">
       <span><fa-icon [icon]="['fas','pen']" class="me-2"></fa-icon>Miêu tả bài kiểm tra: {{ test.description }}</span>
       <span><fa-icon [icon]="['fas','question']" class="me-2"></fa-icon> Tổng số câu hỏi: {{ test.total_question }}</span>
+      <span *ngIf="test.max_point"><fa-icon [icon]="['fas','bookmark']" class="me-2"></fa-icon> Điểm tối đa: {{ test.max_point }}</span>
       <span><fa-icon [icon]="['fas','hourglass']" class="me-2"></fa-icon> Thời gian làm bài: {{
           test.time_total === null ? 'Không giới hạn' : test.time_total / 60 + ' Phút'
         }}</span>

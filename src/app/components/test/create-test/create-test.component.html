@@ -33,6 +33,17 @@
                                                                                                          không được để trống!</span>
           </div>
         </div>
+        <div *ngIf="classRoomId" class="test-name mb-3 form-floating">
+          <input class="form-control" formControlName="max_point" id="floatingPoint" max="{{classroom.standardPoint}}" min="1" placeholder=""
+                 type="number">
+          <label for="floatingPoint">Điểm tối đa</label>
+          <div *ngIf="!createTestForm.get('max_point')?.valid && createTestForm.get('max_point')?.touched" class="mt-1">
+            <span *ngIf="createTestForm.get('max_point')?.errors?.['required']" style="color: red;">Điểm bài kiểm tra không được để trống!</span>
+            <span *ngIf="createTestForm.get('max_point')?.errors?.['min']" style="color: red;">Điểm bài kiểm tra phải lớn hơn hoặc bằng 1!</span>
+            <span *ngIf="createTestForm.get('max_point')?.errors?.['max']"
+                  style="color: red;">Điểm bài kiểm tra phải nhỏ hơn hoặc bằng {{ classroom.standardPoint }}!</span>
+          </div>
+        </div>
         <div class="test-result-type mb-3">
           <select class="form-select mb-3" formControlName="view_result_type_code" id="type">
             <option *ngFor="let rType of resultTypes" [ngValue]="rType.code">{{ rType.name }}</option>
