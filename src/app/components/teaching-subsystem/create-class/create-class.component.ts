@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal, NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import {TranslateService} from '@ngx-translate/core';
 import Swal from 'sweetalert2';
@@ -26,7 +26,7 @@ export class CreateClassComponent implements OnInit {
   constructor(private offcanvasService: NgbOffcanvas, private sharedService: SharedService,
               private modalService: NgbModal, private classroomService: ClassroomService,
               private imageService: UploadImageService, private router: Router,
-              private translate: TranslateService) {
+              private translate: TranslateService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -105,11 +105,11 @@ export class CreateClassComponent implements OnInit {
           this.createClassDTO = {
             name: this.createClassForm.get('name')?.value,
             description: this.createClassForm.get('description')?.value,
-            isPublic: this.createClassForm.get('isPublic')?.value,
+            isPublic: this.createClassForm.get('isPublic')?.value==='1',
             standardPoint: this.createClassForm.get('standardPoint')?.value,
             imageId: '',
           };
-          // console.log(this.createTest);
+          // console.log(this.createClassDTO);
           this.imageService.uploadImage(imgFile, token).subscribe(result => {
             this.createClassDTO.imageId = result.public_id;
             console.log(result.public_id);
@@ -174,7 +174,7 @@ export class CreateClassComponent implements OnInit {
     this.createClassForm = new FormGroup({
       'name': new FormControl('', [Validators.required]),
       'description': new FormControl('', [Validators.required]),
-      'isPublic': new FormControl('true', [Validators.required]),
+      'isPublic': new FormControl('1', [Validators.required]),
       'standardPoint': new FormControl(10, [Validators.required, Validators.min(10), Validators.max(200)]),
     });
   }

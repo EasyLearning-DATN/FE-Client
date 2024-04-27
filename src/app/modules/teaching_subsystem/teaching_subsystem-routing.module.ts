@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {CreateLessonComponent} from '../../components/lesson/create-lesson/create-lesson.component';
 import {FlashcardComponent} from '../../components/lesson/lesson-detail/flashcard/flashcard.component';
 import {LessonDetailComponent} from '../../components/lesson/lesson-detail/lesson-detail.component';
 import {LessonLearnComponent} from '../../components/lesson/lesson-detail/lesson-learn/lesson-learn.component';
@@ -26,26 +27,29 @@ import {questionTypeResolver} from '../../resolver/question.type.resolver';
 import {resultTypeResolver} from '../../resolver/result-type.resolver';
 import {testReportResolver} from '../../resolver/test-report.resolver';
 import {testResolver} from '../../resolver/test.resolver';
-import { CreateLessonComponent } from 'src/app/components/teaching-subsystem/create-lesson/create-lesson.component';
 
 const routes: Routes = [
   {
     path: '', component: TeachingSubsystemComponent, canActivateChild: [authCanActivateChildGuard], children: [
       {path: 'list-classroom', component: ClassListComponent},
       {path: 'invite', component: ClassListComponent},
-      {path: 'create-classroom', component: CreateClassComponent},
+      {
+        path: 'create-classroom',
+        component: CreateClassComponent,
+        // canActivate: [teacherRoleCanActivateGuard],
+      },
       {
         path: ':classId/lesson', component: LessonComponent, canActivateChild: [
           // teacherRoleCanActivateChildGuard
         ], children: [
           {
-            path: 'create-lesson', component: CreateLessonComponent
+            path: 'create-lesson', component: CreateLessonComponent,
           },
           {
             path: ':id', component: LessonDetailComponent, resolve: [lessonResolver, questionTypeResolver, resultTypeResolver], children: [
               {path: '', component: FlashcardComponent},
               {path: 'flashcard', component: FlashcardComponent},
-              {path: 'learn', component: LessonLearnComponent}
+              {path: 'learn', component: LessonLearnComponent},
             ],
           },
         ],
@@ -80,15 +84,8 @@ const routes: Routes = [
         ],
       },
       {path: ':classId/test/:id', component: TestDetailComponent, resolve: [testResolver]},
-      {
-        path: ':classId', component: ClassDetailComponent, resolve: [classroomResolver], children: [
-          {
-            path: 'edit', component: ClassEditComponent, canActivate: [
-              // teacherRoleCanActivateGuard
-            ],
-          }
-        ],
-      },
+      {path: ':classId/edit', component: ClassEditComponent, resolve: [classroomResolver]},
+      {path: ':classId', component: ClassDetailComponent, resolve: [classroomResolver]},
     ],
   },
 ];

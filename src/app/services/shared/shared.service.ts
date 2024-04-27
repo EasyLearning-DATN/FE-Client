@@ -32,6 +32,16 @@ export class SharedService {
   constructor() {
   }
 
+  private _auth!: UserResponse;
+
+  get auth(): UserResponse {
+    return this._auth;
+  }
+
+  set auth(value: UserResponse) {
+    this._auth = value;
+  }
+
   private _classroom!: ClassroomResponses;
 
   get classroom(): ClassroomResponses {

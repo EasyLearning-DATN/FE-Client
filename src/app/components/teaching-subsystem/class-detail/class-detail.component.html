@@ -2,38 +2,50 @@
   <section class="content">
     <div class="container-fluid">
       <h1 class="text-center">Chi tiết lớp học</h1>
+      <div class="picture text-center mb-3">
+        <img [ngSrc]="classroom.image.url ? classroom.image.url:'/assets/img/gallery/hero-header.png'" alt="Test"
+             class="image p-2"
+             height="250"
+             width="250">
+      </div>
       <p>Lớp học: {{ classroom.name }}</p>
       <p>Giáo viên: {{ classroom.creator.fullName }}</p>
       <p>Ngày tạo: {{ classroom.createdDate | date:'dd/MM/Y' }}</p>
       <p>Mô tả: {{ classroom.description }}</p>
+
+      <div *ngIf="isCreator" class="d-flex align-content-center justify-content-around">
+        <button (click)="onNavigateUpdateClassroom()" class="btn btn-app">Chỉnh sửa lớp học</button>
+        <button (click)="onNavigateCreateLesson()" class="btn btn-app">Tạo bài học</button>
+        <button (click)="onNavigateCreateTest()" class="btn btn-app">Tạo bài kiểm tra</button>
+      </div>
       <hr>
 
       <div class="card card-primary card-tabs">
         <div class="card-header p-0 pt-1">
           <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
-            <li class="nav-item" role="presentation" *ngIf="isCreator">
+            <li *ngIf="isCreator" class="nav-item" role="presentation">
               <a aria-controls="ex1-tabs-1" aria-selected="true" class="nav-link active" data-bs-toggle="tab"
-                href="#ex1-tabs-1" id="ex1-tab-1" role="tab">Bài học</a>
+                 href="#ex1-tabs-1" id="ex1-tab-1" role="tab">Bài học</a>
             </li>
             <li class="nav-item" role="presentation">
               <a aria-controls="ex1-tabs-2" aria-selected="false" class="nav-link" data-bs-toggle="tab"
-                href="#ex1-tabs-2" id="ex1-tab-2" role="tab">Bài test</a>
+                 href="#ex1-tabs-2" id="ex1-tab-2" role="tab">Bài test</a>
             </li>
             <li class="nav-item" role="presentation">
               <a aria-controls="ex1-tabs-3" aria-selected="false" class="nav-link" data-bs-toggle="tab"
-                href="#ex1-tabs-3" id="ex1-tab-3" role="tab">Học viên</a>
+                 href="#ex1-tabs-3" id="ex1-tab-3" role="tab">Học viên</a>
             </li>
           </ul>
           <div class="tab-content" id="ex1-content">
-            <div aria-labelledby="ex1-tab-1" class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" *ngIf="isCreator">
+            <div *ngIf="isCreator" aria-labelledby="ex1-tab-1" class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel">
               <br>
               <h5 *ngFor="let lesson of classroom.lessons; let i = index ">
                 <a aria-controls="baigiang-2662-content" aria-expanded="false" data-toggle="lesson" role="button">
                   <span class="badge text-danger"> {{ i + 1 }}.</span>
                   <a [routerLink]="['lesson', lesson.id]" class="text-info">{{ lesson.name }}</a>
                 </a>
-                  <button (click)="onDeleteLesson(lesson.id)" class="btn btn-danger float-end">Xóa</button>
-                  <button class="btn btn-primary float-end">Sửa</button>
+                <button (click)="onDeleteLesson(lesson.id)" class="btn btn-app-warning float-end">Xóa</button>
+                <button class="btn btn-app float-end">Sửa</button>
               </h5>
             </div>
             <div aria-labelledby="ex1-tab-2" class="tab-pane fade" id="ex1-tabs-2" role="tabpanel">
@@ -42,6 +54,8 @@
                   <span class="badge text-danger"> {{ i + 1 }}.</span>
                   <a [routerLink]="['test', test.id]" class="text-info">{{ test.name }}</a>
                 </a>
+                <button (click)="onDeleteTest(test.id)" class="btn btn-app-warning float-end">Xóa</button>
+                <button class="btn btn-app float-end">Sửa</button>
               </h5>
             </div>
             <div aria-labelledby="ex1-tab-3" class="tab-pane fade hocvien" id="ex1-tabs-3" role="tabpanel">
@@ -50,25 +64,25 @@
               <!-- table list học viên -->
               <table class="table table-bordered table-hover">
                 <thead>
-                  <tr>
-                    <th>STT</th>
-                    <th>Tên học viên</th>
-                    <th>Điểm</th>
-                    <th *ngIf="isCreator">Thao tác</th>
-                  </tr>
+                <tr>
+                  <th>STT</th>
+                  <th>Tên học viên</th>
+                  <th>Điểm</th>
+                  <th *ngIf="isCreator">Thao tác</th>
+                </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let student of classroom.students; let i = index">
-                    <td>{{ i + 1 }}</td>
-                    <td>{{ student.user.user_info.fullName }}</td>
-                    <td>
-                        <input type="number" class="form-control" [(ngModel)]="student.point" min="0">
-                    </td>
-                    <td *ngIf="isCreator">
-                        <button class="btn btn-primary" (click)="updatePoint(student.id, student.point)">Lưu</button>
-                        <button class="btn btn-danger" (click) = "deleteMember(student.id)">Xóa</button>
-                    </td>                    
-                </tr>                
+                <tr *ngFor="let student of classroom.students; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ student.user.user_info.fullName }}</td>
+                  <td>
+                    <input [(ngModel)]="student.point" class="form-control" min="0" type="number">
+                  </td>
+                  <td *ngIf="isCreator">
+                    <button (click)="updatePoint(student.id, student.point)" class="btn btn-primary">Lưu</button>
+                    <button (click)="deleteMember(student.id)" class="btn btn-danger">Xóa</button>
+                  </td>
+                </tr>
                 </tbody>
               </table>
             </div>
@@ -97,3 +111,4 @@
     <button (click)="inviteStudents()" class="btn btn-primary" type="button">Mời</button>
   </div>
 </ng-template>
+

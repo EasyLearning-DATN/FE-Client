@@ -4,7 +4,9 @@
   </div>
   <form [formGroup]="updateClassForm">
     <div class="picture text-center mb-3">
-      <img (click)="fileUpload.click()" [ngSrc]="urlImage ? urlImage:'/assets/img/gallery/hero-header.png'" alt="Test" class="image p-2" height="250"
+      <img (click)="fileUpload.click()" [ngSrc]="classroom.image.url ? classroom.image.url:'/assets/img/gallery/hero-header.png'" alt="Test"
+           class="image p-2"
+           height="250"
            width="250">
     </div>
     <div class="d-none">
@@ -47,20 +49,21 @@
         <div class="row mb-3 g-1 d-flex justify-content-between align-items-center">
           <div class="form-check">
             <input class="form-check-input" formControlName="isPublic" id="flexRadioDefault1" type="radio"
-                   value="true">
+                   value="1">
             <label class="form-check-label" for="flexRadioDefault1">
               {{ 'CLASSROOM.CLASS_EDIT.IS_PUBLIC.TRUE'|translate }}
             </label>
           </div>
           <div class="form-check">
             <input class="form-check-input" formControlName="isPublic" id="flexRadioDefault2" type="radio"
-                   value="false">
+                   value="0">
             <label class="form-check-label" for="flexRadioDefault2">
               {{ 'CLASSROOM.CLASS_EDIT.IS_PUBLIC.FALSE'|translate }}
             </label>
           </div>
           <div class="create-class d-flex align-items-center justify-content-between mb-3 mt-3">
             <button (click)="onUpdateClass()" class="btn btn-app"><span>{{ 'CLASSROOM.CLASS_EDIT.EDIT_CLASSROOM'|translate }}</span></button>
+            <button (click)="onDeleteClass()" class="btn btn-app-warning"><span>Xóa lớp học</span></button>
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@
 <div class="container mt-3 d-flex align-items-center">
   <h1>{{ lesson.name }}</h1>
   <app-edit-lesson *ngIf="isCreator"></app-edit-lesson>
-  <app-reportlesson></app-reportlesson>
+  <app-reportlesson *ngIf="!classRoomId"></app-reportlesson>
 </div>
 
 <!--  -->
@@ -18,7 +18,7 @@
         <fa-icon [icon]="['fas','book-open']"></fa-icon>
         {{ 'LESSON.LESSON_DETAIL.QUESTIONS'|translate }}</a>
     </div>
-    <div class="col-auto">
+    <div *ngIf="!classRoomId" class="col-auto">
       <app-create-lesson-test></app-create-lesson-test>
     </div>
   </div>

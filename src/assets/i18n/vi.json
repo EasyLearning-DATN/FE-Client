@@ -358,7 +358,7 @@
       "CREATE_CLASSROOM": "Tạo lớp học"
     },
     "CLASS_EDIT": {
-      "HEADER": "Tạo lớp học",
+      "HEADER": "Chỉnh sửa lớp học",
       "NAME": {
         "LABEL": "Tên của lớp học",
         "ERROR": {

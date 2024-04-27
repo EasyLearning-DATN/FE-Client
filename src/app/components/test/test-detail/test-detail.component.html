@@ -13,7 +13,7 @@
       </button>
     </div>
     <div *ngIf="isCreator" class="ms-3">
-      <a [routerLink]="['/test/exam-result',test.id]" class="btn btn-app">
+      <a [routerLink]="['../../','test/exam-result',test.id]" class="btn btn-app">
         <fa-icon [icon]="['far','file-lines']"></fa-icon>
         Xem kết quả thi
       </a>

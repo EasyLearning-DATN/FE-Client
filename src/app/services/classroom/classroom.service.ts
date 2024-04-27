@@ -37,10 +37,10 @@ export class ClassroomService {
     return this.http.get(this.apiGetClasses, {
       params: {
         key: key,
-        sort: "des",
+        sort: 'des',
         page: page,
         limit: 9,
-        sortBy: "createdDate",
+        sortBy: 'createdDate',
         username: username,
       },
     });
@@ -64,7 +64,13 @@ export class ClassroomService {
   }
 
   updateClassroom(id: string, classroom: ClassroomDTO) {
-    return this.http.put(this.apiUpdateClassroom + '/' + id, classroom);
+    return this.http.put(this.apiUpdateClassroom + '/' + id, classroom).pipe(
+      map(
+        (response: any) => {
+          return <ClassroomResponses>response.data;
+        },
+      ),
+    );
   }
 
   deleteClassroom(id: string) {

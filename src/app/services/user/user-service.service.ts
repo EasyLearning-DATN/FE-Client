@@ -1,6 +1,7 @@
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Router} from '@angular/router';
+import {map, Observable, tap} from 'rxjs';
 import {ChangePassDTO} from 'src/app/DTOS/user/changePass.dto';
 import {LoginDTO} from 'src/app/DTOS/user/login.dto';
 import {SignupDTO} from 'src/app/DTOS/user/signup.dto';
@@ -8,9 +9,8 @@ import {UpdateInfoDTO} from 'src/app/DTOS/user/updateInfo.dto';
 import {UserInfoResponse, UserResponse} from 'src/app/responses/user/user.responses';
 import {environment} from 'src/environments/environments';
 import {ContinueGoogoleDto} from '../../DTOS/user/continueGoogole.dto';
-import { map, tap } from 'rxjs';
-import { SharedService } from '../shared/shared.service';
-import { Router } from '@angular/router';
+import {RoleResponse} from '../../responses/role/role.response';
+import {SharedService} from '../shared/shared.service';
 
 @Injectable({
   providedIn: 'root',
@@ -76,7 +76,16 @@ export class UserService {
 
   //  lấy user info từ token sử dụng bearer token
   getUserInfo(token: string): Observable<UserResponse> {
-    return this.http.get<UserResponse>(`${environment.apiMember}/user/info`);
+    return this.http.get<UserResponse>(`${environment.apiMember}/user/info`).pipe(
+      tap(
+        res => {
+          this.sharedService.auth = res;
+        }, error => {
+          console.log(error.message);
+          this.router.navigate(['404']);
+        },
+      ),
+    );
   }
 
   // hàm update info user có sử dụng bearer token và body là fullName, email, dayOfBirth
@@ -120,14 +129,25 @@ export class UserService {
     Params = Params.append('userId', userId);
     return this.http.get(this.apiGetRole, {
       params: Params,
-    });
+    }).pipe(
+      tap(
+        (res: any) => {
+          const roles = <RoleResponse[]>res.data;
+          roles.forEach(role => {
+            this.sharedService.auth.role = role.role;
+          });
+        }, error => {
+          this.router.navigate(['/404']);
+        },
+      ),
+    );
   }
 
 
   updateRoleUser(userID: any, roleIds: any): Observable<any> {
     return this.http.put(this.apiGetRole, {
       userID,
-      roleIds: [roleIds]
+      roleIds: [roleIds],
     });
   }
 

@@ -358,7 +358,7 @@
       "CREATE_CLASSROOM": "Create classroom"
     },
     "CLASS_EDIT": {
-      "HEADER": "Create classroom",
+      "HEADER": "Update classroom",
       "NAME": {
         "LABEL": "Classroom's name",
         "ERROR": {

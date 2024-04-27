@@ -23,6 +23,7 @@ export class TestDetailComponent implements OnInit {
   test !: TestResponses;
   isCreator: boolean = false;
   userId!: string;
+  classRoomId: string | null = null;
   userInfoId!: number;
   closeResult: string = '';
 
@@ -64,6 +65,7 @@ export class TestDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.classRoomId = this.route.snapshot.paramMap.get('classId');
     this.test = this.sharedService.test;
     this.sharedService.testChanged.subscribe(
       (test) => {
@@ -95,14 +97,21 @@ export class TestDetailComponent implements OnInit {
 
   openConfirmDialog() {
     const confirmModalComponent = this.modalService.open(ConfirmModalComponent);
-    confirmModalComponent.componentInstance.title = 'Làm bài thi';
-    confirmModalComponent.componentInstance.body = 'Bạn có muốn làm bài thi này không?';
+    confirmModalComponent.componentInstance.title = {value: 'Làm bài thi'};
+    confirmModalComponent.componentInstance.body = {value: 'Bạn có muốn làm bài thi này không?'};
     confirmModalComponent
     .result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.closeResult);
         if (result==='Confirm') {
+          if (this.classRoomId) {
+            this.testService.checkIsDoneTest(this.test.id).subscribe(
+              res => {
+                if (res) return;
+              },
+            );
+          }
           this.onDoTest();
           console.log(result);
         }

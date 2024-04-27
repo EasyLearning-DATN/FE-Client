@@ -1,14 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { LessonDTO } from 'src/app/DTOS/lesson/lesson.dto';
-import { ImageResponses } from 'src/app/responses/image/image.responses';
-import { LessonService } from 'src/app/services/lesson/lesson.service';
-import { QuestionService } from 'src/app/services/question/question.service';
-import { UploadImageService } from 'src/app/services/shared/upload/upload-image.service';
-import { environment, TRANSLATE } from 'src/environments/environments';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
+import {LessonDTO} from 'src/app/DTOS/lesson/lesson.dto';
+import {ImageResponses} from 'src/app/responses/image/image.responses';
+import {LessonService} from 'src/app/services/lesson/lesson.service';
+import {QuestionService} from 'src/app/services/question/question.service';
+import {UploadImageService} from 'src/app/services/shared/upload/upload-image.service';
+import {environment, TRANSLATE} from 'src/environments/environments';
 import Swal from 'sweetalert2';
+import {ClassroomService} from '../../../services/classroom/classroom.service';
+import {SharedService} from '../../../services/shared/shared.service';
 
 @Component({
   selector: 'app-create-lesson',
@@ -20,11 +22,12 @@ export class CreateLessonComponent implements OnInit {
   listQuestionImport: any[] = [];
   // listQuestionImport: QuestionDTO[] = [];
   numberOfLesson: number = 0;
-  userId: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).id : '';
-  role: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).role : '';
+  userId: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).id: '';
+  role: string = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!).role: '';
   name: string = '';
   description: string = '';
   image_id: string = '';
+  classRoomId: string | null = '';
   createLessonF: FormGroup;
   lessonF: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -40,6 +43,9 @@ export class CreateLessonComponent implements OnInit {
     private lessonService: LessonService,
     private imgUpload: UploadImageService,
     private router: Router,
+    private route: ActivatedRoute,
+    private classroomService: ClassroomService,
+    private sharedService: SharedService,
     private translateService: TranslateService) {
     this.createLessonF = this.fb.group({
       title: [''],
@@ -56,6 +62,7 @@ export class CreateLessonComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.classRoomId = this.route.snapshot.paramMap.get('classId');
     this.getAllLesson();
   }
 
@@ -115,7 +122,17 @@ export class CreateLessonComponent implements OnInit {
           confirmButtonText: 'OK',
         }).then((result) => {
           if (result.isConfirmed) {
-            this.router.navigate(['/lesson/list-lesson/my-lesson']);
+            if (this.classRoomId) {
+              this.classroomService.getOneClassroom(this.classRoomId).subscribe(
+                res => {
+                  this.sharedService.classroomChanged.next(res);
+                },
+              );
+              this.router.navigate(['../../'], {relativeTo: this.route});
+            } else {
+              this.router.navigate(['/lesson/list-lesson/my-lesson']);
+            }
+
           }
         });
       }, error => {
@@ -138,9 +155,9 @@ export class CreateLessonComponent implements OnInit {
         name: this.name,
         description: this.description,
         image_id: this.image_id,
-        classRoomId: null,
+        classRoomId: this.classRoomId,
       };
-      if (this.numberOfLesson > 10 && this.role === 'user') {
+      if (this.numberOfLesson > 10 && this.role==='user') {
         let title = '';
         this.translateService.stream(TRANSLATE.MESSAGE.ERROR.CREATE_LESSON_001).subscribe(
           res => {
