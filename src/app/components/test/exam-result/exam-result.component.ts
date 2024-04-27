@@ -1,22 +1,22 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ExamResultResponses } from 'src/app/responses/ExamResult/examresult.responses';
-import { TestResponses } from 'src/app/responses/test/test.responses';
-import { ExcelService } from 'src/app/services/excel/excel.service';
-import { SharedService } from 'src/app/services/shared/shared.service';
-import { ExamResultService } from 'src/app/services/test/ExamResult/exam-result.service';
-import { TestService } from 'src/app/services/test/test.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {ExamResultResponses} from 'src/app/responses/ExamResult/examresult.responses';
+import {ExcelService} from 'src/app/services/excel/excel.service';
+import {SharedService} from 'src/app/services/shared/shared.service';
+import {ExamResultService} from 'src/app/services/test/ExamResult/exam-result.service';
+import {TestService} from 'src/app/services/test/test.service';
+import {TestResponses} from '../../../responses/test/test.responses';
 
 @Component({
   selector: 'app-exam-result',
   templateUrl: './exam-result.component.html',
-  styleUrls: ['./exam-result.component.css']
+  styleUrls: ['./exam-result.component.css'],
 })
-export class ExamResultComponent {
+export class ExamResultComponent implements OnInit {
   testId: string | undefined;
-  test: any;
+  test!: TestResponses;
   examResult: any;
+  classRoomId: null | string = null;
   examDetail: ExamResultResponses[] | undefined;
 
   constructor(
@@ -24,7 +24,7 @@ export class ExamResultComponent {
     private sharedService: SharedService,
     private excelService: ExcelService,
     private examResultService: ExamResultService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
 
   }
@@ -32,6 +32,7 @@ export class ExamResultComponent {
   // lấy test id ở http://localhost:4200/test/ExamResult/e8d64231-65c3-4949-91a2-7a8e029bbbe6
 
   ngOnInit() {
+    this.classRoomId = this.route.snapshot.paramMap.get('classId');
     this.getTestDetail();
     const currentUrl = this.route.snapshot.url.join('/');
     const urlParts = currentUrl.split('/');
@@ -41,7 +42,7 @@ export class ExamResultComponent {
         (res: any) => {
           this.examResult = res;
           console.log(this.examResult);
-        }
+        },
       );
     }
   }
@@ -54,7 +55,7 @@ export class ExamResultComponent {
       (res: any) => {
         this.test = res;
         console.log(this.test);
-      }
+      },
     );
   }
 
@@ -62,21 +63,21 @@ export class ExamResultComponent {
     const dataToExport = [];
     const table = document.getElementById('examTable');
     if (table) {
-        const rows = table.getElementsByTagName('tr');
-        for (let i = 1; i < rows.length; i++) {
-            const row = rows[i];
-            const rowData = {
-                'Họ và Tên': row.cells[1].textContent, 
-                'Thời gian vào bài': row.cells[2].textContent,
-                'Thời gian hoàn thành': row.cells[3].textContent, 
-                'Số câu đúng': row.cells[4].textContent, 
-                'Điểm': row.cells[5].textContent
-            };
-            dataToExport.push(rowData);
-        }
+      const rows = table.getElementsByTagName('tr');
+      for (let i = 1; i < rows.length; i++) {
+        const row = rows[i];
+        const rowData = {
+          'Họ và Tên': row.cells[1].textContent,
+          'Thời gian vào bài': row.cells[2].textContent,
+          'Thời gian hoàn thành': row.cells[3].textContent,
+          'Số câu đúng': row.cells[4].textContent,
+          'Điểm': row.cells[5].textContent,
+        };
+        dataToExport.push(rowData);
+      }
     }
     this.excelService.exportToExcel(dataToExport, this.test?.name + '_Kết quả');
-}
+  }
 
 
   convertTime(timeInSeconds: number): string {

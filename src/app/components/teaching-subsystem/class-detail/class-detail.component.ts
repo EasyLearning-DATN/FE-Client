@@ -16,7 +16,7 @@ import {TestService} from '../../../services/test/test.service';
 })
 export class ClassDetailComponent implements OnInit {
   classroom!: ClassroomResponses;
-  classRoomId: any;
+  classRoomId: null | string = null;
   updatedPoint: number = 0;
   studentEmail: string = '';
   isCreator: boolean = false;

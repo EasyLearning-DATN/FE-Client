@@ -1,5 +1,5 @@
 import {AfterContentInit, Component, OnDestroy, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TestReportResponse} from '../../../responses/test-report/test-report.responses';
 import {SharedService} from '../../../services/shared/shared.service';
 
@@ -11,13 +11,17 @@ import {SharedService} from '../../../services/shared/shared.service';
 export class TestReportDetailComponent implements OnInit, AfterContentInit, OnDestroy {
 
   testReport!: TestReportResponse;
+  classRoomId: null | string = null;
   protected readonly Math = Math;
   private userInfoId!: number;
 
-  constructor(private sharedService: SharedService, private router: Router) {
+
+  constructor(private sharedService: SharedService, private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.classRoomId = this.route.snapshot.paramMap.get('classId');
+
     this.testReport = this.sharedService.testReport;
 
     // truyển userInfo từ localStorage và lấy userInfoId

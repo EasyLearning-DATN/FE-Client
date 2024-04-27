@@ -129,6 +129,21 @@ a {
   color: white;
 }
 
+a.class-navigation {
+  transition: all ease-in-out 0.3s;
+  text-decoration: none;
+  color: black;
+}
+
+.class-current-page {
+  color: #1565FF;
+}
+
+a.class-navigation:hover {
+  text-decoration: underline;
+  color: #1565FF;
+}
+
 .dropdown-item:hover, .nav-link:hover, .nav-link:focus {
   color: #1565FF !important;
 }

@@ -1,43 +1,51 @@
 <div class="container">
-    <div class="invoice">
-        <h1>DANH SÁCH KẾT QUẢ THI</h1>
-        <div class="detail">
-            <div class="detail-left">
-                <p>Tên bài thi: {{ test.name}}</p>   
-            </div>
-            <div class="detail-right">
-                <p>Thời gian làm bài: {{ convertTime(test.time_total) }}</p>
-            </div>
-            <div class="detail-left">
-                <p>Số câu hỏi: {{ test.total_question }}</p> 
-            </div>
-        </div>
-        <!-- button (click)="exportExcel()" -->
-        <button class="btn btn-primary" (click)="exportExcel()">Xuất Excel</button>
-
-        <table id="examTable">
-            <thead>
-                <tr>
-                    <th>STT</th>
-                    <th>Họ và tên</th>
-                    <th>Bắt đầu làm bài</th>
-                    <th>Thời gian hoàn thành thi</th>
-                    <th>Số câu đúng</th>
-                    <th>Điểm</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let examResults of examResult;let i = index">
-                  <td>{{ i + 1}}</td>
-                  <td>{{ examResults.user_info.fullName }}</td>
-                  <td>{{ examResults.created_date | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
-                  <td>{{ convertTime(examResults.total_time_finish) }}</td>
-                  <td>{{ examResults.question_correct_num}}/{{ test.total_question }}</td>
-                  <td>{{ examResults.total_point}}</td>
-                </tr>
-              </tbody>
-              
-        </table>
-
+  <div *ngIf="classRoomId" class="navigation">
+    <a [routerLink]="['/classroom/list-classroom']" class="class-navigation">Danh sách lớp học</a> /
+    <a [routerLink]="['/classroom',classRoomId]" class="class-navigation">Lớp học</a> /
+    <a [routerLink]="['../../',test.id]" class="class-navigation">{{ test.name }}</a> /
+    <span class="class-current-page">{{ 'Danh sách kết quả bài thi' }}</span>
+  </div>
+</div>
+<div class="container">
+  <div class="invoice">
+    <h1>DANH SÁCH KẾT QUẢ THI</h1>
+    <div class="detail">
+      <div class="detail-left">
+        <p>Tên bài thi: {{ test.name }}</p>
+      </div>
+      <div class="detail-right">
+        <p>Thời gian làm bài: {{ test.time_total ? convertTime(test.time_total) : 0 }}</p>
+      </div>
+      <div class="detail-left">
+        <p>Số câu hỏi: {{ test.total_question }}</p>
+      </div>
     </div>
+    <!-- button (click)="exportExcel()" -->
+    <button (click)="exportExcel()" class="btn btn-primary">Xuất Excel</button>
+
+    <table id="examTable">
+      <thead>
+      <tr>
+        <th>STT</th>
+        <th>Họ và tên</th>
+        <th>Bắt đầu làm bài</th>
+        <th>Thời gian hoàn thành thi</th>
+        <th>Số câu đúng</th>
+        <th>Điểm</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let examResults of examResult;let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ examResults.user_info.fullName }}</td>
+        <td>{{ examResults.created_date | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td>{{ convertTime(examResults.total_time_finish) }}</td>
+        <td>{{ examResults.question_correct_num }}/{{ test.total_question }}</td>
+        <td>{{ examResults.total_point }}</td>
+      </tr>
+      </tbody>
+
+    </table>
+
+  </div>
 </div>

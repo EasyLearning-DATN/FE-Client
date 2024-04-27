@@ -1,3 +1,11 @@
+<div class="container">
+  <div *ngIf="classRoomId" class="navigation">
+    <a [routerLink]="['/classroom/list-classroom']" class="class-navigation">Danh sách lớp học</a> /
+    <a [routerLink]="['/classroom',classRoomId]" class="class-navigation">Lớp học</a> /
+    <a [routerLink]="['../../']" class="class-navigation">{{ testReport.test.name }}</a> /
+    <span class="class-current-page">{{ 'Kết quả bài thi' }}</span>
+  </div>
+</div>
 <div class="container boundary">
   <div class="container text-center fs-4 fw-semi-bold text-uppercase mt-3">kết quả</div>
   <div class="container user-data-container d-flex align-items-start">

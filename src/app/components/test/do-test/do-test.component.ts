@@ -77,6 +77,7 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
   questionsOfTest!: QuestionResponses[];
   totalQuestions!: number;
   testViewResultCode!: string;
+  classRoomId: string | null = null;
   closeResult: string = '';
   canNavigate: boolean = false;
   // resultTypes!: ResultTypeResponses[];
@@ -128,6 +129,8 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
   // }
 
   ngOnInit() {
+    this.classRoomId = this.route.snapshot.paramMap.get('classId');
+
     this.getTempTest();
     this.getTiming();
   }
@@ -238,8 +241,8 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
 
   openConfirmEndTest() {
     const modalConfirm = this.modalService.open(ConfirmModalComponent);
-    modalConfirm.componentInstance.title = 'Kết thúc';
-    modalConfirm.componentInstance.body = 'Bạn có chắc chắn muốn kết thúc bài thi không?';
+    modalConfirm.componentInstance.title = {value: 'Kết thúc'};
+    modalConfirm.componentInstance.body = {value: 'Bạn có chắc chắn muốn kết thúc bài thi không?'};
     modalConfirm
     .result.then(
       (result) => {
@@ -297,14 +300,25 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
         },
 
       });
-      this.router.navigate(['/test/test-report', res.id]).then(
-        () => {
-          Swal.close();
-          if (screenfull.isEnabled) {
-            screenfull.toggle();
-          }
-        },
-      );
+      if (this.classRoomId) {
+        this.router.navigate(['../../../test-report', res.id]).then(
+          () => {
+            Swal.close();
+            if (screenfull.isEnabled) {
+              screenfull.toggle();
+            }
+          },
+        );
+      } else {
+        this.router.navigate(['/test/test-report', res.id]).then(
+          () => {
+            Swal.close();
+            if (screenfull.isEnabled) {
+              screenfull.toggle();
+            }
+          },
+        );
+      }
       return res;
     }).catch(reason => {
       Swal.close();

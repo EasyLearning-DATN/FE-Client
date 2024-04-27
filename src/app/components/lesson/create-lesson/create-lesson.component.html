@@ -1,4 +1,9 @@
 <div class="container mt-4">
+  <div *ngIf="classRoomId" class="navigation">
+    <a [routerLink]="['/classroom/list-classroom']" class="class-navigation">Danh sách lớp học</a> /
+    <a [routerLink]="['/classroom',classRoomId]" class="class-navigation">Lớp học</a> /
+    <span class="class-current-page">{{ 'Tạo bài học' }}</span>
+  </div>
   <h2>Tạo bài học mới</h2>
   <form #lessonForm="ngForm" (ngSubmit)="onCreateLesson()">
     <div class="form-group">

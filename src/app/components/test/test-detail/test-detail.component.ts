@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import {v4 as uuidv4} from 'uuid';
 import {TestReportItemDTO} from '../../../DTOS/test-report/test-report.dto';
 import {TempTest} from '../../../DTOS/test/test.dto';
+import {TestReportResponse} from '../../../responses/test-report/test-report.responses';
 import {TestResponses} from '../../../responses/test/test.responses';
 import {SharedService} from '../../../services/shared/shared.service';
 import {TestService} from '../../../services/test/test.service';
@@ -23,6 +24,7 @@ export class TestDetailComponent implements OnInit {
   test !: TestResponses;
   isCreator: boolean = false;
   userId!: string;
+  testReport!: TestReportResponse;
   classRoomId: string | null = null;
   userInfoId!: number;
   closeResult: string = '';
@@ -74,6 +76,8 @@ export class TestDetailComponent implements OnInit {
       },
     );
 
+    this.testReport = this.sharedService.testReport;
+
     // truyển userInfo từ localStorage và lấy id
     const userInfoString = localStorage.getItem('userInfo') || '';
     if (userInfoString==='') {
@@ -108,11 +112,19 @@ export class TestDetailComponent implements OnInit {
           if (this.classRoomId) {
             this.testService.checkIsDoneTest(this.test.id).subscribe(
               res => {
-                if (res) return;
+                if (res) {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Bài kiểm tra đã được làm!',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK',
+                  });
+                } else {
+                  this.onDoTest();
+                }
               },
             );
           }
-          this.onDoTest();
           console.log(result);
         }
 
@@ -240,6 +252,18 @@ export class TestDetailComponent implements OnInit {
         console.log(error.message);
       },
     );
+  }
+
+  onNavigateTestReport() {
+    this.router.navigate(['../../test/exam-result', this.test.id], {relativeTo: this.route});
+  }
+
+  onNavigateEditTest() {
+    this.router.navigate(['edit'], {relativeTo: this.route});
+  }
+
+  onNavigateTestResult() {
+    this.router.navigate(['test-report'], {relativeTo: this.route});
   }
 
   private convertToGMT7(date: Date, time: number): Date {

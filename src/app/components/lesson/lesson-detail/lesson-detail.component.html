@@ -1,4 +1,11 @@
 <!--  -->
+<div class="container">
+  <div *ngIf="classRoomId" class="navigation">
+    <a [routerLink]="['/classroom/list-classroom']" class="class-navigation">Danh sách lớp học</a> /
+    <a [routerLink]="['/classroom',classRoomId]" class="class-navigation">Lớp học</a> /
+    <span class="class-current-page">{{ lesson.name }}</span>
+  </div>
+</div>
 <div class="container mt-3 d-flex align-items-center">
   <h1>{{ lesson.name }}</h1>
   <app-edit-lesson *ngIf="isCreator"></app-edit-lesson>

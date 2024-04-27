@@ -1,23 +1,36 @@
 <!--  -->
-
 <div class="container">
+  <div *ngIf="classRoomId" class="navigation">
+    <a [routerLink]="['/classroom/list-classroom']" class="class-navigation">Danh sách lớp học</a> /
+    <a [routerLink]="['/classroom',classRoomId]" class="class-navigation">Lớp học</a> /
+    <span class="class-current-page">{{ test.name }}</span>
+  </div>
   <div class="mt-3 mb-3 d-flex align-items-center">
     <h1>{{ test.name }}</h1>
-    <a *ngIf="isCreator" [routerLink]="['edit']" class="btn btn-app ms-3 text-black">
-      <fa-icon [icon]="['fas','pen-to-square']"></fa-icon>
-    </a>
+    <div class="ms-3">
+      <button (click)="onNavigateEditTest()" *ngIf="isCreator" [routerLink]="['edit']" class="btn btn-app  text-black">
+        <fa-icon [icon]="['fas','pen-to-square']"></fa-icon>
+      </button>
+    </div>
     <div class="ms-3">
       <button (click)="openConfirmDialog()" class="btn btn-app">
         <fa-icon [icon]="['far','file-lines']"></fa-icon>
         Làm bài thi này
       </button>
     </div>
-    <div *ngIf="isCreator" class="ms-3">
-      <a [routerLink]="['../../','test/exam-result',test.id]" class="btn btn-app">
+    <div *ngIf="classRoomId" class="ms-3">
+      <button (click)="onNavigateTestResult()" class="btn btn-app">
         <fa-icon [icon]="['far','file-lines']"></fa-icon>
         Xem kết quả thi
-      </a>
+      </button>
     </div>
+    <div *ngIf="isCreator" class="ms-3">
+      <button (click)="onNavigateTestReport()" class="btn btn-app">
+        <fa-icon [icon]="['far','file-lines']"></fa-icon>
+        Xem thống kê kết quả thi
+      </button>
+    </div>
+
   </div>
   <div class="row flex-shrink-0 flex-row">
     <div class="mb-3 fs-1 d-flex flex-column flex-shrink-0 align-items-start justify-content-around col-auto col-lg-8">
