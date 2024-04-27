@@ -87,6 +87,7 @@ export class CreateLessonTestComponent implements OnInit {
             total_question: <number>this.createTestForm.get('total_question')?.value,
             close_time: null,
             open_time: null,
+            max_point: null,
             classRoomId: null,
           };
           console.log(this.createTest);

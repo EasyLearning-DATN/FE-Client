@@ -67,6 +67,7 @@ export class TestDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.classRoomId = this.route.snapshot.paramMap.get('classId');
     this.test = this.sharedService.test;
     this.sharedService.testChanged.subscribe(
@@ -75,7 +76,6 @@ export class TestDetailComponent implements OnInit {
         this.test = this.sharedService.test;
       },
     );
-
     this.testReport = this.sharedService.testReport;
 
     // truyển userInfo từ localStorage và lấy id
@@ -124,6 +124,8 @@ export class TestDetailComponent implements OnInit {
                 }
               },
             );
+          } else {
+            this.onDoTest();
           }
           console.log(result);
         }
@@ -233,6 +235,7 @@ export class TestDetailComponent implements OnInit {
       tempTest.endTime = endTime;
       localStorage.setItem(tempTestId, JSON.stringify(tempTest));
       this.cookieService.set(tempTestId, 'doing', endTime);
+
     }
     this.router.navigate(['do-test', tempTestId], {relativeTo: this.route}).then(
       () => {

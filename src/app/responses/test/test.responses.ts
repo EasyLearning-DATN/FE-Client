@@ -25,6 +25,7 @@ export interface TestResponses extends BaseReponses {
   };
   open_time: Date | null;
   close_time: Date | null;
+  max_point: number | null;
 }
 
 export interface TestListResponses {

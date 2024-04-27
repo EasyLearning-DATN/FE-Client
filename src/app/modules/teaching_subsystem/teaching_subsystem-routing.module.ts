@@ -76,7 +76,7 @@ const routes: Routes = [
             component: CreateTestComponent,
             resolve: [
               // checkIsClassOwnerResolver,
-              resultTypeResolver, questionTypeResolver, resultTypeResolver],
+              classroomResolver, resultTypeResolver, questionTypeResolver, resultTypeResolver],
           },
           {
             path: ':id/edit',

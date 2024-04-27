@@ -80,6 +80,7 @@ export class ClassDetailComponent implements OnInit {
       },
       willClose: () => {
         Swal.hideLoading();
+        this.modalService.dismissAll();
       },
     });
     console.log(this.classroom.id);
