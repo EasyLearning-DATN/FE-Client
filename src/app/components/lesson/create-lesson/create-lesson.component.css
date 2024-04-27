@@ -15,3 +15,16 @@
 #fileInput {
     display: none;
 }
+
+.small-box {
+    border: 1px solid #ccc; /* Khung border 1px với màu xám nhạt */
+    background-color: #f9f9f9; /* Màu nền nhẹ nhàng */
+    padding: 15px; /* Khoảng cách giữa nội dung và khung border */
+  }
+  
+  .small-box h4 {
+    margin-top: 0; /* Loại bỏ margin top của tiêu đề */
+  }
+  
+  /* Các style khác theo nhu cầu của bạn */
+  
