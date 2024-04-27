@@ -125,6 +125,9 @@
             }}</span>
         </button>
         <ul ngbDropdownMenu>
+          <li *ngIf="userResponse && userResponse.role == 'admin'">
+            <a href="http://20.2.217.227:2003/" ngbDropdownItem style="color: red;">Trang quản trị</a>
+          </li>
           <li><a [href]="'/user/' + userResponse?.username" ngbDropdownItem>{{ 'HEADER.USER_PROFILE'|translate }}</a>
           </li>
           <li>
