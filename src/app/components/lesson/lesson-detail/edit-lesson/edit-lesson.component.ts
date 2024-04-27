@@ -24,6 +24,7 @@ export class EditLessonComponent implements OnInit {
     description: new FormControl(this.sharedService.lesson.description, [Validators.required]),
   });
   lesson !: LessonResponses;
+  classRoomId: null | string = '';
   image: string = '';
   private closeResult = '';
 
@@ -41,6 +42,7 @@ export class EditLessonComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.classRoomId = this.route.snapshot.params['classId'];
     this.lesson = this.sharedService.lesson;
   }
 
@@ -108,7 +110,7 @@ export class EditLessonComponent implements OnInit {
       name: <string>this.updateLessonForm.get('name')?.value,
       description: <string>this.updateLessonForm.get('description')?.value,
       image_id: imageId,
-      classRoomId: null,
+      classRoomId: this.classRoomId,
     };
     let title = '';
     this.lessonService.updateLesson(this.lesson.id, lessondto)

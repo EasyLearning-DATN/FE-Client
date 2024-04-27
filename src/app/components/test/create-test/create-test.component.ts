@@ -1,7 +1,8 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal, NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
+import {TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs';
 import Swal from 'sweetalert2';
 import {environment} from '../../../../environments/environments';
@@ -9,6 +10,7 @@ import {TestDTO} from '../../../DTOS/test/test.dto';
 import {QuestionTypeResponses} from '../../../responses/question-type/question-type.responses';
 import {QuestionResponses} from '../../../responses/question/question.responses';
 import {ResultTypeResponses} from '../../../responses/result_type_id/result_type.responses';
+import {ClassroomService} from '../../../services/classroom/classroom.service';
 import {SharedService} from '../../../services/shared/shared.service';
 import {UploadImageService} from '../../../services/shared/upload/upload-image.service';
 import {TestService} from '../../../services/test/test.service';
@@ -26,7 +28,8 @@ export class CreateTestComponent implements OnInit, OnDestroy {
   urlImage: any;
   createTestForm!: FormGroup;
   resultTypes!: ResultTypeResponses[];
-  createTest!: TestDTO;
+  createTestDTO!: TestDTO;
+  classRoomId: string | null = '';
   questionIDs: string[] = [];
   questions: QuestionResponses[] = [];
   questionTypes!: QuestionTypeResponses[];
@@ -38,11 +41,14 @@ export class CreateTestComponent implements OnInit, OnDestroy {
   protected readonly environment = environment;
 
   constructor(private offcanvasService: NgbOffcanvas, private sharedService: SharedService,
-              private modalService: NgbModal, private testService: TestService, private imageService: UploadImageService, private router: Router) {
+              private modalService: NgbModal, private testService: TestService, private imageService: UploadImageService, private router: Router,
+              private route: ActivatedRoute,
+              private translate: TranslateService, private classroomService: ClassroomService) {
   }
 
   ngOnInit() {
     // this.resultTypes = this.sharedService.resultType;
+    this.classRoomId = this.route.snapshot.paramMap.get('classId');
     this.getAllTestByUser();
     this.resultTypes = JSON.parse(<string>sessionStorage.getItem('resultTypes'));
     // this.questionTypes = this.sharedService.questionTypeResponses;
@@ -106,30 +112,18 @@ export class CreateTestComponent implements OnInit, OnDestroy {
 
     const confirmModal = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    confirmModal.componentInstance.body = 'Bạn có chắc chắn muốn tạo bài test không?';
+    confirmModal.componentInstance.body = {value: 'Bạn có chắc chắn muốn tạo bài test không?'};
     confirmModal
     .result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.closeResult);
         if (result==='Confirm') {
-
           const token = localStorage.getItem('token');
-
-
           let imgFile = this.fileUpload.nativeElement.files[0];
-          // console.log(imgFile);
-          // if (imgFile === undefined) {
-          //
-          //   new FileSystemDirectoryEntry().getFile('/assets/img/gallery/hero-header.png', undefined, result => {
-          //     imgFile = result;
-          //   });
-          //   // imgFile = new File( FileReader(), '/assets/img/gallery/hero-header.png');
-          // }
-          // console.log(imgFile);
           this.setQuestionIds();
           // console.log(this.questionIDs);
-          this.createTest = {
+          this.createTestDTO = {
             name: this.createTestForm.get('name')?.value,
             description: this.createTestForm.get('description')?.value,
             question_ids: this.questionIDs,
@@ -140,12 +134,12 @@ export class CreateTestComponent implements OnInit, OnDestroy {
             total_question: this.questionIDs.length,
             close_time: this.createTestForm.get('isHasCloseTime')?.value ? this.createTestForm.get('close_time')?.value: null,
             open_time: this.createTestForm.get('isHasOpenTime')?.value ? this.createTestForm.get('open_time')?.value: null,
-            classRoomId: null,
+            classRoomId: this.classRoomId,
           };
           // console.log(this.createTest);
           this.removeSeconds();
           this.changeTime();
-          if (this.createTest.close_time && this.createTest.open_time && this.createTest.open_time.getTime() >= this.createTest.close_time.getTime()) {
+          if (this.createTestDTO.close_time && this.createTestDTO.open_time && this.createTestDTO.open_time.getTime() >= this.createTestDTO.close_time.getTime()) {
             Swal.fire({
               icon: 'error',
               title: 'Thời gian mở bài test không được muộn hơn thời gian đóng bài test!',
@@ -171,29 +165,8 @@ export class CreateTestComponent implements OnInit, OnDestroy {
               },
             });
             this.imageService.uploadImage(imgFile, token).subscribe(result => {
-              this.createTest.image_id = result.public_id;
-              this.testService.createTest(this.createTest).subscribe(
-                (response: any) => {
-                  // console.log(response);
-                  Swal.close();
-                  Swal.fire({
-                    icon: 'success',
-                    title: 'Tạo bài test mới thành công!',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'OK',
-                  });
-                  this.router.navigate(['test', response.data.id]);
-                }, error => {
-                  // console.log(error);
-                  Swal.close();
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Tạo bài test mới thất bại!',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'OK',
-                  });
-                },
-              );
+              this.createTestDTO.image_id = result.public_id;
+              this.createTest();
               // console.log(result);
             }, error => {
               Swal.close();
@@ -211,6 +184,40 @@ export class CreateTestComponent implements OnInit, OnDestroy {
       (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         console.log(this.closeResult);
+      },
+    );
+  }
+
+  private createTest() {
+    this.testService.createTest(this.createTestDTO).subscribe(
+      (response: any) => {
+        // console.log(response);
+        Swal.close();
+        Swal.fire({
+          icon: 'success',
+          title: 'Tạo bài test mới thành công!',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        });
+        if (this.classRoomId) {
+          this.classroomService.getOneClassroom(this.classRoomId).subscribe(
+            res => {
+              this.sharedService.classroomChanged.next(res);
+            },
+          );
+          this.router.navigate(['../../'], {relativeTo: this.route});
+        } else {
+          this.router.navigate(['test', response.data.id]);
+        }
+      }, error => {
+        // console.log(error);
+        Swal.close();
+        Swal.fire({
+          icon: 'error',
+          title: 'Tạo bài test mới thất bại!',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        });
       },
     );
   }
@@ -269,21 +276,21 @@ export class CreateTestComponent implements OnInit, OnDestroy {
 
   private removeSeconds() {
 
-    if (this.createTest.open_time) {
-      this.createTest.open_time = new Date(new Date(this.createTest.open_time).setSeconds(0));
+    if (this.createTestDTO.open_time) {
+      this.createTestDTO.open_time = new Date(new Date(this.createTestDTO.open_time).setSeconds(0));
     }
-    if (this.createTest.close_time) {
-      this.createTest.close_time = new Date(new Date(this.createTest.close_time).setSeconds(0));
+    if (this.createTestDTO.close_time) {
+      this.createTestDTO.close_time = new Date(new Date(this.createTestDTO.close_time).setSeconds(0));
     }
 
   }
 
   private changeTime() {
-    if (this.createTest.open_time) {
-      this.createTest.open_time = new Date(this.createTest.open_time.getTime() + 7 * 60 * 60 * 1000);
+    if (this.createTestDTO.open_time) {
+      this.createTestDTO.open_time = new Date(this.createTestDTO.open_time.getTime() + 7 * 60 * 60 * 1000);
     }
-    if (this.createTest.close_time) {
-      this.createTest.close_time = new Date(this.createTest.close_time.getTime() + 7 * 60 * 60 * 1000);
+    if (this.createTestDTO.close_time) {
+      this.createTestDTO.close_time = new Date(this.createTestDTO.close_time.getTime() + 7 * 60 * 60 * 1000);
     }
   }
 }

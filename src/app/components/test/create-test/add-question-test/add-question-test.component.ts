@@ -1,6 +1,7 @@
 import {animate, keyframes, style, transition, trigger} from '@angular/animations';
 import {Component, OnDestroy, OnInit, TemplateRef} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
 import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import {lastValueFrom, Observable, Subscription} from 'rxjs';
 import {LessonResponses} from '../../../../responses/lesson/lesson.responses';
@@ -67,6 +68,7 @@ export class AddQuestionTestComponent implements OnInit, OnDestroy {
   searchKey: string = '';
   lessons!: SearchLessonResponses[];
   lesson!: LessonResponses;
+  classRoomId: string | null = '';
   totalResults!: number;
   isFetchingLesson: boolean = true;
   isFetchingQuestions: boolean = false;
@@ -75,11 +77,12 @@ export class AddQuestionTestComponent implements OnInit, OnDestroy {
   lessonSub!: Subscription;
   fetchingSub!: Subscription;
 
-  constructor(private offcanvasService: NgbOffcanvas, private sharedService: SharedService, private lessonService: LessonService) {
+  constructor(private offcanvasService: NgbOffcanvas, private sharedService: SharedService, private lessonService: LessonService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.initForm();
+    this.classRoomId = this.route.snapshot.paramMap.get('classId');
     this.sharedService.lessonChanged.subscribe(lesson => {
       this.lesson = lesson;
       this.isFetchingQuestions = false;
@@ -102,11 +105,15 @@ export class AddQuestionTestComponent implements OnInit, OnDestroy {
       return;
     }
     let result$: Observable<SearchLessonResponses[]>;
-    if (this.sourceForm.get('source')?.value==='myLibrary') {
-      const userInfo = JSON.parse(<string>localStorage.getItem('userInfo'));
-      result$ = this.lessonService.searchLessonForTest(this.searchKey, 0, userInfo.id);
+    if (!this.classRoomId) {
+      if (this.sourceForm.get('source')?.value==='myLibrary') {
+        const userInfo = JSON.parse(<string>localStorage.getItem('userInfo'));
+        result$ = this.lessonService.searchLessonForTest(this.searchKey, 0, userInfo.id);
+      } else {
+        result$ = this.lessonService.searchLessonForTest(this.searchKey);
+      }
     } else {
-      result$ = this.lessonService.searchLessonForTest(this.searchKey);
+      result$ = this.lessonService.searchLessonOfClassForTest(this.searchKey, 0, this.classRoomId);
     }
 
     // Tạm thời viết như vậy

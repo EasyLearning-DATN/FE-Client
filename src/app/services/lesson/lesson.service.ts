@@ -1,16 +1,13 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environments';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { map, tap } from 'rxjs';
-import { SharedService } from '../shared/shared.service';
-import { LessonsResponses } from '../../responses/lessons/lessons.responses';
-import { LessonDTO } from 'src/app/DTOS/lesson/lesson.dto';
-import { LessonResponses } from 'src/app/responses/lesson/lesson.responses';
-import { Router } from '@angular/router';
-import {
-  SearchLessonListResponse,
-  SearchLessonResponses,
-} from '../../responses/search-lesson/search-lesson.responses';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {map, tap} from 'rxjs';
+import {LessonDTO} from 'src/app/DTOS/lesson/lesson.dto';
+import {LessonResponses} from 'src/app/responses/lesson/lesson.responses';
+import {environment} from '../../../environments/environments';
+import {LessonsResponses} from '../../responses/lessons/lessons.responses';
+import {SearchLessonListResponse, SearchLessonResponses} from '../../responses/search-lesson/search-lesson.responses';
+import {SharedService} from '../shared/shared.service';
 
 @Injectable({
   providedIn: 'root',
@@ -58,7 +55,7 @@ export class LessonService {
       map((response) => {
         let lessons: LessonsResponses = response.data;
         lessons.data = lessons.data.map(lesson => {
-          return {...lesson, questions: lesson.questions ? lesson.questions : []};
+          return {...lesson, questions: lesson.questions ? lesson.questions: []};
         });
         return lessons;
       }),
@@ -71,10 +68,10 @@ export class LessonService {
     return this.http.get<any>(this.apiGetListLessonByUser, {
       params: {
         key: key,
-        sort: "des",
+        sort: 'des',
         page: page,
         limit: 9,
-        sortBy: "createdDate",
+        sortBy: 'createdDate',
         username: username,
       },
     })
@@ -82,7 +79,7 @@ export class LessonService {
       map((response) => {
         let lessons: LessonsResponses = response.data;
         lessons.data = lessons.data.map(lesson => {
-          return {...lesson, questions: lesson.questions ? lesson.questions : []};
+          return {...lesson, questions: lesson.questions ? lesson.questions: []};
         });
         return lessons;
       }),
@@ -99,7 +96,7 @@ export class LessonService {
       map((response) => {
         let lessons: LessonsResponses = response.data;
         lessons.data = lessons.data.map(lesson => {
-          return {...lesson, questions: lesson.questions ? lesson.questions : []};
+          return {...lesson, questions: lesson.questions ? lesson.questions: []};
         });
         return lessons;
       }),
@@ -113,6 +110,31 @@ export class LessonService {
     searchParams = searchParams.append('key', key);
     searchParams = searchParams.append('page', page);
     searchParams = searchParams.append('createdBy', createdBy);
+    return this.http.get<any>(this.apiSearchLesson, {
+      params: searchParams,
+    })
+    .pipe(map((response) => {
+        let lessons: SearchLessonListResponse = response.data;
+        lessons.data = lessons.data.map(lesson => {
+          return {...lesson};
+        });
+        return lessons.data;
+      }),
+      tap((lessons: SearchLessonResponses[]) => {
+        // if (this.sharedService.lessonsSearch === undefined) {
+        this.sharedService.lessonsSearch = lessons;
+        // } else {
+        //   this.sharedService.onUpdateLessonsSearch(lessons);
+        // }
+      }),
+    );
+  }
+
+  searchLessonOfClassForTest(key: string, page: number = 0, classId: string) {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('key', key);
+    searchParams = searchParams.append('page', page);
+    searchParams = searchParams.append('classId', classId);
     return this.http.get<any>(this.apiSearchLesson, {
       params: searchParams,
     })
@@ -149,7 +171,7 @@ export class LessonService {
     return this.http.get<any>(this.apiGetOneLesson + '/' + id).pipe(
       map((response) => {
         let lesson: LessonResponses = response.data;
-        return {...lesson, questions: lesson.questions ? lesson.questions : []};
+        return {...lesson, questions: lesson.questions ? lesson.questions: []};
 
       }),
       tap((lesson: LessonResponses) => {
@@ -178,7 +200,7 @@ export class LessonService {
       map((response) => {
         let lessons: LessonsResponses = response.data;
         lessons.data = lessons.data.map(lesson => {
-          return {...lesson, questions: lesson.questions ? lesson.questions : []};
+          return {...lesson, questions: lesson.questions ? lesson.questions: []};
         });
         return lessons;
       }),

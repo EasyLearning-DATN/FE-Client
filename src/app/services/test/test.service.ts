@@ -1,12 +1,12 @@
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
+import {CookieService} from 'ngx-cookie-service';
 import {map, tap} from 'rxjs';
-import {environment} from 'src/environments/environments';
-import {SharedService} from '../shared/shared.service';
 import {TestListResponses, TestResponses} from 'src/app/responses/test/test.responses';
-import {TestDTO} from "../../DTOS/test/test.dto";
-import {CookieService} from "ngx-cookie-service";
+import {environment} from 'src/environments/environments';
+import {TestDTO} from '../../DTOS/test/test.dto';
+import {SharedService} from '../shared/shared.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +19,7 @@ export class TestService {
   private apiUpdateTest = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_TEST;
   private apiDeleteTest = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_TEST;
   private apiGetListTestByUser = environment.API_URL + environment.API_PUBLIC + environment.VERSION_1 + environment.API_TEST;
+  private apiCheckIsDoneTest = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_TEST;
 
   constructor(private http: HttpClient, private sharedService: SharedService, private router: Router, private cookieService: CookieService) {
   }
@@ -27,17 +28,17 @@ export class TestService {
   getAllTest(page: number, size?: number) {
     return this.http.get<any>(this.apigetAllTest, {
       params: {
-        limit: size ? size : 10,
+        limit: size ? size: 10,
         page: page,
-        sort: "des",
-        sortBy: "createdDate",
+        sort: 'des',
+        sortBy: 'createdDate',
       },
     })
     .pipe(
       map((response) => {
         let tests: TestListResponses = response.data;
         tests.data = tests.data.map(test => {
-          return {...test, questions: test.question_tests ? test.question_tests : []};
+          return {...test, questions: test.question_tests ? test.question_tests: []};
         });
         return tests;
       }),
@@ -47,14 +48,19 @@ export class TestService {
   }
 
   getHomeTest() {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('sort', 'des');
+    searchParams = searchParams.append('page', 0);
+    searchParams = searchParams.append('limit', 8);
+    searchParams = searchParams.append('sortBy', 'doingTime');
     return this.http.get<any>(this.apigetAllTest, {
-      params: {limit: 8},
+      params: searchParams,
     })
     .pipe(
       map((response) => {
         let tests: TestListResponses = response.data;
         tests.data = tests.data.map(test => {
-          return {...test, questions: test.question_tests ? test.question_tests : []};
+          return {...test, questions: test.question_tests ? test.question_tests: []};
         });
         return tests;
       }),
@@ -67,10 +73,10 @@ export class TestService {
     return this.http.get<any>(this.apiGetListTestByUser, {
       params: {
         key: key,
-        sort: "des",
+        sort: 'des',
         page: page,
         limit: 9,
-        sortBy: "createdDate",
+        sortBy: 'createdDate',
         username: username,
       },
     })
@@ -78,7 +84,7 @@ export class TestService {
       map((response) => {
         let tests: TestListResponses = response.data;
         tests.data = tests.data.map(test => {
-          return {...test, questions: test.question_tests ? test.question_tests : []};
+          return {...test, questions: test.question_tests ? test.question_tests: []};
         });
         return tests;
       }),
@@ -105,7 +111,7 @@ export class TestService {
       map((response) => {
         let tests: TestListResponses = response.data;
         tests.data = tests.data.map(test => {
-          return {...test, questions: test.question_tests ? test.question_tests : []};
+          return {...test, questions: test.question_tests ? test.question_tests: []};
         });
         return tests;
       }),
@@ -140,6 +146,14 @@ export class TestService {
         });
         return tests.data;
       }));
+  }
+
+  checkIsDoneTest(testId: string) {
+    return this.http.get<any>(this.apiCheckIsDoneTest + `/${testId}/is-done`).pipe(
+      map((response: any) => {
+        return <boolean>response.data;
+      }),
+    );
   }
 
 }

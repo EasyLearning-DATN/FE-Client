@@ -98,6 +98,88 @@
       },
       "EDIT_LESSON": {
         "ADD_QUESTIONS": {
+          "TITLE": "Thêm câu hỏi",
+          "QUESTION_TYPE": "Loại câu hỏi",
+          "FITB": {
+            "TITLE": {
+              "LABEL": "Câu hỏi:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập câu hỏi!"
+              }
+            },
+            "WEIGHT": {
+              "LABEL": "Trọng số:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập trọng số điểm!",
+                "MIN": "Trọng số phải >= 1 và <= 3!",
+                "MAX": "Trọng số phải >= 1 và <= 3!"
+              }
+            },
+            "ANSWER": {
+              "LABEL": "Đáp án:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập câu trả lời đúng!"
+              },
+              "ADD_ANSWER": "Thêm đáp án"
+            }
+          },
+          "MCA": {
+            "TITLE": {
+              "LABEL": "Câu hỏi:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập câu hỏi!"
+              }
+            },
+            "WEIGHT": {
+              "LABEL": "Trọng số:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập trọng số điểm!",
+                "MIN": "Trọng số phải >= 1 và <= 3!",
+                "MAX": "Trọng số phải >= 1 và <= 3!"
+              }
+            },
+            "ANSWER": {
+              "LABEL": "Đáp án:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập câu trả lời!"
+              }
+            }
+          },
+          "SCA": {
+            "TITLE": {
+              "LABEL": "Câu hỏi:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập câu hỏi!"
+              }
+            },
+            "WEIGHT": {
+              "LABEL": "Trọng số:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập trọng số điểm!",
+                "MIN": "Trọng số phải >= 1 và <= 3!",
+                "MAX": "Trọng số phải >= 1 và <= 3!"
+              }
+            },
+            "ANSWER": {
+              "LABEL": "Đáp án:",
+              "WRONG_ANSWER": {
+                "LABEL": "Đáp án sai:",
+                "ERROR": {
+                  "REQUIRED": "Vui lòng nhập câu trả lời sai!"
+                }
+              },
+              "CORRECT_ANSWER": {
+                "LABEL": "Đáp án đúng:",
+                "ERROR": {
+                  "REQUIRED": "Vui lòng nhập câu trả lời đúng!"
+                }
+              }
+            }
+          },
+          "DELETE_QUESTION": "Xóa câu hỏi",
+          "SAVE": "Lưu",
+          "CANCEL": "Hủy",
+          "CLOSE": "Đóng"
         },
         "EDIT_QUESTIONS": {
           "EDIT_QUESTION_ITEM": {
@@ -184,9 +266,9 @@
             "CANCEL": "Cancel",
             "CLOSE": "Close"
           },
-          "TITLE": "Danh sách câu hỏi",
-          "EDIT": "Chỉnh sửa",
-          "DELETE": "Xóa"
+          "TITLE": "List questions",
+          "EDIT": "Edit",
+          "DELETE": "Delete"
         },
         "TITLE": "Edit lesson",
         "NAME": {
@@ -274,6 +356,36 @@
         "FALSE": "This classroom is private"
       },
       "CREATE_CLASSROOM": "Create classroom"
+    },
+    "CLASS_EDIT": {
+      "HEADER": "Update classroom",
+      "NAME": {
+        "LABEL": "Classroom's name",
+        "ERROR": {
+          "REQUIRED": "Name can not be empty!"
+        }
+      },
+      "DESCRIPTION": {
+        "LABEL": "Description",
+        "ERROR": {
+          "REQUIRED": "Description can not be empty!"
+        }
+      },
+      "STANDARD_POINT": {
+        "LABEL": "Standard point",
+        "ERROR": {
+          "REQUIRED": "Standard point can not be empty!",
+          "MIN": "Min standard point is 10!",
+          "MAX": "Max standard point is 200!"
+        }
+      },
+      "IS_PUBLIC": {
+        "TRUE": "This classroom is public",
+        "FALSE": "This classroom is private"
+      },
+      "EDIT_CLASSROOM": "Edit classroom"
+    },
+    "DELETE_CLASS": {
     }
   },
   "CONFIRM_MODAL": {
@@ -337,6 +449,11 @@
           "001": "Please input all information!",
           "002": "Classroom created unsuccessfully!",
           "003": "Please choose cover!"
+        },
+        "EDIT_CLASS": {
+          "001": "Please input all information!",
+          "002": "Classroom updated unsuccessfully!",
+          "003": "Please choose cover!"
         }
       },
       "ACCESS_TEACHING": {
@@ -371,6 +488,9 @@
       "CLASSROOM": {
         "CREATE_CLASS": {
           "001": "Classroom created successfully!"
+        },
+        "EDIT_CLASS": {
+          "001": "Classroom updated successfully!"
         }
       }
     },
@@ -408,6 +528,9 @@
       "CLASSROOM": {
         "CREATE_CLASS": {
           "001": "Creating classroom..."
+        },
+        "EDIT_CLASS": {
+          "001": "Updating classroom..."
         }
       }
     },
@@ -431,6 +554,9 @@
       "CLASSROOM": {
         "CREATE_CLASS": {
           "CREATE": "Do you want to create classroom?"
+        },
+        "EDIT_CLASS": {
+          "EDIT": "Do you want to update this classroom?"
         }
       }
     },

@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Subscription} from 'rxjs';
 import Swal from 'sweetalert2';
@@ -10,6 +10,8 @@ import {QuestionTypeResponses} from '../../../../responses/question-type/questio
 import {QuestionResponses} from '../../../../responses/question/question.responses';
 import {ResultTypeResponses} from '../../../../responses/result_type_id/result_type.responses';
 import {TestResponses} from '../../../../responses/test/test.responses';
+import {UserResponse} from '../../../../responses/user/user.responses';
+import {ClassroomService} from '../../../../services/classroom/classroom.service';
 import {SharedService} from '../../../../services/shared/shared.service';
 import {UploadImageService} from '../../../../services/shared/upload/upload-image.service';
 import {TestService} from '../../../../services/test/test.service';
@@ -32,16 +34,21 @@ export class TestEditComponent implements OnInit, OnDestroy {
   questionTypes!: QuestionTypeResponses[];
   questionSub!: Subscription;
   closeResult: string = '';
+  isCreator: boolean = false;
+  classRoomId: null | string = null;
   maxDate!: Date;
   minDate!: Date;
   @ViewChild('fileUpload', {static: true}) fileUpload !: ElementRef;
   protected readonly environment = environment;
 
   constructor(private sharedService: SharedService,
-              private modalService: NgbModal, private testService: TestService, private imageService: UploadImageService, private router: Router) {
+              private modalService: NgbModal, private testService: TestService, private imageService: UploadImageService, private router: Router,
+              private route: ActivatedRoute, private classroomService: ClassroomService) {
   }
 
   ngOnInit() {
+    this.classRoomId = this.route.snapshot.paramMap.get('classId');
+
     this.sharedService.testChanged.subscribe(
       res => {
         this.sharedService.test = res;
@@ -51,6 +58,20 @@ export class TestEditComponent implements OnInit, OnDestroy {
       },
     );
     this.test = this.sharedService.test;
+
+    // truyển userInfo từ localStorage và lấy id
+    const userInfoString = localStorage.getItem('userInfo') || '';
+    if (userInfoString==='') {
+      this.router.navigate(['/404']);
+    } else {
+      const userInfo: UserResponse = JSON.parse(localStorage.getItem('userInfo') || '');
+      const userId = userInfo ? userInfo.id: '';
+      if (userId!==this.test.created_by) {
+        this.router.navigate(['/404']);
+      }
+    }
+
+
     // this.resultTypes = this.sharedService.resultType;
     this.resultTypes = JSON.parse(<string>sessionStorage.getItem('resultTypes'));
     // this.questionTypes = this.sharedService.questionTypeResponses;
@@ -108,7 +129,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
 
     const confirmModal = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    confirmModal.componentInstance.body = 'Bạn có chắc chắn muốn lưu chỉnh sửa không?';
+    confirmModal.componentInstance.body = {value: 'Bạn có chắc chắn muốn lưu chỉnh sửa không?'};
     confirmModal
     .result.then(
       (result) => {
@@ -129,7 +150,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
             total_question: <number>this.editTestForm.get('total_question')?.value,
             open_time: this.editTestForm.get('isHasOpenTime')?.value ? this.editTestForm.get('open_time')?.value: null,
             close_time: this.editTestForm.get('isHasCloseTime')?.value ? this.editTestForm.get('close_time')?.value: null,
-            classRoomId: null,
+            classRoomId: this.classRoomId,
           };
           this.removeSeconds();
           this.changeTime();
@@ -151,59 +172,13 @@ export class TestEditComponent implements OnInit, OnDestroy {
           });
           if (this.urlImage===null) {
             this.editTest.image_id = this.test.image.public_id;
-            this.testService.updateTest(this.test.id, this.editTest).subscribe(
-              (response) => {
-                console.log(response);
-                Swal.close();
-                Swal.fire({
-                  icon: 'success',
-                  title: 'Chỉnh sửa bài test thành công!',
-                  confirmButtonColor: '#3085d6',
-                  confirmButtonText: 'OK',
-                });
-                // this.initForm();
-              }, error => {
-                console.log(error);
-                Swal.close();
-                Swal.fire({
-                  icon: 'error',
-                  title: 'Chỉnh sửa bài test thất bại!',
-                  confirmButtonColor: '#3085d6',
-                  confirmButtonText: 'OK',
-                });
-              },
-            );
+            this.updateTest();
             console.log(result);
           } else {
             this.imageService.uploadImage(imgFile, token).subscribe(result => {
               this.editTest.image_id = result.public_id;
               // console.log(this.editTest);
-              this.testService.updateTest(this.test.id, this.editTest).subscribe(
-                (response) => {
-                  console.log(response);
-                  Swal.close();
-                  Swal.fire({
-                    icon: 'success',
-                    title: 'Chỉnh sửa bài test thành công!',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'OK',
-                  });
-                  this.testService.getOneTest(this.test.id).subscribe(
-                    (res) => {
-                      this.sharedService.testChanged.next(res);
-                    },
-                  );
-                }, error => {
-                  console.log(error);
-                  Swal.close();
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Chỉnh sửa bài test thất bại!',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'OK',
-                  });
-                },
-              );
+              this.updateTest();
               console.log(result);
             }, error => {
               Swal.close();
@@ -227,7 +202,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
   onDeleteTest() {
     const confirmModal = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    confirmModal.componentInstance.body = 'Bạn có chắc chắn muốn xóa bài test này không?';
+    confirmModal.componentInstance.body = {value: 'Bạn có chắc chắn muốn xóa bài test này không?'};
     confirmModal
     .result.then(
       (result) => {
@@ -243,7 +218,6 @@ export class TestEditComponent implements OnInit, OnDestroy {
               Swal.showLoading();
             },
           });
-
           this.testService.deleteTest(this.test.id).subscribe(
             (response) => {
               console.log(response);
@@ -254,7 +228,16 @@ export class TestEditComponent implements OnInit, OnDestroy {
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK',
               });
-              this.router.navigate(['/test/list-test']);
+              if (this.classRoomId) {
+                this.classroomService.getOneClassroom(this.classRoomId).subscribe(
+                  res => {
+                    this.sharedService.classroomChanged.next(res);
+                  },
+                );
+                this.router.navigate(['../../'], {relativeTo: this.route});
+              } else {
+                this.router.navigate(['/test/list-test']);
+              }
             }, error => {
               console.log(error);
               Swal.close();
@@ -271,6 +254,42 @@ export class TestEditComponent implements OnInit, OnDestroy {
       (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         console.log(this.closeResult);
+      },
+    );
+  }
+
+  private updateTest() {
+    this.testService.updateTest(this.test.id, this.editTest).subscribe(
+      (response) => {
+        console.log(response);
+        Swal.close();
+        Swal.fire({
+          icon: 'success',
+          title: 'Chỉnh sửa bài test thành công!',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        });
+        if (this.classRoomId) {
+          this.classroomService.getOneClassroom(this.classRoomId).subscribe(
+            res => {
+              this.sharedService.classroomChanged.next(res);
+            },
+          );
+        }
+        this.testService.getOneTest(this.test.id).subscribe(
+          (res) => {
+            this.sharedService.testChanged.next(res);
+          },
+        );
+      }, error => {
+        console.log(error);
+        Swal.close();
+        Swal.fire({
+          icon: 'error',
+          title: 'Chỉnh sửa bài test thất bại!',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        });
       },
     );
   }
