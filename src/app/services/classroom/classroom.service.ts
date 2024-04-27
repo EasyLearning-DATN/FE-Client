@@ -91,8 +91,17 @@ export class ClassroomService {
     return this.http.post(this.apiCreateClassroom, classroomDTO);
   }
 
-  getAllClassroom() {
-    return this.http.get(this.apiGetAllClassroom);
+  getAllClassroom(key: string, page: number, username: string) {
+    return this.http.get(this.apiGetAllClassroom, {
+      params: {
+        key: key,
+        sort: 'des',
+        page: page,
+        limit: 9,
+        sortBy: 'createdDate',
+        username: username,
+      },
+    });
   }
 
   getClasses(key: string, page: number, username: string) {

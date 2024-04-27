@@ -5,7 +5,7 @@
     <span class="class-current-page">{{ "Tạo bài kiểm tra" }}</span>
   </div>
   <div class="header mb-3">
-    <span class="fs-4">Tạo Bài Test</span>
+    <span class="fs-4">Tạo Bài Thi</span>
   </div>
   <form [formGroup]="createTestForm">
     <div class="picture text-center mb-3">
@@ -19,9 +19,9 @@
       <div class="w-lg-75 w-100">
         <div class="test-name mb-3 form-floating">
           <input class="form-control" formControlName="name" id="floatingName" placeholder="">
-          <label for="floatingName">Tên của bài test</label>
+          <label for="floatingName">Tên của bài thi</label>
           <div *ngIf="!createTestForm.get('name')?.valid && createTestForm.get('name')?.touched" class="mt-1">
-              <span *ngIf="createTestForm.get('name')?.errors?.['required']" style="color: red;">Tên bài test
+              <span *ngIf="createTestForm.get('name')?.errors?.['required']" style="color: red;">Tên bài thi
                                                                                                   không được để trống!</span>
           </div>
         </div>
