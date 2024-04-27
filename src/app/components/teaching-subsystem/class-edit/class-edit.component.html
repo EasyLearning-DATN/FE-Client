@@ -37,7 +37,7 @@
           </div>
         </div>
         <div class="classroom-description mb-3 form-floating">
-          <input class="form-control" formControlName="standardPoint" id="floatingPoint" max="200" min="10" placeholder="">
+          <input class="form-control" formControlName="standardPoint" id="floatingPoint" max="200" min="10" placeholder="" type="number">
           <label for="floatingPoint">{{ 'CLASSROOM.CLASS_EDIT.STANDARD_POINT.LABEL'|translate }}</label>
           <div *ngIf="!updateClassForm.get('standardPoint')?.valid && updateClassForm.get('standardPoint')?.touched" class="mt-1">
               <span *ngIf="updateClassForm.get('standardPoint')?.errors?.['required']" style="color: red;">{{

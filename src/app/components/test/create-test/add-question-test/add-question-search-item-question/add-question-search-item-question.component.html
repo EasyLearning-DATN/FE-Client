@@ -3,9 +3,9 @@
     <div class="d-flex align-items-center">
       <i-bs height="16" name="check-square" width="16"></i-bs>
       <span [ngSwitch]="nameCode" class="ms-2 fw-semi-bold text-capitalize">
-        <ng-template [ngSwitchCase]="'mca'">{{ "lesson.lesson-learn.lesson-learn-item.mca" | translate }}</ng-template>
-        <ng-template [ngSwitchCase]="'fitb'">{{ "lesson.lesson-learn.lesson-learn-item.fitb" | translate }}</ng-template>
-        <ng-template ngSwitchDefault>{{ "lesson.lesson-learn.lesson-learn-item.sca" | translate }}</ng-template>
+        <ng-template [ngSwitchCase]="'mca'">{{ "LESSON.LESSON_DETAIL.LESSON_LEARN.LESSON_LEARN_ITEM.MCA" | translate }}</ng-template>
+        <ng-template [ngSwitchCase]="'fitb'">{{ "LESSON.LESSON_DETAIL.LESSON_LEARN.LESSON_LEARN_ITEM.FITB" | translate }}</ng-template>
+        <ng-template ngSwitchDefault>{{ "LESSON.LESSON_DETAIL.LESSON_LEARN.LESSON_LEARN_ITEM.SCA" | translate }}</ng-template>
       </span>
     </div>
     <div *ngIf="isCreateTest">
@@ -22,7 +22,7 @@
     <span>{{ 'Trọng số: ' + question.weighted }}</span>
   </div>
   <div class="answer-title ms-1 mt-1 fw-semi-bold">
-    <span>{{ "lesson.lesson-learn.lesson-learn-item.answer-title" | translate }}</span>
+    <span>{{ "LESSON.LESSON_DETAIL.LESSON_LEARN.LESSON_LEARN_ITEM.ANSWER_TITLE" | translate }}</span>
   </div>
   <!--   <ng-content></ng-content> -->
   <div [ngSwitch]="nameCode">

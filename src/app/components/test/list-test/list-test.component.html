@@ -1,4 +1,5 @@
 <div class="container">
+
   <!-- Search -->
   <div class="row mb-3">
     <div class="col-md-4 p-3">
@@ -34,15 +35,13 @@
       </div>
       <!-- phân trang -->
       <div class="pagination">
-        <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 0"
-            class="btn btn-page">Trước</button>
-        <button (click)="onPageChange(page)" *ngFor="let page of totalPageArray"
-            [class.active]="currentPage === page" class="btn btn-page">{{ page + 1 }}
+        <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 0" class="btn btn-app me-2">Trước</button>
+        <button (click)="onPageChange(page)" *ngFor="let page of totalPageArray" [class.active]="currentPage === page"
+                class="btn btn-app me-2">{{ page + 1 }}
         </button>
-        <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages - 1 "
-            class="btn btn-page">Sau
+        <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages  - 1 " class="btn btn-app me-2">Sau
         </button>
-    </div>
+      </div>
     </div>
   </section>
 
