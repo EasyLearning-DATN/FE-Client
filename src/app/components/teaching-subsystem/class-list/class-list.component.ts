@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ClassroomResponses } from 'src/app/responses/classroom/classroom.responses';
+import { UserResponse } from 'src/app/responses/user/user.responses';
 import { ClassroomService } from 'src/app/services/classroom/classroom.service';
 import Swal from 'sweetalert2';
 
@@ -11,9 +12,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./class-list.component.css'],
 })
 export class ClassListComponent implements OnInit {
+  user !: UserResponse;
   token: string = '';
   currentPage = 0;
-  classRoomPerPage = 10;
   totalPages = 0;
   totalPageArray: number[] = [];
   originalClassRoom: ClassroomResponses[] = [];
@@ -31,14 +32,18 @@ export class ClassListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchListClassroom();
+    this.user = JSON.parse(localStorage.getItem('userInfo') || '');
+    this.fetchListClassroom(this.searchKey);
     this.inviteStudent();
   }
 
   // get all test
-  fetchListClassroom() {
+  fetchListClassroom(key : string) {
+    // get class by user Id
+    const userId = this.user.username || '';
+    this.searchKey = key;
     this.isFetching = true;
-    this.classRoomService.getAllClassroom().subscribe(
+    this.classRoomService.getAllClassroom(this.searchKey, this.currentPage, userId).subscribe(
       (classrooms: any) => {
         this.isFetching = false;
         this.totalPages = classrooms.data.totalPage; // Tổng số trang
@@ -64,23 +69,8 @@ export class ClassListComponent implements OnInit {
 
   onPageChange(pageNumber: number) {
     this.currentPage = pageNumber;
-    this.fetchListClassroom();
+    this.fetchListClassroom(this.searchKey);
   }
-
-  // searchTest(key: string) {
-  //   this.isFetching = true;
-  //   this.testService.searchTest(key).subscribe(
-  //     (tests: TestListResponses) => {
-  //       this.isFetching = false;
-  //       this.tests = tests.data;
-  //       console.log(tests.data);
-  //     },
-  //     error => {
-  //       this.isFetching = false;
-  //       this.error = error.message;
-  //     },
-  //   );
-  // }
 
   // lấy token từ url http://localhost:4200/classroom/invite?token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJudWxsIiwiaWF0IjoxNzEyOTc5NTkwLCJleHAiOjE3MTQ3Nzk1OTB9.6v_WZo55jz9A4BGzeU7djm0-uUfSuNQImoVKyvVDUg0
   // nếu có token thì hàm mới chạy

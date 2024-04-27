@@ -10,7 +10,6 @@ import {TestService} from "../../../services/test/test.service";
 })
 export class ListTestComponent implements OnInit {
   currentPage = 0;
-  testsPerPage = 10;
   totalPages = 0;
   totalPageArray: number[] = [];
   originalTests: TestResponses[] = [];
@@ -27,13 +26,14 @@ export class ListTestComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchListTest();
+    this.fetchListTest(this.searchKey);
   }
 
   // get all test
-  fetchListTest() {
+  fetchListTest(key : string) {
+    this.searchKey = key;
     this.isFetching = true;
-    this.testService.getAllTest(this.currentPage).subscribe(
+    this.testService.getAllTest(this.searchKey, this.currentPage).subscribe(
       (tests: any) => {
         this.isFetching = false;
         this.totalPages = tests.totalPage; // Tổng số trang
@@ -59,22 +59,7 @@ export class ListTestComponent implements OnInit {
 
   onPageChange(pageNumber: number) {
     this.currentPage = pageNumber;
-    this.fetchListTest();
-  }
-
-  searchTest(key: string) {
-    this.isFetching = true;
-    this.testService.searchTest(key).subscribe(
-      (tests: TestListResponses) => {
-        this.isFetching = false;
-        this.tests = tests.data;
-        console.log(tests.data);
-      },
-      error => {
-        this.isFetching = false;
-        this.error = error.message;
-      },
-    );
+    this.fetchListTest(this.searchKey);
   }
 
 }

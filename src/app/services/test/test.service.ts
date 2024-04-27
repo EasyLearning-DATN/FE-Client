@@ -25,12 +25,13 @@ export class TestService {
   }
 
   // get all test và gán vào test responses
-  getAllTest(page: number, size?: number) {
+  getAllTest(key: string, page: number) {
     return this.http.get<any>(this.apigetAllTest, {
       params: {
-        limit: size ? size: 10,
-        page: page,
+        key: key,
         sort: 'des',
+        page: page,
+        limit: 9,
         sortBy: 'createdDate',
       },
     })

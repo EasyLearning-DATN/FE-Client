@@ -1,16 +1,18 @@
 <div class="container">
-  <!-- Search -->
-  <!-- <div class="row mb-3">
-    <div class="col-md-4 p-3">
-      <div class="input-group">
-        <input [(ngModel)]="searchKey" aria-describedby="basic-addon2" aria-label="Search" class="form-control"
-               placeholder="Search" type="text">
-        <div class="input-group-append">
-          <button (click)="searchTest(searchKey)" class="btn btn-outline-secondary" type="button">Search</button>
+  <div class="container">
+    <!-- Search -->
+    <div class="row mb-3">
+      <div class="col-md-4 p-3">
+        <div class="input-group">
+          <input [(ngModel)]="searchKey" aria-describedby="basic-addon2" aria-label="Search" class="form-control"
+                placeholder="Search" type="text">
+          <div class="input-group-append">
+            <button (click)="fetchListClassroom(searchKey)" class="btn btn-outline-secondary" type="button">Search</button>
+          </div>
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
   <section>
     <div class="container">
       <h1 class="text-center">Danh sách lớp học</h1>
