@@ -52,7 +52,7 @@ export class TestService {
     searchParams = searchParams.append('sort', 'des');
     searchParams = searchParams.append('page', 0);
     searchParams = searchParams.append('limit', 8);
-    searchParams = searchParams.append('sortBy', 'doing_time');
+    searchParams = searchParams.append('sortBy', 'doingTime');
     searchParams = searchParams.append('classId', 'null');
     return this.http.get<any>(this.apigetAllTest, {
       params: searchParams,
