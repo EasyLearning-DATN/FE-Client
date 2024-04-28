@@ -6,10 +6,11 @@
     <span class="class-current-page">{{ 'Chỉnh sửa' }}</span>
   </div>
   <div class="header mb-3">
-    <span class="fs-4">Chỉnh Sửa Bài Test</span>
+    <span class="fs-4">Chỉnh Sửa Bài Kiểm Tra</span>
   </div>
   <form [formGroup]="editTestForm">
     <div class="picture text-center mb-3">
+      <div><span>Chọn hình ảnh! <span class="text-danger">(Dưới 5MB)</span></span></div>
       <img (click)="fileUpload.click()" [ngSrc]="test.image.url ? test.image.url:'/assets/img/gallery/hero-header.png'" alt="Test" class="image p-2"
            height="250"
            width="250">
@@ -21,9 +22,9 @@
       <div class="w-lg-75 w-100">
         <div class="test-name mb-3 form-floating">
           <input class="form-control" formControlName="name" id="floatingName" placeholder="">
-          <label for="floatingName">Tên của bài test</label>
+          <label for="floatingName">Tên của bài kiểm tra</label>
           <div *ngIf="!editTestForm.get('name')?.valid && editTestForm.get('name')?.touched" class="mt-1">
-              <span *ngIf="editTestForm.get('name')?.errors?.['required']" style="color: red;">Tên bài test
+              <span *ngIf="editTestForm.get('name')?.errors?.['required']" style="color: red;">Tên bài kiểm tra
                                                                                                   không được để trống!</span>
           </div>
         </div>
@@ -54,7 +55,7 @@
         <div class=" mt-3  form-check">
           <input class="form-check-input" formControlName="isHasOpenTime" id="checkHasOpenDate" type="checkbox" value="true">
           <label class="form-check-label" for="checkHasOpenDate">
-            Thời điểm mở bài thi
+            Thời điểm mở bài kiểm tra
           </label>
         </div>
         <div *ngIf="editTestForm.get('isHasOpenTime')?.value" class=" mt-3 g-1  d-flex justify-content-between">
@@ -70,7 +71,7 @@
         <div class="mt-3 form-check">
           <input class="form-check-input" formControlName="isHasCloseTime" id="checkHasCloseDate" type="checkbox" value="true">
           <label class="form-check-label" for="checkHasCloseDate">
-            Thời điểm đóng bài thi
+            Thời điểm đóng bài kiểm tra
           </label>
         </div>
         <div *ngIf="editTestForm.get('isHasCloseTime')?.value" class=" mt-3 g-1 d-flex justify-content-between">
@@ -87,7 +88,7 @@
             <input (click)="resetSelection('fullTime')" class="form-check-input" formControlName="test_type" id="flexRadioDefault1" type="radio"
                    value="fullTime">
             <label class="form-check-label" for="flexRadioDefault1">
-              Bài thi có thời gian tổng
+              Bài kiểm tra có thời gian tổng
             </label>
           </div>
           <div *ngIf="editTestForm.get('test_type')?.value === 'fullTime'" class="form-group col-sm-8">
@@ -114,7 +115,7 @@
                    type="radio"
                    value="eachQuestion">
             <label class="form-check-label" for="flexRadioDefault2">
-              Bài thi có thời gian mỗi câu hỏi
+              Bài kiểm tra có thời gian mỗi câu hỏi
             </label>
           </div>
           <div *ngIf="editTestForm.get('test_type')?.value === 'eachQuestion'" class="form-group col-sm-8">

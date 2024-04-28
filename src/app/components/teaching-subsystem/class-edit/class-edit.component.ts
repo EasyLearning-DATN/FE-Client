@@ -104,7 +104,8 @@ export class ClassEditComponent implements OnInit, AfterViewInit {
           this.updateClassDTO = {
             name: this.updateClassForm.get('name')?.value,
             description: this.updateClassForm.get('description')?.value,
-            isPublic: this.updateClassForm.get('isPublic')?.value==='1',
+            // isPublic: this.updateClassForm.get('isPublic')?.value==='1',
+            isPublic: false,
             standardPoint: this.updateClassForm.get('standardPoint')?.value,
             imageId: '',
           };
@@ -266,7 +267,8 @@ export class ClassEditComponent implements OnInit, AfterViewInit {
     this.updateClassForm = new FormGroup({
       'name': new FormControl(this.classroom.name, [Validators.required]),
       'description': new FormControl(this.classroom.description, [Validators.required]),
-      'isPublic': new FormControl(this.classroom.is_public ? '1': '0', [Validators.required]),
+      // 'isPublic': new FormControl(this.classroom.is_public ? '1': '0', [Validators.required]),
+      'isPublic': new FormControl('0', [Validators.required]),
       'standardPoint': new FormControl(10, [Validators.required, Validators.min(10), Validators.max(200)]),
     });
     this.urlImage = null;

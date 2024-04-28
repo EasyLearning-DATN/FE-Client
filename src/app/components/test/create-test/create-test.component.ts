@@ -110,7 +110,7 @@ export class CreateTestComponent implements OnInit, OnDestroy {
     if (this.questions.length===0) {
       Swal.fire({
         icon: 'warning',
-        title: 'Bài test phải có ít nhất 1 câu hỏi!',
+        title: 'Bài kiểm tra phải có ít nhất 1 câu hỏi!',
         confirmButtonColor: '#3085d6',
         confirmButtonText: 'OK',
       });
@@ -119,7 +119,7 @@ export class CreateTestComponent implements OnInit, OnDestroy {
 
     const confirmModal = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    confirmModal.componentInstance.body = {value: 'Bạn có chắc chắn muốn tạo bài test không?'};
+    confirmModal.componentInstance.body = {value: 'Bạn có chắc chắn muốn tạo bài kiểm tra không?'};
     confirmModal
     .result.then(
       (result) => {
@@ -151,7 +151,7 @@ export class CreateTestComponent implements OnInit, OnDestroy {
           if (this.createTestDTO.close_time && this.createTestDTO.open_time && this.createTestDTO.open_time.getTime() >= this.createTestDTO.close_time.getTime()) {
             Swal.fire({
               icon: 'error',
-              title: 'Thời gian mở bài test không được muộn hơn thời gian đóng bài test!',
+              title: 'Thời gian mở bài kiểm tra không được muộn hơn thời gian đóng bài kiểm tra!',
               confirmButtonColor: '#3085d6',
               confirmButtonText: 'OK',
             });
@@ -160,14 +160,14 @@ export class CreateTestComponent implements OnInit, OnDestroy {
           if (this.numberOfTest > 10 && this.role==='user') {
             Swal.fire({
               icon: 'error',
-              title: 'Số lượng bài test tối đa là 10! Vui lòng nâng cấp tài khoản để tạo thêm bài test!',
+              title: 'Số lượng bài kiểm tra tối đa là 10! Vui lòng nâng cấp tài khoản để tạo thêm bài kiểm tra!',
               confirmButtonColor: '#3085d6',
               confirmButtonText: 'OK',
             });
             return;
           } else {
             Swal.fire({
-              title: 'Đang tạo bài test...',
+              title: 'Đang tạo bài kiểm tra...',
               allowOutsideClick: false,
               didOpen: () => {
                 Swal.showLoading();
@@ -204,7 +204,7 @@ export class CreateTestComponent implements OnInit, OnDestroy {
         Swal.close();
         Swal.fire({
           icon: 'success',
-          title: 'Tạo bài test mới thành công!',
+          title: 'Tạo bài kiểm tra mới thành công!',
           confirmButtonColor: '#3085d6',
           confirmButtonText: 'OK',
         });
@@ -223,7 +223,7 @@ export class CreateTestComponent implements OnInit, OnDestroy {
         Swal.close();
         Swal.fire({
           icon: 'error',
-          title: 'Tạo bài test mới thất bại!',
+          title: 'Tạo bài kiểm tra mới thất bại!',
           confirmButtonColor: '#3085d6',
           confirmButtonText: 'OK',
         });

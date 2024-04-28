@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { ClassroomResponses } from 'src/app/responses/classroom/classroom.responses';
-import { UserResponse } from 'src/app/responses/user/user.responses';
-import { ClassroomService } from 'src/app/services/classroom/classroom.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {ClassroomResponses} from 'src/app/responses/classroom/classroom.responses';
+import {UserResponse} from 'src/app/responses/user/user.responses';
+import {ClassroomService} from 'src/app/services/classroom/classroom.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -38,12 +38,12 @@ export class ClassListComponent implements OnInit {
   }
 
   // get all test
-  fetchListClassroom(key : string) {
+  fetchListClassroom(key: string) {
     // get class by user Id
     const userId = this.user.username || '';
     this.searchKey = key;
     this.isFetching = true;
-    this.classRoomService.getAllClassroom(this.searchKey, this.currentPage, userId).subscribe(
+    this.classRoomService.getAllClassroom(this.searchKey, this.currentPage).subscribe(
       (classrooms: any) => {
         this.isFetching = false;
         this.totalPages = classrooms.data.totalPage; // Tổng số trang

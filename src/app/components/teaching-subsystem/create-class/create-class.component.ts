@@ -105,7 +105,8 @@ export class CreateClassComponent implements OnInit {
           this.createClassDTO = {
             name: this.createClassForm.get('name')?.value,
             description: this.createClassForm.get('description')?.value,
-            isPublic: this.createClassForm.get('isPublic')?.value==='1',
+            // isPublic: this.createClassForm.get('isPublic')?.value==='1',
+            isPublic: false,
             standardPoint: this.createClassForm.get('standardPoint')?.value,
             imageId: '',
           };
@@ -174,7 +175,7 @@ export class CreateClassComponent implements OnInit {
     this.createClassForm = new FormGroup({
       'name': new FormControl('', [Validators.required]),
       'description': new FormControl('', [Validators.required]),
-      'isPublic': new FormControl('1', [Validators.required]),
+      'isPublic': new FormControl('0', [Validators.required]),
       'standardPoint': new FormControl(10, [Validators.required, Validators.min(10), Validators.max(200)]),
     });
   }
