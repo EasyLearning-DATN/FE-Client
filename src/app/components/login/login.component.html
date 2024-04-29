@@ -8,14 +8,16 @@
     <div class="col-lg-6 col-12">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-          <button aria-selected="false" class="nav-link active" data-bs-target="#sign_in-tab-pane" data-bs-toggle="tab"
-                  id="sign_in-tab" role="tab" type="button">Đăng nhập
-          </button>
+          <a [class.active]='isLogin' [routerLink]="['/login']" aria-selected="false" class="nav-link" data-bs-target="#sign_in-tab-pane"
+             data-bs-toggle="tab"
+             id="sign_in-tab" role="tab" type="button">Đăng nhập
+          </a>
         </li>
         <li class="nav-item" role="presentation">
-          <button aria-selected="true" class="nav-link" data-bs-target="#sign_up-tab-pane" data-bs-toggle="tab"
-                  id="sign_up-tab" role="tab" type="button">Đăng kí
-          </button>
+          <a [class.active]='!isLogin' [routerLink]="['/register']" aria-selected="true" class="nav-link" data-bs-target="#sign_up-tab-pane"
+             data-bs-toggle="tab"
+             id="sign_up-tab" role="tab" type="button">Đăng kí
+          </a>
         </li>
       </ul>
       <div class="tab-content mt-3" id="myTabContent">
@@ -84,14 +86,14 @@
               </div>
             </div>
             <div class="accept_policy">
-              <input id="policy_signup-checkbox" type="checkbox" (change)="isChecked = !isChecked">
-              <label for="policy_signup-checkbox" >Tôi đồng ý với
+              <input (change)="isChecked = !isChecked" id="policy_signup-checkbox" type="checkbox">
+              <label for="policy_signup-checkbox">Tôi đồng ý với
                 <a class="policy_link" href="#">điều khoản</a> &
                 <a class="policy_link" href="#">chính sách quyền riêng tư</a>
                                                   của website.
               </label>
             </div>
-            <button class="login-btn btn" [disabled]="!isChecked" (click)="signup()"> Đăng ký</button>
+            <button (click)="signup()" [disabled]="!isChecked" class="login-btn btn"> Đăng ký</button>
             <button aria-selected="false" class="sign_up-btn" data-bs-target="#sign_up-tab-pane" data-bs-toggle="tab" role="tab"
                     type="button">
               <span>Bạn đã có tài khoản? Đăng nhập</span>
@@ -130,7 +132,7 @@
                                                   của website.
               </label>
             </div>
-            <button class="login-btn" (click)="login()">Đăng nhập</button>
+            <button (click)="login()" class="login-btn">Đăng nhập</button>
             <button aria-selected="false" class="sign_up-btn" data-bs-target="#sign_-tab-pane" data-bs-toggle="tab" role="tab"
                     type="button">
               <span>Mới sử dụng EasyLearing? Tạo tài khoản</span>
