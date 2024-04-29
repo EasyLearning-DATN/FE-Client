@@ -6,6 +6,7 @@ import { ClassroomResponses } from 'src/app/responses/classroom/classroom.respon
 import { ClassroomService } from 'src/app/services/classroom/classroom.service';
 import Swal from 'sweetalert2';
 import {UserInfoResponse, UserResponse} from 'src/app/responses/user/user.responses';
+import { SharedService } from 'src/app/services/shared/shared.service';
 
 @Component({
   selector: 'app-classes',
@@ -13,7 +14,7 @@ import {UserInfoResponse, UserResponse} from 'src/app/responses/user/user.respon
   styleUrls: ['./classes.component.css']
 })
 export class ClassesComponent implements OnInit {
-  user !: UserResponse;
+  user !: UserInfoResponse;
   langForm = new FormGroup({
     lang: new FormControl('vi'),
   });
@@ -32,13 +33,15 @@ export class ClassesComponent implements OnInit {
 
   constructor(
     private classRoomService: ClassroomService,
+    private sharedService: SharedService,
     private route: ActivatedRoute,
   ) {
 
   }
 
   ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('userInfo') || '');
+    // this.user = JSON.parse(localStorage.getItem('userInfo') || '');
+    this.user = this.sharedService.user;
     this.fetchClasses(this.searchKey);
   }
 

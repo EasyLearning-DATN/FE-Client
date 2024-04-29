@@ -39,7 +39,7 @@
                     <button ngbNavLink>Danh sách bài thi</button>
                     <ng-template ngbNavContent><app-tests></app-tests></ng-template>
                 </li>
-                <li ngbNavItem *ngIf="userResponse?.username === user.username">
+                <li ngbNavItem>
                     <button ngbNavLink>Danh sách lớp</button>
                     <ng-template ngbNavContent><app-classes></app-classes></ng-template>
                 </li>

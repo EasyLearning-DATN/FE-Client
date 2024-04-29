@@ -25,7 +25,7 @@
               <small class="text-muted">Ngày tạo: {{ lesson.created_date | date }}</small>
             </div>
             <div class="d-flex justify-content-between align-items-center">
-              <img [src]="lesson.user_info.avatar.url" alt="img" class="avatar lesson-avatar"/>
+              <a [href]="'/user/' + lesson.user_info.username"><img [src]="lesson.user_info.avatar.url" alt="img" class="avatar lesson-avatar"/></a>
               <span class="ms-1">{{ lesson.user_info.fullName | titlecase }}</span>
               <a [routerLink]="['/lesson',lesson.id]" class="btn btn-primary">Xem chi tiết</a>
             </div>
