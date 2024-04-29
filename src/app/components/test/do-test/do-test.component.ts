@@ -110,23 +110,38 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.key==='Tab' ||
-      event.key==='F11' ||
-      event.key==='Escape') {
+    if (event.key==='Escape') {
+      event.preventDefault();
+    }
+    if (event.key==='Tab') {
+      event.preventDefault();
+    }
+    if (event.key==='F11') {
+      event.preventDefault();
+    }
+    if (event.key==='F12') {
+      event.preventDefault();
+    }
+    if (event.altKey && event.key==='Tab') {
       event.preventDefault();
     }
   }
 
-  // @HostListener('document:mousemove', ['$event'])
-  // handleMouseMovement(event: MouseEvent) {
-  //   console.log(event.screenX);
-  //   if (event.screenY <= 5
-  //     // || event.screenX <= 5
-  //   ) {
-  //     event.preventDefault();
-  //     window.alert('Xin vui lòng không di chuyển chuột khỏi phạm vi bài thi!');
-  //   }
-  // }
+  @HostListener('document:mousemove', ['$event'])
+  handleMouseMovement(event: MouseEvent) {
+    // console.log(event.clientX);
+    if (event.clientY <= 5
+      || event.clientX <= 5
+    ) {
+      event.preventDefault();
+      Swal.fire({
+        icon: 'warning',
+        title: 'Xin vui lòng không di chuyển chuột khỏi phạm vi bài kiểm tra!',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK',
+      });
+    }
+  }
 
   ngOnInit() {
     this.classRoomId = this.route.snapshot.paramMap.get('classId');
