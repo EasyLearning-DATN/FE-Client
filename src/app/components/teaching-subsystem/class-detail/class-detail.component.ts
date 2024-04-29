@@ -8,6 +8,7 @@ import {ClassroomResponses} from '../../../responses/classroom/classroom.respons
 import {UserResponse} from '../../../responses/user/user.responses';
 import {SharedService} from '../../../services/shared/shared.service';
 import {TestService} from '../../../services/test/test.service';
+import { ExcelService } from 'src/app/services/excel/excel.service';
 
 @Component({
   selector: 'app-class-detail',
@@ -31,6 +32,7 @@ export class ClassDetailComponent implements OnInit {
     private router: Router,
     private sharedService: SharedService,
     private testService: TestService,
+    private excelService : ExcelService,
   ) {
   }
 
@@ -240,6 +242,28 @@ export class ClassDetailComponent implements OnInit {
       const userId = userInfo ? userInfo.userInfoId: '';
       this.isCreator = userId===this.classroom.creator.id;
     }
+  }
+
+  exportExcel(): void {
+    const dataToExport = [];
+    const table = document.getElementById('listStudents');
+    if (table) {
+      const rows = table.getElementsByTagName('tr');
+      for (let i = 1; i < rows.length; i++) {
+        const row = rows[i];
+        const fullName = row.cells[1].textContent;
+        const pointInput = row.cells[2].querySelector('input'); 
+        const point = pointInput ? (pointInput as HTMLInputElement).value : '0';
+        const rowData = {
+          'Họ và Tên': fullName,
+          'Điểm': point
+        };
+        dataToExport.push(rowData);
+        console.log(fullName);
+        console.log(parseInt(point || '0'));
+      }
+    }
+    this.excelService.exportToExcel(dataToExport, 'Danh sách điểm lớp ' + this.classroom.name);
   }
 
 }
