@@ -20,6 +20,12 @@ export class CommentService {
     environment.VERSION_1 +
     environment.API_COMMENT;
 
+  private apiGetCommentPublic =
+    environment.API_URL +
+    environment.API_PUBLIC +
+    environment.VERSION_1 +
+    environment.API_COMMENT;
+
   private apiActionCommentMember =
     environment.API_URL +
     environment.API_MEMBER +
@@ -54,6 +60,18 @@ export class CommentService {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        params: params,
+      })
+      .pipe(
+        map((response) => {
+          return response;
+        })
+      );
+  }
+
+  getCommentPublic(params: any) {
+    return this.http
+      .get<any>(this.apiGetCommentPublic, {
         params: params,
       })
       .pipe(

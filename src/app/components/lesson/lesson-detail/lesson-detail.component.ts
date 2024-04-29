@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {LessonResponses} from '../../../responses/lesson/lesson.responses';
-import {LessonService} from '../../../services/lesson/lesson.service';
-import {SharedService} from '../../../services/shared/shared.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { LessonResponses } from '../../../responses/lesson/lesson.responses';
+import { LessonService } from '../../../services/lesson/lesson.service';
+import { SharedService } from '../../../services/shared/shared.service';
 
 @Component({
   selector: 'app-lesson-detail',
@@ -10,35 +10,36 @@ import {SharedService} from '../../../services/shared/shared.service';
   styleUrls: ['./lesson-detail.component.css'],
 })
 export class LessonDetailComponent implements OnInit {
-
   lesson!: LessonResponses;
   isCreator: boolean = false;
   totalCMT: number = 0;
   classRoomId: null | string = null;
 
-
-  constructor(private route: ActivatedRoute, private sharedService: SharedService, private lessonService: LessonService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private sharedService: SharedService,
+    private lessonService: LessonService
+  ) {}
 
   ngOnInit() {
     this.classRoomId = this.route.snapshot.paramMap.get('classId');
 
     // lấy lesson từ shared service
     this.lesson = this.sharedService.lesson;
-    this.sharedService.lessonChanged.subscribe(
-      (lesson) => {
-        this.lesson = lesson;
-      },
-    );
+    this.totalCMT = this.lesson.totalComment;
+    this.sharedService.lessonChanged.subscribe((lesson) => {
+      this.lesson = lesson;
+      this.totalCMT = lesson.totalComment;
+    });
 
     // truyển userInfo từ localStorage và lấy id
     const userInfoString = localStorage.getItem('userInfo') || '';
-    if (userInfoString==='') {
+    if (userInfoString === '') {
       this.isCreator = false;
     } else {
       const userInfo = JSON.parse(localStorage.getItem('userInfo') || '');
-      const userId = userInfo ? userInfo.id: '';
-      if (userId===this.lesson.created_by) {
+      const userId = userInfo ? userInfo.id : '';
+      if (userId === this.lesson.created_by) {
         this.isCreator = true;
       } else {
         this.isCreator = false;

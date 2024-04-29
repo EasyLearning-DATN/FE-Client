@@ -1,10 +1,24 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {TranslateService} from '@ngx-translate/core';
-import {CommentDTO} from 'src/app/DTOS/comment/comment.dto';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
+import { CommentDTO } from 'src/app/DTOS/comment/comment.dto';
 import Swal from 'sweetalert2';
-import {TRANSLATE} from '../../../../../../environments/environments';
-import {CommentService} from '../../../../../services/comment/comment.service';
+import { TRANSLATE } from '../../../../../../environments/environments';
+import { CommentService } from '../../../../../services/comment/comment.service';
+import { UserService } from 'src/app/services/user/user-service.service';
 
 @Component({
   selector: 'app-comment-item',
@@ -17,6 +31,7 @@ export class CommentItemComponent implements OnInit {
   @Input() idCommentReply!: string;
   @Input() rootId!: string;
   @Input() isShowTotalRPL!: boolean;
+  @Output() updateTotalCMT = new EventEmitter<string>();
   @Output() showReplyComment = new EventEmitter<string>();
   isShowReplyForm: boolean = false;
   isLoadingCommentReply: boolean = false;
@@ -34,15 +49,16 @@ export class CommentItemComponent implements OnInit {
   replyCommentF: FormGroup = new FormGroup({
     contentReply: new FormControl(['']),
   });
+  isLogged: boolean = false;
 
-  @ViewChild('inputReplyRef', {static: false}) inputReplyRef!: ElementRef;
+  @ViewChild('inputReplyRef', { static: false }) inputReplyRef!: ElementRef;
 
   constructor(
     private fb: FormBuilder,
     private commentService: CommentService,
     private translateService: TranslateService,
-  ) {
-  }
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     this.timeDuration = this.getTimeDuration(this.comment.dateCreate);
@@ -51,47 +67,48 @@ export class CommentItemComponent implements OnInit {
     });
     this.isLiked = this.comment.isLiked;
     this.isDisLiked = this.comment.isDisLiked;
+    this.isLogged = !!this.userService.isLogin();
   }
 
   getTimeDuration(dateCreate: string) {
     const dateComment = new Date(dateCreate);
     const currentDate = new Date();
     const duration = Math.floor(
-      (currentDate.getTime() - dateComment.getTime()) / 1000,
+      (currentDate.getTime() - dateComment.getTime()) / 1000
     );
     let message = '';
     if (duration < 60) {
       // second
-      this.translateService.stream(TRANSLATE.MESSAGE.TEXT.COMMENT_ITEM_001).subscribe(
-        res => {
+      this.translateService
+        .stream(TRANSLATE.MESSAGE.TEXT.COMMENT_ITEM_001)
+        .subscribe((res) => {
           message = res;
-        },
-      );
+        });
       return `${duration} ${message}`;
     }
     if (duration < 60 * 60) {
       // minute
-      this.translateService.stream(TRANSLATE.MESSAGE.TEXT.COMMENT_ITEM_002).subscribe(
-        res => {
+      this.translateService
+        .stream(TRANSLATE.MESSAGE.TEXT.COMMENT_ITEM_002)
+        .subscribe((res) => {
           message = res;
-        },
-      );
+        });
       return `${Math.floor(duration / 60)}${message}`;
     }
     if (duration < 60 * 60 * 24) {
       // hour
-      this.translateService.stream(TRANSLATE.MESSAGE.TEXT.COMMENT_ITEM_003).subscribe(
-        res => {
+      this.translateService
+        .stream(TRANSLATE.MESSAGE.TEXT.COMMENT_ITEM_003)
+        .subscribe((res) => {
           message = res;
-        },
-      );
+        });
       return `${Math.floor(duration / 3600)} ${message}`;
     }
-    this.translateService.stream(TRANSLATE.MESSAGE.TEXT.COMMENT_ITEM_004).subscribe(
-      res => {
+    this.translateService
+      .stream(TRANSLATE.MESSAGE.TEXT.COMMENT_ITEM_004)
+      .subscribe((res) => {
         message = res;
-      },
-    );
+      });
     return `${Math.floor(duration / 86400)} ${message}`;
   }
 
@@ -128,7 +145,7 @@ export class CommentItemComponent implements OnInit {
         },
         (error) => {
           console.error(error);
-        },
+        }
       );
     } else if (!this.isLoadedListReply && this.listCommentReply.length > 0) {
       this.isLoadedListReply = true;
@@ -141,20 +158,24 @@ export class CommentItemComponent implements OnInit {
   }
 
   onReplyComment() {
-    let title = '';
-    this.translateService.stream(TRANSLATE.MESSAGE.PROGRESS.COMMENT_ITEM_001).subscribe(
-      res => {
-        title = res;
-      },
-    );
-    Swal.fire({
-      title: title,
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    });
-    this.replyComment();
+    if (this.isLogged) {
+      let title = '';
+      this.translateService
+        .stream(TRANSLATE.MESSAGE.PROGRESS.COMMENT_ITEM_001)
+        .subscribe((res) => {
+          title = res;
+        });
+      Swal.fire({
+        title: title,
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+      this.replyComment();
+    } else {
+      this.alterRequireLogin();
+    }
   }
 
   replyComment() {
@@ -174,7 +195,7 @@ export class CommentItemComponent implements OnInit {
           //   confirmButtonText: 'OK',
           // });
           Swal.close();
-          this.replyCommentF.setValue({contentReply: ''});
+          this.replyCommentF.setValue({ contentReply: '' });
           if (!this.isLoadedListReply) {
             this.listCommentReplyLocal.unshift(response.data);
           } else {
@@ -182,15 +203,16 @@ export class CommentItemComponent implements OnInit {
           }
           this.comment.amountChild += 1;
           this.isShowReplyForm = false;
+          this.updateTotalCMT.emit();
         },
         (error) => {
           Swal.close();
           let title = '';
-          this.translateService.stream(TRANSLATE.MESSAGE.ERROR.COMMENT_ITEM_001).subscribe(
-            res => {
+          this.translateService
+            .stream(TRANSLATE.MESSAGE.ERROR.COMMENT_ITEM_001)
+            .subscribe((res) => {
               title = res;
-            },
-          );
+            });
           Swal.fire({
             icon: 'error',
             title: title,
@@ -198,7 +220,7 @@ export class CommentItemComponent implements OnInit {
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'OK',
           });
-        },
+        }
       );
     }
   }
@@ -208,34 +230,48 @@ export class CommentItemComponent implements OnInit {
   }
 
   handleActionComment(id: any, type: boolean) {
-    let rec = {
-      commentId: id,
-      liked: type,
-    };
+    if (this.isLogged) {
+      let rec = {
+        commentId: id,
+        liked: type,
+      };
 
-    if (type) {
-      if (this.isLiked) {
-        this.comment.amountLike -= 1;
-        this.isLiked = false;
+      if (type) {
+        if (this.isLiked) {
+          this.comment.amountLike -= 1;
+          this.isLiked = false;
+        } else {
+          this.comment.amountLike += 1;
+          this.isLiked = true;
+        }
       } else {
-        this.comment.amountLike += 1;
-        this.isLiked = true;
+        if (this.isDisLiked) {
+          this.comment.amountDisLike -= 1;
+          this.isDisLiked = false;
+        } else {
+          this.comment.amountDisLike += 1;
+          this.isDisLiked = true;
+        }
+      }
+
+      if (!this.isLoadingReaction) {
+        this.isLoadingReaction = true;
+        this.commentService.reactionComment(rec).subscribe((res) => {
+          this.isLoadingReaction = false;
+        });
       }
     } else {
-      if (this.isDisLiked) {
-        this.comment.amountDisLike -= 1;
-        this.isDisLiked = false;
-      } else {
-        this.comment.amountDisLike += 1;
-        this.isDisLiked = true;
-      }
+      this.alterRequireLogin();
     }
+  }
 
-    if (!this.isLoadingReaction) {
-      this.isLoadingReaction = true;
-      this.commentService.reactionComment(rec).subscribe((res) => {
-        this.isLoadingReaction = false;
-      });
-    }
+  alterRequireLogin() {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Warning',
+      text: 'Vui lòng đăng nhập để sử dụng tính năng này!',
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'OK',
+    });
   }
 }
