@@ -66,9 +66,10 @@
             </div>
             <div aria-labelledby="ex1-tab-3" class="tab-pane fade hocvien" id="ex1-tabs-3" role="tabpanel">
               <button (click)="openModal()" class="btn btn-primary float-end">Thêm học viên</button>
+              <button (click)=" exportExcel()" class="btn btn-primary float-end">Xuất Điểm</button>
               <br>
               <!-- table list học viên -->
-              <table class="table table-bordered table-hover">
+              <table class="table table-bordered table-hover" id="listStudents">
                 <thead>
                 <tr>
                   <th>STT</th>
