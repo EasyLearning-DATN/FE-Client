@@ -1,0 +1,26 @@
+<div class="question-container mb-4">
+  <div class="delete-container d-flex justify-content-end " style="height: 35px">
+    <fa-icon (click)="onDeleteQuestion()" (mouseenter)="onMEnterDelete()" (mouseleave)="onMLeaveDelete()" [icon]="['fas', 'xmark']"
+             [ngClass]="checkHoverDeleteButton"
+             class="me-2" style="cursor: pointer"></fa-icon>
+  </div>
+  <div class="ps-3 pe-3 d-flex flex-column justify-content-between question-detail-container">
+    <div class="index d-flex justify-content-end">
+      <span>{{ index + 1 }}/{{ total }}</span>
+    </div>
+    <div class="index d-flex justify-content-end">
+      <span>Trọng số: {{ question.weighted }}</span>
+    </div>
+    <div class="question-name">
+      <span>{{ question.title }}</span>
+    </div>
+    <div>
+      <div class="question-answer-title fw-semi-bold mb-3">
+        <span>Viết đáp án</span>
+      </div>
+      <div>
+        <input [value]="answer" class="form-control" disabled>
+      </div>
+    </div>
+  </div>
+</div>

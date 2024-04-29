@@ -1,0 +1,128 @@
+<div class="container">
+  <div class="header"><p>Cài đặt</p></div>
+  <div class="container">
+    <div class="user-profile mb-5">
+      <div class="row">
+        <div class="col-md-auto">
+          <img [ngSrc]="user.avatar ? user.avatar : '...\src\assets\img\commons\default_user.jpeg'" alt="" class="avatar" height="150" width="150">
+        </div>
+        <div class="col-sm-6 d-flex align-items-md-center">
+          <div>
+                        <span class="name-user">{{ user.fullName }} <span (click)="edit()" class="cursos">
+                                <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                        </span></span><br>
+            <div class="row">
+              <div class="col-auto">
+                <fa-icon [icon]="['fas', 'trophy']"></fa-icon>
+              </div>
+              <div class="col-auto p-0">
+                <span>{{ user.role }}</span><br>
+                <!-- <span>100k Theo dõi</span> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-auto d-flex align-items-md-center">
+          <div>
+            <app-theme-toggle></app-theme-toggle>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="account my-5">
+      <div>
+        <span class="title text-decoration-none"><fa-icon [icon]="['fas', 'user']"></fa-icon> Tài khoản</span>
+        <hr class="border border-secondary border-1 opacity-50 m-0">
+      </div>
+      <form [formGroup]="userInfoChangeForm" class="form-group p-4">
+        <div class="mb-3">
+          <label class="form-label" for="fullName">Họ và tên<span class="text-danger"> *</span></label>
+          <input class="form-control" formControlName="fullName" type="text">
+          <div *ngIf="!userInfoChangeForm.get('fullName')?.valid && userInfoChangeForm.get('fullName')?.touched" class="text-danger">
+            <small *ngIf="userInfoChangeForm.get('fullName')?.errors?.['required']">*Họ và tên không được để trống</small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="email">Email<span class="text-danger"> *</span></label>
+          <input class="form-control" formControlName="email" id="email" type="email">
+          <div *ngIf="!userInfoChangeForm.get('email')?.valid && userInfoChangeForm.get('email')?.touched" class="text-danger">
+            <small *ngIf="userInfoChangeForm.get('email')?.errors?.['required']">*Email không được để trống</small>
+            <small *ngIf="userInfoChangeForm.get('email')?.errors?.['email']">*Email không đúng định dạng</small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="dayOfBirth">Ngày sinh<span class="text-danger"> *</span></label>
+          <input class="form-control" formControlName="dayOfBirth" id="dayOfBirth" type="date">
+          <div *ngIf="!userInfoChangeForm.get('dayOfBirth')?.valid && userInfoChangeForm.get('dayOfBirth')?.touched" class="text-danger">
+            <small *ngIf="userInfoChangeForm.get('dayOfBirth')?.errors?.['required']">*Ngày sinh không được để trống</small>
+          </div>
+        </div>
+        <button (click)="updateInfo()" *ngIf="checkUpdate" class="btn btn-app-reverse w-100 mt-2 py-2">
+          <fa-icon [icon]="['fas', 'floppy-disk']"></fa-icon>
+          Save changes
+        </button>
+      </form>
+    </div>
+    <div class="password my-5">
+      <div>
+        <span class="title text-decoration-none"><fa-icon [icon]="['fas', 'lock']"></fa-icon> Mật khẩu</span>
+        <hr class="border border-secondary border-1 opacity-50 m-0">
+      </div>
+      <form [formGroup]="changePasswordForm" class="form-group p-4">
+        <div class="mb-3">
+          <label class="form-label" for="oldPass">Mật khẩu cũ<span class="text-danger"> *</span></label>
+          <input class="form-control" formControlName="oldPass" type="password">
+          <div *ngIf="!changePasswordForm.get('oldPass')?.valid && changePasswordForm.get('oldPass')?.touched" class="text-danger">
+            <small *ngIf="changePasswordForm.get('oldPass')?.errors?.['required']">*Mật khẩu cũ không được để trống</small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="newPass">Mật khẩu mới<span class="text-danger"> *</span></label>
+          <input class="form-control" formControlName="newPass" type="password">
+          <div *ngIf="!changePasswordForm.get('newPass')?.valid && changePasswordForm.get('newPass')?.touched" class="text-danger">
+            <small *ngIf="changePasswordForm.get('newPass')?.errors?.['required']">*Mật khẩu mới không được để trống</small>
+            <small *ngIf="changePasswordForm.get('newPass')?.errors?.['pattern']">*Mật khẩu tối thiểu 6 ký tự, phải bao gồm cả chữ cái và số</small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="confirmNewPass">Xác nhận mật khẩu mới<span class="text-danger"> *</span></label>
+          <input class="form-control" formControlName="confirmNewPass" type="password">
+          <div *ngIf="!changePasswordForm.get('confirmNewPass')?.valid && changePasswordForm.get('confirmNewPass')?.touched" class="text-danger">
+            <small *ngIf="changePasswordForm.get('confirmNewPass')?.errors?.['required']">*Xác nhận mật khẩu mới không được để trống</small>
+            <small *ngIf="changePasswordForm.get('confirmNewPass')?.errors?.['pattern']">*Mật khẩu tối thiểu 6 ký tự, phải bao gồm cả chữ cái và
+                                                                                         số</small>
+          </div>
+        </div>
+        <button (click)="changePass()" *ngIf="checkUpdate" class="btn btn-app-reverse w-100 mt-2 py-2">
+          <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+          Đổi mật khẩu
+        </button>
+      </form>
+    </div>
+    <div class="language my-5">
+      <div>
+        <span class="title text-decoration-none"><fa-icon [icon]="['fas', 'language']"></fa-icon> Ngôn ngữ</span>
+        <hr class="border border-secondary border-1 opacity-50 m-0">
+      </div>
+      <form [formGroup]='langForm' class="form-group p-4">
+        <label class="form-label">Chọn ngôn ngữ</label>
+        <select (change)="onChangeLang()" class="form-select" formControlName="lang">
+          <option value="vi">Tiếng Việt</option>
+          <option value="en">Tiếng Anh</option>
+        </select>
+      </form>
+    </div>
+    <div class="delete-account my-5">
+      <div>
+        <span class="title text-decoration-none"><fa-icon [icon]="['fas', 'trash']"></fa-icon> Xoá tài khoản</span>
+        <hr class="border border-secondary border-1 opacity-50 m-0">
+      </div>
+      <div class="p-4">
+        <button (click)="lockAccount()" class="btn btn-delete w-100 mt-2 py-2">
+          <fa-icon [icon]="['fas', 'trash-can']"></fa-icon>
+          Xoá tài khoản của bạn
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

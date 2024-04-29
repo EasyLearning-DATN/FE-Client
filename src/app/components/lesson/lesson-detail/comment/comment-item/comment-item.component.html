@@ -1,0 +1,152 @@
+<div class="wrapper mb-3">
+  <div class="d-flex">
+    <div class="avatar-user flex-shrink-1">
+      <img
+        alt="user"
+        src="data:image/jpeg;base64,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"
+      />
+    </div>
+    <div class="data-comment flex-grow-1">
+      <div class="head d-flex">
+        <div class="username fw-bold">
+          <span>@</span>
+          <span>{{ comment.creator?.username }}</span>
+        </div>
+        <span class="time-res ms-3">{{ timeDuration }}</span>
+      </div>
+      <div class="data mb-1">
+        {{ comment.content }}
+      </div>
+      <div class="action-group d-flex align-items-center gap-2">
+        <div (click)="handleActionComment(comment.id, true)" class="like-group">
+          <fa-icon
+            [icon]="['fas', 'thumbs-up']"
+            [ngClass]="isLiked ? 'liked' : ''"
+            class="mask p-2"
+          ></fa-icon>
+          <span>{{ comment.amountLike }}</span>
+        </div>
+        <div
+          (click)="handleActionComment(comment.id, false)"
+          class="unlike-group"
+        >
+          <fa-icon
+            [icon]="['fas', 'thumbs-down']"
+            [ngClass]="isDisLiked ? 'disliked' : ''"
+            class="mask p-2"
+          ></fa-icon>
+          <span>{{ comment.amountDislike }}</span>
+        </div>
+        <div (click)="showFormReplyComment(comment.id)" class="reply-group">
+          <fa-icon [icon]="['fas', 'reply']" class="mask p-2"></fa-icon>
+        </div>
+      </div>
+      <div *ngIf="comment.id === idCommentReply && isShowReplyForm">
+        <ng-container
+          *ngTemplateOutlet="replyTemplate; context: { rootId: comment.id }"
+        ></ng-container>
+      </div>
+      <div class="body-comment-reply">
+        <ng-container *ngIf="isShowTotalRPL">
+          <div
+            (click)="loadCommentReply(comment.id)"
+            *ngIf="comment.amountChild > 0"
+            [ngClass]="isLoadingCommentReply ? 'loading' : ''"
+            class="total-reply"
+          >
+            <fa-icon
+              *ngIf="!isLoadingCommentReply && !isLoadedListReply"
+              [icon]="['fas', 'caret-down']"
+              class="me-2"
+            ></fa-icon>
+            <fa-icon
+              *ngIf="isLoadingCommentReply || isLoadedListReply"
+              [icon]="['fas', 'caret-up']"
+              class="me-2"
+            ></fa-icon>
+            <span class="me-2">{{ comment.amountChild }}</span>
+            <span>phản hồi</span>
+          </div>
+        </ng-container>
+        <div class="list-comment-reply mt-3">
+          <ng-container
+            *ngFor="
+              let item of !isLoadedListReply
+                ? listCommentReplyLocal
+                : listCommentReply
+            "
+          >
+            <app-comment-item
+              (showReplyComment)="handleShowReplyCommentSub($event)"
+              [comment]="item"
+              [idCommentReply]="idCommentReply"
+              [isShowTotalRPL]="false"
+              [lessonId]="lessonId"
+              [rootId]="rootId"
+            ></app-comment-item>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #replyTemplate let-rootId="rootId">
+  <div class="comment-form mt-3 d-flex align-items-start">
+    <div class="avatar-user flex-shrink-1">
+      <img
+        alt="user"
+        src="data:image/jpeg;base64,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"
+      />
+    </div>
+    <form
+      (ngSubmit)="onReplyComment()"
+      [formGroup]="replyCommentF"
+      class="reply-form flex-grow-1"
+    >
+      <div class="input-reply-wrapper">
+        <span *ngIf="isShowReplyForm" class="username-reply fw-bold"
+          >@{{ comment.creator?.username }}</span
+        >
+        <input
+          #inputReplyRef
+          [formControlName]="'contentReply'"
+          class="comment-input"
+          name="contentReply"
+          type="text"
+        />
+      </div>
+      <div class="submit-btn-group d-flex">
+        <button
+          (click)="hideFormReplyComment(rootId)"
+          class="btn btn-secondary me-2"
+          type="reset"
+        >
+          {{
+            "LESSON.LESSON_DETAIL.COMMENT.COMMENT_ITEM.CANCEL_BUTTON"
+              | translate
+          }}
+        </button>
+        <div
+          [ngClass]="
+            replyCommentF.get('contentReply')?.hasError('required')
+              ? 'disabled'
+              : ''
+          "
+          class="submit-reply-wrapper loading-submit"
+        >
+          <button
+            [disabled]="replyCommentF.get('contentReply')?.hasError('required')"
+            class="btn btn-primary btn-submit-reply"
+            type="submit"
+          >
+            {{
+              "LESSON.LESSON_DETAIL.COMMENT.COMMENT_ITEM.SUBMIT_BUTTON"
+                | translate
+            }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>

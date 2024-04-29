@@ -1,0 +1,5 @@
+.image {
+  border: 3px dashed #1565FF;
+  border-radius: 5px;
+  object-fit: cover;
+}

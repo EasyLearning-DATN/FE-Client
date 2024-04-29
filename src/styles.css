@@ -1,45 +1,98 @@
 /* You can add global styles to this file, and also import other style files */
-*{
-  font-family: 'Quicksand-Regular', sans-serif !important;
+
+* {
+  font-family: 'Quicksand', sans-serif !important;
+  /*transition: all ease-in-out 0.5s;*/
+
 }
 
-.btn-app{
-  border-radius: 10px !important;
+/* Dark Theme Styles */
+.dark-theme {
+  color: #ffffff;
+  background-color: #121212;
+}
+
+.btn-app {
+  transition: all ease-in-out 0.3s;
   border: 1px solid #1565FF !important;
+  border-radius: 10px !important;
   background: #FFF !important;
-  transition-duration: 0.3s !important;
 }
 
-.btn-app:hover{
-  background: #1565FF !important;
+.btn-app:hover {
   color: white !important;
+  background: #1565FF !important;
 }
 
-.btn-app:focus{
+.btn-app:focus {
   -webkit-box-shadow: 0 0 0 0 rgba(148, 62, 255, 0.52) !important;
   box-shadow: 0 0 0 0 rgba(148, 62, 255, 0.52) !important;
 }
 
-.btn-app-warning{
-  border-radius: 10px !important;
-  border: 1px solid #ff1515 !important;
-  background: #FFF !important;
-  transition-duration: 0.3s !important;
-}
-
-.btn-app-warning:hover{
-  background: #ff1515 !important;
+.btn-app:active {
   color: white !important;
+  background: rgba(148, 62, 255, 0.52) !important;
 }
 
-.btn-app-warning:focus{
+.btn-app-reverse {
+  transition: all ease-in-out 0.3s;
+  color: white !important;
+  border-radius: 10px !important;
+  background: #1565FF !important;
+}
+
+.btn-app-reverse:hover {
+  color: black !important;
+  border: 1px solid #1565FF !important;
+  background: #FFF !important;
+}
+
+.btn-app-reverse:focus {
+  -webkit-box-shadow: 0 0 0 0 rgba(148, 62, 255, 0.52) !important;
+  box-shadow: 0 0 0 0 rgba(148, 62, 255, 0.52) !important;
+}
+
+.btn-app-reverse:active {
+  color: white !important;
+  background: rgba(148, 62, 255, 0.52) !important;
+}
+
+.btn-app-warning {
+  transition: all ease-in-out 0.3s;
+  border: 1px solid #ff1515 !important;
+  border-radius: 10px !important;
+  background: #FFF !important;
+}
+
+.btn-app-warning:hover {
+  color: white !important;
+  background: #ff1515 !important;
+}
+
+.btn-app-warning:focus {
   -webkit-box-shadow: 0 0 0 0 rgba(255, 62, 62, 0.52) !important;
   box-shadow: 0 0 0 0 rgba(255, 43, 43, 0.52) !important;
+}
+
+btn-app-warning:active {
+  color: white !important;
+  background: rgba(255, 43, 43, 0.52) !important;
 }
 
 .btn-check:focus + .btn, .btn:focus {
   -webkit-box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
   box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
+}
+
+.btn-close:focus {
+  border-color: #1565FF !important;
+  -webkit-box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
+  box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
+}
+
+.btn-close:active {
+  color: white !important;
+  background: rgba(148, 62, 255, 0.52) !important;
 }
 
 .form-control:focus {
@@ -61,12 +114,6 @@
   box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
 }
 
-.btn-close:focus{
-  border-color: #1565FF !important;
-  -webkit-box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
-  box-shadow: 0 0 0 0.25rem rgba(148, 62, 255, 0.52) !important;
-}
-
 .form-range:focus::-webkit-slider-thumb {
   -webkit-box-shadow: 0 0 0 1px #FFFEFE, 0 0 0 0.25rem #1565FF;
   box-shadow: 0 0 0 1px #FFFEFE, 0 0 0 0.25rem #1565FF;
@@ -76,44 +123,51 @@
   box-shadow: 0 0 0 1px #FFFEFE, 0 0 0 0.25rem #1565FF;
 }
 
-a{
-  color: white;
+a {
+  transition: all ease-in-out 0.3s;
   text-decoration: none;
+  color: white;
+}
+
+a.class-navigation {
+  transition: all ease-in-out 0.3s;
+  text-decoration: none;
+  color: black;
+}
+
+.class-current-page {
+  color: #1565FF;
+}
+
+a.class-navigation:hover {
+  text-decoration: underline;
+  color: #1565FF;
 }
 
 .dropdown-item:hover, .nav-link:hover, .nav-link:focus {
   color: #1565FF !important;
 }
 
-app-flashcard-item{
+app-flashcard-item {
   height: 400px !important;
 
 }
+
 .carousel-inner {
   /*overflow: visible;*/
-  padding-top: 10px;
   height: 450px !important;
+  padding-top: 10px;
 
 }
-ngb-carousel{
-  /*overflow: hidden !important;*/
-}
+
 .carousel-item {
-  /*display: flex !important;*/
-  /*opacity: 0;*/
-  align-items: center;
-  align-content: center;
   float: left;
-  margin-left: 10vw;
   overflow: visible;
-  /*visibility: hidden;*/
-  /*z-index: -1;*/
+  align-content: center;
+  align-items: center;
+  margin-left: 13%;
 }
-/*.carousel-item.active{*/
-/*  opacity: 1;*/
-/*  visibility: visible;*/
-/*  z-index: 10;*/
-/*}*/
+
 .carousel-control-prev {
   z-index: 20;
 }
@@ -121,6 +175,89 @@ ngb-carousel{
 .carousel-control-next {
   z-index: 20;
 }
-.carousel-indicators{
+
+.carousel-indicators {
   z-index: 20;
+
+}
+
+div.carousel-indicators > button.ng-star-inserted {
+  border-radius: 50px !important;
+  background-color: #1565FF !important;
+}
+
+
+.offcanvas {
+  width: 70% !important;
+  transition: all ease-in-out 0.3s;
+}
+
+@media (max-width: 768px) {
+  .offcanvas {
+    width: 100% !important;
+  }
+}
+
+.form-check-input:checked {
+  border-color: #1565FF !important;
+  background-color: #1565FF !important;
+}
+
+.container {
+  transition: all ease-in-out 0.3s;
+}
+
+.row {
+  transition: all ease-in-out 0.3s;
+}
+
+.btn-answer {
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+  min-height: 60px !important;
+  border: 2px solid rgba(199, 199, 199, 0.50) !important;
+  border-radius: 10px !important;
+  background: #FFF !important;
+}
+
+.btn-answer:hover {
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+  min-height: 60px !important;
+  border: 2px solid black !important;
+  border-radius: 10px !important;
+  background: #FFF !important;
+
+}
+
+.btn-answer:active {
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+  min-height: 60px !important;
+  border: 2px solid #4255FF !important;
+  border-radius: 10px !important;
+  background: #EDEFFF !important;
+}
+
+.btn-answer:focus {
+  box-shadow: none !important;
+}
+
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
 }

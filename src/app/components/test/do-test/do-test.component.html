@@ -1,0 +1,52 @@
+<div class="title text-center mb-5">
+  <span class="fs-6">{{ name | uppercase }}</span>
+</div>
+<div *ngIf="isTotalTimeTest" class="container text-center fs-6 mb-5"><span>{{ totalMinutes }}</span> :
+  <span>{{ totalSeconds >= 10 ? totalSeconds : '0' + totalSeconds }}</span>
+</div>
+<div *ngIf="isEachQuestionTimeTest" class="container text-center fs-6 mb-5"><span #minutes></span> : <span #seconds></span></div>
+<div *ngIf="!isEachQuestionTimeTest && !isTotalTimeTest" class="container text-center fs-6 mb-5">Bài thi không giới hạn thời gian</div>
+<div *ngFor="let question of questionsOfTest; let i = index" class="container">
+  <div *ngIf="currentQuestionIndex === i" [ngSwitch]="question.question_type_id" class="mb-5 d-flex align-items-center justify-content-center">
+    <ng-template [ngSwitchCase]="environment.MCA_ID">
+      <app-do-test-mca-item [@item]
+                            [index]="i"
+                            [question]="question"
+                            [showRealAnswer]="testViewResultCode === environment.SHOW_RESULT"
+                            [total]="totalQuestions" [userAnswers]="reportItems[i].answers"></app-do-test-mca-item>
+    </ng-template>
+    <ng-template ngSwitchDefault>
+      <app-do-test-sca-item [@item]
+                            [index]="i"
+                            [question]="question"
+                            [showRealAnswer]="testViewResultCode === environment.SHOW_RESULT"
+                            [total]="totalQuestions"
+                            [userAnswer]="reportItems[i].answers"></app-do-test-sca-item>
+    </ng-template>
+
+    <ng-template [ngSwitchCase]="environment.FITB_ID">
+      <app-do-test-fitb-item [@item]
+                             [index]="i"
+                             [question]="question"
+                             [showRealAnswer]="testViewResultCode === environment.SHOW_RESULT"
+                             [total]="totalQuestions"
+                             [userAnswers]="reportItems[i].answers"></app-do-test-fitb-item>
+    </ng-template>
+  </div>
+</div>
+<div class="container d-flex align-items-center justify-content-between">
+  <div>
+    <button (click)="openConfirmEndTest()" class="btn btn-app fs-3">Kết thúc</button>
+  </div>
+  <div class="d-flex align-items-center">
+    <button (click)="toPrevQuestion()" [disabled]="!(currentQuestionIndex !== 0)"
+            class="btn btn-app me-2 btn-navigate d-flex align-items-center justify-content-center">
+      <fa-icon [icon]="['fas','caret-left']" class="fs-3"></fa-icon>
+    </button>
+    <button (click)="toNextQuestion()" [disabled]="!(currentQuestionIndex !== totalQuestions - 1)"
+            class="btn btn-app btn-navigate d-flex align-items-center justify-content-center">
+      <fa-icon [icon]="['fas','caret-right']" class="fs-3"></fa-icon>
+    </button>
+  </div>
+  <!--   <a [routerLink]="['../../test-report']">ádsadsad</a> -->
+</div>

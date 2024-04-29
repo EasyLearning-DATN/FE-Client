@@ -1,20 +1,17 @@
 <!--  -->
 <div class="card">
-	<div [id]="0" class="card-inner" (click)="onFlip()" [@flipState]="flip">
-		<div class="card-face card-face-front">
-			<div class="card-body">
-				<h2 class="card-title">This is the question</h2>
-				<p class="card-text">This is answer A</p>
-				<p class="card-text">This is answer A</p>
-				<p class="card-text">This is answer A</p>
-				<p class="card-text">This is answer A</p>
-			</div>
-		</div>
-		<div class="card-face card-face-back">
-			<div class="card-body ">
-				<h2 class="card-title">Answer</h2>
-				<h2 class="card-text text-center w-100 text-uppercase">This is the answer</h2>
-			</div>
-		</div>
-	</div>
+  <div (click)="onFlip()" [@flipState]="flip" [id]="0" class="card-inner">
+    <div class="card-face card-face-front">
+      <div class="card-body">
+        <h2 class="card-title">{{ question.title }}</h2>
+      </div>
+    </div>
+    <div class="card-face card-face-back">
+      <div class="card-body">
+        <h2 class="card-title mb-3 fw-semi-bold">{{ 'LESSON.LESSON_DETAIL.FLASHCARD.FLASHCARD_ITEM.TITLE'|translate }}</h2>
+        <span *ngFor="let answer of question.answers"><h2
+          *ngIf="answer.is_correct" class="card-text text-center w-100 text-uppercase">{{ answer.value }}</h2></span>
+      </div>
+    </div>
+  </div>
 </div>

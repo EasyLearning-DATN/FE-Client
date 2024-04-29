@@ -1,0 +1,83 @@
+<div class="container">
+  <div *ngIf="classroom" class="navigation">
+    <a [routerLink]="['/classroom/list-classroom']" class="class-navigation">Danh sách lớp học</a> /
+    <a [routerLink]="['/classroom',classroom.id]" class="class-navigation">Lớp học</a> /
+    <span class="class-current-page">{{ 'Chỉnh sửa lớp học' }}</span>
+  </div>
+  <div class="header mb-3">
+    <span class="fs-4">{{ 'CLASSROOM.CLASS_EDIT.HEADER'|translate }}</span>
+  </div>
+  <form [formGroup]="updateClassForm">
+    <div class="picture text-center mb-3">
+      <div><span>Chọn hình ảnh! <span class="text-danger">(Dưới 5MB)</span></span></div>
+      <img (click)="fileUpload.click()" [ngSrc]="classroom.image.url ? classroom.image.url:'/assets/img/gallery/hero-header.png'" alt="Test"
+           class="image p-2"
+           height="250"
+           width="250">
+    </div>
+    <div class="d-none">
+      <input #fileUpload (change)="uploadImage($event)" accept="image/*" type="file">
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="w-lg-75 w-100">
+        <div class="classroom-name mb-3 form-floating">
+          <input class="form-control" formControlName="name" id="floatingName" placeholder="">
+          <label for="floatingName">{{ 'CLASSROOM.CLASS_EDIT.NAME.LABEL'|translate }}</label>
+          <div *ngIf="!updateClassForm.get('name')?.valid && updateClassForm.get('name')?.touched" class="mt-1">
+            <span *ngIf="updateClassForm.get('name')?.errors?.['required']"
+                  style="color: red;">{{ 'CLASSROOM.CLASS_EDIT.NAME.ERROR.REQUIRED'|translate }}</span>
+          </div>
+        </div>
+        <div class="classroom-description mb-3 form-floating">
+          <textarea class="form-control" formControlName="description" id="floatingDescription" placeholder="" rows="2"></textarea>
+          <label for="floatingDescription">{{ 'CLASSROOM.CLASS_EDIT.DESCRIPTION.LABEL'|translate }}</label>
+          <div *ngIf="!updateClassForm.get('description')?.valid && updateClassForm.get('description')?.touched" class="mt-1">
+              <span *ngIf="updateClassForm.get('description')?.errors?.['required']" style="color: red;">{{
+                  'CLASSROOM.CLASS_EDIT.DESCRIPTION.ERROR.REQUIRED'|translate
+                }}</span>
+          </div>
+        </div>
+        <div class="classroom-description mb-3 form-floating">
+          <input class="form-control" formControlName="standardPoint" id="floatingPoint" max="200" min="10" placeholder="" type="number">
+          <label for="floatingPoint">{{ 'CLASSROOM.CLASS_EDIT.STANDARD_POINT.LABEL'|translate }}</label>
+          <div *ngIf="!updateClassForm.get('standardPoint')?.valid && updateClassForm.get('standardPoint')?.touched" class="mt-1">
+              <span *ngIf="updateClassForm.get('standardPoint')?.errors?.['required']" style="color: red;">{{
+                  'CLASSROOM.CLASS_EDIT.STANDARD_POINT.ERROR.REQUIRED'|translate
+                }}</span>
+            <span *ngIf="updateClassForm.get('standardPoint')?.errors?.['min']" style="color: red;">{{
+                'CLASSROOM.CLASS_EDIT.STANDARD_POINT.ERROR.MIN'|translate
+              }}</span>
+            <span *ngIf="updateClassForm.get('standardPoint')?.errors?.['max']" style="color: red;">{{
+                'CLASSROOM.CLASS_EDIT.STANDARD_POINT.ERROR.MAX'|translate
+              }}</span>
+          </div>
+        </div>
+        <div class="row mb-3 g-1 d-flex justify-content-between align-items-center">
+          <span class="text-danger">Hiện tại chỉ cho phép tạo lớp học hạn chế (private)</span>
+          <span class="text-danger">Lựa chọn người dùng chọn đều được lưu là private</span>
+          <div class="form-check">
+            <input class="form-check-input" formControlName="isPublic" id="flexRadioDefault1"
+                   type="radio" value="1">
+            <label class="form-check-label" for="flexRadioDefault1">
+              {{ 'CLASSROOM.CLASS_EDIT.IS_PUBLIC.TRUE'|translate }}
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" formControlName="isPublic" id="flexRadioDefault2" type="radio"
+                   value="0">
+            <label class="form-check-label" for="flexRadioDefault2">
+              {{ 'CLASSROOM.CLASS_EDIT.IS_PUBLIC.FALSE'|translate }}
+            </label>
+          </div>
+          <div class="create-class d-flex align-items-center justify-content-between mb-3 mt-3">
+            <button (click)="onUpdateClass()" class="btn btn-app"><span>{{ 'CLASSROOM.CLASS_EDIT.EDIT_CLASSROOM'|translate }}</span></button>
+            <button (click)="onDeleteClass()" class="btn btn-app-warning"><span>Xóa lớp học</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </form>
+</div>
+

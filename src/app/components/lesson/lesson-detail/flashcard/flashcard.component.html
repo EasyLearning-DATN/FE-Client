@@ -1,8 +1,11 @@
 <div class="container mt-3 ">
-	<ngb-carousel  *ngIf="items">
-		<ng-template ngbSlide *ngFor="let slide of items; index as i; count as size">
-			<app-flashcard-item class="align-items-center"></app-flashcard-item>
-		</ng-template>
-	</ngb-carousel>
+  <ngb-carousel *ngIf="questions.length !==0">
+    <ng-template *ngFor="let slide of questions; index as i; count as size" ngbSlide>
+      <app-flashcard-item [question]="slide" class="align-items-center"></app-flashcard-item>
+    </ng-template>
+  </ngb-carousel>
+  <div *ngIf="questions.length ===0" class="text-center fs-2 fw-semi-bold mt-3 mb-3">
+    <span>{{ 'LESSON.LESSON_DETAIL.FLASHCARD.NO_QUESTIONS'|translate }}</span>
+  </div>
 </div>
 

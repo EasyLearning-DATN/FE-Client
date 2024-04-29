@@ -1,46 +1,49 @@
 <div class="container mt-4">
-    <h2>Tạo bài học mới</h2>
-    <form [formGroup]="createLessonF" (ngSubmit)="onCreateLesson()">
-      <div class="form-group">
-        <label for="courseName">Tên bài học:</label>
-        <input type="text" class="form-control" id="courseName" placeholder="Tên học phần" formControlName="title">
-      </div>
-      <div class="form-group">
-        <label for="description">Mô tả:</label>
-        <textarea class="form-control" id="description" rows="3" placeholder="Nhập mô tả"
-          formControlName="description"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="fileInput">Ảnh bìa: </label>
-        <label for="fileInput" class="custom-file-upload">
-            <i class="fa fa-cloud-upload"></i> Chọn ảnh bìa
-        </label>
-        <input id="fileInput" type="file" (change)="onFileSelected()" accept="image/*" style="display:none;">        
-      </div>
-      <div formArrayName="questions">
-        <div *ngFor="let question of questionForms.controls; let i = index">
-          <div [formGroupName]="i">
-            <div class="form-group">
-              <label [for]="'question'+i">Câu {{ i + 1 }}:</label>
-              <input type="text" class="form-control" [id]="'question'+i" placeholder="Câu hỏi"
-                formControlName="question">
-              <div class="form-group mt-2">
-                <label [for]="'answerA'+i">Đáp án:</label>
-                <input type="text" class="form-control m-1" [id]="'answerA'+i" placeholder="Đáp án A"
-                  formControlName="answerA">
-                <input type="text" class="form-control m-1" [id]="'answerB'+i" placeholder="Đáp án B"
-                  formControlName="answerB">
-                <input type="text" class="form-control m-1" [id]="'answerC'+i" placeholder="Đáp án C"
-                  formControlName="answerC">
-                <input type="text" class="form-control m-1" [id]="'correctAnswer'+i" placeholder="Đáp án đúng"
-                  formControlName="correctAnswer">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button type="button" class="btn btn-primary px-3" (click)="addQuestion()">Thêm câu hỏi</button>
-      <button type="submit" class="btn btn-success m-3 m-3">Tạo học phần</button>
-    </form>
+  <div *ngIf="classRoomId" class="navigation">
+    <a [routerLink]="['/classroom/list-classroom']" class="class-navigation">Danh sách lớp học</a> /
+    <a [routerLink]="['/classroom',classRoomId]" class="class-navigation">Lớp học</a> /
+    <span class="class-current-page">{{ 'Tạo bài học' }}</span>
   </div>
-  
+  <h2>Tạo bài học mới</h2>
+  <div class="small-box bg-default">
+    <div class="inner">
+      <h4>File mẫu nhập câu hỏi</h4>
+      <div style="color:red;font-weight:bold">Tải file mẫu: <a href="upload/template/tracnghiem.xlsx" style="color: black;">Ở đây</a></div>
+    </div>
+  </div>
+  <form #lessonForm="ngForm" (ngSubmit)="onCreateLesson()">
+    <div class="form-group">
+      <label for="courseName">{{ 'LESSON.CREATE_LESSON.NAME.LABEL'|translate }}:</label>
+      <div *ngIf="nameControl.invalid && nameControl.touched" class="text-danger">
+        <small>{{ 'LESSON.CREATE_LESSON.NAME.ERROR.REQUIRED'|translate }}</small>
+      </div>
+      <input #nameControl="ngModel" [(ngModel)]="name" class="form-control" id="courseName" name="name"
+        placeholder="{{'LESSON.CREATE_LESSON.NAME.PLACEHOLDER'|translate}}" type="text">
+    </div>
+    <div class="form-group">
+      <label for="description">{{ 'LESSON.CREATE_LESSON.DESCRIPTION.LABEL'|translate }}:</label>
+      <textarea [(ngModel)]="description" class="form-control" id="description" name="description"
+        placeholder="{{'LESSON.CREATE_LESSON.DESCRIPTION.PLACEHOLDER'|translate}}" rows="3"></textarea>
+    </div>
+    <div class="form-group p-2">
+      <label class="form_label" for="">{{ 'LESSON.CREATE_LESSON.PICTURE'|translate }}: </label>
+      <input (change)="onFileSelected($event)" class="form-control" name="image_id" required type="file">
+    </div>
+    <!-- import file excel câu hỏi onChange -->
+    <div class="form-group p-2">
+      <label class="form_label" for="">{{ 'LESSON.CREATE_LESSON.QUESTIONS_FILE'|translate }}: </label>
+      <input (change)="onFileSelectedQuestion($event)" class="form-control" name="file" required type="file">
+    </div>
+    <div class="mb-3 d-flex flex-column align-items-center">
+      <div *ngFor="let question of listQuestionImport; let i = index">
+        <app-demo-fitb-question *ngIf="question.question_type_id === environment.FITB_ID" [index]="i"
+          [question]="question" [total]="listQuestionImport.length"></app-demo-fitb-question>
+        <app-demo-mca-question *ngIf="question.question_type_id === environment.MCA_ID" [index]="i"
+          [question]="question" [total]="listQuestionImport.length"></app-demo-mca-question>
+        <app-demo-sca-question *ngIf="question.question_type_id === environment.SCA_ID" [index]="i"
+          [question]="question" [total]="listQuestionImport.length"></app-demo-sca-question>
+      </div>
+    </div>
+    <button class="btn btn-success m-3 m-3" type="submit">{{ 'LESSON.CREATE_LESSON.CREATE_LESSON'|translate }}</button>
+  </form>
+</div>

@@ -1,0 +1,26 @@
+/* Thêm định dạng CSS cho các card */
+.lesson_item {
+  height: 100%;
+}
+
+/* Thêm định dạng cho hình ảnh của card */
+.lesson_item img {
+  object-fit: cover;
+  height: 200px; /* Đặt chiều cao cố định cho hình ảnh */
+}
+
+/* Định dạng nội dung trong card */
+.lesson_item .card-body {
+  height: 100%;
+}
+
+/* Định dạng hình ảnh với lớp 'avatar' */
+.lesson-avatar  {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50%;
+}
+
+section {
+  padding: 0 0 10rem 0;
+}

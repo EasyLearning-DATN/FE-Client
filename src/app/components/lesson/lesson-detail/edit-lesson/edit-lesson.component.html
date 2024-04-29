@@ -1,47 +1,52 @@
-<button class="btn btn-app ms-3" (click)="openEdit(modal)">
-	<fa-icon [icon]="['fas','pen-to-square']"></fa-icon>
+<button (click)="openEdit(modal)" class="btn btn-app ms-3">
+  <fa-icon [icon]="['fas','pen-to-square']"></fa-icon>
 </button>
 
 <ng-template #modal let-c="close" let-d="dismiss">
-	<div class="modal-header">
-		<h4 class="modal-title">Chỉnh sửa bài học</h4>
-		<button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
-	</div>
-	<div class="modal-body">
-		<form [formGroup]="updateLessonForm">
-			<div class="form-floating mb-3">
-				<input type="text" class="form-control" id="floatingName" placeholder="" formControlName="title"> <label
-					for="floatingName">Tên bài học</label>
-			</div>
-			<div class="mb-3">
-				<label for="inputImage" class="form-label">Ảnh</label>
-				<input type="file" class="form-control" id="inputImage" placeholder="Ảnh" #fileImage accept="image/*">
-			</div>
-			<div class="form-floating mb-3">
-				<textarea type="text" class="form-control" id="floatingDescription" placeholder="" formControlName="description"
-				          rows="30"></textarea> <label for="floatingDescription">Mô tả</label>
-			</div>
-		</form>
-		<app-add-questions></app-add-questions>
-		<app-edit-questions></app-edit-questions>
-	</div>
-	<div class="modal-footer">
-		<button class="btn btn-app" (click)="openConfirm(confirmModal, fileImage)">Save</button>
-		<button class="btn btn-app-warning" (click)="onDelete()">Delete</button>
-		<button type="button" class="btn btn-app" (click)="d('Close click')">Close</button>
-	</div>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.TITLE'|translate }}</h4>
+    <button (click)="d('Cross click')" aria-label="Close" class="btn-close" type="button"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="updateLessonForm">
+      <div class="form-floating mb-3">
+        <input class="form-control" formControlName="name" id="floatingName" placeholder="" type="text"> <label
+        for="floatingName">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.NAME.LABEL'|translate }}</label>
+        <span *ngIf="!updateLessonForm.get('name')?.valid && updateLessonForm.get('name')?.touched"
+              class="text-danger">
+                     <span
+                       *ngIf="updateLessonForm.get('name')?.errors?.['required']">{{
+                         'LESSON.LESSON_DETAIL.EDIT_LESSON.NAME.ERROR.REQUIRED'|translate
+                       }}</span>
+        </span>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="inputImage">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.PICTURE.LABEL'|translate }}</label>
+        <input (change)="onFileSelected($event)" accept="image/*" class="form-control mb-2" id="inputImage"
+               placeholder="Ảnh"
+               type="file">
+        <span>{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.PICTURE.INFO'|translate }}: {{ this.image ? this.image : lesson.image.url }}</span>
+      </div>
+      <div class="form-floating mb-3">
+				<textarea class="form-control" formControlName="description" id="floatingDescription" placeholder="" rows="30"
+                  type="text"></textarea> <label
+        for="floatingDescription">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.DESCRIPTION.LABEL'|translate }}</label>
+        <span *ngIf="!updateLessonForm.get('description')?.valid && updateLessonForm.get('description')?.touched"
+              class="text-danger">
+                     <span
+                       *ngIf="updateLessonForm.get('description')?.errors?.['required']">{{
+                         'LESSON.LESSON_DETAIL.EDIT_LESSON.DESCRIPTION.ERROR.REQUIRED'|translate
+                       }}</span>
+                  </span>
+      </div>
+    </form>
+    <app-add-questions [lessonId]="lesson.id"></app-add-questions>
+    <app-edit-questions [lessonId]="lesson.id"></app-edit-questions>
+  </div>
+  <div class="modal-footer">
+    <button (click)="openConfirmSave()" class="btn btn-app">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.SAVE'|translate }}</button>
+    <button (click)="openConfirmDelete()" class="btn btn-app-warning">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.DELETE'|translate }}</button>
+    <button (click)="d('Close click')" class="btn btn-app" type="button">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.CLOSE'|translate }}</button>
+  </div>
 </ng-template>
 
-<ng-template #confirmModal let-c="close" let-d="dismiss">
-	<div class="modal-header">
-		<h4 class="modal-title">Xác nhận</h4>
-	</div>
-	<div class="modal-body">
-		<h5>Bạn có chắc chắn muốn thay đổi không?</h5>
-	</div>
-	<div class="modal-footer">
-		<button class="btn btn-app" (click)="c('Confirm')">Yes</button>
-		<button class="btn btn-app-warning" (click)="c('Reject')">No</button>
-		<button type="button" class="btn btn-app" (click)="d('Close click')">Close</button>
-	</div>
-</ng-template>

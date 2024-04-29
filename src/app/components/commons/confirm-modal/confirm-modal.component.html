@@ -1,0 +1,11 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ 'CONFIRM_MODAL.TITLE'|translate:title }}</h4>
+</div>
+<div class="modal-body">
+  <h5>{{ 'CONFIRM_MODAL.BODY'|translate:body }}</h5>
+</div>
+<div class="modal-footer">
+  <button (click)="activeModal.close('Confirm')" class="btn btn-app">{{ 'CONFIRM_MODAL.CONFIRM'| translate | titlecase }}</button>
+  <button (click)="activeModal.close('Reject')" class="btn btn-app-warning">{{ 'CONFIRM_MODAL.REJECT'| translate | titlecase }}</button>
+  <button (click)="activeModal.dismiss('Close click')" class="btn btn-app" type="button">{{ 'CONFIRM_MODAL.CLOSE'| translate | titlecase }}</button>
+</div>

@@ -1,1 +1,78 @@
-<p>test-detail works!</p>
+<!--  -->
+<div class="container">
+  <div *ngIf="classRoomId" class="navigation">
+    <a [routerLink]="['/classroom/list-classroom']" class="class-navigation">Danh sách lớp học</a> /
+    <a [routerLink]="['/classroom',classRoomId]" class="class-navigation">Lớp học</a> /
+    <span class="class-current-page">{{ test.name }}</span>
+  </div>
+  <div class="mt-3 mb-3 d-flex align-items-center">
+    <h1>{{ test.name }}</h1>
+    <div class="ms-3">
+      <button (click)="onNavigateEditTest()" *ngIf="isCreator" [routerLink]="['edit']" class="btn btn-app  text-black">
+        <fa-icon [icon]="['fas','pen-to-square']"></fa-icon>
+      </button>
+    </div>
+    <div class="ms-3">
+      <button (click)="openConfirmDialog()" class="btn btn-app">
+        <fa-icon [icon]="['far','file-lines']"></fa-icon>
+        Làm bài kiểm tra này
+      </button>
+    </div>
+    <div *ngIf="classRoomId" class="ms-3">
+      <button (click)="onNavigateTestResult()" class="btn btn-app">
+        <fa-icon [icon]="['far','file-lines']"></fa-icon>
+        Xem kết quả kiểm tra
+      </button>
+    </div>
+    <div *ngIf="isCreator" class="ms-3">
+      <button (click)="onNavigateTestReport()" class="btn btn-app">
+        <fa-icon [icon]="['far','file-lines']"></fa-icon>
+        Xem thống kê kết quả kiểm tra
+      </button>
+    </div>
+
+  </div>
+  <div class="row flex-shrink-0 flex-row">
+    <div class="mb-3 fs-1 d-flex flex-column flex-shrink-0 align-items-start justify-content-around col-auto col-lg-8">
+      <span><fa-icon [icon]="['fas','pen']" class="me-2"></fa-icon>Miêu tả bài kiểm tra: {{ test.description }}</span>
+      <span><fa-icon [icon]="['fas','question']" class="me-2"></fa-icon> Tổng số câu hỏi: {{ test.total_question }}</span>
+      <span *ngIf="test.max_point"><fa-icon [icon]="['fas','bookmark']" class="me-2"></fa-icon> Điểm tối đa: {{ test.max_point }}</span>
+      <span><fa-icon [icon]="['fas','hourglass']" class="me-2"></fa-icon> Thời gian làm bài: {{
+          test.time_total === null ? 'Không giới hạn' : test.time_total / 60 + ' Phút'
+        }}</span>
+      <span><fa-icon [icon]="['fas','stopwatch']" class="me-2"></fa-icon> Thời gian giữa mỗi câu hỏi: {{
+          test.time_question === null ? 'Không giới hạn' : test.time_question + ' Giây'
+        }}</span>
+      <span><fa-icon [icon]="['fas','hourglass-start']" class="me-2"></fa-icon> Thời gian mở bài kiểm tra: {{
+          test.open_time === null ? 'Không có ' : test.open_time | date : 'dd/MM/yyyy HH:mm'
+        }}</span>
+      <span><fa-icon [icon]="['fas','hourglass-end']" class="me-2"></fa-icon> Thời gian đóng bài kiểm tra: {{
+          test.close_time === null ? 'Không có' : test.close_time  | date: 'dd/MM/yyyy HH:mm'
+        }}</span>
+    </div>
+    <div class="picture mb-3 col-auto d-flex justify-content-end col-lg-4">
+      <img [ngSrc]="test.image.url ? test.image.url:'/assets/img/gallery/hero-header.png'" alt="Test" class=" img-fluid image p-2" height="250"
+           width="250">
+    </div>
+  </div>
+  <div class="mt-3 d-flex align-content-center justify-content-between">
+    <div class=" d-flex align-items-center">
+      <img [ngSrc]="test.user_info.avatar.url ?test.user_info.avatar.url :'assets/img/commons/default_user.jpeg'" alt="Creator's avt"
+           class="avt-icon"
+           height="57"
+           width="57">
+      <div class="ms-3">
+        <p class="m-0 mt-3">Người tạo</p>
+        <p class="fs-2">{{ test.user_info.fullName | titlecase }}</p>
+      </div>
+    </div>
+    <div class="d-flex align-items-center">
+      <button class="btn btn-app me-2"><i i-bs name="share"></i></button>
+      <button (click)="onCopyURL()" class="btn btn-app me-2"><i i-bs name="files"></i></button>
+      <button class="btn btn-app me-4"><i i-bs name="three-dots-vertical"></i></button>
+    </div>
+  </div>
+</div>
+
+<!--  -->
+

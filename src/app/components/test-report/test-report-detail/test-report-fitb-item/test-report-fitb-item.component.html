@@ -1,0 +1,21 @@
+<div [id]="questionNumber" class="fs-1 result-item-container ms-4 me-4 p-1 mb-2">
+  <div class="mb-2 ms-4 pt-2">
+    <span>Câu {{ questionNumber + 1 }}</span>
+  </div>
+  <div class="mb-2 ms-4">
+    <span>{{ resultItem.title }}</span>
+  </div>
+  <div *ngIf="message" class="mb-2 ms-4 text-danger">
+    <span>{{ message }}</span>
+  </div>
+  <div class="m-4">
+    <div class="mb-2">
+      <input #input [value]="resultItem.answer_of_user ?
+             resultItem.answer_of_user[0]: ''"
+             class="form-control" disabled id="textBox_{{questionNumber+1}}" name="textBox_{{questionNumber+1}}" type="text">
+    </div>
+    <div [class.text-danger]="!isAnswerCorrect" [class.text-success]="isAnswerCorrect" class="mb-2 text-danger">
+      <span>Đáp án đúng: {{ correctAnswers.toString() }}</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+.result-item-container {
+  opacity: 0.8;
+  border-radius: 10px;
+  background-color: aliceblue;
+}
+
+label.correct {
+  color: #29e844 !important;
+}
+
+label.incorrect {
+  color: #ff2465 !important;
+}

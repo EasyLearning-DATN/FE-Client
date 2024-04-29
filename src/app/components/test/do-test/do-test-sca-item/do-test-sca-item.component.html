@@ -1,0 +1,40 @@
+<div class="question-container mb-4">
+  <div class="ps-3 pe-3 d-flex flex-column justify-content-between question-detail-container">
+    <div class="index d-flex justify-content-end mt-2">
+      <span>{{ index + 1 }}/{{ total }}</span>
+    </div>
+    <div class="index d-flex justify-content-end mt-2">
+      <span>Trọng số: {{ question.weighted }}</span>
+    </div>
+    <div class="question-name">
+      <span>{{ question.title }}</span>
+    </div>
+    <div>
+      <div class="question-answer-title fw-semi-bold mb-3">
+        <span>Chọn đáp án</span>
+      </div>
+      <div>
+        <div class="row m-2 d-flex justify-content-around d-flex">
+          <button #btn1 (click)="checkAnswer(shuffledArray[0], btn1)" [class.disabled]="isDisabled"
+                  [name]="shuffledArray[0]" [value]="question.answers[shuffledArray[0]].value"
+                  class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center">
+            A. {{ question.answers[shuffledArray[0]].value }}
+          </button>
+          <button #btn2 (click)="checkAnswer(shuffledArray[1], btn2)" [class.disabled]="isDisabled" [name]="shuffledArray[1]"
+                  [value]="question.answers[shuffledArray[1]].value" class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center">
+            B. {{ question.answers[shuffledArray[1]].value }}
+          </button>
+          <button #btn3 (click)="checkAnswer(shuffledArray[2] ,btn3)" [class.disabled]="isDisabled" [name]="shuffledArray[2]"
+                  [value]="question.answers[shuffledArray[2]].value" class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center">
+            C. {{ question.answers[shuffledArray[2]].value }}
+          </button>
+          <button #btn4 (click)="checkAnswer(shuffledArray[3], btn4)" [class.disabled]="isDisabled" [name]="shuffledArray[3]"
+                  [value]="question.answers[shuffledArray[3]].value" class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center">
+            D. {{ question.answers[shuffledArray[3]].value }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

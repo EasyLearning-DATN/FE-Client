@@ -1,4 +1,583 @@
 {
-	"header.home": "home",
-	"header.list": "list"
+  "HEADER": {
+    "HOME": "home",
+    "LIST": "list",
+    "TEST_LIST": "tests list",
+    "LESSON_LIST": "lessons list",
+    "MY_TEST_REPORT": "my test reports",
+    "LOGIN": "login",
+    "REGISTER": "register",
+    "CREATE_LESSON": "create lesson",
+    "CREATE_TEST": "create test",
+    "USER_PROFILE": "User profile",
+    "SETTING": "Setting",
+    "HELP": "Help",
+    "UPGRADE": "Upgrade Premium",
+    "LOGOUT": "Logout",
+    "TEACHING_SUBSYSTEM": "Teaching subsystem",
+    "CREATE_CLASSROOM": "Create classroom"
+  },
+  "FOOTER": {
+    "COMMUNITY": "Community",
+    "LEARNERS": "Learners",
+    "PARTNERS": "Partners",
+    "DEVELOPERS": "Developers",
+    "BETA_TESTERS": "Beta Testers",
+    "TRANSLATORS": "Translators",
+    "INFORMATION": "Information",
+    "ABOUT": "About Us",
+    "CONTACT": "Contact",
+    "MORE": "More Information",
+    "TERM": "Term",
+    "PRIVACY": "Privacy",
+    "HELP": "Help"
+  },
+  "FORGET_PASSWORD": {
+    "CONFIRM": {
+      "TITLE": "Forget password",
+      "PASSWORD": {
+        "PLACEHOLDER": "Input new password",
+        "ERROR": {
+          "REQUIRED": "*Password can not be empty",
+          "PATTERN": "*Password must be at least 6 characters, including letter and number"
+        }
+      },
+      "CONFIRM_PASSWORD": {
+        "PLACEHOLDER": "Confirm new password",
+        "ERROR": {
+          "REQUIRED": "*Confirm password can not be empty",
+          "PATTERN": "*Confirm password must be at least 6 characters, including letter and number"
+        }
+      },
+      "RESET_PASSWORD": "Reset password"
+    },
+    "TITLE": "Forget password",
+    "EMAIL": {
+      "PLACEHOLDER": "Input email address",
+      "ERROR": {
+        "REQUIRED": "*Email can not be empty",
+        "PATTERN": "*Email is in incorrect format",
+        "EMAIL": "*Email is in incorrect format"
+      }
+    },
+    "reset_password": "Reset password"
+  },
+  "LESSON": {
+    "CREATE_LESSON": {
+      "NAME": {
+        "LABEL": "Lesson's name",
+        "PLACEHOLDER": "Lesson's name",
+        "ERROR": {
+          "REQUIRED": "*Lesson's name can not be empty!"
+        }
+      },
+      "DESCRIPTION": {
+        "LABEL": "Description",
+        "PLACEHOLDER": "Input description"
+      },
+      "PICTURE": "Lesson's picture",
+      "QUESTIONS_FILE": "Questions file",
+      "CREATE_LESSON": "Create lesson"
+    },
+    "LESSON_DETAIL": {
+      "LESSON_LEARN": {
+        "LESSON_LEARN_ITEM": {
+          "SCA": "multiple choice - one correct answer",
+          "MCA": "multiple choice - multiple correct answer",
+          "FITB": "fill in the blank",
+          "ANSWER_TITLE": "Answer"
+        },
+        "TITLE": "Lesson's questions",
+        "NO_QUESTIONS": "This lesson does not have questions!"
+      },
+      "FLASHCARD": {
+        "FLASHCARD_ITEM": {
+          "TITLE": "Answers"
+        },
+        "NO_QUESTIONS": "This lesson does not have questions!"
+      },
+      "EDIT_LESSON": {
+        "ADD_QUESTIONS": {
+          "TITLE": "Thêm câu hỏi",
+          "QUESTION_TYPE": "Loại câu hỏi",
+          "FITB": {
+            "TITLE": {
+              "LABEL": "Câu hỏi:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập câu hỏi!"
+              }
+            },
+            "WEIGHT": {
+              "LABEL": "Trọng số:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập trọng số điểm!",
+                "MIN": "Trọng số phải >= 1 và <= 3!",
+                "MAX": "Trọng số phải >= 1 và <= 3!"
+              }
+            },
+            "ANSWER": {
+              "LABEL": "Đáp án:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập câu trả lời đúng!"
+              },
+              "ADD_ANSWER": "Thêm đáp án"
+            }
+          },
+          "MCA": {
+            "TITLE": {
+              "LABEL": "Câu hỏi:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập câu hỏi!"
+              }
+            },
+            "WEIGHT": {
+              "LABEL": "Trọng số:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập trọng số điểm!",
+                "MIN": "Trọng số phải >= 1 và <= 3!",
+                "MAX": "Trọng số phải >= 1 và <= 3!"
+              }
+            },
+            "ANSWER": {
+              "LABEL": "Đáp án:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập câu trả lời!"
+              }
+            }
+          },
+          "SCA": {
+            "TITLE": {
+              "LABEL": "Câu hỏi:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập câu hỏi!"
+              }
+            },
+            "WEIGHT": {
+              "LABEL": "Trọng số:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập trọng số điểm!",
+                "MIN": "Trọng số phải >= 1 và <= 3!",
+                "MAX": "Trọng số phải >= 1 và <= 3!"
+              }
+            },
+            "ANSWER": {
+              "LABEL": "Đáp án:",
+              "WRONG_ANSWER": {
+                "LABEL": "Đáp án sai:",
+                "ERROR": {
+                  "REQUIRED": "Vui lòng nhập câu trả lời sai!"
+                }
+              },
+              "CORRECT_ANSWER": {
+                "LABEL": "Đáp án đúng:",
+                "ERROR": {
+                  "REQUIRED": "Vui lòng nhập câu trả lời đúng!"
+                }
+              }
+            }
+          },
+          "DELETE_QUESTION": "Xóa câu hỏi",
+          "SAVE": "Lưu",
+          "CANCEL": "Hủy",
+          "CLOSE": "Đóng"
+        },
+        "EDIT_QUESTIONS": {
+          "EDIT_QUESTION_ITEM": {
+            "FITB": {
+              "HEADING": "Question type: Fill in the blank",
+              "TITLE": {
+                "LABEL": "Question:",
+                "ERROR": {
+                  "REQUIRED": "Please input question!"
+                }
+              },
+              "WEIGHT": {
+                "LABEL": "Weight:",
+                "ERROR": {
+                  "REQUIRED": "Please input weight!",
+                  "MIN": "Weight must be >= 1 and <= 3!",
+                  "MAX": "Weight must be >= 1 and <= 3!"
+                }
+              },
+              "ANSWER": {
+                "LABEL": "Answer:",
+                "ERROR": {
+                  "REQUIRED": "Please input correct answer!"
+                },
+                "ADD_ANSWER": "Add answer"
+              }
+            },
+            "MCA": {
+              "HEADING": "Question type: Multiple correct answers",
+              "TITLE": {
+                "LABEL": "Question:",
+                "ERROR": {
+                  "REQUIRED": "Please input question!"
+                }
+              },
+              "WEIGHT": {
+                "LABEL": "Weight:",
+                "ERROR": {
+                  "REQUIRED": "Please input weight!",
+                  "MIN": "Weight must be >= 1 and <= 3!",
+                  "MAX": "Weight must be >= 1 and <= 3!"
+                }
+              },
+              "ANSWER": {
+                "LABEL": "Answer:",
+                "ERROR": {
+                  "REQUIRED": "Please input answer!"
+                }
+              }
+            },
+            "SCA": {
+              "HEADING": "Question type: Single correct answer",
+              "TITLE": {
+                "LABEL": "Question:",
+                "ERROR": {
+                  "REQUIRED": "Please input question!"
+                }
+              },
+              "WEIGHT": {
+                "LABEL": "Weight:",
+                "ERROR": {
+                  "REQUIRED": "Please input weight!",
+                  "MIN": "Weight must be >= 1 and <= 3!",
+                  "MAX": "Weight must be >= 1 and <= 3!"
+                }
+              },
+              "ANSWER": {
+                "LABEL": "Answer:",
+                "WRONG_ANSWER": {
+                  "LABEL": "Wrong answer:",
+                  "ERROR": {
+                    "REQUIRED": "Please input wrong answer!"
+                  }
+                },
+                "CORRECT_ANSWER": {
+                  "LABEL": "Correct answer:",
+                  "ERROR": {
+                    "REQUIRED": "Please input correct answer!"
+                  }
+                }
+              }
+            },
+            "SAVE": "Save",
+            "CANCEL": "Cancel",
+            "CLOSE": "Close"
+          },
+          "TITLE": "List questions",
+          "EDIT": "Edit",
+          "DELETE": "Delete"
+        },
+        "TITLE": "Edit lesson",
+        "NAME": {
+          "LABEL": "Lesson's name",
+          "ERROR": {
+            "REQUIRED": "Please input lesson's name!"
+          }
+        },
+        "PICTURE": {
+          "LABEL": "Picture",
+          "INFO": "Chosen picture"
+        },
+        "DESCRIPTION": {
+          "LABEL": "Description",
+          "ERROR": {
+            "REQUIRED": "Please input description!"
+          }
+        },
+        "SAVE": "Save",
+        "DELETE": "Delete",
+        "CLOSE": "Close"
+      },
+      "COMMENT": {
+        "TITLE": "Comment",
+        "PLACEHOLDER": "Comment...",
+        "CANCEL_BUTTON": "Cancel",
+        "SUBMIT_BUTTON": "Comment",
+        "COMMENT_ITEM": {
+          "REPLY": "reply",
+          "CANCEL_BUTTON": "Cancel",
+          "SUBMIT_BUTTON": "Reply"
+        }
+      },
+      "QUESTIONS": "Questions",
+      "CREATE_BY": "Created by"
+    }
+  },
+  "HOME": {
+    "HOME_ITEM": {
+      "CREATED_DATE": "Created date",
+      "TOTAL_QUESTIONS": "Total questions",
+      "ACCESS_TIMES": "Access times",
+      "DONE_TIMES": "Done times",
+      "DETAIL": "Detail"
+    },
+    "LOGIN": "Register for free",
+    "LIST_LESSON": "Lets see lesson list!",
+    "TITLE": "Study online lessons at no cost with EasyLearning",
+    "REGISTER_PREMIUM": "Try upgrade premium",
+    "PREMIUM": "EasyLearning Premium",
+    "TOP_LESSONS": "top lessons",
+    "NO_LESSONS": "There is no lesson!",
+    "TOP_TESTS": "top tests",
+    "NO_TESTS": "There is no test!",
+    "COURSES_PUBLISHED": "CREATED LESSONS",
+    "CLASS_PUBLISHED": "CLASSES PUBLISHED",
+    "HAPPY_LEARNERS": "HAPPY LEARNER",
+    "CLASSES_PASSED": "CLASSED PASSED"
+  },
+  "CLASSROOM": {
+    "CREATE_CLASS": {
+      "HEADER": "Create classroom",
+      "NAME": {
+        "LABEL": "Classroom's name",
+        "ERROR": {
+          "REQUIRED": "Name can not be empty!"
+        }
+      },
+      "DESCRIPTION": {
+        "LABEL": "Description",
+        "ERROR": {
+          "REQUIRED": "Description can not be empty!"
+        }
+      },
+      "STANDARD_POINT": {
+        "LABEL": "Standard point",
+        "ERROR": {
+          "REQUIRED": "Standard point can not be empty!",
+          "MIN": "Min standard point is 10!",
+          "MAX": "Max standard point is 200!"
+        }
+      },
+      "IS_PUBLIC": {
+        "TRUE": "This classroom is public",
+        "FALSE": "This classroom is private"
+      },
+      "CREATE_CLASSROOM": "Create classroom"
+    },
+    "CLASS_EDIT": {
+      "HEADER": "Update classroom",
+      "NAME": {
+        "LABEL": "Classroom's name",
+        "ERROR": {
+          "REQUIRED": "Name can not be empty!"
+        }
+      },
+      "DESCRIPTION": {
+        "LABEL": "Description",
+        "ERROR": {
+          "REQUIRED": "Description can not be empty!"
+        }
+      },
+      "STANDARD_POINT": {
+        "LABEL": "Standard point",
+        "ERROR": {
+          "REQUIRED": "Standard point can not be empty!",
+          "MIN": "Min standard point is 10!",
+          "MAX": "Max standard point is 200!"
+        }
+      },
+      "IS_PUBLIC": {
+        "TRUE": "This classroom is public",
+        "FALSE": "This classroom is private"
+      },
+      "EDIT_CLASSROOM": "Edit classroom"
+    },
+    "DELETE_CLASS": {
+    }
+  },
+  "CONFIRM_MODAL": {
+    "TITLE": "{{ value }}",
+    "BODY": "{{ value }}",
+    "CONFIRM": "Yes",
+    "REJECT": "No",
+    "CLOSE": "Close"
+  },
+  "COMMONS": {
+    "LOGIN": "Login",
+    "ADDRESS": "QTSC9, Quang Trung Software City, District 12",
+    "EMAIL": "easylearning@codeaz.edu.vn",
+    "BRAND": "EasyLearning"
+  },
+  "MESSAGE": {
+    "ERROR": {
+      "FORM": {
+        "001": "Invalid form!"
+      },
+      "TOKEN": {
+        "001": "Invalid token!"
+      },
+      "PASSWORD": {
+        "001": "Change password failed!"
+      },
+      "FORGET_PASSWORD": {
+        "CONFIRM": {
+          "001": "Reset password failed!",
+          "002": "Confirm password s not match!"
+        }
+      },
+      "CREATE_LESSON": {
+        "001": "Can create only 10 lessons! Please upgrade your account to create more!",
+        "002": "Create lesson failed!"
+      },
+      "LESSON_DETAIL": {
+        "EDIT_LESSON": {
+          "EDIT_QUESTIONS": {
+            "EDIT_QUESTION_ITEM": {
+              "001": "Please input all information!",
+              "002": "Update question failed!"
+            },
+            "001": "Can't delete question! Lesson must have at least 1 question!",
+            "002": "Delete question failed!"
+          },
+          "001": "Please input required fields!",
+          "002": "Updated lesson's picture failed!",
+          "003": "Failed to update this lesson!",
+          "004": "Failed to delete this lesson!"
+        },
+        "COMMENT": {
+          "001": "Comment failed!",
+          "COMMENT_ITEM": {
+            "001": "Reply failed!"
+          }
+        }
+      },
+      "CLASSROOM": {
+        "CREATE_CLASS": {
+          "001": "Please input all information!",
+          "002": "Classroom created unsuccessfully!",
+          "003": "Please choose cover!"
+        },
+        "EDIT_CLASS": {
+          "001": "Please input all information!",
+          "002": "Classroom updated unsuccessfully!",
+          "003": "Please choose cover!"
+        }
+      },
+      "ACCESS_TEACHING": {
+        "001": "Please upgrade your account to edu!"
+      }
+    },
+    "SUCCESS": {
+      "PASSWORD": {
+        "001": "Change password successfully!"
+      },
+      "FORGET_PASSWORD": {
+        "001": "Please check your email for a reset password link!",
+        "CONFIRM": {
+          "001": "Reset password successfully!"
+        }
+      },
+      "CREATE_LESSON": {
+        "001": "Create lesson successfully!"
+      },
+      "LESSON_DETAIL": {
+        "EDIT_LESSON": {
+          "EDIT_QUESTIONS": {
+            "EDIT_QUESTION_ITEM": {
+              "001": "Update question successfully!"
+            },
+            "001": "Delete question successfully!"
+          },
+          "001": "Update this lesson successfully!",
+          "002": "Delete this lesson successfully!"
+        }
+      },
+      "CLASSROOM": {
+        "CREATE_CLASS": {
+          "001": "Classroom created successfully!"
+        },
+        "EDIT_CLASS": {
+          "001": "Classroom updated successfully!"
+        }
+      }
+    },
+    "PROGRESS": {
+      "LOGOUT": {
+        "001": "Logging out..."
+      },
+      "FORGET_PASSWORD": {
+        "CONFIRM": {
+          "001": "Reset password..."
+        },
+        "001": "Checking..."
+      },
+      "CREATE_LESSON": {
+        "001": "Creating lesson..."
+      },
+      "LESSON_DETAIL": {
+        "EDIT_LESSON": {
+          "EDIT_QUESTIONS": {
+            "EDIT_QUESTION_ITEM": {
+              "001": "Updating question..."
+            },
+            "001": "Deleting question..."
+          },
+          "001": "Updating this lesson...",
+          "002": "Deleting this lesson..."
+        },
+        "COMMENT": {
+          "001": "Commenting...",
+          "COMMENT_ITEM": {
+            "001": "Replying..."
+          }
+        }
+      },
+      "CLASSROOM": {
+        "CREATE_CLASS": {
+          "001": "Creating classroom..."
+        },
+        "EDIT_CLASS": {
+          "001": "Updating classroom..."
+        }
+      }
+    },
+    "CONFIRM_MODAL": {
+      "TITLE": "Confirm",
+      "BODY": "Do you want to change?",
+      "LESSON": {
+        "LESSON_DETAIL": {
+          "EDIT_LESSON": {
+            "EDIT_QUESTIONS": {
+              "EDIT_QUESTION_ITEM": {
+                "UPDATE": "Do you want to update this question?"
+              },
+              "DELETE": "Do you want to delete this question?"
+            },
+            "DELETE": "Do you want to delete this lesson?",
+            "SAVE": "Do you want to save changed to this lesson?"
+          }
+        }
+      },
+      "CLASSROOM": {
+        "CREATE_CLASS": {
+          "CREATE": "Do you want to create classroom?"
+        },
+        "EDIT_CLASS": {
+          "EDIT": "Do you want to update this classroom?"
+        }
+      }
+    },
+    "TEXT": {
+      "LESSON_DETAIL": {
+        "COMMENT": {
+          "COMMENT_ITEM": {
+            "001": "second(s) ago",
+            "002": "minute(s) ago",
+            "003": "hour(s) ago",
+            "004": "day(s) ago"
+          }
+        }
+      }
+    },
+    "SWAL": {
+      "TILE": {
+        "SUCCESS": "Success!",
+        "ERROR": "Error!"
+      }
+    }
+  }
 }
+

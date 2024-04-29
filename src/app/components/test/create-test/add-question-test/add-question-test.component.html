@@ -1,0 +1,117 @@
+<button (click)="openOffcanvas(content)" class="btn btn-app d-flex align-items-center">
+  <i-bs height="21"
+        name="plus-circle"
+        width="21">
+  </i-bs>
+  <span class="ms-2">Thêm câu hỏi</span>
+</button>
+<ng-template #content let-offcanvas>
+  <div class="offcanvas-header mb-3">
+    <h4 class="offcanvas-title">Thêm câu hỏi</h4>
+    <button (click)="offcanvas.dismiss('Cross click')" aria-label="Close" class="btn-close" type="button"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="top-section">
+      <div class="search-bar mb-3 ms-3">
+        <div class="search-bar-border d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center" style="width: 80%;">
+            <i-bs class="me-2 ms-2"
+                  height="24"
+                  name="search" width="24">
+            </i-bs>
+            <input [(ngModel)]="searchKey" class="search-field me-2" placeholder="Tìm kiếm câu hỏi" type="text">
+          </div>
+          <button (click)="isButtonClicked = true; onSearch(); " class="btn btn-app-reverse me-1"><span>Tìm kiếm</span></button>
+        </div>
+        <div class="only-lesson-select">
+
+        </div>
+      </div>
+      <div class="mb-3 text-danger ms-3">
+        <small>Lưu ý: Những câu hỏi trùng nhau sẽ không được thêm vào</small>
+      </div>
+      <div class="filter-section">
+
+      </div>
+    </div>
+    <div class="search-result-section d-flex">
+      <div class="lesson-result flex-shrink-0 flex-column p-4 d-flex position-relative w-96">
+        <div class="mb-2">
+          <span>Hiện kết quả cho "{{ searchKey }}"</span>
+        </div>
+        <div *ngIf="searchKey" class="show-content-section p-3 flex-column d-flex mb-3">
+          <div class="show-content-section-title d-flex w-100">
+            <span>Hiển thị kết quả từ:</span>
+          </div>
+          <div class="d-block w-100 radio-box">
+            <form [formGroup]="sourceForm">
+              <div class="form-check">
+                <input (change)="onSearch()" class="form-check-input" formControlName="source" id="community"
+                       type="radio" value="community">
+                <label class="form-check-label" for="community">
+                  Cộng đồng
+                </label>
+              </div>
+              <div class="form-check ">
+                <input (change)="onSearch()" class="form-check-input" formControlName="source" id="myLibrary" type="radio" value="myLibrary">
+                <label class="form-check-label" for="myLibrary">
+                  Thư viện của tôi
+                </label>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div [ngClass]="{'overflow-y-auto':!isFetchingLesson, 'overflow-y-hidden':isFetchingLesson}" class="search-list overflow-y-auto">
+          <div *ngIf="!lessons && isFetchingLesson && isButtonClicked" class="d-flex justify-content-center align-items-center flex-column"
+               style="height: 70vh">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          <div *ngIf="lessons && !isFetchingLesson" class="d-flex flex-column">
+            <app-add-question-search-item *ngFor="let lesson of lessons" [lesson]="lesson"></app-add-question-search-item>
+          </div>
+        </div>
+      </div>
+      <div class="questions-result p-4 right-panel-container bg-light-1">
+        <div *ngIf="!lesson && !isFetchingLesson && !isFetchingQuestions" class="text-information">
+          <span class="d-flex align-items-center justify-content-center text-center">Chọn một bài học để xem thông tin</span>
+        </div>
+        <div *ngIf=" isFetchingQuestions" class="d-flex justify-content-center align-items-center flex-column" style="height: 70vh">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        <div *ngIf="lesson && !isFetchingQuestions" class="add-all-section shadow-sm p-1 mb-3">
+          <div class="add-all-info-section">
+            <div class="add-all-info-img-section">
+              <img [ngSrc]="lesson.image.url ? lesson.image.url : 'favicon.ico'" alt="" height="32" width="32">
+            </div>
+            <div class="add-all-info-text-section justify-content-center flex-column d-flex">
+              <div class="add-all-info-text-title-section">
+                <span>{{ lesson.name }}</span>
+              </div>
+              <div class="add-all-info-text-num-quests-section">
+                <span>{{ lesson.questions.length }} câu hỏi</span>
+              </div>
+            </div>
+          </div>
+          <button (click)="onAddAllQuestions()" [disabled]="isAddingQuestions" class="btn btn-app-reverse btn-add-all-section position-relative">
+            <i-bs class="me-2 d-flex align-items-center"
+                  height="1rem"
+                  name="plus-circle" width="1rem">
+            </i-bs>
+            <span class="">Thêm {{ lesson.questions.length }} câu hỏi</span>
+            <div *ngIf="isAddingQuestions" [@addAllQuestions] class="position-absolute add-all-question-animation"></div>
+          </button>
+        </div>
+        <div *ngIf="lesson && !isFetchingQuestions" class="teleport-questions-list-container add-all-option">
+          <div class="flex flex-col gap-3 h-100 overflow-y-auto">
+            <app-add-question-search-item-question *ngFor="let question of lesson.questions" [isCreateTest]="true"
+                                                   [question]="question" width="100%"></app-add-question-search-item-question>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

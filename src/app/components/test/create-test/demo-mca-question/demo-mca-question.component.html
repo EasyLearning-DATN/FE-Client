@@ -1,0 +1,56 @@
+<div class="question-container mb-4">
+  <div class="delete-container d-flex justify-content-end " style="height: 35px">
+    <fa-icon (click)="onDeleteQuestion()" (mouseenter)="onMEnterDelete()" (mouseleave)="onMLeaveDelete()" [icon]="['fas', 'xmark']"
+             [ngClass]="checkHoverDeleteButton"
+             class="me-2" style="cursor: pointer"></fa-icon>
+  </div>
+  <div class="ps-3 pe-3 d-flex flex-column justify-content-between question-detail-container">
+    <div class="index d-flex justify-content-end">
+      <span>{{ index + 1 }}/{{ total }}</span>
+    </div>
+    <div class="index d-flex justify-content-end">
+      <span>Trọng số: {{ question.weighted }}</span>
+    </div>
+    <div class="question-name">
+      <span>{{ question.title }}</span>
+    </div>
+    <div>
+      <div class="question-answer-title fw-semi-bold mb-3">
+        <span>Chọn đáp án</span>
+      </div>
+      <div>
+        <div class="row m-2 d-flex justify-content-around d-flex " disabled="true">
+          <button [ngClass]="checkAnswer[0]"
+                  class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center disabled">
+            <div class="form-check">
+              <input [checked]="question.answers[0].is_correct" class="form-check-input" height="15px" id="answerA" type="checkbox" value="true"
+                     width="15px">
+              <label class="form-check-label" for="answerA">A. {{ question.answers[0].value }}</label>
+            </div>
+          </button>
+          <button [ngClass]="checkAnswer[1]" class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center disabled">
+            <div class="form-check ">
+              <input [checked]="question.answers[1].is_correct" class="form-check-input" height="15px" id="answerB" type="checkbox" value="true"
+                     width="15px">
+              <label class="form-check-label" for="answerB">B. {{ question.answers[1].value }}</label>
+            </div>
+          </button>
+          <button [ngClass]="checkAnswer[2]" class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center disabled">
+            <div class="form-check ">
+              <input [checked]="question.answers[2].is_correct" class="form-check-input" height="15px" id="answerC" type="checkbox" value="true"
+                     width="15px">
+              <label class="form-check-label" for="answerC">C. {{ question.answers[2].value }}</label>
+            </div>
+          </button>
+          <button [ngClass]="checkAnswer[3]" class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center disabled">
+            <div class="form-check ">
+              <input [checked]="question.answers[3].is_correct" class="form-check-input" height="15px" id="answerD" type="checkbox" value="true"
+                     width="15px">
+              <label class="form-check-label" for="answerD">D. {{ question.answers[3].value }}</label>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

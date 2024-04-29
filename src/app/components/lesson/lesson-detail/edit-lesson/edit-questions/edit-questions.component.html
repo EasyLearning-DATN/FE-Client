@@ -1,1 +1,36 @@
-<p>edit-questions works!</p>
+<button (click)="openModal(modal)" class="btn btn-app ms-3">
+  <fa-icon [icon]="['far','pen-to-square']"></fa-icon>
+  Sửa câu hỏi
+</button>
+<ng-template #modal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.EDIT_QUESTIONS.TITLE'|translate }}</h4>
+    <button (click)="d('Cross click')" aria-label="Close" class="btn-close" type="button"></button>
+  </div>
+
+  <div class="modal-body">
+    <div *ngFor="let question of questions" class="mt-3 d-flex justify-content-between align-items-center">
+      <app-lesson-learn-item [question]="question" class="col-12 col-lg-6 mb-3">
+      </app-lesson-learn-item>
+      <div>
+        <button (click)="openEditModal( question)" class="btn btn-app me-3" type="button">
+          <fa-icon [icon]="['far','pen-to-square']"></fa-icon>
+          {{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.EDIT_QUESTIONS.EDIT'|translate }}
+        </button>
+        <button (click)="openConfirmDelete(question.id)" class="btn btn-app-warning" type="button">
+          <fa-icon [icon]="['far','trash-can']"></fa-icon>
+          {{ 'LESSON.LESSON_DETAIL.EDIT_LESSON.EDIT_QUESTIONS.DELETE'|translate }}
+        </button>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="modal-footer">
+    <!--       <button (click)="openConfirmAdd()" class="btn btn-app" type="submit">Save</button> -->
+    <!--       <button (click)="d('Cancel click'); initForm()" class="btn btn-app-warning" type="button">Cancel</button> -->
+    <button (click)="d('Close click')" class="btn btn-app" type="button">{{ 'CONFIRM_MODAL.CLOSE'|translate }}</button>
+  </div>
+
+</ng-template>
+

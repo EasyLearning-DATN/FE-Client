@@ -1,13 +1,583 @@
 {
-	"header": {
-		"home": "trang chủ",
-		"list": "danh sách",
-		"test-list": "danh sách bài test",
-		"lesson-list": "danh sách bài học",
-		"search": "Tìm kiếm",
-		"login": "đăng nhập",
-		"register": "đăng ký",
-		"create-lesson": "tạo bài học",
-		"create-test": "tạo bài test"
-	}
+  "HEADER": {
+    "HOME": "trang chủ",
+    "LIST": "danh sách",
+    "TEST_LIST": "danh sách bài kiểm tra",
+    "LESSON_LIST": "danh sách bài học",
+    "MY_TEST_REPORT": "kết quả bài kiểm tra",
+    "LOGIN": "đăng nhập",
+    "REGISTER": "đăng ký",
+    "CREATE_LESSON": "tạo bài học",
+    "CREATE_TEST": "tạo bài kiểm tra",
+    "USER_PROFILE": "Hồ sơ",
+    "SETTING": "Cài đặt",
+    "HELP": "Giúp đỡ & Phản hồi",
+    "UPGRADE": "Nâng cấp Premium",
+    "LOGOUT": "Đăng xuất",
+    "TEACHING_SUBSYSTEM": "Hệ thống giảng dạy",
+    "CREATE_CLASSROOM": "Tạo lớp học"
+  },
+  "FOOTER": {
+    "COMMUNITY": "Cộng đồng",
+    "LEARNERS": "Người học",
+    "PARTNERS": "Đối tác",
+    "DEVELOPERS": "Nhà phát triển",
+    "BETA_TESTERS": "Bên kiểm thử",
+    "TRANSLATORS": "Biên dịch",
+    "INFORMATION": "Thông tin",
+    "ABOUT": "Về chúng tôi",
+    "CONTACT": "Liên hệ",
+    "MORE": "Thông tin bổ sung",
+    "TERM": "Quyền",
+    "PRIVACY": "Bảo mật",
+    "HELP": "Trợ giúp"
+  },
+  "FORGET_PASSWORD": {
+    "CONFIRM": {
+      "TITLE": "Quên mật khẩu",
+      "PASSWORD": {
+        "PLACEHOLDER": "Nhập mật khẩu mới",
+        "ERROR": {
+          "REQUIRED": "*Mật khẩu không được để trống",
+          "PATTERN": "*Mật khẩu tối thiểu 6 ký tự, phải bao gồm cả chữ cái và số"
+        }
+      },
+      "CONFIRM_PASSWORD": {
+        "PLACEHOLDER": "Nhập lại mật khẩu mới",
+        "ERROR": {
+          "REQUIRED": "*Xác nhận mật khẩu không được để trống",
+          "PATTERN": "*Mật khẩu tối thiểu 6 ký tự, phải bao gồm cả chữ cái và số"
+        }
+      },
+      "RESET_PASSWORD": "Đặt lại mật khẩu"
+    },
+    "TITLE": "Quên mật khẩu",
+    "EMAIL": {
+      "PLACEHOLDER": "Nhập địa chỉ email",
+      "ERROR": {
+        "REQUIRED": "*Email không được để trống",
+        "PATTERN": "*Email không đúng định dạng",
+        "EMAIL": "*Email không đúng định dạng"
+      }
+    },
+    "reset_password": "Đặt lại mật khẩu"
+  },
+  "LESSON": {
+    "CREATE_LESSON": {
+      "NAME": {
+        "LABEL": "Tên bài học",
+        "PLACEHOLDER": "Tên bài học",
+        "ERROR": {
+          "REQUIRED": "*Tên bài học không được để trống!"
+        }
+      },
+      "DESCRIPTION": {
+        "LABEL": "Mô tả",
+        "PLACEHOLDER": "Nhập mô tả"
+      },
+      "PICTURE": "Ảnh bìa bài học",
+      "QUESTIONS_FILE": "File câu hỏi",
+      "CREATE_LESSON": "Tạo bài học"
+    },
+    "LESSON_DETAIL": {
+      "LESSON_LEARN": {
+        "LESSON_LEARN_ITEM": {
+          "SCA": "trắc nghiệm - một đáp án đúng",
+          "MCA": "trắc nghiệm - nhiều đáp án đúng",
+          "FITB": "điền vào chỗ trống",
+          "ANSWER_TITLE": "Đáp án"
+        },
+        "TITLE": "Câu hỏi trong bài học",
+        "NO_QUESTIONS": "Bài học này không có câu hỏi!"
+      },
+      "FLASHCARD": {
+        "FLASHCARD_ITEM": {
+          "TITLE": "Đáp án"
+        },
+        "NO_QUESTIONS": "Bài học này không có câu hỏi!"
+      },
+      "EDIT_LESSON": {
+        "ADD_QUESTIONS": {
+          "TITLE": "Thêm câu hỏi",
+          "QUESTION_TYPE": "Loại câu hỏi",
+          "FITB": {
+            "TITLE": {
+              "LABEL": "Câu hỏi:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập câu hỏi!"
+              }
+            },
+            "WEIGHT": {
+              "LABEL": "Trọng số:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập trọng số điểm!",
+                "MIN": "Trọng số phải >= 1 và <= 3!",
+                "MAX": "Trọng số phải >= 1 và <= 3!"
+              }
+            },
+            "ANSWER": {
+              "LABEL": "Đáp án:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập câu trả lời đúng!"
+              },
+              "ADD_ANSWER": "Thêm đáp án"
+            }
+          },
+          "MCA": {
+            "TITLE": {
+              "LABEL": "Câu hỏi:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập câu hỏi!"
+              }
+            },
+            "WEIGHT": {
+              "LABEL": "Trọng số:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập trọng số điểm!",
+                "MIN": "Trọng số phải >= 1 và <= 3!",
+                "MAX": "Trọng số phải >= 1 và <= 3!"
+              }
+            },
+            "ANSWER": {
+              "LABEL": "Đáp án:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập câu trả lời!"
+              }
+            }
+          },
+          "SCA": {
+            "TITLE": {
+              "LABEL": "Câu hỏi:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập câu hỏi!"
+              }
+            },
+            "WEIGHT": {
+              "LABEL": "Trọng số:",
+              "ERROR": {
+                "REQUIRED": "Vui lòng nhập trọng số điểm!",
+                "MIN": "Trọng số phải >= 1 và <= 3!",
+                "MAX": "Trọng số phải >= 1 và <= 3!"
+              }
+            },
+            "ANSWER": {
+              "LABEL": "Đáp án:",
+              "WRONG_ANSWER": {
+                "LABEL": "Đáp án sai:",
+                "ERROR": {
+                  "REQUIRED": "Vui lòng nhập câu trả lời sai!"
+                }
+              },
+              "CORRECT_ANSWER": {
+                "LABEL": "Đáp án đúng:",
+                "ERROR": {
+                  "REQUIRED": "Vui lòng nhập câu trả lời đúng!"
+                }
+              }
+            }
+          },
+          "DELETE_QUESTION": "Xóa câu hỏi",
+          "SAVE": "Lưu",
+          "CANCEL": "Hủy",
+          "CLOSE": "Đóng"
+        },
+        "EDIT_QUESTIONS": {
+          "EDIT_QUESTION_ITEM": {
+            "FITB": {
+              "HEADING": "Loại câu hỏi: Điền vào chỗ trống",
+              "TITLE": {
+                "LABEL": "Câu hỏi:",
+                "ERROR": {
+                  "REQUIRED": "Vui lòng nhập câu hỏi!"
+                }
+              },
+              "WEIGHT": {
+                "LABEL": "Trọng số:",
+                "ERROR": {
+                  "REQUIRED": "Vui lòng nhập trọng số điểm!",
+                  "MIN": "Trọng số phải >= 1 và <= 3!",
+                  "MAX": "Trọng số phải >= 1 và <= 3!"
+                }
+              },
+              "ANSWER": {
+                "LABEL": "Đáp án:",
+                "ERROR": {
+                  "REQUIRED": "Vui lòng nhập câu trả lời đúng!"
+                },
+                "ADD_ANSWER": "Thêm đáp án"
+              }
+            },
+            "MCA": {
+              "HEADING": "Loại câu hỏi: Nhiều đáp án đúng",
+              "TITLE": {
+                "LABEL": "Câu hỏi:",
+                "ERROR": {
+                  "REQUIRED": "Vui lòng nhập câu hỏi!"
+                }
+              },
+              "WEIGHT": {
+                "LABEL": "Trọng số:",
+                "ERROR": {
+                  "REQUIRED": "Vui lòng nhập trọng số điểm!",
+                  "MIN": "Trọng số phải >= 1 và <= 3!",
+                  "MAX": "Trọng số phải >= 1 và <= 3!"
+                }
+              },
+              "ANSWER": {
+                "LABEL": "Đáp án:",
+                "ERROR": {
+                  "REQUIRED": "Vui lòng nhập câu trả lời!"
+                }
+              }
+            },
+            "SCA": {
+              "HEADING": "Loại câu hỏi: Một đáp án đúng",
+              "TITLE": {
+                "LABEL": "Câu hỏi:",
+                "ERROR": {
+                  "REQUIRED": "Vui lòng nhập câu hỏi!"
+                }
+              },
+              "WEIGHT": {
+                "LABEL": "Trọng số:",
+                "ERROR": {
+                  "REQUIRED": "Vui lòng nhập trọng số điểm!",
+                  "MIN": "Trọng số phải >= 1 và <= 3!",
+                  "MAX": "Trọng số phải >= 1 và <= 3!"
+                }
+              },
+              "ANSWER": {
+                "LABEL": "Đáp án:",
+                "WRONG_ANSWER": {
+                  "LABEL": "Đáp án sai:",
+                  "ERROR": {
+                    "REQUIRED": "Vui lòng nhập câu trả lời sai!"
+                  }
+                },
+                "CORRECT_ANSWER": {
+                  "LABEL": "Đáp án đúng:",
+                  "ERROR": {
+                    "REQUIRED": "Vui lòng nhập câu trả lời đúng!"
+                  }
+                }
+              }
+            },
+            "SAVE": "Lưu",
+            "CANCEL": "Hủy",
+            "CLOSE": "Đóng"
+          },
+          "TITLE": "Danh sách câu hỏi",
+          "EDIT": "Chỉnh sửa",
+          "DELETE": "Xóa"
+        },
+        "TITLE": "Chỉnh sửa bài học",
+        "NAME": {
+          "LABEL": "Tên bài học",
+          "ERROR": {
+            "REQUIRED": "Vui lòng nhập tên bài học!"
+          }
+        },
+        "PICTURE": {
+          "LABEL": "Ảnh",
+          "INFO": "Ảnh đã chọn"
+        },
+        "DESCRIPTION": {
+          "LABEL": "Mô tả",
+          "ERROR": {
+            "REQUIRED": "Vui lòng nhập mô tả!"
+          }
+        },
+        "SAVE": "Lưu",
+        "DELETE": "Xóa",
+        "CLOSE": "Đóng"
+      },
+      "COMMENT": {
+        "TITLE": "Bình luận",
+        "PLACEHOLDER": "Viết bình luận...",
+        "CANCEL_BUTTON": "Hủy",
+        "SUBMIT_BUTTON": "Bình luận",
+        "COMMENT_ITEM": {
+          "REPLY": "phản hồi",
+          "CANCEL_BUTTON": "Hủy",
+          "SUBMIT_BUTTON": "Phản hồi"
+        }
+      },
+      "QUESTIONS": "Câu hỏi",
+      "CREATE_BY": "Người tạo"
+    }
+  },
+  "HOME": {
+    "HOME_ITEM": {
+      "CREATED_DATE": "Ngày tạo",
+      "TOTAL_QUESTIONS": "Tổng số câu hỏi",
+      "ACCESS_TIMES": "Lượt truy cập",
+      "DONE_TIMES": "Lượt làm",
+      "DETAIL": "Chi tiết"
+    },
+    "LOGIN": "Đăng kí miễn phí",
+    "LIST_LESSON": "Xem danh sách bài học thôi!",
+    "TITLE": "Ghi nhớ các bài trắc nghiệm online với EasyLearning",
+    "REGISTER_PREMIUM": "Đăng kí trải nghiệm",
+    "PREMIUM": "EasyLearning Premium",
+    "TOP_LESSONS": "bài học nổi bật",
+    "NO_LESSONS": "Không có bài học nổi bật!",
+    "TOP_TESTS": "bài kiểm tra nổi bật",
+    "NO_TESTS": "Không có bài kiểm tra nổi bật!",
+    "COURSES_PUBLISHED": "BÀI HỌC ĐÃ TẠO",
+    "CLASS_PUBLISHED": "LỚP HỌC ĐÃ TẠO",
+    "HAPPY_LEARNERS": "NGƯỜI DÙNG THAM GIA",
+    "CLASSES_PASSED": "LƯỢT HOÀN THÀNH LỚP HỌC"
+  },
+  "CLASSROOM": {
+    "CREATE_CLASS": {
+      "HEADER": "Tạo lớp học",
+      "NAME": {
+        "LABEL": "Tên của lớp học",
+        "ERROR": {
+          "REQUIRED": "Tên không được để trống!"
+        }
+      },
+      "DESCRIPTION": {
+        "LABEL": "Mô tả",
+        "ERROR": {
+          "REQUIRED": "Mô tả không được để trống!"
+        }
+      },
+      "STANDARD_POINT": {
+        "LABEL": "Điểm sàn",
+        "ERROR": {
+          "REQUIRED": "Điểm sàn không được để trống!",
+          "MIN": "Điểm sàn nhỏ nhất là 10!",
+          "MAX": "Điểm sàn lớn nhất là 200!"
+        }
+      },
+      "IS_PUBLIC": {
+        "TRUE": "Lớp học công khai",
+        "FALSE": "Lớp học hạn chế"
+      },
+      "CREATE_CLASSROOM": "Tạo lớp học"
+    },
+    "CLASS_EDIT": {
+      "HEADER": "Chỉnh sửa lớp học",
+      "NAME": {
+        "LABEL": "Tên của lớp học",
+        "ERROR": {
+          "REQUIRED": "Tên không được để trống!"
+        }
+      },
+      "DESCRIPTION": {
+        "LABEL": "Mô tả",
+        "ERROR": {
+          "REQUIRED": "Mô tả không được để trống!"
+        }
+      },
+      "STANDARD_POINT": {
+        "LABEL": "Điểm sàn",
+        "ERROR": {
+          "REQUIRED": "Điểm sàn không được để trống!",
+          "MIN": "Điểm sàn nhỏ nhất là 10!",
+          "MAX": "Điểm sàn lớn nhất là 200!"
+        }
+      },
+      "IS_PUBLIC": {
+        "TRUE": "Lớp học công khai",
+        "FALSE": "Lớp học hạn chế"
+      },
+      "EDIT_CLASSROOM": "Chỉnh sửa lớp học"
+    },
+    "DELETE_CLASS": {
+    }
+  },
+  "CONFIRM_MODAL": {
+    "TITLE": "{{ value }}",
+    "BODY": "{{ value }}",
+    "CONFIRM": "Có",
+    "REJECT": "Không",
+    "CLOSE": "Đóng"
+  },
+  "COMMONS": {
+    "LOGIN": "Đăng nhập",
+    "ADDRESS": "Tòa nhà QTSC9, Công viên phần mềm Quang Trung, Quận 12",
+    "EMAIL": "easylearning@codeaz.edu.vn",
+    "BRAND": "EasyLearning"
+  },
+  "MESSAGE": {
+    "ERROR": {
+      "FORM": {
+        "001": "Form không hợp lệ!"
+      },
+      "TOKEN": {
+        "001": "Token không hợp lệ!"
+      },
+      "PASSWORD": {
+        "001": "Đổi mật khẩu thất bại!"
+      },
+      "FORGET_PASSWORD": {
+        "CONFIRM": {
+          "001": "Đặt lại mật khẩu thất bại!",
+          "002": "Xác nhận mật khẩu không trùng khớp!"
+        }
+      },
+      "CREATE_LESSON": {
+        "001": "Chỉ được tạo tối đa 10 bài học! Vui lòng nâng cấp tài khoản để tạo thêm bài học!",
+        "002": "Tạo bài học thất bại!"
+      },
+      "LESSON_DETAIL": {
+        "EDIT_LESSON": {
+          "EDIT_QUESTIONS": {
+            "EDIT_QUESTION_ITEM": {
+              "001": "Vui lòng nhập đủ thông tin!",
+              "002": "CẬp nhật câu hỏi thất bại!"
+            },
+            "001": "Không thể xóa câu hỏi! Bài học phải có ít nhất 1 câu hỏi!",
+            "002": "Xóa câu hỏi thất bại!"
+          },
+          "001": "Vui lòng điền đầy đủ thông tin bài học!",
+          "002": "Không thể cập nhật hình ảnh!",
+          "003": "Sửa bài học thất bại!",
+          "004": "Xóa bài học thất bại!"
+        },
+        "COMMENT": {
+          "001": "Bình luận thất bại!",
+          "COMMENT_ITEM": {
+            "001": "Phản hồi bình luận thất bại!"
+          }
+        }
+      },
+      "CLASSROOM": {
+        "CREATE_CLASS": {
+          "001": "Vui lòng nhập đủ thông tin!",
+          "002": "Tạo lớp học mới thất bại!",
+          "003": "Vui lòng chọn hình ảnh!"
+        },
+        "EDIT_CLASS": {
+          "001": "Vui lòng nhập đủ thông tin!",
+          "002": "Chỉnh sửa lớp học thất bại!",
+          "003": "Vui lòng chọn hình ảnh!"
+        }
+      },
+      "ACCESS_TEACHING": {
+        "001": "Vui lòng nâng cấp tài khoản của bạn lên edu!"
+      }
+    },
+    "SUCCESS": {
+      "PASSWORD": {
+        "001": "Đổi mật khẩu thành công"
+      },
+      "FORGET_PASSWORD": {
+        "001": "Vui lòng kiểm tra email để lấy liên kết đặt lại mật khẩu!",
+        "CONFIRM": {
+          "001": "Đặt lại mật khẩu thành công!"
+        }
+      },
+      "CREATE_LESSON": {
+        "001": "Tạo bài học thành công!"
+      },
+      "LESSON_DETAIL": {
+        "EDIT_LESSON": {
+          "EDIT_QUESTIONS": {
+            "EDIT_QUESTION_ITEM": {
+              "001": "Cập nhật câu hỏi thành công!"
+            },
+            "001": "Xóa câu hỏi thành công!"
+          },
+          "001": "Cập nhật bài học thành công!",
+          "002": "Xóa bài học thành công!"
+        }
+      },
+      "CLASSROOM": {
+        "CREATE_CLASS": {
+          "001": "Tạo lớp học thành công!"
+        },
+        "EDIT_CLASS": {
+          "001": "Cập nhật thông tin lớp học thành công!"
+        }
+      }
+    },
+    "PROGRESS": {
+      "LOGOUT": {
+        "001": "Đang đăng xuất..."
+      },
+      "FORGET_PASSWORD": {
+        "CONFIRM": {
+          "001": "Đang đặt lại..."
+        },
+        "001": "Đang kiểm tra..."
+      },
+      "CREATE_LESSON": {
+        "001": "Đang tạo bài học..."
+      },
+      "LESSON_DETAIL": {
+        "EDIT_LESSON": {
+          "EDIT_QUESTIONS": {
+            "EDIT_QUESTION_ITEM": {
+              "001": "Đang cập nhật câu hỏi..."
+            },
+            "001": "Đang xóa câu hỏi..."
+          },
+          "001": "Đang cập nhật bài học...",
+          "002": "Đang xóa bài học..."
+        },
+        "COMMENT": {
+          "001": "Đang tạo bình luận...",
+          "COMMENT_ITEM": {
+            "001": "Đang phản hồi bình luận..."
+          }
+        }
+      },
+      "CLASSROOM": {
+        "CREATE_CLASS": {
+          "001": "Đang tạo lớp học..."
+        },
+        "EDIT_CLASS": {
+          "001": "Đang cập nhật lớp học..."
+        }
+      }
+    },
+    "CONFIRM_MODAL": {
+      "TITLE": "Xác nhận",
+      "BODY": "Bạn có chắc chắn muốn thay đổi không?",
+      "LESSON": {
+        "LESSON_DETAIL": {
+          "EDIT_LESSON": {
+            "EDIT_QUESTIONS": {
+              "EDIT_QUESTION_ITEM": {
+                "UPDATE": "Bạn có chắc chắn muốn chỉnh sửa câu hỏi này không?"
+              },
+              "DELETE": "Bạn có chắc chắn muốn xóa câu hỏi khỏi bài học này không?"
+            },
+            "DELETE": "Bạn có chắc chắn muốn xóa bài học này không?",
+            "SAVE": "Bạn có chắc chắn muốn lưu thay đổi không?"
+          }
+        }
+      },
+      "CLASSROOM": {
+        "CREATE_CLASS": {
+          "CREATE": "Bạn có chắc chăn muốn tạo lớp học không?"
+        },
+        "EDIT_CLASS": {
+          "EDIT": "Bạn có chắc chăn muốn cập nhật lớp học không?"
+        }
+      }
+    },
+    "TEXT": {
+      "LESSON_DETAIL": {
+        "COMMENT": {
+          "COMMENT_ITEM": {
+            "001": "giây trước",
+            "002": "phút trước",
+            "003": "giờ trước",
+            "004": "ngày trước"
+          }
+        }
+      }
+    },
+    "SWAL": {
+      "TILE": {
+        "SUCCESS": "Thành công!",
+        "ERROR": "Lỗi!"
+      }
+    }
+  }
 }
+
