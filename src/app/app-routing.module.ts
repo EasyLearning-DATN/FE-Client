@@ -27,6 +27,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/login/login.module').then(mod => mod.LoginModule),
   },
   {
+    path: 'register',
+    loadChildren: () => import('./modules/login/login.module').then(mod => mod.LoginModule),
+  },
+  {
     path: 'upgrade',
     loadChildren: () => import('./modules/upgrade/upgrade.module').then(mod => mod.UpgradeModule),
   },
