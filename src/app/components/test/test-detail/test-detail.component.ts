@@ -23,10 +23,12 @@ import {ConfirmModalComponent} from '../../commons/confirm-modal/confirm-modal.c
 export class TestDetailComponent implements OnInit {
   test !: TestResponses;
   isCreator: boolean = false;
+  token!: string | null;
   userId!: string;
   testReport!: TestReportResponse;
   classRoomId: string | null = null;
   userInfoId!: number;
+  testReportsClassMember!: TestReportResponse[];
   closeResult: string = '';
 
   constructor(private testService: TestService, private route: ActivatedRoute, private sharedService: SharedService, private router: Router,
@@ -69,6 +71,12 @@ export class TestDetailComponent implements OnInit {
   ngOnInit() {
 
     this.classRoomId = this.route.snapshot.paramMap.get('classId');
+
+    if (this.classRoomId) {
+      this.testReportsClassMember = this.sharedService.testReportClassMember;
+      console.log(this.testReportsClassMember);
+    }
+
     this.test = this.sharedService.test;
     this.sharedService.testChanged.subscribe(
       (test) => {
@@ -92,6 +100,8 @@ export class TestDetailComponent implements OnInit {
         this.isCreator = false;
       }
     }
+
+    this.token = localStorage.getItem('token');
   }
 
   onCopyURL() {
@@ -109,6 +119,20 @@ export class TestDetailComponent implements OnInit {
         this.closeResult = `Closed with: ${result}`;
         console.log(this.closeResult);
         if (result==='Confirm') {
+          if (!this.token) {
+            Swal.fire({
+              title: 'Bạn chưa đăng nhập? Bạn có muốn đăng nhập không?',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonText: 'Xác nhận',
+              cancelButtonText: 'Hủy',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.router.navigate(['/login']);
+              }
+            });
+          }
+
           if (this.classRoomId) {
             this.testService.checkIsDoneTest(this.test.id).subscribe(
               res => {
@@ -266,7 +290,38 @@ export class TestDetailComponent implements OnInit {
   }
 
   onNavigateTestResult() {
-    this.router.navigate(['test-report'], {relativeTo: this.route});
+    if (this.testReportsClassMember===undefined || this.testReportsClassMember.length===0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Bạn chưa làm bài kiểm tra này!',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK',
+      });
+      return;
+    } else {
+      const testReports = this.testReportsClassMember;
+      if (testReports.length >= 1) {
+        const testReport = this.testReportsClassMember.at(0);
+        if (testReport) {
+          this.router.navigate(['test-report'], {relativeTo: this.route});
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Bạn chưa làm bài kiểm tra này!',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
+          });
+        }
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Bạn chưa làm bài kiểm tra này!',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        });
+      }
+    }
+
   }
 
   private convertToGMT7(date: Date, time: number): Date {

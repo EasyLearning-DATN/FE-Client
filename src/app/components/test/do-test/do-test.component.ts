@@ -301,7 +301,7 @@ export class DoTestComponent implements OnInit, AfterViewInit, OnDestroy {
 
       });
       if (this.classRoomId) {
-        this.router.navigate(['../../../test-report', res.id], {relativeTo: this.route}).then(
+        this.router.navigate(['../../test-report'], {relativeTo: this.route}).then(
           () => {
             Swal.close();
             if (screenfull.isEnabled) {

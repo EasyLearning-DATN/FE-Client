@@ -2,7 +2,7 @@
   <div *ngIf="classRoomId" class="navigation">
     <a [routerLink]="['/classroom/list-classroom']" class="class-navigation">Danh sách lớp học</a> /
     <a [routerLink]="['/classroom',classRoomId]" class="class-navigation">Lớp học</a> /
-    <a [routerLink]="['../../']" class="class-navigation">{{ testReport.test.name }}</a> /
+    <a [routerLink]="['../../', testId]" class="class-navigation">{{ testReport.test.name }}</a> /
     <span class="class-current-page">{{ 'Kết quả bài thi' }}</span>
   </div>
 </div>
@@ -24,7 +24,7 @@
     </span><span>{{ testReport.total_time_finish % 60 }} giây</span></span>
   </div>
   <div class="container score-container d-flex align-items-center fs-2 fw-medium ">
-    <span class="ms-4">Điểm: <span>{{ testReport.total_point }}</span></span>
+    <span class="ms-4">Điểm đạt được: <span>{{ testReport.total_point }}</span></span>
   </div>
   <div class="container answer-container d-flex align-items-center fs-2 fw-medium ">
     <span class="ms-4">Xem lại câu trả lời: </span>

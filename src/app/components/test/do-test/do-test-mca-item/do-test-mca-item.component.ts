@@ -44,7 +44,7 @@ export class DoTestMcaItemComponent implements OnInit, AfterViewInit {
         }
       },
     );
-
+    console.log('Total answer: ' + this.totalAnswer);
   }
 
   ngAfterViewInit() {
@@ -59,18 +59,27 @@ export class DoTestMcaItemComponent implements OnInit, AfterViewInit {
   checkAnswer(ans: number, btn: HTMLButtonElement, checkBox: HTMLInputElement, event: Event) {
     if (!this.userAnswers) {
       this.userAnswers = [this.question.answers[ans].value];
+      console.log('User answer length: ' + this.userAnswers.length);
     } else {
       this.userAnswers.push(this.question.answers[ans].value);
     }
+    
+    // Disable all buttons
+    if (this.userAnswers.length >= this.totalAnswer) {
+      this.isDisabledBtn.fill(true);
+    }
+
+    // Check result of answer
     this.checkResultAnswer(ans, btn, checkBox);
+
+    // Create testReportItem object
     const testReportItem: TestReportItemDTO = {
       answers: this.userAnswers,
       question_id: this.question.id,
     };
-    if (this.userAnswers.length >= this.totalAnswer) {
-      this.isDisabledBtn.fill(true);
 
-    }
+
+    // Save answers to local data
     if (this.userAnswers.length <= this.totalAnswer) {
       if (this.isCorrect) {
         this.sharedService.saveQuestions(this.routes.snapshot.params['doTestId'], testReportItem, undefined, this.scoreEachAnswer);

@@ -26,7 +26,7 @@
       </div>
       <hr>
 
-      <div class="card card-primary card-tabs" *ngIf="isCreator || isJoin">
+      <div *ngIf="isCreator || isJoin" class="card card-primary card-tabs">
         <div class="card-header p-0 pt-1">
           <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
             <li *ngIf="isCreator" class="nav-item" role="presentation">
@@ -61,7 +61,7 @@
                   <a [routerLink]="['test', test.id]" class="text-info">{{ test.name }}</a>
                 </a>
                 <button (click)="onDeleteTest(test.id)" class="btn btn-app-warning float-end">Xóa</button>
-                <button class="btn btn-app float-end">Sửa</button>
+                <!--                 <button class="btn btn-app float-end">Sửa</button> -->
               </h5>
             </div>
             <div aria-labelledby="ex1-tab-3" class="tab-pane fade hocvien" id="ex1-tabs-3" role="tabpanel">

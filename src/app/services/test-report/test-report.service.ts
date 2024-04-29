@@ -15,7 +15,7 @@ export class TestReportService {
   private apiCreateTestReport = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_TEST_REPORT;
   private apiGetOneTestReport = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_TEST_REPORT;
   private apiGetListReport = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_TEST_REPORT;
-  private apiDeleteTestReport = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_TEST_REPORT;
+  private apiDeleteTestReport = environment.API_URL + environment.API_PUBLIC + environment.VERSION_1 + environment.API_TEST_REPORT;
 
   constructor(private http: HttpClient, private sharedService: SharedService, private router: Router) {
   }
@@ -51,17 +51,18 @@ export class TestReportService {
     );
   }
 
-  getTestReport(testId: string) {
+  getTestReportByTestIdAndUserId(testId: string, userId: number) {
     return this.http.get(this.apiGetListReport, {
       params: {
         'testId': testId,
+        'userId': userId,
       },
     }).pipe(
       map((res: any) => {
-        return <TestReportResponse>res.data;
+        return <TestReportResponse[]>res.data.data;
       }), tap(
         res => {
-          this.sharedService.testReport = res;
+          this.sharedService.testReportClassMember = res;
         }, error => {
           console.log(error.message);
           this.router.navigate(['404']);

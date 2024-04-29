@@ -1,5 +1,6 @@
 import {AfterContentInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import Swal from 'sweetalert2';
 import {TestReportResponse} from '../../../responses/test-report/test-report.responses';
 import {SharedService} from '../../../services/shared/shared.service';
 
@@ -11,7 +12,9 @@ import {SharedService} from '../../../services/shared/shared.service';
 export class TestReportDetailComponent implements OnInit, AfterContentInit, OnDestroy {
 
   testReport!: TestReportResponse;
+  testId!: string | null;
   classRoomId: null | string = null;
+  testReportsClassMember !: TestReportResponse[];
   protected readonly Math = Math;
   private userInfoId!: number;
 
@@ -22,7 +25,61 @@ export class TestReportDetailComponent implements OnInit, AfterContentInit, OnDe
   ngOnInit() {
     this.classRoomId = this.route.snapshot.paramMap.get('classId');
 
-    this.testReport = this.sharedService.testReport;
+    if (this.classRoomId) {
+      this.testId = this.route.snapshot.paramMap.get('id');
+      this.testReportsClassMember = this.sharedService.testReportClassMember;
+      if (this.testReportsClassMember===undefined || this.testReportsClassMember.length===0) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Bạn chưa làm bài kiểm tra này!',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        }).then(
+          res => {
+            if (res.isConfirmed) {
+              this.router.navigate(['../'], {relativeTo: this.route});
+            }
+          },
+        );
+      } else {
+        const testReports = this.testReportsClassMember;
+        if (testReports.length >= 1) {
+          const testReport = this.testReportsClassMember.at(0);
+          if (testReport) {
+            this.testReport = testReport;
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Bạn chưa làm bài kiểm tra này!',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK',
+            }).then(
+              res => {
+                if (res.isConfirmed) {
+                  this.router.navigate(['../'], {relativeTo: this.route});
+                }
+              },
+            );
+          }
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Bạn chưa làm bài kiểm tra này!',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
+          }).then(
+            res => {
+              if (res.isConfirmed) {
+                this.router.navigate(['../'], {relativeTo: this.route});
+              }
+            },
+          );
+
+        }
+      }
+    } else {
+      this.testReport = this.sharedService.testReport;
+    }
 
     // truyển userInfo từ localStorage và lấy userInfoId
     const userInfo = JSON.parse(localStorage.getItem('userInfo') || '');
