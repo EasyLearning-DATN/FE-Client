@@ -38,6 +38,7 @@ export interface LessonResponses {
     id: number;
     fullName: string;
     avatar: ImageResponses;
+    username: string;
   };
   questions: QuestionResponses[];
 }

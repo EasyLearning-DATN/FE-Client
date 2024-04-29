@@ -22,6 +22,7 @@ export interface TestResponses extends BaseReponses {
     id: number;
     fullName: string;
     avatar: ImageResponses;
+    username: string;
   };
   open_time: Date | null;
   close_time: Date | null;

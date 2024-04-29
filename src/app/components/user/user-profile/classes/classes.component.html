@@ -34,12 +34,12 @@
         <!-- phân trang -->
         <div class="pagination">
             <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 0"
-                class="btn btn-page">Trước</button>
+                class="btn btn-app me-2">Trước</button>
             <button (click)="onPageChange(page)" *ngFor="let page of totalPageArray"
-                [class.active]="currentPage === page" class="btn btn-page">{{ page + 1 }}
+                [class.active]="currentPage === page" class="btn btn-app me-2">{{ page + 1 }}
             </button>
             <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages - 1 "
-                class="btn btn-page">Sau
+                class="btn btn-app me-2">Sau
             </button>
         </div>
     </div>
