@@ -192,7 +192,7 @@ export class AddQuestionsComponent implements OnInit {
 
     const confirmModal = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    confirmModal.componentInstance.body = 'Bạn có chắc chắn muốn thêm câu hỏi vào bài học này không?';
+    confirmModal.componentInstance.body = {value: 'Bạn có chắc chắn muốn thêm câu hỏi vào bài học này không?'};
     confirmModal
     .result.then(
       (result) => {

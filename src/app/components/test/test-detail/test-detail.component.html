@@ -15,19 +15,19 @@
     <div class="ms-3">
       <button (click)="openConfirmDialog()" class="btn btn-app">
         <fa-icon [icon]="['far','file-lines']"></fa-icon>
-        Làm bài thi này
+        Làm bài kiểm tra này
       </button>
     </div>
     <div *ngIf="classRoomId" class="ms-3">
       <button (click)="onNavigateTestResult()" class="btn btn-app">
         <fa-icon [icon]="['far','file-lines']"></fa-icon>
-        Xem kết quả thi
+        Xem kết quả kiểm tra
       </button>
     </div>
     <div *ngIf="isCreator" class="ms-3">
       <button (click)="onNavigateTestReport()" class="btn btn-app">
         <fa-icon [icon]="['far','file-lines']"></fa-icon>
-        Xem thống kê kết quả thi
+        Xem thống kê kết quả kiểm tra
       </button>
     </div>
 
@@ -43,10 +43,10 @@
       <span><fa-icon [icon]="['fas','stopwatch']" class="me-2"></fa-icon> Thời gian giữa mỗi câu hỏi: {{
           test.time_question === null ? 'Không giới hạn' : test.time_question + ' Giây'
         }}</span>
-      <span><fa-icon [icon]="['fas','hourglass-start']" class="me-2"></fa-icon> Thời gian mở bài thi: {{
+      <span><fa-icon [icon]="['fas','hourglass-start']" class="me-2"></fa-icon> Thời gian mở bài kiểm tra: {{
           test.open_time === null ? 'Không có ' : test.open_time | date : 'dd/MM/yyyy HH:mm'
         }}</span>
-      <span><fa-icon [icon]="['fas','hourglass-end']" class="me-2"></fa-icon> Thời gian đóng bài thi: {{
+      <span><fa-icon [icon]="['fas','hourglass-end']" class="me-2"></fa-icon> Thời gian đóng bài kiểm tra: {{
           test.close_time === null ? 'Không có' : test.close_time  | date: 'dd/MM/yyyy HH:mm'
         }}</span>
     </div>

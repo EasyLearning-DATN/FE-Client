@@ -22,7 +22,7 @@
           <input class="form-control" formControlName="name" id="floatingName" placeholder="">
           <label for="floatingName">Tên của bài kiểm tra</label>
           <div *ngIf="!createTestForm.get('name')?.valid && createTestForm.get('name')?.touched" class="mt-1">
-              <span *ngIf="createTestForm.get('name')?.errors?.['required']" style="color: red;">Tên bài tkiểm trahi
+              <span *ngIf="createTestForm.get('name')?.errors?.['required']" style="color: red;">Tên bài kiểm tra
                                                                                                   không được để trống!</span>
           </div>
         </div>

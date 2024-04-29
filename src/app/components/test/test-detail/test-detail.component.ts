@@ -111,8 +111,8 @@ export class TestDetailComponent implements OnInit {
 
   openConfirmDialog() {
     const confirmModalComponent = this.modalService.open(ConfirmModalComponent);
-    confirmModalComponent.componentInstance.title = {value: 'Làm bài thi'};
-    confirmModalComponent.componentInstance.body = {value: 'Bạn có muốn làm bài thi này không?'};
+    confirmModalComponent.componentInstance.title = {value: 'Làm bài kiểm tra'};
+    confirmModalComponent.componentInstance.body = {value: 'Bạn có muốn làm bài kiểm tra này không?'};
     confirmModalComponent
     .result.then(
       (result) => {
