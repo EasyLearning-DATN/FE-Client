@@ -131,6 +131,7 @@ export class TestDetailComponent implements OnInit {
                 this.router.navigate(['/login']);
               }
             });
+            return;
           }
 
           if (this.classRoomId) {
