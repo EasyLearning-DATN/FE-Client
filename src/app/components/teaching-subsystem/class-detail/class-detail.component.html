@@ -8,7 +8,7 @@
       <h1 class="text-center">Chi tiết lớp học</h1>
       <div class="picture text-center mb-3">
         <img [ngSrc]="classroom.image.url ? classroom.image.url:'/assets/img/gallery/hero-header.png'" alt="Test"
-             class="image p-2"
+             class=" image p-2"
              height="250"
              width="250">
       </div>
@@ -16,6 +16,8 @@
       <p>Giáo viên: {{ classroom.creator.fullName }}</p>
       <p>Ngày tạo: {{ classroom.createdDate | date:'dd/MM/Y' }}</p>
       <p>Mô tả: {{ classroom.description }}</p>
+      <p>Điểm sàn: {{ classroom.standardPoint }} <span>(Điểm sàn là điểm tối thiếu cần để sinh viên đạt điều kiện kết thúc lớp học)</span></p>
+      <p>Trạng thái: {{ classroom.is_public ? 'Công khai' : 'Hạn chế' }}</p>
 
       <div *ngIf="isCreator" class="d-flex align-content-center justify-content-around">
         <button (click)="onNavigateUpdateClassroom()" class="btn btn-app">Chỉnh sửa lớp học</button>

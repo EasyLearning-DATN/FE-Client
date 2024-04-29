@@ -91,7 +91,7 @@ export class ClassroomService {
     return this.http.post(this.apiCreateClassroom, classroomDTO);
   }
 
-  getAllClassroom(key: string, page: number, username: string) {
+  getAllClassroom(key: string, page: number) {
     return this.http.get(this.apiGetAllClassroom, {
       params: {
         key: key,
@@ -99,7 +99,6 @@ export class ClassroomService {
         page: page,
         limit: 9,
         sortBy: 'createdDate',
-        username: username,
       },
     });
   }

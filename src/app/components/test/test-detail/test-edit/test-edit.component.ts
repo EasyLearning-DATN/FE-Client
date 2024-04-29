@@ -126,7 +126,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
     if (this.questions.length===0) {
       Swal.fire({
         icon: 'warning',
-        title: 'Bài test phải có ít nhất 1 câu hỏi!',
+        title: 'Bài kiểm tra phải có ít nhất 1 câu hỏi!',
         confirmButtonColor: '#3085d6',
         confirmButtonText: 'OK',
       });
@@ -164,14 +164,14 @@ export class TestEditComponent implements OnInit, OnDestroy {
           if (this.editTest.close_time && this.editTest.open_time && this.editTest.open_time.getTime() >= this.editTest.close_time.getTime()) {
             Swal.fire({
               icon: 'error',
-              title: 'Thời gian mở bài test không được muộn hơn thời gian đóng bài test!',
+              title: 'Thời gian mở bài kiểm tra không được muộn hơn thời gian đóng bài kiểm tra!',
               confirmButtonColor: '#3085d6',
               confirmButtonText: 'OK',
             });
             return;
           }
           Swal.fire({
-            title: 'Đang chỉnh sửa bài test...',
+            title: 'Đang chỉnh sửa bài kiểm tra...',
             allowOutsideClick: false,
             didOpen: () => {
               Swal.showLoading();
@@ -209,7 +209,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
   onDeleteTest() {
     const confirmModal = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    confirmModal.componentInstance.body = {value: 'Bạn có chắc chắn muốn xóa bài test này không?'};
+    confirmModal.componentInstance.body = {value: 'Bạn có chắc chắn muốn xóa bài kiểm tra này không?'};
     confirmModal
     .result.then(
       (result) => {
@@ -219,7 +219,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
 
           const token = localStorage.getItem('token');
           Swal.fire({
-            title: 'Đang xóa bài test...',
+            title: 'Đang xóa bài kiểm tra...',
             allowOutsideClick: false,
             didOpen: () => {
               Swal.showLoading();
@@ -231,7 +231,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
               Swal.close();
               Swal.fire({
                 icon: 'success',
-                title: 'Xóa bài test thành công!',
+                title: 'Xóa bài kiểm tra thành công!',
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK',
               });
@@ -250,7 +250,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
               Swal.close();
               Swal.fire({
                 icon: 'error',
-                title: 'Xóa bài test thất bại!',
+                title: 'Xóa bài kiểm tra thất bại!',
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK',
               });
@@ -272,28 +272,36 @@ export class TestEditComponent implements OnInit, OnDestroy {
         Swal.close();
         Swal.fire({
           icon: 'success',
-          title: 'Chỉnh sửa bài test thành công!',
+          title: 'Chỉnh sửa bài kiểm tra thành công!',
           confirmButtonColor: '#3085d6',
           confirmButtonText: 'OK',
-        });
-        if (this.classRoomId) {
-          this.classroomService.getOneClassroom(this.classRoomId).subscribe(
-            res => {
-              this.sharedService.classroomChanged.next(res);
-            },
-          );
-        }
-        this.testService.getOneTest(this.test.id).subscribe(
-          (res) => {
-            this.sharedService.testChanged.next(res);
+        }).then(
+          res => {
+            if (res.isConfirmed) {
+              if (this.classRoomId) {
+                this.classroomService.getOneClassroom(this.classRoomId).subscribe(
+                  res => {
+                    this.sharedService.classroomChanged.next(res);
+                  },
+                );
+              }
+              this.testService.getOneTest(this.test.id).subscribe(
+                (res) => {
+                  this.sharedService.testChanged.next(res);
+                },
+              );
+              this.router.navigate(['../'], {relativeTo: this.route});
+            }
           },
         );
+
+
       }, error => {
         console.log(error);
         Swal.close();
         Swal.fire({
           icon: 'error',
-          title: 'Chỉnh sửa bài test thất bại!',
+          title: 'Chỉnh sửa bài kiểm tra thất bại!',
           confirmButtonColor: '#3085d6',
           confirmButtonText: 'OK',
         });
@@ -312,7 +320,7 @@ export class TestEditComponent implements OnInit, OnDestroy {
         'test_type': new FormControl(this.test.time_total ? 'fullTime': 'eachQuestion', [Validators.required]),
         'isHasOpenTime': new FormControl(!!this.test.open_time),
         'isHasCloseTime': new FormControl(!!this.test.close_time),
-        'max_point': new FormControl(this.classRoomId ? this.classroom.standardPoint: 1, [Validators.required, Validators.max(this.classroom.standardPoint), Validators.min(1)]),
+        'max_point': new FormControl(this.classRoomId ? this.test.max_point: 1, [Validators.required, Validators.max(this.classroom.standardPoint), Validators.min(1)]),
         'open_time': new FormControl(this.test.open_time ? this.test.open_time: new Date(), [Validators.required]),
         'close_time': new FormControl(this.test.close_time ? this.test.close_time: (this.test.open_time ? new Date(this.test.open_time.getTime() + 120 * 60 * 1000): new Date(new Date().getTime() + 120 * 60 * 1000)), [Validators.required]),
       });

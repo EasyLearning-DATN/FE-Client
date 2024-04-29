@@ -83,7 +83,7 @@ const routes: Routes = [
             component: TestEditComponent,
             resolve: [
               // checkIsClassOwnerResolver,
-              testResolver, questionTypeResolver, resultTypeResolver],
+              classroomResolver, testResolver, questionTypeResolver, resultTypeResolver],
           },
           {
             path: ':id/test-report', component: TestReportDetailComponent,

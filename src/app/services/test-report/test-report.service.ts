@@ -1,11 +1,11 @@
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {SharedService} from "../shared/shared.service";
-import {environment} from "../../../environments/environments";
-import {TestReportDTO} from "../../DTOS/test-report/test-report.dto";
-import {map, tap} from "rxjs";
-import {TestReportResponse} from "../../responses/test-report/test-report.responses";
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {map, tap} from 'rxjs';
+import {environment} from '../../../environments/environments';
+import {TestReportDTO} from '../../DTOS/test-report/test-report.dto';
+import {TestReportResponse} from '../../responses/test-report/test-report.responses';
+import {SharedService} from '../shared/shared.service';
 
 @Injectable({
   providedIn: 'root',
@@ -33,11 +33,30 @@ export class TestReportService {
   }
 
   getAllTestReportByUserID(id: string) {
-    return this.http.get(this.apiGetListReport + "?createdBy=" + id);
+    return this.http.get(this.apiGetListReport + '?createdBy=' + id);
   }
 
   getOneTestReport(id: string) {
-    return this.http.get(this.apiGetOneTestReport + "/" + id).pipe(
+    return this.http.get(this.apiGetOneTestReport + '/' + id).pipe(
+      map((res: any) => {
+        return <TestReportResponse>res.data;
+      }), tap(
+        res => {
+          this.sharedService.testReport = res;
+        }, error => {
+          console.log(error.message);
+          this.router.navigate(['404']);
+        },
+      ),
+    );
+  }
+
+  getTestReport(testId: string) {
+    return this.http.get(this.apiGetListReport, {
+      params: {
+        'testId': testId,
+      },
+    }).pipe(
       map((res: any) => {
         return <TestReportResponse>res.data;
       }), tap(

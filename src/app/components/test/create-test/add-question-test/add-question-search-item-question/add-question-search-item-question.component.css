@@ -49,3 +49,10 @@
   padding: 0.25rem 0.75rem;
   letter-spacing: 0;
 }
+
+.add-question-animation {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: #1565FF !important;
+}

@@ -1,3 +1,6 @@
+.style-image {
+  object-fit: cover;
+}
 /* Thêm định dạng CSS cho các card */
 .lesson_item {
     height: 100%;

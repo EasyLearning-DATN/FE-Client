@@ -69,7 +69,7 @@ export class CreateLessonTestComponent implements OnInit {
     }
     const confirmModal = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    confirmModal.componentInstance.body = 'Bạn có chắc chắn muốn tạo bài test không?';
+    confirmModal.componentInstance.body = {value: 'Bạn có chắc chắn muốn tạo bài kiểm tra không?'};
     confirmModal
     .result.then(
       (result) => {
@@ -94,14 +94,14 @@ export class CreateLessonTestComponent implements OnInit {
           if (this.numberOfTest > 10 && this.role==='user') {
             Swal.fire({
               icon: 'warning',
-              title: 'Chỉ được tạo tối đa 10 bài Test! Vui lòng nâng cấp tài khoản để tạo thêm bài test',
+              title: 'Chỉ được tạo tối đa 10 bài Kiểm tra! Vui lòng nâng cấp tài khoản để tạo thêm bài kiểm tra',
               confirmButtonColor: '#3085d6',
               confirmButtonText: 'OK',
             });
             return;
           } else {
             Swal.fire({
-              title: 'Đang tạo bài test...',
+              title: 'Đang tạo bài kiểm tra...',
               allowOutsideClick: false,
               didOpen: () => {
                 Swal.showLoading();
@@ -113,7 +113,7 @@ export class CreateLessonTestComponent implements OnInit {
                 Swal.close();
                 Swal.fire({
                   icon: 'success',
-                  title: 'Tạo bài test mới thành công!',
+                  title: 'Tạo bài kiểm tra mới thành công!',
                   confirmButtonColor: '#3085d6',
                   confirmButtonText: 'OK',
                 });
@@ -125,7 +125,7 @@ export class CreateLessonTestComponent implements OnInit {
                 Swal.close();
                 Swal.fire({
                   icon: 'error',
-                  title: 'Tạo bài test mới thất bại!',
+                  title: 'Tạo bài kiểm tra mới thất bại!',
                   confirmButtonColor: '#3085d6',
                   confirmButtonText: 'OK',
                 });
@@ -161,7 +161,7 @@ export class CreateLessonTestComponent implements OnInit {
       if (!this.createTestForm.valid) {
         Swal.fire({
           icon: 'warning',
-          title: 'Vui lòng đăng nhập để làm test!',
+          title: 'Vui lòng đăng nhập để làm kiểm tra!',
           confirmButtonColor: '#3085d6',
           confirmButtonText: 'OK',
         });

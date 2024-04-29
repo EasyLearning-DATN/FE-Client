@@ -1,6 +1,6 @@
 <button (click)="openOffcanvas(content)" class="btn btn-app mt-2">
   <fa-icon [icon]="['fas','file-lines']"></fa-icon>
-  Làm bài thi
+  Làm bài kiểm tra
 </button>
 
 <ng-template #content let-offcanvas>
@@ -13,10 +13,10 @@
       <div class="offcanvas-body">
         <div class="row mb-2">
           <div class="form-group mb-2 col-9">
-            <label class="form-label">Tên bài test</label>
-            <input class="form-control" formControlName="name" placeholder="Nhập tên bài test ..." type="text">
+            <label class="form-label">Tên bài kiểm tra</label>
+            <input class="form-control" formControlName="name" placeholder="Nhập tên bài kiểm tra ..." type="text">
             <div *ngIf="!createTestForm.get('name')?.valid && createTestForm.get('name')?.touched" class="mt-1">
-              <span *ngIf="createTestForm.get('name')?.errors?.['required']" style="color: red;">Tên bài test
+              <span *ngIf="createTestForm.get('name')?.errors?.['required']" style="color: red;">Tên bài kiểm tra
                                                                                                   không được để trống!</span>
             </div>
           </div>
@@ -28,7 +28,7 @@
         <div class="row mb-2">
           <div class="form-group mb-2 col-12">
             <label class="form-label">Mô tả</label>
-            <textarea class="form-control" formControlName="description" placeholder="Nhập mô tả bài test ..." rows="2"></textarea>
+            <textarea class="form-control" formControlName="description" placeholder="Nhập mô tả bài kiểm tra ..." rows="2"></textarea>
             <div *ngIf="!createTestForm.get('description')?.valid && createTestForm.get('description')?.touched" class="mt-1">
               <span *ngIf="createTestForm.get('description')?.errors?.['required']" style="color: red;">Mô tả
                                                                                                          không được để trống!</span>
@@ -88,7 +88,7 @@
             <input (click)="resetSelection('fullTime')" class="form-check-input" formControlName="test_type" id="flexRadioDefault1" type="radio"
                    value="fullTime">
             <label class="form-check-label" for="flexRadioDefault1">
-              Bài thi có thời gian tổng
+              Bài kiểm tra có thời gian tổng
             </label>
           </div>
           <div *ngIf="createTestForm.get('test_type')?.value === 'fullTime'" class="form-group col-sm-8">
@@ -115,7 +115,7 @@
                    type="radio"
                    value="eachQuestion">
             <label class="form-check-label" for="flexRadioDefault2">
-              Bài thi có thời gian mỗi câu hỏi
+              Bài kiểm tra có thời gian mỗi câu hỏi
             </label>
           </div>
           <div *ngIf="createTestForm.get('test_type')?.value === 'eachQuestion'" class="form-group col-sm-8">
@@ -143,7 +143,7 @@
       </div>
     </form>
     <div>
-      <span>Quá ít câu hỏi? <a [routerLink]="['/create-test']" class="link">Tạo bài test bên ngoài</a></span>
+      <span>Quá ít câu hỏi? <a [routerLink]="['/create-test']" class="link">Tạo bài kiểm tra bên ngoài</a></span>
     </div>
     <div class="text-end">
       <button (click)="onCreateTest()" class="btn btn-app me-3" type="button">Tạo</button>
