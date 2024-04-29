@@ -104,7 +104,7 @@
             </li>
           </ul>
         </li>
-        <li *ngIf="userResponse && userResponse.role == 'edu'" class=" link-item p-0" ngbNavItem>
+        <li class=" link-item p-0" ngbNavItem>
           <a (click)="isMenuCollapsed = true" [routerLink]="['/classroom/list-classroom']" aria-current="page"
              class="text-capitalize link-item px-2 teaching_subsystem" ngbNavLink>{{
               'HEADER.TEACHING_SUBSYSTEM'|translate
