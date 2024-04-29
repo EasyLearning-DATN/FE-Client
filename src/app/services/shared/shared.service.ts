@@ -32,6 +32,27 @@ export class SharedService {
   constructor() {
   }
 
+  private _testReport!: TestReportResponse;
+
+
+  get testReport(): TestReportResponse {
+    return this._testReport;
+  }
+
+  set testReport(value: TestReportResponse) {
+    this._testReport = value;
+  }
+
+  private _testReportClassMember!: TestReportResponse[];
+
+  get testReportClassMember(): TestReportResponse[] {
+    return this._testReportClassMember;
+  }
+
+  set testReportClassMember(value: TestReportResponse[]) {
+    this._testReportClassMember = value;
+  }
+
   private _auth!: UserResponse;
 
   get auth(): UserResponse {
@@ -50,16 +71,6 @@ export class SharedService {
 
   set classroom(value: ClassroomResponses) {
     this._classroom = value;
-  }
-
-  private _testReport!: TestReportResponse;
-
-  get testReport(): TestReportResponse {
-    return this._testReport;
-  }
-
-  set testReport(value: TestReportResponse) {
-    this._testReport = value;
   }
 
   private _examResult!: ExamResultResponses;

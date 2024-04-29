@@ -144,7 +144,7 @@ export class CreateTestComponent implements OnInit, OnDestroy {
             max_point: this.classRoomId ? this.createTestForm.get('max_point')?.value: null,
             classRoomId: this.classRoomId,
           };
-          console.log(this.createTest);
+          // console.log(this.createTest);
 
           this.removeSeconds();
           this.changeTime();
@@ -207,17 +207,20 @@ export class CreateTestComponent implements OnInit, OnDestroy {
           title: 'Tạo bài kiểm tra mới thành công!',
           confirmButtonColor: '#3085d6',
           confirmButtonText: 'OK',
-        });
-        if (this.classRoomId) {
-          this.classroomService.getOneClassroom(this.classRoomId).subscribe(
-            res => {
-              this.sharedService.classroomChanged.next(res);
-            },
-          );
-          this.router.navigate(['../../'], {relativeTo: this.route});
-        } else {
-          this.router.navigate(['test', response.data.id]);
-        }
+        }).then(
+          res => {
+            if (this.classRoomId) {
+              this.classroomService.getOneClassroom(this.classRoomId).subscribe(
+                res => {
+                  this.sharedService.classroomChanged.next(res);
+                },
+              );
+              this.router.navigate(['../../'], {relativeTo: this.route});
+            } else {
+              this.router.navigate(['test', response.data.id]);
+            }
+          },
+        );
       }, error => {
         // console.log(error);
         Swal.close();
@@ -272,7 +275,6 @@ export class CreateTestComponent implements OnInit, OnDestroy {
   private setQuestions() {
     this.questionSub = this.sharedService.questionsOfTestChanged.subscribe(questions => {
       this.questions = questions;
-      console.log(this.questions);
     });
   }
 

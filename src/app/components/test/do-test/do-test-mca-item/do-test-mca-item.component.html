@@ -25,7 +25,8 @@
             </div>
 
           </button>
-          <button #btn2 (click)="checkAnswer(shuffledArray[1], btn2, chkbox2, $event)" [class.disabled]="isDisabledBtn[shuffledArray[1]]"
+          <button #btn2 (click)="checkAnswer(shuffledArray[1], btn2, chkbox2, $event);"
+                  [class.disabled]="isDisabledBtn[shuffledArray[1]]"
                   [name]="shuffledArray[1]" [value]="question.answers[shuffledArray[1]].value"
                   class="btn btn-answer col-md-5 col-sm-12 m-1 d-flex align-items-center">
             <div class="form-check">

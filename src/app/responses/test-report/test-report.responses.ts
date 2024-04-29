@@ -18,6 +18,9 @@ export interface TestReportResponse extends BaseReponses {
   doingDate: Date;
   total_point: number;
   total_time_finish: number;
+  question_incorrect_num: number;
+  question_correct_num: number;
+
 }
 
 export interface TestOfTestReportResponse {

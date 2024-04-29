@@ -19,12 +19,18 @@ import {TestDetailComponent} from '../../components/test/test-detail/test-detail
 import {TestEditComponent} from '../../components/test/test-detail/test-edit/test-edit.component';
 import {TestComponent} from '../../components/test/test.component';
 import {authCanActivateChildGuard} from '../../guards/auth.can-activate-child.guard';
+import {teacherRoleCanActivateChildGuard} from '../../guards/teacher-role.can-activate-child.guard';
+import {teacherRoleCanActivateGuard} from '../../guards/teacher-role.can-activate.guard';
 import {testCanDeactivateGuard} from '../../guards/test.can-deactivate.guard';
+import {checkIsClassOwnerResolver} from '../../resolver/check-is-class-owner.resolver';
+import {checkIsInClassroomResolver} from '../../resolver/check-is-in-classroom.resolver';
+import {checkUserEduRoleResolver} from '../../resolver/check-user-edu-role.resolver';
 import {classroomResolver} from '../../resolver/classroom.resolver';
 import {doTestResolver} from '../../resolver/do-test.resolver';
 import {lessonResolver} from '../../resolver/lesson.resolver';
 import {questionTypeResolver} from '../../resolver/question.type.resolver';
 import {resultTypeResolver} from '../../resolver/result-type.resolver';
+import {testReportClassMemberResolver} from '../../resolver/test-report-class-member.resolver';
 import {testReportResolver} from '../../resolver/test-report.resolver';
 import {testResolver} from '../../resolver/test.resolver';
 
@@ -36,14 +42,14 @@ const routes: Routes = [
       {
         path: 'create-classroom',
         component: CreateClassComponent,
-        // canActivate: [teacherRoleCanActivateGuard],
-        // resolve: [checkUserEduRoleResolver],
+        canActivate: [teacherRoleCanActivateGuard],
+        resolve: [checkUserEduRoleResolver],
       },
       {
         path: ':classId/lesson', component: LessonComponent,
-        // resolve: [checkIsClassOwnerResolver],
+        resolve: [checkIsClassOwnerResolver],
         canActivateChild: [
-          // teacherRoleCanActivateChildGuard
+          teacherRoleCanActivateChildGuard,
         ], children: [
           {
             path: 'create-lesson', component: CreateLessonComponent,
@@ -59,65 +65,66 @@ const routes: Routes = [
       },
       {
         path: ':classId/test', component: TestComponent,
-        // resolve: [checkIsInClassroomResolver],
+        resolve: [checkIsInClassroomResolver],
         children: [
           {
             path: 'test-report/:id', component: TestReportDetailComponent, resolve: [
-              // checkIsInClassroomResolver,
+              checkIsInClassroomResolver,
               testReportResolver,
             ],
           },
           {
             path: 'my-test-report', component: ListTestReportComponent,
-            // resolve: [ checkIsInClassroomResolver]
+            resolve: [checkIsInClassroomResolver],
           },
           {
             path: 'create-test',
             component: CreateTestComponent,
             resolve: [
-              // checkIsClassOwnerResolver,
+              checkIsClassOwnerResolver,
               classroomResolver, resultTypeResolver, questionTypeResolver, resultTypeResolver],
           },
           {
             path: ':id/edit',
             component: TestEditComponent,
             resolve: [
-              // checkIsClassOwnerResolver,
+              checkIsClassOwnerResolver,
               classroomResolver, testResolver, questionTypeResolver, resultTypeResolver],
           },
           {
             path: ':id/test-report', component: TestReportDetailComponent,
-            // resolve: [
-            // checkIsInClassroomResolver
-            // ],
+            resolve: [
+              checkIsInClassroomResolver,
+              testReportClassMemberResolver,
+            ],
           },
           {
             path: ':id/do-test/:doTestId',
             component: DoTestComponent,
             canDeactivate: [testCanDeactivateGuard],
             resolve: [
-              // checkIsInClassroomResolver,
+              checkIsInClassroomResolver,
               doTestResolver, questionTypeResolver, resultTypeResolver],
           },
           {
             path: 'exam-result/:id', component: ExamResultComponent,
-            // resolve: [checkIsClassOwnerResolver],
+            resolve: [checkIsClassOwnerResolver],
           },
         ],
       },
       {
         path: ':classId/test/:id', component: TestDetailComponent, resolve: [
-          // checkIsInClassroomResolver,
-          testResolver],
+          checkIsInClassroomResolver,
+          testResolver, testReportClassMemberResolver],
       },
       {
         path: ':classId/edit', component: ClassEditComponent, resolve: [
-          // checkIsClassOwnerResolver,
+          checkIsClassOwnerResolver,
           classroomResolver],
       },
       {
         path: ':classId', component: ClassDetailComponent, resolve: [
-          // checkIsInClassroomResolver,
+          checkIsInClassroomResolver,
           classroomResolver],
       },
     ],
