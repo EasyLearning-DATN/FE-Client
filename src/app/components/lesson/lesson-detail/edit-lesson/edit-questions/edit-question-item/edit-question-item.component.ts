@@ -71,7 +71,13 @@ export class EditQuestionItemComponent implements OnInit {
 
     const confirmModal = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    confirmModal.componentInstance.body = {value: TRANSLATE.MESSAGE.CONFIRM_MODAL.EDIT_QUESTION_ITEM_UPDATE};
+    let body = '';
+    this.translateService.stream(TRANSLATE.MESSAGE.CONFIRM_MODAL.EDIT_QUESTION_ITEM_UPDATE).subscribe(
+      res => {
+        body = res;
+      },
+    );
+    confirmModal.componentInstance.body = {value: body};
     confirmModal
     .result.then(
       (result) => {

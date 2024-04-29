@@ -151,7 +151,13 @@ export class EditQuestionsComponent implements OnInit, OnDestroy {
 
   openConfirmDelete(id: string) {
     const confirmModal = this.modalService.open(ConfirmModalComponent);
-    confirmModal.componentInstance.body = TRANSLATE.MESSAGE.CONFIRM_MODAL.EDIT_QUESTIONS_DELETE;
+    let body = '';
+    this.translateService.stream(TRANSLATE.MESSAGE.CONFIRM_MODAL.EDIT_QUESTIONS_DELETE).subscribe(
+      res => {
+        body = res;
+      },
+    );
+    confirmModal.componentInstance.body = {value: body};
     confirmModal
     .result.then(
       (result) => {
