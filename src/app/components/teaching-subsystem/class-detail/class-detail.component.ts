@@ -20,6 +20,7 @@ export class ClassDetailComponent implements OnInit {
   updatedPoint: number = 0;
   studentEmail: string = '';
   isCreator: boolean = false;
+  isJoin: boolean = false;
   @ViewChild('modal') modal: any;
 
   constructor(
@@ -51,7 +52,25 @@ export class ClassDetailComponent implements OnInit {
         this.isCreator = false;
       }
     }
+    this.checkJoinClass();
   }
+
+  checkJoinClass() {
+    const idUser = JSON.parse(localStorage.getItem('userInfo') || '{}').username || '';
+    let isJoin = false;
+
+    // Kiểm tra xem idUser có trong danh sách students không
+    this.classroom.students.forEach(student => {
+        if (student.user.user_info.username === idUser) {
+            isJoin = true;
+        }
+    });
+
+    this.isJoin = isJoin;
+    console.log(this.isJoin);
+    console.log(idUser);
+}
+
 
   getClassroom() {
     // const id = this.route.snapshot.paramMap.get('classId') as string;
