@@ -20,7 +20,8 @@ export class ClassroomService {
   private apiGetOneClassroom = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_CLASSROOM;
   private apiInviteStudent = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_CLASSROOM + environment.API_INVITE_STUDENT;
   private apiJoinClassroom = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_CLASSROOM + environment.API_JOIN_CLASSROOM;
-  private apiGetClasses = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_CLASSROOM;
+  private apiGetClassesCreated = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_CLASSROOM;
+  private apiGetClassesJoined = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_CLASSROOM + '/have-join';
   private apiUpdatePointMember = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_ROOM_MEMBER;
   private apiCheckIsInClassRoom = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_CLASSROOM;
   private apiCheckIsHaveEduRole = environment.API_URL + environment.API_MEMBER + environment.VERSION_1 + environment.API_CLASSROOM + '/is-teacher';
@@ -103,8 +104,8 @@ export class ClassroomService {
     });
   }
 
-  getClasses(key: string, page: number, username: string) {
-    return this.http.get(this.apiGetClasses, {
+  getClassesCreated(key: string, page: number, username: string) {
+    return this.http.get(this.apiGetClassesCreated, {
       params: {
         key: key,
         sort: 'des',
@@ -112,6 +113,18 @@ export class ClassroomService {
         limit: 9,
         sortBy: 'createdDate',
         username: username,
+      },
+    });
+  }
+
+  getClassesJoined(key: string, page: number, id: number) {
+    return this.http.get(this.apiGetClassesJoined + '/' + id, {
+      params: {
+        key: key,
+        sort: 'des',
+        page: page,
+        limit: 9,
+        sortBy: 'createdDate',
       },
     });
   }
