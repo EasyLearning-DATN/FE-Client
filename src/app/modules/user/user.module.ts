@@ -11,7 +11,8 @@ import {SharedModule} from '../shared/shared.module';
 import {UserProfileComponent} from '../../components/user/user-profile/user-profile.component';
 import {LessonsComponent} from 'src/app/components/user/user-profile/lessons/lessons.component';
 import {TestsComponent} from 'src/app/components/user/user-profile/tests/tests.component';
-import {ClassesComponent} from 'src/app/components/user/user-profile/classes/classes.component';
+import { ClassesCreatedComponent } from 'src/app/components/user/user-profile/classes-created/classes-created.component';
+import { ClassesJoinedComponent } from 'src/app/components/user/user-profile/classes-joined/classes-joined.component';
 
 import {UserRoutingModule} from './user-routing.module';
 
@@ -24,7 +25,8 @@ import {UserRoutingModule} from './user-routing.module';
     UserProfileComponent,
     LessonsComponent,
     TestsComponent,
-    ClassesComponent,
+    ClassesCreatedComponent,
+    ClassesJoinedComponent,
   ],
   imports: [
     UserRoutingModule,
