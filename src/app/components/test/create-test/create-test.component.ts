@@ -157,7 +157,7 @@ export class CreateTestComponent implements OnInit, OnDestroy {
             });
             return;
           }
-          if (this.numberOfTest > 10 && this.role==='user') {
+          if (this.numberOfTest >= 10 && this.role==='user') {
             Swal.fire({
               icon: 'error',
               title: 'Số lượng bài kiểm tra tối đa là 10! Vui lòng nâng cấp tài khoản để tạo thêm bài kiểm tra!',

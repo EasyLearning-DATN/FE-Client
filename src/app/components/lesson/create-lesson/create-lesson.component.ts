@@ -157,7 +157,7 @@ export class CreateLessonComponent implements OnInit {
         image_id: this.image_id,
         classRoomId: this.classRoomId,
       };
-      if (this.numberOfLesson > 10 && this.role==='user') {
+      if (this.numberOfLesson >= 10 && this.role==='user') {
         let title = '';
         this.translateService.stream(TRANSLATE.MESSAGE.ERROR.CREATE_LESSON_001).subscribe(
           res => {
@@ -208,8 +208,8 @@ export class CreateLessonComponent implements OnInit {
     if (this.userId) {
       this.lessonService.getListLessonByUser(this.userId).subscribe(
         data => {
-          // gán size() cho numberOfLesson
           this.numberOfLesson = data.data.length;
+          console.log(this.numberOfLesson);
         },
         error => {
           console.log(error);
