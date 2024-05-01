@@ -6,15 +6,14 @@ import { ClassroomResponses } from 'src/app/responses/classroom/classroom.respon
 import { ClassroomService } from 'src/app/services/classroom/classroom.service';
 import Swal from 'sweetalert2';
 import {UserInfoResponse, UserResponse} from 'src/app/responses/user/user.responses';
-import { SharedService } from 'src/app/services/shared/shared.service';
 
 @Component({
-  selector: 'app-classes',
-  templateUrl: './classes.component.html',
-  styleUrls: ['./classes.component.css']
+  selector: 'app-classes-joined',
+  templateUrl: './classes-joined.component.html',
+  styleUrls: ['./classes-joined.component.css']
 })
-export class ClassesComponent implements OnInit {
-  user !: UserInfoResponse;
+export class ClassesJoinedComponent implements OnInit {
+  user !: UserResponse;
   langForm = new FormGroup({
     lang: new FormControl('vi'),
   });
@@ -33,25 +32,26 @@ export class ClassesComponent implements OnInit {
 
   constructor(
     private classRoomService: ClassroomService,
-    private sharedService: SharedService,
     private route: ActivatedRoute,
   ) {
 
   }
 
   ngOnInit(): void {
-    // this.user = JSON.parse(localStorage.getItem('userInfo') || '');
-    this.user = this.sharedService.user;
-    this.fetchClasses(this.searchKey);
+    this.user = JSON.parse(localStorage.getItem('userInfo') || '');
+    this.fetchClassesJoined(this.searchKey);
   }
 
   // get all classes
-  fetchClasses(key : string) {
+  fetchClassesJoined(key : string) {
     // get class by user Id
-    const userId = this.user.username || '';
+    const userId = this.user.userInfoId || 0;
+    if (userId == 0) {
+      return;
+    }
     this.searchKey = key;
     this.isFetching = true;
-    this.classRoomService.getClasses(this.searchKey, this.currentPage, userId).subscribe(
+    this.classRoomService.getClassesJoined(this.searchKey, this.currentPage, userId).subscribe(
       (classrooms: any) => {
         this.isFetching = false;
         this.totalPages = classrooms.data.totalPage; // Tổng số trang
@@ -76,7 +76,6 @@ export class ClassesComponent implements OnInit {
 
   onPageChange(pageNumber: number) {
     this.currentPage = pageNumber;
-    this.fetchClasses(this.searchKey);
+    this.fetchClassesJoined(this.searchKey);
   }
-
 }

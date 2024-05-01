@@ -21,6 +21,9 @@
                             <fa-icon [icon]="['fas', 'ellipsis-h']"></fa-icon>
                         </button>
                         <ul ngbDropdownMenu>
+                            <li *ngIf="userResponse?.username === user.username"><a ngbDropdownItem class="cursos" [routerLink]="['/user/settings']">
+                                <fa-icon [icon]="['fas', 'edit']"></fa-icon><span class="mx-3">Chỉnh sửa thông tin</span>
+                            </a></li>
                             <li><a ngbDropdownItem class="cursos">
                                 <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon><span class="mx-3">Báo cáo</span>
                             </a></li>
@@ -40,8 +43,12 @@
                     <ng-template ngbNavContent><app-tests></app-tests></ng-template>
                 </li>
                 <li ngbNavItem>
-                    <button ngbNavLink>Danh sách lớp</button>
-                    <ng-template ngbNavContent><app-classes></app-classes></ng-template>
+                    <button ngbNavLink>Danh sách lớp học đã tạo</button>
+                    <ng-template ngbNavContent><app-classes-created></app-classes-created></ng-template>
+                </li>
+                <li ngbNavItem *ngIf="userResponse?.username === user.username">
+                    <button ngbNavLink>Danh sách lớp học đã tham gia</button>
+                    <ng-template ngbNavContent><app-classes-joined></app-classes-joined></ng-template>
                 </li>
             </ul>
             <div [ngbNavOutlet]="nav"></div>
