@@ -4,9 +4,11 @@ import {InvoiceComponent} from '../../components/upgrade/invoice/invoice.compone
 import {PaymentSuccessComponent} from '../../components/upgrade/success/success.component';
 import {UpgradeComponent} from '../../components/upgrade/upgrade/upgrade.component';
 import {authCanActivateGuard} from '../../guards/auth.can-activate.guard';
+import {authResolver} from '../../resolver/auth.resolver';
+import {roleResolver} from '../../resolver/role.resolver';
 
 const routes: Routes = [
-  {path: '', component: UpgradeComponent, canActivate: [authCanActivateGuard]},
+  {path: '', component: UpgradeComponent, canActivate: [authCanActivateGuard], resolve: [authResolver, roleResolver]},
   {path: 'payment-success', component: PaymentSuccessComponent, canActivate: [authCanActivateGuard]},
   {path: 'invoice', component: InvoiceComponent, canActivate: [authCanActivateGuard]},
 ];
