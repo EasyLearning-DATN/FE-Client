@@ -1,28 +1,31 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { SharedService } from 'src/app/services/shared/shared.service';
-import { UpgradeService } from 'src/app/services/upgrade/upgrade.service';
-import Swal from 'sweetalert2';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {SharedService} from 'src/app/services/shared/shared.service';
+import {UpgradeService} from 'src/app/services/upgrade/upgrade.service';
 
 @Component({
   selector: 'app-upgrade',
   templateUrl: './upgrade.component.html',
-  styleUrls: ['./upgrade.component.css']
+  styleUrls: ['./upgrade.component.css'],
 })
 export class UpgradeComponent implements OnInit {
-  isLogin: any
+  isLogin: any;
   packages: any;
   amount: any;
   packageId: any;
+  // is;
   role = localStorage.getItem('userInfo.role');
+  currentRole!: string;
   @ViewChild('paymentModal') paymentModal: any;
 
   constructor(
     private upgradeSrv: UpgradeService,
-    private sharedService: SharedService
-  ) { }
+    private sharedService: SharedService,
+  ) {
+  }
 
   ngOnInit(): void {
     this.isLogin = this.sharedService.checkLogin();
+    this.currentRole = this.sharedService.auth.role;
     this.getAllPackage();
     console.log(this.isLogin);
   }
@@ -39,22 +42,22 @@ export class UpgradeComponent implements OnInit {
 
   choosePayment(paymentMethod: string) {
     // nếu phương thức thanh toán là VNPay
-    if (paymentMethod === 'VNPay') {
+    if (paymentMethod==='VNPay') {
       this.PayVNPay();
     }
     // nếu phương thức thanh toán là MoMo
-    if (paymentMethod === 'MoMo') {
+    if (paymentMethod==='MoMo') {
       this.PayMomo();
     }
   }
 
   PayVNPay() {
-    alert("Chức năng đang được phát triển")
+    alert('Chức năng đang được phát triển');
   }
 
 
   PayMomo() {
-    if (this.isLogin == false) {
+    if (this.isLogin==false) {
       alert('Bạn cần đăng nhập để nâng cấp tài khoản');
       return;
     }
@@ -65,12 +68,12 @@ export class UpgradeComponent implements OnInit {
     }
     const id = JSON.parse(userString).id;
     // gọi service
-      this.upgradeSrv.MoMo(this.amount, this.packageId).subscribe((res: any) => {
-        console.log(res.payUrl);
-        window.open(res.payUrl, '_blank');
-      }, err => {
-        console.log(err);
-      });
+    this.upgradeSrv.MoMo(this.amount, this.packageId).subscribe((res: any) => {
+      console.log(res.payUrl);
+      window.open(res.payUrl, '_blank');
+    }, err => {
+      console.log(err);
+    });
   }
 
   getAllPackage() {

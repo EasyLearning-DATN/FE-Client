@@ -6,7 +6,10 @@ import {UpgradeComponent} from '../../components/upgrade/upgrade/upgrade.compone
 import {authCanActivateGuard} from '../../guards/auth.can-activate.guard';
 
 const routes: Routes = [
-  {path: '', component: UpgradeComponent, canActivate: [authCanActivateGuard]},
+  {
+    path: '', component: UpgradeComponent, canActivate: [authCanActivateGuard],
+    // resolve: [authResolver, roleResolver]
+  },
   {path: 'payment-success', component: PaymentSuccessComponent, canActivate: [authCanActivateGuard]},
   {path: 'invoice', component: InvoiceComponent, canActivate: [authCanActivateGuard]},
 ];
