@@ -60,13 +60,13 @@
                   <span class="badge text-danger"> {{ i + 1 }}.</span>
                   <a [routerLink]="['test', test.id]" class="text-info">{{ test.name }}</a>
                 </a>
-                <button (click)="onDeleteTest(test.id)" class="btn btn-app-warning float-end">Xóa</button>
+                <button (click)="onDeleteTest(test.id)" class="btn btn-app-warning float-end" *ngIf="isCreator">Xóa</button>
                 <!--                 <button class="btn btn-app float-end">Sửa</button> -->
               </h5>
             </div>
             <div aria-labelledby="ex1-tab-3" class="tab-pane fade hocvien" id="ex1-tabs-3" role="tabpanel">
-              <button (click)="openModal()" class="btn btn-primary float-end">Thêm học viên</button>
-              <button (click)=" exportExcel()" class="btn btn-primary float-end">Xuất Điểm</button>
+              <button (click)="openModal()" class="btn btn-primary float-end" *ngIf="isCreator">Thêm học viên</button>
+              <button (click)=" exportExcel()" class="btn btn-primary float-end" *ngIf="isCreator">Xuất Điểm</button>
               <br>
               <!-- table list học viên -->
               <table class="table table-bordered table-hover" id="listStudents">

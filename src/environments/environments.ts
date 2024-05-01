@@ -1,7 +1,7 @@
-// const BASE_API = 'https://20.2.217.227:1001';
+const BASE_API = 'https://20.2.217.227:1001';
 
 // const BASE_API = 'http://localhost:1002';
-const BASE_API = 'http://localhost:1001';
+// const BASE_API = 'http://localhost:1001';
 
 export const environment = {
   production: false,
