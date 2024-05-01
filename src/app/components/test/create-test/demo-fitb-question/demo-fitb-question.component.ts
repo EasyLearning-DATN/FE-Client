@@ -16,6 +16,7 @@ export class DemoFitbQuestionComponent implements OnInit {
   @Input() question!: QuestionResponses;
   @Input() index!: number;
   @Input() total!: number;
+  @Input() isCreateLesson: boolean = false;
   answer: string = '';
 
   constructor(private renderer2: Renderer2, private sharedService: SharedService) {
