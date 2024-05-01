@@ -417,3 +417,11 @@ body{background-color:#eee;}
     border-color: #FDC800;
 	margin: 10px;
 }
+.btn {
+    cursor: pointer;
+}
+.disabled {
+    cursor: not-allowed;
+    pointer-events: none; 
+    opacity: 0.5; 
+}
