@@ -73,7 +73,7 @@ export class SettingsComponent implements OnInit {
   edit() {
     const modalConfirm = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    modalConfirm.componentInstance.body = 'Bạn có muốn chỉnh sửa thông tin không?';
+    modalConfirm.componentInstance.body = {value: 'Bạn có muốn chỉnh sửa thông tin không?'};
     modalConfirm
     .result.then(
       (result) => {
@@ -109,7 +109,7 @@ export class SettingsComponent implements OnInit {
         dayOfBirth: <string>this.userInfoChangeForm.get('dayOfBirth')?.value,
       };
       // modalConfirm.componentInstance.title ="";
-      modalConfirm.componentInstance.body = 'Bạn có muốn chỉnh sửa thông tin không?';
+      modalConfirm.componentInstance.body = {value: 'Bạn có muốn chỉnh sửa thông tin không?'};
       modalConfirm
       .result.then(
         (result) => {
@@ -244,7 +244,7 @@ export class SettingsComponent implements OnInit {
   lockAccount() {
     const modalConfirm = this.modalService.open(ConfirmModalComponent);
     // modalConfirm.componentInstance.title ="";
-    modalConfirm.componentInstance.body = 'Bạn có muốn xoá tài khoản không?';
+    modalConfirm.componentInstance.body = {value: 'Bạn có muốn xoá tài khoản không?'};
     modalConfirm
     .result.then(
       (result) => {
