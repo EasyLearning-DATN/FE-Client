@@ -1,5 +1,5 @@
 <div class="question-container mb-4">
-  <div class="delete-container d-flex justify-content-end " style="height: 35px">
+  <div *ngIf="!isCreateLesson" class="delete-container d-flex justify-content-end " style="height: 35px">
     <fa-icon (click)="onDeleteQuestion()" (mouseenter)="onMEnterDelete()" (mouseleave)="onMLeaveDelete()" [icon]="['fas', 'xmark']"
              [ngClass]="checkHoverDeleteButton"
              class="me-2" style="cursor: pointer"></fa-icon>

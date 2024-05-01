@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {NgxBootstrapIconsLibComponent} from "ngx-bootstrap-icons";
-import {QuestionResponses} from "../../../../responses/question/question.responses";
-import {SharedService} from "../../../../services/shared/shared.service";
+import {NgxBootstrapIconsLibComponent} from 'ngx-bootstrap-icons';
+import {QuestionResponses} from '../../../../responses/question/question.responses';
+import {SharedService} from '../../../../services/shared/shared.service';
 
 @Component({
   selector: 'app-demo-mca-question',
@@ -16,6 +16,7 @@ export class DemoMcaQuestionComponent implements OnInit {
   @Input() question!: QuestionResponses;
   @Input() index!: number;
   @Input() total!: number;
+  @Input() isCreateLesson: boolean = false;
   checkAnswer: Record<string, boolean>[] = [{}, {}, {}, {}];
 
   constructor(private renderer2: Renderer2, private sharedService: SharedService) {
