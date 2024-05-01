@@ -25,7 +25,7 @@ export class UpgradeComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLogin = this.sharedService.checkLogin();
-    this.currentRole = this.sharedService.auth.role;
+    // this.currentRole = this.sharedService.auth.role;
     this.getAllPackage();
     console.log(this.isLogin);
   }
